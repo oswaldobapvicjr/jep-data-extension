@@ -9,34 +9,36 @@ import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
 /**
- * Unit tests for the {@link Upper} function
+ * Unit tests for the {@link Trim} function
  *
  * @author oswaldo.bapvic.jr
  */
-public class UpperTest extends JepFunctionTest
+public class TrimTest extends JepFunctionTest
 {
     // Test data
-    private static final String STRING_ABC = "abc123";
-    private static final String EXPECTED_RESULT_STRING_ABC = "ABC123";
+    private static final String STRING_TEST = " test  ";
+    private static final String STRING_BLANK = " ";
 
-    private Upper _function = new Upper();
+    private static final String EXPECTED_RESULT_STRING_TEST = "test";
+
+    private Trim _function = new Trim();
 
     /**
      * Tests the function for a valid string
      */
     @Test
-    public void testUpperCaseWithValidString() throws ParseException
+    public void testTrimWithValidString() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(STRING_ABC);
+        Stack<Object> parameters = newParametersStack(STRING_TEST);
         _function.run(parameters);
-        assertEquals(EXPECTED_RESULT_STRING_ABC, parameters.pop());
+        assertEquals(EXPECTED_RESULT_STRING_TEST, parameters.pop());
     }
 
     /**
      * Tests the function with a null object. Shall not throw NullPointerException.
      */
     @Test
-    public void testUpperCaseWithNull() throws ParseException
+    public void testTrimCaseWithNull() throws ParseException
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(null);
@@ -48,9 +50,20 @@ public class UpperTest extends JepFunctionTest
      * Tests the function with an empty string
      */
     @Test
-    public void testUpperCaseWithEmptyString() throws ParseException
+    public void testTrimWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = newParametersStack(StringUtils.EMPTY);
+        _function.run(parameters);
+        assertEquals(StringUtils.EMPTY, parameters.pop());
+    }
+
+    /**
+     * Tests the function with a blank string
+     */
+    @Test
+    public void testTrimWithBlankString() throws ParseException
+    {
+        Stack<Object> parameters = newParametersStack(STRING_BLANK);
         _function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }

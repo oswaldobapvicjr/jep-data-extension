@@ -27,8 +27,7 @@ public class LowerTest extends JepFunctionTest
     @Test
     public void testLoweCaseWithValidString() throws ParseException
     {
-        Stack<Object> parameters = new Stack<>();
-        parameters.push(STRING_ABC);
+        Stack<Object> parameters = newParametersStack(STRING_ABC);
         _function.run(parameters);
         assertEquals(EXPECTED_RESULT_STRING_ABC, parameters.pop());
     }
@@ -51,8 +50,7 @@ public class LowerTest extends JepFunctionTest
     @Test
     public void testLowerCaseWithEmptyString() throws ParseException
     {
-        Stack<Object> parameters = new Stack<>();
-        parameters.push(StringUtils.EMPTY);
+        Stack<Object> parameters = newParametersStack(StringUtils.EMPTY);
         _function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }

@@ -3,13 +3,11 @@ package net.obvj.jep;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.type.NumberFactory;
 
-import net.obvj.jep.functions.Concat;
-import net.obvj.jep.functions.Count;
-import net.obvj.jep.functions.Now;
+import net.obvj.jep.functions.*;
 
 /**
  * A factory that creates JEP Contexts with extended functions.
- * 
+ *
  * @author oswaldo.bapvic.jr
  */
 public class JEPContextFactory
@@ -33,7 +31,7 @@ public class JEPContextFactory
      * @param allowUndeclared        the "allow undeclared variables" option
      * @param implicitMultiplication the "implicit multiplication" option
      * @param numberFactory          the number factory to be used
-     * 
+     *
      * @return a new {@code JEP} object with custom functions and operators registered
      */
     public static JEP newContext(boolean traverse, boolean allowUndeclared, boolean implicitMultiplication,
@@ -42,9 +40,18 @@ public class JEPContextFactory
         JEP context = new JEP(traverse, allowUndeclared, implicitMultiplication, numberFactory);
 
         context.addStandardFunctions();
+
+        // String functions
         context.addFunction("concat", new Concat());
-        context.addFunction("count", new Count());
+        context.addFunction("lower", new Lower());
+        context.addFunction("trim", new Trim());
+        context.addFunction("upper", new Upper());
+
+        // Date functions
         context.addFunction("now", new Now());
+
+        // Array functions
+        context.addFunction("count", new Count());
 
         return context;
     }

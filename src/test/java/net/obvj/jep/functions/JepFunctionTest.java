@@ -15,7 +15,7 @@ public class JepFunctionTest
      * @param parameters the parameters to populate the stack
      * @return a Stack with the given parameters.
      */
-    public Stack<Object> getParametersStack(Object... parameters)
+    public Stack<Object> newParametersStack(Object... parameters)
     {
         Stack<Object> stack = new Stack<>();
         for (Object param : parameters)

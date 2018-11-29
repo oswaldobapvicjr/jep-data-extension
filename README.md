@@ -6,6 +6,36 @@
 
 ---
 
+## String functions
+
+### Concatenation
+
+Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
+
+    concat(object1, object2, ...)
+
+> **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
+
+### Lower case
+
+Converts a text string to all lower-case letters.
+
+    lower(string1)
+
+### Upper case
+
+Converts a text string to all upper-case letters.
+
+    upper(string1)
+
+### Trim
+
+Removes leading and trailing spaces.
+
+    trim(string1)
+
+---
+
 ## Date functions
 
 ### System current date
@@ -40,52 +70,6 @@ Converts a date into string using the specified format
 
 ---
 
-## String functions
-
-### String concatenation
-
-Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
-
-    concat(object1, object2, ...)
-
-> **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
-
-### Lower case
-
-Converts a text string to all lower-case letters.
-
-    lower(string1)
-
-### Upper case
-
-Converts a text string to all upper-case letters.
-
-    upper(string1)
-
-### Trim
-
-Removes leading and trailing spaces.
-
-    trim(string1)
-
-> Note: Not yet implemented
-
----
-
-## Arrays/collections functions
-
-### Array/collections size
-
-Returns the number of elements inside the given array. It also accepts JSON arrays and Java Collections.
-
-If a regular object (i.e., not a collection) is passed to the function, the result will always be 1 (one); if a null or empty object is passed to this function, the result will always be 0 (zero).
-
-This function can also handle string representations of valid JSON arrays.
-
-    count(collection1)
-
----
-
 ## Data manipulation & filtering functions
 
 ### XPath
@@ -103,3 +87,18 @@ Returns the evaluation result of the given JSONPath expression for the specified
     jsonpath(jsonObject1, "$.phoneNumbers[:1].type")
 
 > Note: Not yet implemented
+
+
+---
+
+## Arrays/collections functions
+
+### Array/collections size
+
+Returns the number of elements inside the given array. It also accepts JSON arrays and Java Collections.
+
+If a regular object (i.e., not a collection) is passed to the function, the result will always be 1 (one); if a null or empty object is passed to this function, the result will always be 0 (zero).
+
+This function can also handle string representations of valid JSON arrays.
+
+    count(collection1)
