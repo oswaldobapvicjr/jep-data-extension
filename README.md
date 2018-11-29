@@ -56,15 +56,11 @@ Converts a text string to all lower-case letters.
 
     lower(string1)
 
-> Note: Not yet implemented
-
 ### Upper case
 
 Converts a text string to all upper-case letters.
 
     upper(string1)
-
-> Note: Not yet implemented
 
 ### Trim
 

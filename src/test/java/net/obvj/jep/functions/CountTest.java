@@ -11,10 +11,9 @@ import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
 /**
- * Unit tests for the {@link CountCommand} function
+ * Unit tests for the {@link Count} function
  *
- * @author Oswaldo Junior
- * @since BSUC 830-2 (Epic 16)
+ * @author oswaldo.bapvic.jr
  */
 public class CountTest extends JepFunctionTest
 {
