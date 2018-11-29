@@ -88,17 +88,38 @@ Returns the evaluation result of the given JSONPath expression for the specified
 
 > Note: Not yet implemented
 
-
 ---
 
-## Arrays/collections functions
+## Statistical functions
 
-### Array/collections size
+### Average
 
-Returns the number of elements inside the given array. It also accepts JSON arrays and Java Collections.
+Returns the average (arithmetic mean) of the elements inside the given array. It also accepts JSON arrays, Java Collections and valid string representations of JSON arrays, provided that the collection contains only number elements. 
+
+    average(collection1)
+
+> Note: Not yet implemented
+
+### Count
+
+Returns the number of elements inside the given array. It also accepts JSON arrays, Java Collections and valid string representations of JSON arrays. 
 
 If a regular object (i.e., not a collection) is passed to the function, the result will always be 1 (one); if a null or empty object is passed to this function, the result will always be 0 (zero).
 
-This function can also handle string representations of valid JSON arrays.
-
     count(collection1)
+
+### Max
+
+Returns the largest value in the given array. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
+
+    max(collection1)
+
+> Note: Not yet implemented
+
+### Min
+
+Returns the smallest value in the given array or set. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
+
+    min(array1)
+
+> Note: Not yet implemented

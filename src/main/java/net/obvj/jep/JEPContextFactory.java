@@ -50,7 +50,7 @@ public class JEPContextFactory
         // Date functions
         context.addFunction("now", new Now());
 
-        // Array functions
+        // Statistical functions
         context.addFunction("count", new Count());
 
         return context;
