@@ -42,13 +42,37 @@ Converts a date into string using the specified format
 
 ## String functions
 
-### Concatenation
+### String concatenation
 
 Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
 
     concat(object1, object2, ...)
 
 > **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
+
+### Lower case
+
+Converts a text string to all lower-case letters.
+
+    lower(string1)
+
+> Note: Not yet implemented
+
+### Upper case
+
+Converts a text string to all upper-case letters.
+
+    upper(string1)
+
+> Note: Not yet implemented
+
+### Trim
+
+Removes leading and trailing spaces.
+
+    trim(string1)
+
+> Note: Not yet implemented
 
 ---
 
@@ -68,7 +92,7 @@ This function can also handle string representations of valid JSON arrays.
 
 ## Data manipulation & filtering functions
 
-## XPath
+### XPath
 
 Returns the evaluation result of the given XPath expression for the specified XML object.
 
@@ -76,7 +100,7 @@ Returns the evaluation result of the given XPath expression for the specified XM
 
 > Note: Not yet implemented
 
-## JSONPath
+### JSONPath
 
 Returns the evaluation result of the given JSONPath expression for the specified JSON object.
 
