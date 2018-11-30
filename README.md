@@ -121,3 +121,15 @@ Returns the smallest value in the given array or set. It also accepts JSON array
     min(array1)
 
 > Note: Not yet implemented
+
+---
+
+## Random numbers
+
+### UUID
+
+Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: "7cc64d24-f2ad-4d43-8893-fa24a0789a99"
+
+    uuid()
+
+> Note: Not yet implemented
