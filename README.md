@@ -86,8 +86,6 @@ Returns the evaluation result of the given JSONPath expression for the specified
 
     jsonpath(jsonObject1, "$.phoneNumbers[:1].type")
 
-> Note: Not yet implemented
-
 ---
 
 ## Statistical functions
