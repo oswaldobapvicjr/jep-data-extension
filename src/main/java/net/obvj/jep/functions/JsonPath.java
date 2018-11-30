@@ -63,19 +63,20 @@ public class JsonPath extends PostfixMathCommand
             }
             return result;
         }
-        catch (JSONException exception)
+        catch (JSONException jsonException)
         {
-            throw new IllegalArgumentException("Invalid JSON");
+            throw new IllegalArgumentException("Invalid JSON", jsonException);
         }
         catch (PathNotFoundException pathNotFoundException)
         {
             throw new IllegalArgumentException(
-                    String.format(ERROR_NO_RESULTS_FOR_PATH, pathNotFoundException, jsonPathString));
+                    String.format(ERROR_NO_RESULTS_FOR_PATH, pathNotFoundException, jsonPathString),
+                    pathNotFoundException);
         }
         catch (JsonPathException jsonPathException)
         {
-            throw new IllegalArgumentException(
-                    String.format(ERROR_INVALID_JSONPATH, jsonPathException, jsonPathString));
+            throw new IllegalArgumentException(String.format(ERROR_INVALID_JSONPATH, jsonPathException, jsonPathString),
+                    jsonPathException);
         }
     }
 

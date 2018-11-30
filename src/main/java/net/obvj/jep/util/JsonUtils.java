@@ -93,19 +93,18 @@ public class JsonUtils
     /**
      * Gets a value that matches the given JSONPath.
      *
-     * @param jsonPath                      the JSONPath to be validated
-     * @param json                          a JSON object input data
-     * @param extractSingleElementFromArray a flag indicating whether the method should return
-     *                                      the single value of a JSONArray instead of the
-     *                                      array itself, provided that the length of the
-     *                                      returnable array is equal to one.
-     * @return The value that matches the given JSONPath string or {@code null} if no match
-     *         was found.
+     * @param jsonPath             the JSONPath to be validated
+     * @param json                 a JSON object input data
+     * @param extractSingleElement a flag indicating whether the method should return the
+     *                             single value of a JSONArray instead of the array itself,
+     *                             provided that the length of the returnable array is equal
+     *                             to one.
+     * @return The evaluation results the given {@code jsonpath} over the {@code json} object;
      */
-    public static Object readJsonPath(JSONObject json, String jsonPath, boolean extractSingleElementFromArray)
+    public static Object readJsonPath(JSONObject json, String jsonPath, boolean extractSingleElement)
     {
         Object evaluationResult = readJsonPath(json, jsonPath);
-        if (extractSingleElementFromArray)
+        if (extractSingleElement)
         {
             return getSingleValueFromJSONArray(evaluationResult);
         }
@@ -113,11 +112,12 @@ public class JsonUtils
     }
 
     /**
-     * Gets the first element from a JSONArray if its length is one, otherwise return the
-     * pValue directly
+     * Returns the single element of a JSONArray provided that a singleton array is received.
+     * The whole JSONArray is returned if its length is greater than one.
      *
-     * @param evaluationResult the value received from the mapping
-     * @return the first element or the pValue direct
+     * @param evaluationResult the JSONPath evaluation result, which may be either a Java
+     *                         object or a JSONArray containing one or more elements
+     * @return a single element or the original JSONArray
      */
     protected static Object getSingleValueFromJSONArray(Object evaluationResult)
     {
@@ -153,11 +153,11 @@ public class JsonUtils
     }
 
     /**
-     * Converts a JSONArray to List
+     * Converts a JSONArray into a Java-standard List
      *
      * @param jsonArray the JSONArray object to be converted
      * @return the list converted from a JSONArray object
-     * @throws JSONException in case of errors handling the pJsonArray
+     * @throws JSONException in case of errors handling the JSONArray
      */
     public static List<Object> convertJSONArrayToList(JSONArray jsonArray)
     {
