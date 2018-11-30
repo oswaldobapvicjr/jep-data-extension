@@ -7,12 +7,14 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.util.StackUtils;
+
 /**
  * Unit tests for the {@link Concat} function
  *
  * @author oswaldo.bapvic.jr
  */
-public class ConcatTest extends JepFunctionTest
+public class ConcatTest
 {
     private static final String STRING_A = "A";
     private static final Integer INT_1 = Integer.valueOf(10);
@@ -25,7 +27,7 @@ public class ConcatTest extends JepFunctionTest
     @Test
     public void testConcatenateStringAndInt() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(STRING_A, INT_1);
+        Stack<Object> parameters = StackUtils.newParametersStack(STRING_A, INT_1);
         _concat.run(parameters);
         assertEquals("A10", parameters.pop());
     }

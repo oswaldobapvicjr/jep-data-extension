@@ -10,7 +10,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import com.jayway.jsonpath.JsonPathException;
 import com.jayway.jsonpath.PathNotFoundException;
 
-import util.JsonUtils;
+import net.obvj.jep.util.JsonUtils;
 
 /**
  * This class implements a function that evaluates JSONPaths.
@@ -61,7 +61,6 @@ public class JsonPath extends PostfixMathCommand
             {
                 throw new IllegalArgumentException(String.format(ERROR_NO_RESULTS_FOR_PATH, jsonPathString));
             }
-
             return result;
         }
         catch (JSONException exception)

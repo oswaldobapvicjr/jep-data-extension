@@ -8,12 +8,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.util.StackUtils;
+
 /**
  * Unit tests for the {@link Trim} function
  *
  * @author oswaldo.bapvic.jr
  */
-public class TrimTest extends JepFunctionTest
+public class TrimTest
 {
     // Test data
     private static final String STRING_TEST = " test  ";
@@ -29,7 +31,7 @@ public class TrimTest extends JepFunctionTest
     @Test
     public void testTrimWithValidString() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(STRING_TEST);
+        Stack<Object> parameters = StackUtils.newParametersStack(STRING_TEST);
         _function.run(parameters);
         assertEquals(EXPECTED_RESULT_STRING_TEST, parameters.pop());
     }
@@ -52,7 +54,7 @@ public class TrimTest extends JepFunctionTest
     @Test
     public void testTrimWithEmptyString() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(StringUtils.EMPTY);
+        Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY);
         _function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
@@ -63,7 +65,7 @@ public class TrimTest extends JepFunctionTest
     @Test
     public void testTrimWithBlankString() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(STRING_BLANK);
+        Stack<Object> parameters = StackUtils.newParametersStack(STRING_BLANK);
         _function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }

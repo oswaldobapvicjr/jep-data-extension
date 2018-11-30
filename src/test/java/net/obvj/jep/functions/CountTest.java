@@ -10,12 +10,14 @@ import org.codehaus.jettison.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.util.StackUtils;
+
 /**
  * Unit tests for the {@link Count} function
  *
  * @author oswaldo.bapvic.jr
  */
-public class CountTest extends JepFunctionTest
+public class CountTest
 {
     private static final String STRING_A = "A";
     private static final String STRING_B = "B";
@@ -52,7 +54,7 @@ public class CountTest extends JepFunctionTest
     @Test
     public void testCountOfList() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(LIST_1);
+        Stack<Object> parameters = StackUtils.newParametersStack(LIST_1);
         _count.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_ARRAY_1, parameters.pop());
     }
@@ -63,7 +65,7 @@ public class CountTest extends JepFunctionTest
     @Test
     public void testCountOfJsonArray() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(JSON_ARRAY_1);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_1);
         _count.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_ARRAY_1, parameters.pop());
     }
@@ -74,7 +76,7 @@ public class CountTest extends JepFunctionTest
     @Test
     public void testCountOfStringRepresentationOfJsonArray() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(STRING_JSON_ARRAY_1);
+        Stack<Object> parameters = StackUtils.newParametersStack(STRING_JSON_ARRAY_1);
         _count.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_ARRAY_1, parameters.pop());
     }
@@ -86,7 +88,7 @@ public class CountTest extends JepFunctionTest
     public void testCountOfNullObject() throws ParseException
     {
         Object nullObject = null;
-        Stack<Object> parameters = newParametersStack(nullObject);
+        Stack<Object> parameters = StackUtils.newParametersStack(nullObject);
         _count.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_NULL, parameters.pop());
     }
@@ -97,7 +99,7 @@ public class CountTest extends JepFunctionTest
     @Test
     public void testCountOfString() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(STRING_A);
+        Stack<Object> parameters = StackUtils.newParametersStack(STRING_A);
         _count.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_SINGLE_ELEMENT, parameters.pop());
     }
@@ -108,7 +110,7 @@ public class CountTest extends JepFunctionTest
     @Test
     public void testCountOfInt() throws ParseException
     {
-        Stack<Object> parameters = newParametersStack(INT_1);
+        Stack<Object> parameters = StackUtils.newParametersStack(INT_1);
         _count.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_SINGLE_ELEMENT, parameters.pop());
     }
