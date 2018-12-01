@@ -50,8 +50,14 @@ public class JEPContextFactory
         // Date functions
         context.addFunction("now", new Now());
 
+        // Data manipulation functions
+        context.addFunction("jsonpath", new JsonPath());
+
         // Statistical functions
         context.addFunction("count", new Count());
+
+        // Random functions
+        context.addFunction("uuid", new UUID());
 
         return context;
     }

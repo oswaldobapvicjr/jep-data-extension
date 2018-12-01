@@ -128,8 +128,6 @@ Returns the smallest value in the given array or set. It also accepts JSON array
 
 ### UUID
 
-Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: "7cc64d24-f2ad-4d43-8893-fa24a0789a99"
+Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: "247dc019-7d5a-465a-956d-7cada045ceb3"
 
     uuid()
-
-> Note: Not yet implemented

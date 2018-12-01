@@ -37,11 +37,14 @@ public class JsonPath extends PostfixMathCommand
     @Override
     public void run(Stack stack) throws ParseException
     {
+        checkStack(stack);
+
         Object jsonPathArg = stack.peek();
         if (jsonPathArg == null || jsonPathArg.toString().isEmpty())
         {
             throw new IllegalArgumentException("JSONPath argument missing");
         }
+
         String jsonPathString = stack.pop().toString();
         Object jsonVariableName = stack.pop();
         stack.push(executeJsonPath(jsonPathString, jsonVariableName));
