@@ -61,6 +61,7 @@ public class JEPContextFactory
 
         // Utility functions
         context.addFunction("getSystemProperty", new SystemPropertyReader());
+        context.addFunction("getEnv", new EnvironmentVariableReader());
 
         return context;
     }

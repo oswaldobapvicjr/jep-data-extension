@@ -154,8 +154,6 @@ Produces a randomly generated type 4 UUID (Universally-unique Identifier) string
 Returns the value of an environment variable associated with the given key in the Operating System.
 
     getEnv("TEMP")
-    
-> Note: Not yet implemented
 
 ### Get Property
 
