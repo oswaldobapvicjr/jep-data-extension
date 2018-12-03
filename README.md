@@ -70,6 +70,18 @@ Converts a date into string using the specified format
 
 ---
 
+## Database functions
+
+### Database Lookup
+
+Executes an SQL query onto a relation data-source to retrieve data (only select statements allowed).
+
+    dblookup("dataSource1", "SELECT b.id FROM book b WHERE b.name = 'Psalms'")
+
+> Note: Not yet implemented
+
+---
+
 ## Data manipulation & filtering functions
 
 ### XPath
@@ -131,3 +143,15 @@ Returns the smallest value in the given array or set. It also accepts JSON array
 Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: "247dc019-7d5a-465a-956d-7cada045ceb3"
 
     uuid()
+
+---
+
+## Utility functions
+
+### Get System Property
+
+Returns the value of system property associated with the given key.
+
+    getSystemProperty(key)
+    
+> Note: Not yet implemented
