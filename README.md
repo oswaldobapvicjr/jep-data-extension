@@ -16,23 +16,31 @@ Concatenates the elements passed to as arguments into a string. The function sup
 
 > **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
 
-### Lower case
+### Lower
 
 Converts a text string to all lower-case letters.
 
     lower(string1)
 
-### Upper case
+### Replace
 
-Converts a text string to all upper-case letters.
+Returns a new string after replacing all occurrences of the search criteria within the original string with the replacement argument.
 
-    upper(string1)
+    replace("Expressions are cool", "cool", "awesome")
+
+> Note: Not yet implemented
 
 ### Trim
 
 Removes leading and trailing spaces.
 
     trim(string1)
+
+### Upper
+
+Converts a text string to all upper-case letters.
+
+    upper(string1)
 
 ---
 
