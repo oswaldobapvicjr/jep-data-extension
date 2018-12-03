@@ -27,7 +27,7 @@ public class LowerTest
      * Tests the function for a valid string
      */
     @Test
-    public void testLoweCaseWithValidString() throws ParseException
+    public void testLowerCaseWithValidString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_ABC);
         _function.run(parameters);

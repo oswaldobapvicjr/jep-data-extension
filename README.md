@@ -26,9 +26,7 @@ Converts a text string to all lower-case letters.
 
 Returns a new string after replacing all occurrences of the search criteria within the original string with the replacement argument.
 
-    replace("Expressions are cool", "cool", "awesome")
-
-> Note: Not yet implemented
+    replace(sourceString, searchString, replacementString)
 
 ### Trim
 
