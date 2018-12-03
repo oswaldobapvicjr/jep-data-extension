@@ -1,4 +1,4 @@
-package com.ericsson.cerm.composition.components.mappings.impl.functions;
+package net.obvj.jep.functions;
 
 import static org.junit.Assert.assertEquals;
 
