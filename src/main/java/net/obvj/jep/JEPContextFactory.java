@@ -59,6 +59,9 @@ public class JEPContextFactory
         // Random functions
         context.addFunction("uuid", new UUID());
 
+        // Utility functions
+        context.addFunction("getSystemProperty", new SystemPropertyReader());
+
         return context;
     }
 }

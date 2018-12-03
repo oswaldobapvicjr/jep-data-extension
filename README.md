@@ -148,10 +148,25 @@ Produces a randomly generated type 4 UUID (Universally-unique Identifier) string
 
 ## Utility functions
 
+
+### Get Environment Variable
+
+Returns the value of an environment variable associated with the given key in the Operating System.
+
+    getEnv("TEMP")
+    
+> Note: Not yet implemented
+
+### Get Property
+
+Returns the value of property associated with the given key in the given file name.
+
+    getProperty("integration.properties", "database-host")
+    
+> Note: Not yet implemented
+
 ### Get System Property
 
 Returns the value of system property associated with the given key.
 
-    getSystemProperty(key)
-    
-> Note: Not yet implemented
+    getSystemProperty("os.name")
