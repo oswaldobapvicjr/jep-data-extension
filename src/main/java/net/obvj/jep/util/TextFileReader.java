@@ -1,4 +1,4 @@
-package com.ericsson.cerm.junit;
+package net.obvj.jep.util;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

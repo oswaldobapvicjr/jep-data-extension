@@ -1,6 +1,8 @@
 package net.obvj.jep;
 
 import org.nfunk.jep.JEP;
+import org.nfunk.jep.OperatorSet;
+import org.nfunk.jep.function.Comparative;
 import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
@@ -62,6 +64,15 @@ public class JEPContextFactory
         // Utility functions
         context.addFunction("getSystemProperty", new SystemPropertyReader());
         context.addFunction("getEnv", new EnvironmentVariableReader());
+
+        // Operators
+        OperatorSet operators = context.getOperatorSet();
+        operators.getLT().setPFMC(new DateAwareComparative(Comparative.LT));
+        operators.getGT().setPFMC(new DateAwareComparative(Comparative.GT));
+        operators.getLE().setPFMC(new DateAwareComparative(Comparative.LE));
+        operators.getGE().setPFMC(new DateAwareComparative(Comparative.GE));
+        operators.getNE().setPFMC(new DateAwareComparative(Comparative.NE));
+        operators.getEQ().setPFMC(new DateAwareComparative(Comparative.EQ));
 
         return context;
     }
