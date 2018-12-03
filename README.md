@@ -157,7 +157,7 @@ Returns the value of an environment variable associated with the given key in th
 
 ### Get Property
 
-Returns the value of property associated with the given key in the given file name.
+Returns the value of property associated with the given key in the given properties file.
 
     getProperty("integration.properties", "database-host")
     
