@@ -146,7 +146,7 @@ Returns the smallest value in the given array or set. It also accepts JSON array
 
 ### UUID
 
-Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: "247dc019-7d5a-465a-956d-7cada045ceb3"
+Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: `"247dc019-7d5a-465a-956d-7cada045ceb3"`
 
     uuid()
 
@@ -174,3 +174,26 @@ Returns the value of property associated with the given key in the given propert
 Returns the value of system property associated with the given key.
 
     getSystemProperty("os.name")
+
+---
+
+## Custom operators
+
+JEP offers a good set of operators for common arithmetic and logical operations, for example: addition (`+`), subtraction (`-`), multiplication (`*`), division (`/`), modulus (`%`), power (`^`), "Boolean And" (`&&`), "Boolean Or" (`||`), and "Boolean Not" (`!`). These operators can be used when required and are supported by JEP.
+
+### Comparative operators
+
+Standard JEP relational operators accept only numerical variables (including string representation of non-complex, numerical values). These operators have been overloaded to allow comparison of dates, as well as string representations of valid dates:
+
+- Less than (`<`)
+- Less than or equal to (`<=`)
+- Greater than (`>`)
+- Greater than or equal to (`<=`)
+- Equal (`==`)
+- Not equal (`!=`)
+
+This enables the use of these operators in any expression that can be evaluated to `true` or `false` using dates. For example:  
+
+    if("2017-03-11T10:15:00:123Z" < now(), "past", "not past")
+
+    
