@@ -46,6 +46,7 @@ public class JEPContextFactory
         // String functions
         context.addFunction("concat", new Concat());
         context.addFunction("lower", new Lower());
+        context.addFunction("replace", new Replace());
         context.addFunction("trim", new Trim());
         context.addFunction("upper", new Upper());
 
