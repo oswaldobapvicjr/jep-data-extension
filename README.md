@@ -56,7 +56,7 @@ Parses a string representing a date by trying a variety of known patterns.
 
     str2date(string)
 
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ### String to date conversion with user-defined pattern
 
@@ -64,7 +64,7 @@ Parses a string representing a date with user-specified pattern.
 
     str2date(string1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ### Date to string formatting
 
@@ -72,7 +72,7 @@ Converts a date into string using the specified format
 
     str2date(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ---
 
@@ -84,7 +84,7 @@ Executes an SQL query onto a relation data-source to retrieve data (only select 
 
     dblookup("dataSource1", "SELECT b.id FROM book b WHERE b.name = 'Psalms'")
 
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ---
 
@@ -114,7 +114,7 @@ Returns the average (arithmetic mean) of the elements inside the given array. It
 
     average(collection1)
 
-> Note: Not yet implemented
+> **Note**: Not yet implemented
 
 ### Count
 
@@ -130,7 +130,7 @@ Returns the largest value in the given array. It also accepts JSON arrays, Java 
 
     max(collection1)
 
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ### Min
 
@@ -138,7 +138,7 @@ Returns the smallest value in the given array or set. It also accepts JSON array
 
     min(array1)
 
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ---
 
@@ -167,7 +167,7 @@ Returns the value of property associated with the given key in the given propert
 
     getProperty("integration.properties", "database-host")
     
-> Note: Not yet implemented
+> **Note:** Not yet implemented
 
 ### Get System Property
 
