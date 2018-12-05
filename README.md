@@ -196,4 +196,10 @@ This enables the use of these operators in any expression that can be evaluated 
 
     if("2017-03-11T10:15:00:123Z" < now(), "past", "not past")
 
-    
+### Element operator
+
+Standard "element" operator (`[]`) was overloaded to support extracting values from JSON arrays and other collections by index.
+
+    jsonArray[0]
+
+> **Note:** Not yet implemented

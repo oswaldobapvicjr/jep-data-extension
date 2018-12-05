@@ -61,6 +61,28 @@ public class NumberUtils
     }
 
     /**
+     * Converts an Object to a integer
+     *
+     * @param pObject the object to be parsed
+     * @return an integer number or null if the string is null or empty
+     * @throws NumberFormatException    if the object is a string that does not contain a
+     *                                  parsable integer.
+     * @throws IllegalArgumentException if the object can not be converted into double.
+     */
+    public static int parseInt(Object pObject)
+    {
+        if (pObject instanceof Number)
+        {
+            return ((Number) pObject).intValue();
+        }
+        if (pObject instanceof String)
+        {
+            return Integer.parseInt(pObject.toString());
+        }
+        throw new IllegalArgumentException("parseInt() does not support " + pObject.getClass().getSimpleName());
+    }
+
+    /**
      * Converts an Object to a double.
      *
      * @param pObject the object to be parsed

@@ -75,6 +75,8 @@ public class JEPContextFactory
         operators.getNE().setPFMC(new DateAwareComparative(Comparative.NE));
         operators.getEQ().setPFMC(new DateAwareComparative(Comparative.EQ));
 
+        operators.getElement().setPFMC(new Element());
+
         return context;
     }
 }
