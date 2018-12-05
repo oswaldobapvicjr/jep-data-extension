@@ -19,12 +19,12 @@ import net.obvj.jep.util.NumberUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class MaxCommand extends StatisticsCommandBase implements PostfixMathCommandI
+public class Max extends StatisticsCommandBase implements PostfixMathCommandI
 {
     /**
      * Builds this function with a fixed number of parameters
      */
-    public MaxCommand()
+    public Max()
     {
         numberOfParameters = 1;
     }

@@ -19,12 +19,12 @@ import net.obvj.jep.util.NumberUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class MinCommand extends StatisticsCommandBase implements PostfixMathCommandI
+public class Min extends StatisticsCommandBase implements PostfixMathCommandI
 {
     /**
      * Builds this function with a fixed number of parameters
      */
-    public MinCommand()
+    public Min()
     {
         numberOfParameters = 1;
     }

@@ -130,15 +130,11 @@ Returns the largest value in the given array. It also accepts JSON arrays, Java 
 
     max(collection1)
 
-> **Note:** Not yet implemented
-
 ### Min
 
 Returns the smallest value in the given array or set. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
 
     min(array1)
-
-> **Note:** Not yet implemented
 
 ---
 
@@ -201,5 +197,3 @@ This enables the use of these operators in any expression that can be evaluated 
 Standard "element" operator (`[]`) was overloaded to support extracting values from JSON arrays and other collections by index.
 
     jsonArray[0]
-
-> **Note:** Not yet implemented
