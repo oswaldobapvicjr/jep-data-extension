@@ -70,7 +70,7 @@ Parses a string representing a date with user-specified pattern.
 
 Converts a date into string using the specified format
 
-    str2date(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
+    date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 
 > **Note:** Not yet implemented
 
