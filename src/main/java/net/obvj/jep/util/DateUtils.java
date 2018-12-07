@@ -12,7 +12,6 @@ import java.util.Iterator;
  */
 public class DateUtils
 {
-
     private DateUtils()
     {
         throw new IllegalStateException("Utility class");

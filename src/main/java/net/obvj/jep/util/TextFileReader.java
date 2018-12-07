@@ -16,6 +16,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class TextFileReader
 {
+    private TextFileReader()
+    {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Load the content of a file in the class path into a String.

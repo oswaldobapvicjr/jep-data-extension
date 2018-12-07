@@ -26,7 +26,7 @@ public class CollectionsUtils
      * @param object the source object to be parsed into a {@code List}.
      * @return a {@code List} object
      */
-    public static List<?> asList(Object object)
+    public static List<Object> asList(Object object)
     {
         if (object == null)
         {
@@ -35,7 +35,7 @@ public class CollectionsUtils
 
         if (object instanceof List)
         {
-            return (List<?>) object;
+            return (List) object;
         }
 
         if (object instanceof JSONArray)

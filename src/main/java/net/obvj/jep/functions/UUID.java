@@ -2,7 +2,6 @@ package net.obvj.jep.functions;
 
 import java.util.Stack;
 
-import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
 /**
