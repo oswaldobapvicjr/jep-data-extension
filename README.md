@@ -208,19 +208,28 @@ Standard "element" operator (`[]`) was overloaded to support extracting values f
 
 2. Put your source variables in a map:
 
+    ```
     Map<String, Object> myVariables = new HashMap<>();
     myVariables.put("myText", "foo");
+    ```
 
 3. Use the `JEPContextFactory` class to create an extended JEP object with all available extensions:
 
+    ````
     JEP jep = JEPContextFactory.newContext(myVariables);
+    ````
 
-  > **Note:** Alternatively, you may use the `JEPContextFactory.newContext()` for a new context with no initial variables. You may add them later, calling `jep.addVariable(String, Object)`.
+    > **Note:** Alternatively, you may use the `JEPContextFactory.newContext()` for a new context with no initial variables. You may add them later, calling `jep.addVariable(String, Object)`.
 
 4. Parse your expression:
-   
-    Node node = jep.parseExpresion("replace(myText, \"oo\", \"ee\")")
+
+    ````
+    Node node = jep.parseExpresion("replace(myText, \"oo\", \"ee\")");
+    ````
 
 5. Evaluate the expression with JEP's `evaluate` method:
 
+    ````
     String result = (String) jep.evaluate(node); //result="fee"
+    ````
+
