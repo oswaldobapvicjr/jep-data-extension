@@ -208,14 +208,14 @@ Standard "element" operator (`[]`) was overloaded to support extracting values f
 
 2. Put your source variables in a map:
 
-    ```
+    ```java
     Map<String, Object> myVariables = new HashMap<>();
     myVariables.put("myText", "foo");
     ```
 
 3. Use the `JEPContextFactory` class to create an extended JEP object with all available extensions:
 
-    ````
+    ````java
     JEP jep = JEPContextFactory.newContext(myVariables);
     ````
 
@@ -223,13 +223,13 @@ Standard "element" operator (`[]`) was overloaded to support extracting values f
 
 4. Parse your expression:
 
-    ````
+    ````java
     Node node = jep.parseExpresion("replace(myText, \"oo\", \"ee\")");
     ````
 
 5. Evaluate the expression with JEP's `evaluate` method:
 
-    ````
+    ````java
     String result = (String) jep.evaluate(node); //result="fee"
     ````
 
