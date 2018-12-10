@@ -219,7 +219,7 @@ Standard "element" operator (`[]`) was overloaded to support extracting values f
     JEP jep = JEPContextFactory.newContext(myVariables);
     ````
 
-    > **Note:** Alternatively, you may use the `JEPContextFactory.newContext()` for a new context with no initial variables. You may add them later, calling `jep.addVariable(String, Object)`.
+    > **Note:** Alternatively, you may use the `JEPContextFactory.newContext()` to receive a new context with no initial variables. You may add them later, calling `jep.addVariable(String, Object)`.
 
 4. Parse your expression:
 
