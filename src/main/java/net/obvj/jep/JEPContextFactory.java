@@ -94,6 +94,7 @@ public class JEPContextFactory
 
         // Date functions
         jep.addFunction("now", new Now());
+        jep.addFunction("date2str", new DateToString());
 
         // Data manipulation functions
         jep.addFunction("jsonpath", new JsonPath());

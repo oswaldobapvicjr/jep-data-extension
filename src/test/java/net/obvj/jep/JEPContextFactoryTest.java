@@ -32,6 +32,7 @@ public class JEPContextFactoryTest
 
         // Date
         assertTrue(table.containsKey("now"));
+        assertTrue(table.containsKey("date2str"));
 
         // Data manipulation
         assertTrue(table.containsKey("jsonpath"));

@@ -90,8 +90,6 @@ Converts a date into string using the specified format
 date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 ```
 
-> **Note:** Not yet implemented
-
 ---
 
 ## Database functions
