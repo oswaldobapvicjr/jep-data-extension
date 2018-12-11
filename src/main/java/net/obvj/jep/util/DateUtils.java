@@ -1,9 +1,12 @@
 package net.obvj.jep.util;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Iterator;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  * A utility class for working with dates.
@@ -18,11 +21,37 @@ public class DateUtils
     }
 
     /**
+     * Converts the given string into {@link java.util.Date} by applying the given {@code pattern}
+     *
+     * @param string  the string to be converted
+     * @param pattern the date format pattern to be used 
+     * @return the string converted to {@code Date}
+     * @throws IllegalArgumentException if a null string or pattern is received 
+     * @throws ParseException if the date can not be parsed
+     */
+    public static Date parseDate(String string, String pattern) throws ParseException
+    {
+        return org.apache.commons.lang3.time.DateUtils.parseDate(string, pattern);
+    }
+    
+    /**
+     * Converts the given date into string with the the given {@code pattern}
+     *
+     * @param date    the date to be formatted
+     * @param pattern the date format pattern to be used 
+     * @return the string converted to {@code Date}
+     */
+    public static String formatDate(Date date, String pattern)
+    {
+    	return DateFormatUtils.format(date, pattern);
+    }
+    
+    /**
      * Converts the given {@code pObject} into {@link java.util.Date}. It supports objects of
      * type {@link java.time.Instant} and valid strings in RFC-3339 format.
      *
      * @param object the object to be converted
-     * @return the {@code pObject} converted to {@code Date}
+     * @return the {@code object} converted to {@code Date}
      * @throws DateTimeParseException if the date can not be parsed
      */
     public static Date parseDate(Object object)
@@ -43,7 +72,7 @@ public class DateUtils
      * Checks whether the Object is a valid Java date
      *
      * @param object the object to be evaluated
-     * @return true if pObject is a Date and an Instant or a String representation of date
+     * @return true if object is a Date and an Instant or a String representation of date
      */
     public static boolean isParsable(Object object)
     {
