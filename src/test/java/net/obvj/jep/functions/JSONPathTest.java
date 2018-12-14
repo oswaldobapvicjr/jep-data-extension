@@ -49,18 +49,13 @@ public class JSONPathTest
 
     private static final String JSON_INVALID = "{ a :";
 
-    private JsonPath _jsonPath = new JsonPath();
+    private static JsonPath function = new JsonPath();
 
     /**
      * Expected exception
      */
     @Rule
-    public ExpectedException _exception = ExpectedException.none();
-
-    private Stack<Object> createParametersStack(Object object1, Object object2)
-    {
-        return StackUtils.newParametersStack(object1, object2);
-    }
+    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests a valid expression for JSONPath command
@@ -70,8 +65,8 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithValidExpression() throws ParseException
     {
-        Stack<Object> parameters = createParametersStack(JSON_VALID, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
-        _jsonPath.run(parameters);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
+        function.run(parameters);
         assertEquals(STRING_MOBILE_NUMBER, parameters.pop());
     }
 
@@ -83,9 +78,9 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithValidExpressionAndEmptyResult() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(JSON_VALID, JSON_PATH_UNKNOWN_FIELD);
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, JSON_PATH_UNKNOWN_FIELD);
+        function.run(parameters);
     }
 
     /**
@@ -96,9 +91,9 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithInvalidExpression() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(JSON_VALID, JSON_PATH_INVALID);
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, JSON_PATH_INVALID);
+        function.run(parameters);
     }
 
     /**
@@ -109,9 +104,9 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithEmptyExpression() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(JSON_VALID, "");
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, "");
+        function.run(parameters);
     }
 
     /**
@@ -122,9 +117,9 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithNullExpression() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(JSON_VALID, null);
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, null);
+        function.run(parameters);
     }
 
     /**
@@ -135,9 +130,10 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithEmptyJson() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(StringUtils.EMPTY, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY,
+                JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
+        function.run(parameters);
     }
 
     /**
@@ -148,9 +144,9 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithNullJson() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(null, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(null, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
+        function.run(parameters);
     }
 
     /**
@@ -161,9 +157,9 @@ public class JSONPathTest
     @Test
     public void testJSONPathCommandWithInvalidJson() throws ParseException
     {
-        _exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = createParametersStack(JSON_INVALID, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
-        _jsonPath.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_INVALID, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
+        function.run(parameters);
     }
 
 }

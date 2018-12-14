@@ -21,7 +21,7 @@ public class LowerTest
     private static final String STRING_ABC = "ABC123";
     private static final String EXPECTED_RESULT_STRING_ABC = "abc123";
 
-    private Lower _function = new Lower();
+    private static Lower function = new Lower();
 
     /**
      * Tests the function for a valid string
@@ -30,7 +30,7 @@ public class LowerTest
     public void testLowerCaseWithValidString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_ABC);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(EXPECTED_RESULT_STRING_ABC, parameters.pop());
     }
 
@@ -42,7 +42,7 @@ public class LowerTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(null);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(null, parameters.pop());
     }
 
@@ -53,7 +53,7 @@ public class LowerTest
     public void testLowerCaseWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 

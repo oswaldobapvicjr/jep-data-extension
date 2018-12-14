@@ -19,7 +19,7 @@ public class ConcatTest
     private static final String STRING_A = "A";
     private static final Integer INT_1 = Integer.valueOf(10);
 
-    private Concat _concat = new Concat();
+    private static Concat function = new Concat();
 
     /**
      * Tests the successful concatenation of a string and an integer
@@ -28,7 +28,7 @@ public class ConcatTest
     public void testConcatenateStringAndInt() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_A, INT_1);
-        _concat.run(parameters);
+        function.run(parameters);
         assertEquals("A10", parameters.pop());
     }
 

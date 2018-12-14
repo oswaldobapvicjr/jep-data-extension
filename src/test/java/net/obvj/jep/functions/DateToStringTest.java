@@ -39,7 +39,7 @@ public class DateToStringTest
     private static final String EXPECTED_STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T10:35:00-03:00";
     private static final String EXPECTED_STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T10:35:00.123-03:00";
 
-    private DateToString _function = new DateToString();
+    private static DateToString function = new DateToString();
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -52,7 +52,7 @@ public class DateToStringTest
     {
         exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = StackUtils.newParametersStack(null, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
-        _function.run(parameters);
+        function.run(parameters);
     }
 
     /**
@@ -63,7 +63,7 @@ public class DateToStringTest
     {
         exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = StackUtils.newParametersStack(DATE, null);
-        _function.run(parameters);
+        function.run(parameters);
     }
 
     /**
@@ -73,7 +73,7 @@ public class DateToStringTest
     public void testFormatDateIsoExtendedDateTimeFormatWithTimeZone() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(DATE, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(EXPECTED_STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, parameters.pop());
     }
 
@@ -84,7 +84,7 @@ public class DateToStringTest
     public void testFormatDateIsoFullDateTimeFormatWithTimeZone() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(DATE, ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(EXPECTED_STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE, parameters.pop());
     }
 

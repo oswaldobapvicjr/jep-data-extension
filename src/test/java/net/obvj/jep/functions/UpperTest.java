@@ -21,7 +21,7 @@ public class UpperTest
     private static final String STRING_ABC = "abc123";
     private static final String EXPECTED_RESULT_STRING_ABC = "ABC123";
 
-    private Upper _function = new Upper();
+    private static Upper function = new Upper();
 
     /**
      * Tests the function for a valid string
@@ -30,7 +30,7 @@ public class UpperTest
     public void testUpperCaseWithValidString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_ABC);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(EXPECTED_RESULT_STRING_ABC, parameters.pop());
     }
 
@@ -42,7 +42,7 @@ public class UpperTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(null);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(null, parameters.pop());
     }
 
@@ -53,7 +53,7 @@ public class UpperTest
     public void testUpperCaseWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 

@@ -25,7 +25,7 @@ public class JsonUtilsTest
     private static final String JSONPATH_INVALID = ".partyNames[0";
 
     @Rule
-    public ExpectedException _exception = ExpectedException.none();
+    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests if the null check succeeds for a null object
@@ -156,7 +156,7 @@ public class JsonUtilsTest
     @Test
     public void testCompileInvalidJSONArray() throws JSONException
     {
-        _exception.expect(InvalidPathException.class);
+        exception.expect(InvalidPathException.class);
         JsonUtils.compileJsonPath(JSONPATH_INVALID);
     }
 

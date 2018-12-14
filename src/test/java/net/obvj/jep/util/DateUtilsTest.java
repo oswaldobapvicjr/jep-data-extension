@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class DateUtilsTest
 {
-
+    // Test data
 	public static final int YEAR = 2017;
 	public static final int MONTH = Calendar.MARCH;
 	public static final int DATE = 11;
@@ -39,7 +39,7 @@ public class DateUtilsTest
 
 	/**
 	 * Tests the successful parsing of a string in ISO 8601, full, with time zone.
-	 * 
+	 *
 	 * @throws ParseException
 	 */
 	@Test

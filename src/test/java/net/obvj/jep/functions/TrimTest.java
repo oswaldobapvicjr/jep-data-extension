@@ -23,7 +23,7 @@ public class TrimTest
 
     private static final String EXPECTED_RESULT_STRING_TEST = "test";
 
-    private Trim _function = new Trim();
+    private static Trim function = new Trim();
 
     /**
      * Tests the function for a valid string
@@ -32,7 +32,7 @@ public class TrimTest
     public void testTrimWithValidString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_TEST);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(EXPECTED_RESULT_STRING_TEST, parameters.pop());
     }
 
@@ -44,7 +44,7 @@ public class TrimTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(null);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(null, parameters.pop());
     }
 
@@ -55,7 +55,7 @@ public class TrimTest
     public void testTrimWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 
@@ -66,7 +66,7 @@ public class TrimTest
     public void testTrimWithBlankString() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_BLANK);
-        _function.run(parameters);
+        function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 

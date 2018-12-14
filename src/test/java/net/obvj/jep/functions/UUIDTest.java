@@ -13,7 +13,7 @@ import org.junit.Test;
  */
 public class UUIDTest
 {
-    private UUID _function = new UUID();
+    private static UUID _function = new UUID();
 
     /**
      * Tests the function for a valid string

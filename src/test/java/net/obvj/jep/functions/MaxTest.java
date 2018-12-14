@@ -1,4 +1,4 @@
-package com.ericsson.cerm.composition.components.mappings.impl.functions;
+package net.obvj.jep.functions;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -50,13 +50,13 @@ public class MaxTest
 
     private static final List<?> LIST_DATE_AND_NUMBER = Arrays.asList(STR_DATE_1, DOUBLE_1);
 
-    private Max _command = new Max();
+    private static Max function = new Max();
 
     /**
      * Expected exception
      */
     @Rule
-    public ExpectedException _exception = ExpectedException.none();
+    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests the maximum element for an array of doubles
@@ -66,7 +66,7 @@ public class MaxTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(ARRAY_DOUBLES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_2, parameters.pop());
     }
 
@@ -77,7 +77,7 @@ public class MaxTest
     public void testMaxDoubleFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_DOUBLES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_2, parameters.pop());
     }
 
@@ -88,7 +88,7 @@ public class MaxTest
     public void testMaxDoubleFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_DOUBLES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_2, parameters.pop());
     }
 
@@ -100,7 +100,7 @@ public class MaxTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(ARRAY_STRING_NUMBERS);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_3, parameters.pop());
     }
 
@@ -111,7 +111,7 @@ public class MaxTest
     public void testMaxStringNumberFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_STRING_NUMBERS);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_3, parameters.pop());
     }
 
@@ -122,7 +122,7 @@ public class MaxTest
     public void testMaxStringNumberFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STRING_NUMBERS);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_3, parameters.pop());
     }
 
@@ -134,7 +134,7 @@ public class MaxTest
     {
         Object nullObject = null;
         Stack<Object> parameters = StackUtils.newParametersStack(nullObject);
-        _command.run(parameters);
+        function.run(parameters);
         assertNull(parameters.pop());
     }
 
@@ -145,7 +145,7 @@ public class MaxTest
     public void testMaxOfSingleElementDouble() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(DOUBLE_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -156,7 +156,7 @@ public class MaxTest
     public void testMaxOfSingleElementStringNumber() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
 
@@ -170,7 +170,7 @@ public class MaxTest
         Stack<Object> parameters = new Stack<>();
         Double[] array = new Double[] { DOUBLE_1 };
         parameters.push(array);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -182,7 +182,7 @@ public class MaxTest
     public void testMaxOfListWithOneElementDouble() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(Arrays.asList(DOUBLE_1));
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -193,7 +193,7 @@ public class MaxTest
     public void testMaxDateFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DATE_2, parameters.pop());
     }
 
@@ -204,7 +204,7 @@ public class MaxTest
     public void testMaxDateFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DATE_2, parameters.pop());
     }
 
@@ -215,7 +215,7 @@ public class MaxTest
     public void testMaxOfSingleElementDate() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(DATE_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
 
@@ -226,7 +226,7 @@ public class MaxTest
     public void testMaxStringDateFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_STR_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STR_DATE_2, parameters.pop());
     }
 
@@ -237,7 +237,7 @@ public class MaxTest
     public void testMaxStringDateFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STR_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STR_DATE_2, parameters.pop());
     }
 
@@ -248,7 +248,7 @@ public class MaxTest
     public void testMaxOfSingleElementStringDate() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STR_DATE_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
 
@@ -259,7 +259,7 @@ public class MaxTest
     public void testMaxElementForListOfDifferentTypes() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_DATE_AND_NUMBER);
-        _exception.expect(IllegalArgumentException.class);
-        _command.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        function.run(parameters);
     }
 }

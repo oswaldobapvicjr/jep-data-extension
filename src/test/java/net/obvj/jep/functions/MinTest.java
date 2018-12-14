@@ -49,13 +49,13 @@ public class MinTest
 
     private static final List<?> LIST_DATE_AND_NUMBER = Arrays.asList(STR_DATE_1, DOUBLE_1);
 
-    private Min _command = new Min();
+    private static Min function = new Min();
 
     /**
      * Expected exception
      */
     @Rule
-    public ExpectedException _exception = ExpectedException.none();
+    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests the minimum element for an array of doubles
@@ -67,7 +67,7 @@ public class MinTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(ARRAY_DOUBLES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -80,7 +80,7 @@ public class MinTest
     public void testMinDoubleFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_DOUBLES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -93,7 +93,7 @@ public class MinTest
     public void testMinDoubleFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_DOUBLES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -107,7 +107,7 @@ public class MinTest
     {
         Stack<Object> parameters = new Stack<>();
         parameters.push(ARRAY_STRING_NUMBERS);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
 
@@ -120,7 +120,7 @@ public class MinTest
     public void testMinStringNumberFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_STRING_NUMBERS);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
 
@@ -133,7 +133,7 @@ public class MinTest
     public void testMinStringNumberFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STRING_NUMBERS);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
 
@@ -147,7 +147,7 @@ public class MinTest
     {
         Object nullObject = null;
         Stack<Object> parameters = StackUtils.newParametersStack(nullObject);
-        _command.run(parameters);
+        function.run(parameters);
         assertNull(parameters.pop());
     }
 
@@ -160,7 +160,7 @@ public class MinTest
     public void testMinOfSingleElementDouble() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(DOUBLE_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -173,7 +173,7 @@ public class MinTest
     public void testMinOfSingleElementStringNumber() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STRING_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
 
@@ -189,7 +189,7 @@ public class MinTest
         Stack<Object> parameters = new Stack<>();
         Double[] array = new Double[] { DOUBLE_1 };
         parameters.push(array);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -203,7 +203,7 @@ public class MinTest
     public void testMinOfListWithOneElementDouble() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(Arrays.asList(DOUBLE_1));
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
 
@@ -216,7 +216,7 @@ public class MinTest
     public void testMinDateFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
 
@@ -229,7 +229,7 @@ public class MinTest
     public void testMinDateFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
 
@@ -242,7 +242,7 @@ public class MinTest
     public void testMinOfSingleElementDate() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(DATE_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
 
@@ -255,7 +255,7 @@ public class MinTest
     public void testMinStringDateFromList() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_STR_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
 
@@ -268,7 +268,7 @@ public class MinTest
     public void testMinStringDateFromJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STR_DATES);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
 
@@ -281,7 +281,7 @@ public class MinTest
     public void testMinOfSingleElementStringDate() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(STR_DATE_1);
-        _command.run(parameters);
+        function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
 
@@ -294,7 +294,7 @@ public class MinTest
     public void testMinElementForListOfDifferentTypes() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(LIST_DATE_AND_NUMBER);
-        _exception.expect(IllegalArgumentException.class);
-        _command.run(parameters);
+        exception.expect(IllegalArgumentException.class);
+        function.run(parameters);
     }
 }
