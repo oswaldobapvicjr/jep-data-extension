@@ -2,6 +2,7 @@ package net.obvj.jep.functions;
 
 import java.util.Stack;
 
+import org.apache.commons.lang3.StringUtils;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
@@ -29,16 +30,29 @@ public class StringToDate extends PostfixMathCommand
 	public void run(Stack stack) throws ParseException
 	{
 		checkStack(stack);
-        String pattern = String.valueOf(stack.pop());
-        String date = String.valueOf(stack.pop());
+        Object pattern = stack.pop();
+        Object date = stack.pop();
+        validateInput(pattern, date);
         try
         {
-            stack.push(DateUtils.parseDate(date, pattern));
+            stack.push(DateUtils.parseDate(date.toString(), pattern.toString()));
         }
         catch (java.text.ParseException parseException)
         {
             throw new IllegalArgumentException(parseException);
         }
 	}
+
+    private void validateInput(Object pattern, Object date)
+    {
+        if (date == null || StringUtils.isEmpty(date.toString()))
+        {
+            throw new IllegalArgumentException("A string is required");
+        }
+        if (pattern == null || StringUtils.isEmpty(pattern.toString()))
+        {
+            throw new IllegalArgumentException("A pattern is required");
+        }
+    }
 
 }
