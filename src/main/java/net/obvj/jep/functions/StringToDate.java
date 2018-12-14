@@ -1,6 +1,5 @@
 package net.obvj.jep.functions;
 
-import java.util.Date;
 import java.util.Stack;
 
 import org.nfunk.jep.ParseException;
@@ -9,16 +8,16 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.DateUtils;
 
 /**
- * A command that formats dates in a specified pattern
+ * A command that parses a string into date in a specified pattern
  *
  * @author oswaldo.bapvic.jr
  */
-public class DateToString extends PostfixMathCommand
+public class StringToDate extends PostfixMathCommand
 {
 	/**
 	 * Builds this custom command with a fixed number of 2 parameters
 	 */
-	public DateToString()
+	public StringToDate()
 	{
 		numberOfParameters = 2;
 	}
@@ -31,16 +30,15 @@ public class DateToString extends PostfixMathCommand
 	{
 		checkStack(stack);
         String pattern = String.valueOf(stack.pop());
-        Date date = toDate(stack.pop());
-        stack.push(DateUtils.formatDate(date, pattern));
-	}
-
-	private Date toDate(Object object)
-	{
-		if (object instanceof Date) {
-			return (Date) object;
-		}
-		throw new IllegalArgumentException("Invalid date object received");
+        String date = String.valueOf(stack.pop());
+        try
+        {
+            stack.push(DateUtils.parseDate(date, pattern));
+        }
+        catch (java.text.ParseException parseException)
+        {
+            throw new IllegalArgumentException(parseException);
+        }
 	}
 
 }

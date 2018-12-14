@@ -33,6 +33,7 @@ public class JEPContextFactoryTest
         // Date
         assertTrue(table.containsKey("now"));
         assertTrue(table.containsKey("date2str"));
+        assertTrue(table.containsKey("str2date"));
 
         // Data manipulation
         assertTrue(table.containsKey("jsonpath"));
@@ -50,8 +51,8 @@ public class JEPContextFactoryTest
 
     /**
      * Tests the JEP context can evaluate an expression with the replace() function
-     * 
-     * @throws ParseException 
+     *
+     * @throws ParseException
      */
     @Test
     public void testExpressionReplace() throws ParseException
@@ -65,8 +66,8 @@ public class JEPContextFactoryTest
     /**
      * Tests the JEP context can evaluate an expression with the replace() function
      * and a source variable
-     * 
-     * @throws ParseException 
+     *
+     * @throws ParseException
      */
     @Test
     public void testExpressionReplaceWithVariable() throws ParseException

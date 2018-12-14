@@ -70,8 +70,6 @@ Parses a string representing a date by trying a variety of known patterns.
 str2date(string)
 ```
 
-> **Note:** Not yet implemented
-
 ### String to date conversion with user-defined pattern
 
 Parses a string representing a date with user-specified pattern. 
