@@ -64,21 +64,11 @@ Returns the system's current date & time, with precision of milliseconds.
 
 ### String to date conversion
 
-Parses a string representing a date by trying a variety of known patterns.
-
-```java
-str2date(string)
-```
-
-### String to date conversion with user-defined pattern
-
 Parses a string representing a date with user-specified pattern. 
 
 ```java
 str2date(string1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 ```
-
-> **Note:** Not yet implemented
 
 ### Date to string formatting
 
