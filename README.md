@@ -87,7 +87,7 @@ date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 Executes an SQL query onto a relation data-source to retrieve data (only select statements allowed).
 
 ```java
-dblookup("dataSource1", "SELECT b.id FROM book b WHERE b.name = 'Psalms'")
+dblookup("dataSource1", "SELECT b.name FROM book b WHERE b.id = '247dc019'")
 ```
 
 > **Note:** Not yet implemented
@@ -146,6 +146,8 @@ Returns the largest value in the given array. It also accepts JSON arrays, Java 
 max(collection1)
 ```
 
+> **Note:** Supported data types: numbers, dates and string representations of date in RFC-3339 format.
+
 ### Min
 
 Returns the smallest value in the given array or set. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
@@ -153,6 +155,8 @@ Returns the smallest value in the given array or set. It also accepts JSON array
 ```java
 min(array1)
 ```
+
+> **Note:** Supported data types: numbers, dates and string representations of date in RFC-3339 format.
 
 ---
 
