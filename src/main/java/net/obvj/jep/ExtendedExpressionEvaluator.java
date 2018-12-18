@@ -10,6 +10,8 @@ import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.TokenMgrError;
 
+import net.obvj.jep.util.PlaceholderUtils;
+
 /**
  * An object that evaluates an user expression and updates a context map with the
  * evaluation result.
