@@ -4,13 +4,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import org.apache.commons.lang3.StringUtils;
-import org.nfunk.jep.JEP;
-import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
-import org.nfunk.jep.TokenMgrError;
 
-import net.obvj.jep.JEPContextFactory;
-import net.obvj.jep.util.PlaceholderUtils;
+import net.obvj.jep.ExtendedExpressionEvaluator;
 
 /**
  * An object that evaluates an user expression and updates a context map with the
@@ -20,8 +16,8 @@ import net.obvj.jep.util.PlaceholderUtils;
  */
 public class ExpressionCommand implements Consumer<Map<String, Object>>
 {
+    private final ExtendedExpressionEvaluator evaluator;
     private final String targetVariableName;
-    private final String expression;
     private final boolean ignoreErrors;
 
     /**
@@ -50,36 +46,13 @@ public class ExpressionCommand implements Consumer<Map<String, Object>>
      */
     public ExpressionCommand(String targetVariableName, String expression, boolean ignoreErrors)
     {
-        if (StringUtils.isBlank(expression))
-        {
-            throw new IllegalArgumentException("The expression cannot be empty");
-        }
         if (StringUtils.isBlank(targetVariableName))
         {
             throw new IllegalArgumentException("The target name cannot be empty");
         }
-        validateExpression(expression);
-
+        this.evaluator = new ExtendedExpressionEvaluator(expression);
         this.targetVariableName = targetVariableName;
-        this.expression = expression;
         this.ignoreErrors = ignoreErrors;
-    }
-
-    /**
-     * Validates the given expression.
-     *
-     * @param expression the expression to be validated
-     */
-    public static void validateExpression(String expression)
-    {
-        try
-        {
-            JEPContextFactory.newContext().parse(expression);
-        }
-        catch (ParseException | TokenMgrError exception)
-        {
-            throw new IllegalArgumentException("Invalid expression: " + expression, exception);
-        }
     }
 
     /**
@@ -91,29 +64,16 @@ public class ExpressionCommand implements Consumer<Map<String, Object>>
     @Override
     public void accept(Map<String, Object> variables)
     {
-        JEP evaluationContext = JEPContextFactory.newContext(variables);
-        String localExpression = replacePlaceholders(variables);
-
-        Node node = evaluationContext.parseExpression(localExpression);
         try
         {
-            Object value = evaluationContext.evaluate(node);
-            update(variables, value);
+            Object result = evaluator.evaluate(variables);
+            update(variables, result);
         }
         catch (ParseException exception)
         {
             if (!ignoreErrors) throw new IllegalArgumentException(exception);
             update(variables, null);
         }
-    }
-
-    private String replacePlaceholders(Map<String, Object> variables)
-    {
-        if (PlaceholderUtils.hasPlaceholders(expression))
-        {
-            return PlaceholderUtils.replacePlaceholders(expression, variables);
-        }
-        return expression;
     }
 
     private void update(Map<String, Object> variables, Object value)
