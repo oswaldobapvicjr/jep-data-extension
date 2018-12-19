@@ -2,7 +2,9 @@ package net.obvj.jep.workflow;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -38,7 +40,7 @@ public class WorkflowEvaluatorTest
     private static final String GOOD_AFTERNOON = "Good afternoon";
 
     @Rule
-    public ExpectedException _expectedException = ExpectedException.none();
+    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests that the component is not created with a null expression
@@ -46,7 +48,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentNotCreatedIfExpressionIsNull()
     {
-        _expectedException.expect(IllegalArgumentException.class);
+        exception.expect(IllegalArgumentException.class);
         WorkflowEvaluator evaluator = new WorkflowEvaluator(VARIABLE_RESULT, null);
         assertNull(evaluator);
     }
@@ -57,7 +59,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentNotCreatedIfExpressionIsBlank()
     {
-        _expectedException.expect(IllegalArgumentException.class);
+        exception.expect(IllegalArgumentException.class);
         WorkflowEvaluator evaluator = new WorkflowEvaluator(VARIABLE_RESULT, " ");
         assertNull(evaluator);
     }
@@ -68,7 +70,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentNotCreatedIfExpressionIsInvalid()
     {
-        _expectedException.expect(IllegalArgumentException.class);
+        exception.expect(IllegalArgumentException.class);
         WorkflowEvaluator evaluator = new WorkflowEvaluator(VARIABLE_RESULT, EXPRESSION_CONCAT_INVALID);
         assertNull(evaluator);
     }
@@ -79,7 +81,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentNotCreatedIfTargetIsNull()
     {
-        _expectedException.expect(IllegalArgumentException.class);
+        exception.expect(IllegalArgumentException.class);
         WorkflowEvaluator evaluator = new WorkflowEvaluator(null, EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
         assertNull(evaluator);
     }
@@ -90,7 +92,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentNotCreatedIfTargetIsBlank()
     {
-        _expectedException.expect(IllegalArgumentException.class);
+        exception.expect(IllegalArgumentException.class);
         WorkflowEvaluator evaluator = new WorkflowEvaluator(" ", EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
         assertNull(evaluator);
     }
@@ -171,5 +173,33 @@ public class WorkflowEvaluatorTest
         evaluator.accept(map2);
         assertEquals(GOOD_MORNING, map1.get(VARIABLE_RESULT));
         assertEquals(GOOD_AFTERNOON, map2.get(VARIABLE_RESULT));
+    }
+
+    /**
+     * Tests component execution with an expression that evaluates a variable not found and
+     * the default error behavior
+     */
+    @Test
+    public void testComponentExecutionWithSourceVariableNotFoundAndDefaultBehavior()
+    {
+        exception.expect(IllegalArgumentException.class);
+        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+                EXPRESSION_GOOD_PLUS_PERIOD_DOUBLE_QUOTES);
+        evaluator.accept(Collections.emptyMap());
+    }
+
+    /**
+     * Tests component execution with an expression that evaluates a variable not found and
+     * ignore errors option
+     */
+    @Test
+    public void testComponentExecutionWithSourceVariableNotFoundAndIgnoreErrors()
+    {
+        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+                EXPRESSION_GOOD_PLUS_PERIOD_DOUBLE_QUOTES, true);
+        Map<String, Object> map = new HashMap<>();
+        evaluator.accept(map);
+        assertTrue("Map should be updated with the result variable", map.containsKey(VARIABLE_RESULT));
+        assertNull("The new variable should be null", map.get(VARIABLE_RESULT));
     }
 }
