@@ -1,4 +1,4 @@
-package net.obvj.jep.workflow;
+package net.obvj.jep.command;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,11 +14,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * Unit tests for the {@link WorkflowEvaluator} class.
+ * Unit tests for the {@link ExpressionCommand} class.
  *
  * @author oswaldo.bapvic.jr
  */
-public class WorkflowEvaluatorTest
+public class ExpressionCommandTest
 {
     // Test variable names
     private static final String VARIABlE_PERIOD = "period";
@@ -49,7 +49,7 @@ public class WorkflowEvaluatorTest
     public void testComponentNotCreatedIfExpressionIsNull()
     {
         exception.expect(IllegalArgumentException.class);
-        WorkflowEvaluator evaluator = new WorkflowEvaluator(VARIABLE_RESULT, null);
+        ExpressionCommand evaluator = new ExpressionCommand(VARIABLE_RESULT, null);
         assertNull(evaluator);
     }
 
@@ -60,7 +60,7 @@ public class WorkflowEvaluatorTest
     public void testComponentNotCreatedIfExpressionIsBlank()
     {
         exception.expect(IllegalArgumentException.class);
-        WorkflowEvaluator evaluator = new WorkflowEvaluator(VARIABLE_RESULT, " ");
+        ExpressionCommand evaluator = new ExpressionCommand(VARIABLE_RESULT, " ");
         assertNull(evaluator);
     }
 
@@ -71,7 +71,7 @@ public class WorkflowEvaluatorTest
     public void testComponentNotCreatedIfExpressionIsInvalid()
     {
         exception.expect(IllegalArgumentException.class);
-        WorkflowEvaluator evaluator = new WorkflowEvaluator(VARIABLE_RESULT, EXPRESSION_CONCAT_INVALID);
+        ExpressionCommand evaluator = new ExpressionCommand(VARIABLE_RESULT, EXPRESSION_CONCAT_INVALID);
         assertNull(evaluator);
     }
 
@@ -82,7 +82,7 @@ public class WorkflowEvaluatorTest
     public void testComponentNotCreatedIfTargetIsNull()
     {
         exception.expect(IllegalArgumentException.class);
-        WorkflowEvaluator evaluator = new WorkflowEvaluator(null, EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
+        ExpressionCommand evaluator = new ExpressionCommand(null, EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
         assertNull(evaluator);
     }
 
@@ -93,7 +93,7 @@ public class WorkflowEvaluatorTest
     public void testComponentNotCreatedIfTargetIsBlank()
     {
         exception.expect(IllegalArgumentException.class);
-        WorkflowEvaluator evaluator = new WorkflowEvaluator(" ", EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
+        ExpressionCommand evaluator = new ExpressionCommand(" ", EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
         assertNull(evaluator);
     }
 
@@ -104,7 +104,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentExecutionWithConcatExpressionAndSingleQuotes()
     {
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_CONCAT_GOOD_PERIOD_SINGLE_QUOTES);
         Map<String, Object> map = new HashMap<>();
         map.put(VARIABlE_PERIOD, MORNING);
@@ -119,7 +119,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentExecutionWithConcatOperatorAndSingleQuotes()
     {
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_GOOD_PLUS_PERIOD_SINGLE_QUOTES);
         Map<String, Object> map = new HashMap<>();
         map.put(VARIABlE_PERIOD, AFTERNOON);
@@ -134,7 +134,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentExecutionWithConcatExpressionAndDoubleQuotes()
     {
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_CONCAT_GOOD_PERIOD_DOUBLE_QUOTES);
         Map<String, Object> map = new HashMap<>();
         map.put(VARIABlE_PERIOD, MORNING);
@@ -149,7 +149,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentExecutionWithConcatOperatorAndDoubleQuotes()
     {
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_GOOD_PLUS_PERIOD_DOUBLE_QUOTES);
         Map<String, Object> map = new HashMap<>();
         map.put(VARIABlE_PERIOD, AFTERNOON);
@@ -163,7 +163,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testSubsequentCallsToTheSameComponentWithDifferentVariables()
     {
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_GOOD_PLUS_PERIOD_SINGLE_QUOTES);
         Map<String, Object> map1 = new HashMap<>();
         Map<String, Object> map2 = new HashMap<>();
@@ -183,7 +183,7 @@ public class WorkflowEvaluatorTest
     public void testComponentExecutionWithSourceVariableNotFoundAndDefaultBehavior()
     {
         exception.expect(IllegalArgumentException.class);
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_GOOD_PLUS_PERIOD_DOUBLE_QUOTES);
         evaluator.accept(Collections.emptyMap());
     }
@@ -195,7 +195,7 @@ public class WorkflowEvaluatorTest
     @Test
     public void testComponentExecutionWithSourceVariableNotFoundAndIgnoreErrors()
     {
-        Consumer<Map<String, Object>> evaluator = new WorkflowEvaluator(VARIABLE_RESULT,
+        Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT,
                 EXPRESSION_GOOD_PLUS_PERIOD_DOUBLE_QUOTES, true);
         Map<String, Object> map = new HashMap<>();
         evaluator.accept(map);

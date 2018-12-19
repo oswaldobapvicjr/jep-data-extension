@@ -1,4 +1,4 @@
-package net.obvj.jep.workflow;
+package net.obvj.jep.command;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -19,7 +19,7 @@ import net.obvj.jep.util.PlaceholderUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class WorkflowEvaluator implements Consumer<Map<String, Object>>
+public class ExpressionCommand implements Consumer<Map<String, Object>>
 {
     private static final Pattern PATTERN_PART_REGEX = Pattern.compile("'([^']*[^,]*)?'");
     private static final String FIRST_GROUP = "\"$1\"";
@@ -35,7 +35,7 @@ public class WorkflowEvaluator implements Consumer<Map<String, Object>>
      * @param targetVariableName the new variable name to be populated by this evaluator with
      *                           the evaluation result
      */
-    public WorkflowEvaluator(String targetVariableName, String expression)
+    public ExpressionCommand(String targetVariableName, String expression)
     {
         this(targetVariableName, expression, false);
     }
@@ -52,7 +52,7 @@ public class WorkflowEvaluator implements Consumer<Map<String, Object>>
      *                           {@code null} value assigned to it. If this flag is set to
      *                           {@code false}, then a {@link ParseException} may be thrown.
      */
-    public WorkflowEvaluator(String targetVariableName, String expression, boolean ignoreErrors)
+    public ExpressionCommand(String targetVariableName, String expression, boolean ignoreErrors)
     {
         if (StringUtils.isBlank(expression))
         {
