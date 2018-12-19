@@ -1,9 +1,9 @@
 package net.obvj.jep.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,8 +16,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class PlaceholderUtils
 {
-    private static final Pattern PATTERN_VARIABLE_PLACEHOLDER = Pattern.compile("(\\$\\{)[\\w]+(\\})");
-    private static final Pattern PATTERN_VARIABLE_NAME = Pattern.compile("(?<=\\$\\{)[\\w]+(?=\\})");
+    protected static final Pattern PATTERN_VARIABLE_PLACEHOLDER = Pattern.compile("(\\$\\{)[\\w]+(\\})");
+    protected static final Pattern PATTERN_VARIABLE_NAME = Pattern.compile("(?<=\\$\\{)[\\w]+(?=\\})");
 
     private PlaceholderUtils()
     {
@@ -47,11 +47,11 @@ public class PlaceholderUtils
      * @param pattern The pattern to use.
      * @return A set of matches within the string.
      */
-    public static Set<String> findMatches(String string, Pattern pattern)
+    public static List<String> findMatches(String string, Pattern pattern)
     {
-        if (StringUtils.isEmpty(string)) return Collections.emptySet();
+        if (StringUtils.isEmpty(string)) return Collections.emptyList();
 
-        Set<String> expressions = new HashSet<>();
+        List<String> expressions = new ArrayList<>();
         Matcher matcher = pattern.matcher(string);
 
         while (matcher.find())
@@ -87,9 +87,9 @@ public class PlaceholderUtils
      * @param string the given string to be replaced
      * @return a boolean value which means it has or not place-holders.
      */
-    public static boolean hasPlaceHolders(String string)
+    public static boolean hasPlaceholders(String string)
     {
-        Set<String> placeholders = findPlaceholders(string);
+        List<String> placeholders = findPlaceholders(string);
         return !placeholders.isEmpty();
     }
 
@@ -99,9 +99,20 @@ public class PlaceholderUtils
      * @param string the given string to be used to find place-holders
      * @return the string set with the found place-holders
      */
-    public static Set<String> findPlaceholders(String string)
+    public static List<String> findPlaceholders(String string)
     {
         return findMatches(string, PATTERN_VARIABLE_PLACEHOLDER);
+    }
+
+    /**
+     * Method that finds the variable name given a string containing a place-holder.
+     *
+     * @param string the given string to be used to find the variable name
+     * @return the the variable name, if found
+     */
+    private static String findVariableName(String placeholder)
+    {
+        return findMatch(placeholder, PATTERN_VARIABLE_NAME);
     }
 
     /**
@@ -115,12 +126,12 @@ public class PlaceholderUtils
     public static String replacePlaceholders(String string, Map<String, Object> variables)
     {
         String resultString = string;
-        Set<String> placeholders = findPlaceholders(string);
+        List<String> placeholders = findPlaceholders(string);
 
         for (String placeholder : placeholders)
         {
-            String variableName = findMatch(placeholder, PATTERN_VARIABLE_NAME);
-            resultString = resultString.replaceAll(placeholder, String.valueOf(variables.get(variableName)));
+            String variableName = findVariableName(placeholder);
+            resultString = resultString.replace(placeholder, String.valueOf(variables.get(variableName)));
         }
         return resultString;
     }

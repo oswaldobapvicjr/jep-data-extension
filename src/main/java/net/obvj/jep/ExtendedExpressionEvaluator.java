@@ -118,7 +118,7 @@ public class ExtendedExpressionEvaluator implements Consumer<Map<String, Object>
 
     private String replacePlaceholders(Map<String, Object> variables)
     {
-        if (PlaceholderUtils.hasPlaceHolders(expression))
+        if (PlaceholderUtils.hasPlaceholders(expression))
         {
             return PlaceholderUtils.replacePlaceholders(expression, variables);
         }
