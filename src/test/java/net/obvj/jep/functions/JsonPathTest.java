@@ -18,7 +18,7 @@ import net.obvj.jep.util.StackUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class JSONPathTest
+public class JsonPathTest
 {
     private static final String STRING_MOBILE_NUMBER = "+55 11 98765-4321";
 

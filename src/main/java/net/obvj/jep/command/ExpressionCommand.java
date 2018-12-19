@@ -2,7 +2,6 @@ package net.obvj.jep.command;
 
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.nfunk.jep.JEP;
@@ -21,9 +20,6 @@ import net.obvj.jep.util.PlaceholderUtils;
  */
 public class ExpressionCommand implements Consumer<Map<String, Object>>
 {
-    private static final Pattern PATTERN_PART_REGEX = Pattern.compile("'([^']*[^,]*)?'");
-    private static final String FIRST_GROUP = "\"$1\"";
-
     private final String targetVariableName;
     private final String expression;
     private final boolean ignoreErrors;
@@ -58,15 +54,14 @@ public class ExpressionCommand implements Consumer<Map<String, Object>>
         {
             throw new IllegalArgumentException("The expression cannot be empty");
         }
-        this.targetVariableName = targetVariableName;
-
         if (StringUtils.isBlank(targetVariableName))
         {
             throw new IllegalArgumentException("The target name cannot be empty");
         }
-        this.expression = removeSpecialCharacters(expression);
-        validateExpression(this.expression);
+        validateExpression(expression);
 
+        this.targetVariableName = targetVariableName;
+        this.expression = expression;
         this.ignoreErrors = ignoreErrors;
     }
 
@@ -85,11 +80,6 @@ public class ExpressionCommand implements Consumer<Map<String, Object>>
         {
             throw new IllegalArgumentException("Invalid expression: " + expression, exception);
         }
-    }
-
-    private String removeSpecialCharacters(String expression)
-    {
-        return expression.replaceAll(PATTERN_PART_REGEX.pattern(), FIRST_GROUP);
     }
 
     /**
