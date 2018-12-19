@@ -101,9 +101,9 @@ public class ExtendedExpressionEvaluator implements Consumer<Map<String, Object>
     public void accept(Map<String, Object> variables)
     {
         JEP evaluationContext = JEPContextFactory.newContext(variables);
-        String expression = replacePlaceholders(variables);
+        String localExpression = replacePlaceholders(variables);
 
-        Node node = evaluationContext.parseExpression(expression);
+        Node node = evaluationContext.parseExpression(localExpression);
         try
         {
             Object value = evaluationContext.evaluate(node);
