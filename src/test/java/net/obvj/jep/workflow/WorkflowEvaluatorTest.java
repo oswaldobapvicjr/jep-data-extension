@@ -11,7 +11,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class WorkflowExpressionEvaluatorTest
+/**
+ * Unit tests for the {@link WorkflowEvaluator} class.
+ *
+ * @author oswaldo.bapvic.jr
+ */
+public class WorkflowEvaluatorTest
 {
     // Test variable names
     private static final String VARIABlE_PERIOD = "period";
@@ -35,6 +40,9 @@ public class WorkflowExpressionEvaluatorTest
     @Rule
     public ExpectedException _expectedException = ExpectedException.none();
 
+    /**
+     * Tests that the component is not created with a null expression
+     */
     @Test
     public void testComponentNotCreatedIfExpressionIsNull()
     {
@@ -43,6 +51,9 @@ public class WorkflowExpressionEvaluatorTest
         assertNull(evaluator);
     }
 
+    /**
+     * Tests that the component is not created with a blank expression
+     */
     @Test
     public void testComponentNotCreatedIfExpressionIsBlank()
     {
@@ -51,6 +62,9 @@ public class WorkflowExpressionEvaluatorTest
         assertNull(evaluator);
     }
 
+    /**
+     * Tests that the component is not created with an invalid expression
+     */
     @Test
     public void testComponentNotCreatedIfExpressionIsInvalid()
     {
@@ -59,6 +73,9 @@ public class WorkflowExpressionEvaluatorTest
         assertNull(evaluator);
     }
 
+    /**
+     * Tests that the component is not created with a null target variable name
+     */
     @Test
     public void testComponentNotCreatedIfTargetIsNull()
     {
@@ -67,6 +84,9 @@ public class WorkflowExpressionEvaluatorTest
         assertNull(evaluator);
     }
 
+    /**
+     * Tests that the component is not created with a blank target name
+     */
     @Test
     public void testComponentNotCreatedIfTargetIsBlank()
     {
@@ -75,6 +95,10 @@ public class WorkflowExpressionEvaluatorTest
         assertNull(evaluator);
     }
 
+    /**
+     * Tests component execution with the concat() function and a string containing literals
+     * delimited by single quotes
+     */
     @Test
     public void testComponentExecutionWithConcatExpressionAndSingleQuotes()
     {
@@ -86,6 +110,10 @@ public class WorkflowExpressionEvaluatorTest
         assertEquals(GOOD_MORNING, map.get(VARIABLE_RESULT));
     }
 
+    /**
+     * Tests component execution with the concat operator and a string containing literals
+     * delimited by single quotes
+     */
     @Test
     public void testComponentExecutionWithConcatOperatorAndSingleQuotes()
     {
@@ -97,6 +125,10 @@ public class WorkflowExpressionEvaluatorTest
         assertEquals(GOOD_AFTERNOON, map.get(VARIABLE_RESULT));
     }
 
+    /**
+     * Tests component execution with the concat() function and a string containing literals
+     * delimited by double quotes
+     */
     @Test
     public void testComponentExecutionWithConcatExpressionAndDoubleQuotes()
     {
@@ -108,6 +140,10 @@ public class WorkflowExpressionEvaluatorTest
         assertEquals(GOOD_MORNING, map.get(VARIABLE_RESULT));
     }
 
+    /**
+     * Tests component execution with the concat operator and a string containing literals
+     * delimited by double quotes
+     */
     @Test
     public void testComponentExecutionWithConcatOperatorAndDoubleQuotes()
     {
@@ -119,6 +155,9 @@ public class WorkflowExpressionEvaluatorTest
         assertEquals(GOOD_AFTERNOON, map.get(VARIABLE_RESULT));
     }
 
+    /**
+     * Tests the component reused several times with different variable map
+     */
     @Test
     public void testSubsequentCallsToTheSameComponentWithDifferentVariables()
     {
