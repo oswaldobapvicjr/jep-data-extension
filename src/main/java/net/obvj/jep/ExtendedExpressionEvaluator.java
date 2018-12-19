@@ -1,4 +1,4 @@
-package net.obvj.jep.workflow;
+package net.obvj.jep;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -10,7 +10,6 @@ import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.TokenMgrError;
 
-import net.obvj.jep.JEPContextFactory;
 import net.obvj.jep.util.PlaceholderUtils;
 
 /**
@@ -19,7 +18,7 @@ import net.obvj.jep.util.PlaceholderUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class WorkflowEvaluator implements Consumer<Map<String, Object>>
+public class ExtendedExpressionEvaluator implements Consumer<Map<String, Object>>
 {
     private static final Pattern PATTERN_PART_REGEX = Pattern.compile("'([^']*[^,]*)?'");
     private static final String FIRST_GROUP = "\"$1\"";
@@ -35,7 +34,7 @@ public class WorkflowEvaluator implements Consumer<Map<String, Object>>
      * @param targetVariableName the new variable name to be populated by this evaluator with
      *                           the evaluation result
      */
-    public WorkflowEvaluator(String targetVariableName, String expression)
+    public ExtendedExpressionEvaluator(String targetVariableName, String expression)
     {
         this(targetVariableName, expression, false);
     }
@@ -52,7 +51,7 @@ public class WorkflowEvaluator implements Consumer<Map<String, Object>>
      *                           {@code null} value assigned to it. If this flag is set to
      *                           {@code false}, then a {@link ParseException} may be thrown.
      */
-    public WorkflowEvaluator(String targetVariableName, String expression, boolean ignoreErrors)
+    public ExtendedExpressionEvaluator(String targetVariableName, String expression, boolean ignoreErrors)
     {
         if (StringUtils.isBlank(expression))
         {
