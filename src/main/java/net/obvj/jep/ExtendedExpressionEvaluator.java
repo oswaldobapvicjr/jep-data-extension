@@ -56,6 +56,7 @@ public class ExtendedExpressionEvaluator
      * Evaluates the instance-defined expression with a map of variables.
      *
      * @param variables the map of variables to be used for the evaluation
+     * @return the expression evaluation result given the input variables
      * @throws ParseException if for some reason the expression could not be evaluated
      */
     public Object evaluate(Map<String, Object> variables) throws ParseException
