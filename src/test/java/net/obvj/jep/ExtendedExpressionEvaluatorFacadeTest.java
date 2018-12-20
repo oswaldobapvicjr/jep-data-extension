@@ -29,6 +29,7 @@ public class ExtendedExpressionEvaluatorFacadeTest
 
     private static final String EXPRESSION_DATE1_LOWER_THAN_DATE2 = "date1<date2";
     private static final String EXPRESSION_DATE1_EQUALS_DATE2 = "date1==date2";
+    private static final String EXPRESSION_IF_DATE2_GREATER_THAN_DATE1 = "if(date2>date1,\"true\",\"false\")";
 
     private static final double FALSE = 0d;
     private static final double TRUE = 1d;
@@ -55,7 +56,13 @@ public class ExtendedExpressionEvaluatorFacadeTest
     @Test
     public void testEvaluateExpressionComparingStringDatesEqual() throws ParseException
     {
-        assertEquals(FALSE,
-                ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_DATE1_EQUALS_DATE2, VARIABLES_MAP));
+        assertEquals(FALSE, ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_DATE1_EQUALS_DATE2, VARIABLES_MAP));
+    }
+
+    @Test
+    public void testEvaluateExpressionIfDate2GreaterThanDate1() throws ParseException
+    {
+        assertEquals("true",
+                ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_IF_DATE2_GREATER_THAN_DATE1, VARIABLES_MAP));
     }
 }

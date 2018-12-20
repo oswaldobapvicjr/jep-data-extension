@@ -236,7 +236,7 @@ jsonArray[0]
 
 ## How to use it
 
-### Example: replacing characters from a text variable in context
+### Example 1: replacing characters from a text variable using the `JEPContextFactory`
 
 1. Add `jep-data-extensions` to your class path
 
@@ -267,3 +267,21 @@ jsonArray[0]
     String result = (String) jep.evaluate(node); //result="fee"
     ````
 
+
+### Example 2: comparing dates using the `ExtendedExpressionEvaluatorFacade`
+
+1. Put your source variables in a map:
+
+    ```java
+    Map<String, Object> myVariables = new HashMap<>();
+    myVariables.put("date1", "2018-12-20T09:10:00.123456789Z");
+    myVariables.put("date2", "2018-12-20T12:10:00.234567890Z");
+    ```
+
+2. Evaluate your expression:
+
+    ````java
+    String expression = "if(date1<date2,\"true\",\"false\")";
+    String result = (String) ExtendedExpressionEvaluatorFacade.evaluate(expression, myVariables); 
+    //result="true"
+    ````
