@@ -26,6 +26,14 @@ Converts a text string to all lower-case letters.
 lower(string1)
 ```
 
+### Normalize String
+
+Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. Example: `"ações"` is transformed into `"acoes"`. 
+
+```java
+normalizeString(string1)
+```
+
 ### Replace
 
 Returns a new string after replacing all occurrences of the search criteria within the original string with the replacement argument.

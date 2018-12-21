@@ -26,6 +26,7 @@ public class JEPContextFactoryTest
         // String
         assertTrue(table.containsKey("concat"));
         assertTrue(table.containsKey("lower"));
+        assertTrue(table.containsKey("normalizeString"));
         assertTrue(table.containsKey("replace"));
         assertTrue(table.containsKey("trim"));
         assertTrue(table.containsKey("upper"));
@@ -47,6 +48,7 @@ public class JEPContextFactoryTest
         // Utility
         assertTrue(table.containsKey("getEnv"));
         assertTrue(table.containsKey("getSystemProperty"));
+        assertTrue(table.containsKey("getElement"));
     }
 
     /**

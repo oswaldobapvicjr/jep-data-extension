@@ -88,6 +88,7 @@ public class JEPContextFactory
         // String functions
         jep.addFunction("concat", new Concat());
         jep.addFunction("lower", new Lower());
+        jep.addFunction("normalizeString", new NormalizeString());
         jep.addFunction("replace", new Replace());
         jep.addFunction("trim", new Trim());
         jep.addFunction("upper", new Upper());
@@ -121,7 +122,7 @@ public class JEPContextFactory
 
         // Element function and operator
         PostfixMathCommand elementCommand = new Element();
-        jep.addFunction("getelement", elementCommand);
+        jep.addFunction("getElement", elementCommand);
         operators.getElement().setPFMC(elementCommand);
     }
 

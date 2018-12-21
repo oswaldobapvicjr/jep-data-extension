@@ -14,7 +14,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
 public class Replace extends PostfixMathCommand
 {
     /**
-     * Builds this function with a fixed number of one parameter
+     * Builds this function with a fixed number of three parameters
      */
     public Replace()
     {
