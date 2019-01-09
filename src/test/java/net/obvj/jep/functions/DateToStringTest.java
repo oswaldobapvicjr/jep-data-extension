@@ -32,8 +32,8 @@ public class DateToStringTest
         DATE = calendar.getTime();
     }
 
-    private static final String ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ssXXX";
-    private static final String ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    private static final String ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss-03:00";
+    private static final String ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSS-03:00";
 
     // Expected results
     private static final String EXPECTED_STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T10:35:00-03:00";
