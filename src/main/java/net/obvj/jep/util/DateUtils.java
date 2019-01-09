@@ -7,6 +7,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Iterator;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 /**
  * A utility class for working with dates.
  *
@@ -42,7 +44,7 @@ public class DateUtils
      */
     public static String formatDate(Date date, String pattern)
     {
-        return new SimpleDateFormat(pattern).format(date);
+        return DateFormatUtils.format(date, pattern);
     }
 
     /**
