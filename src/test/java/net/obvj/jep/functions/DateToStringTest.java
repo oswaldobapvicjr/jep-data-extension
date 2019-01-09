@@ -26,18 +26,19 @@ public class DateToStringTest
 
     static
     {
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = Calendar.getInstance();
         calendar.set(2017, Calendar.MARCH, 11, 13, 35, 00);
         calendar.set(Calendar.MILLISECOND, 123);
         DATE = calendar.getTime();
     }
 
-    private static final String ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss-03:00";
-    private static final String ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSS-03:00";
+    private static final String ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    private static final String ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
     // Expected results
-    private static final String EXPECTED_STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T10:35:00-03:00";
-    private static final String EXPECTED_STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T10:35:00.123-03:00";
+    private static final String EXPECTED_STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T13:35:00Z";
+    private static final String EXPECTED_STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE = "2017-03-11T13:35:00.123Z";
 
     private static DateToString function = new DateToString();
 

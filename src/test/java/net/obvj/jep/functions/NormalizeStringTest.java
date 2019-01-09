@@ -16,7 +16,7 @@ import net.obvj.jep.util.StackUtils;
  */
 public class NormalizeStringTest
 {
-    private static final String STRING_UNICODE_PORTUGUESE_CHARACTERS = "àêíõüç";
+    private static final String STRING_UNICODE_PORTUGUESE_CHARACTERS = "Ã ÃªÃ­ÃµÃ¼Ã§";
     private static final String STRING_ASCII_PORTUGUESE = "aeiouc";
 
     private static NormalizeString function = new NormalizeString();

@@ -15,17 +15,23 @@ public class DateUtilsTest
     public static final int YEAR = 2017;
     public static final int MONTH = Calendar.MARCH;
     public static final int DATE = 11;
-    public static final int HOUR = 10;
+    public static final int HOUR = 13;
     public static final int MINUTE = 15;
     public static final int SECOND = 0;
     public static final int MILLIS = 999;
 
     public static final String STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
     public static final String YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    public static final String STR_DATE_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
+
+    static
+    {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+    }
 
     private void assertDate(Date date)
     {
-        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT-03:00"));
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
         assertEquals(YEAR, calendar.get(Calendar.YEAR));
@@ -57,7 +63,7 @@ public class DateUtilsTest
     {
         Date date = DateUtils.parseDate(STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         String string = DateUtils.formatDate(date, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
-        assertEquals(STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00, string);
+        assertEquals(STR_DATE_2017_03_11_13_15_00_999_Z, string);
     }
 
 }
