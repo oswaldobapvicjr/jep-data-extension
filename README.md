@@ -1,5 +1,7 @@
 # jep-data-extension
 
+[![Build Status](https://travis-ci.org/oswaldobapvicjr/jep-data-extension.svg?branch=master)](https://travis-ci.org/oswaldobapvicjr/jep-data-extension)
+
 **jep-data-extension** is a library that  extends JEP, a powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom data functions and operators.
 
 > For details about JEP core functionality, click [here](http://www.singularsys.com/jep/doc/html/index.html). 
