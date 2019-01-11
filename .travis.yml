@@ -1,10 +1,4 @@
 language: java
 
-install:
-  - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-
-script:
-  - mvn test jacoco:report
-
 after_success:
-  - mvn clean test coveralls:report
+  - mvn clean test jacoco:report coveralls:report -Ptravis-jacoco
