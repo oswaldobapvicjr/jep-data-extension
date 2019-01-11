@@ -3,6 +3,7 @@ package net.obvj.jep.util;
 import static org.junit.Assert.assertEquals;
 
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -24,9 +25,18 @@ public class DateUtilsTest
     public static final String YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
     public static final String STR_DATE_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
 
+    public static final Instant INSTANT_DATE_2017_03_11_13_15_00_999 = Instant
+            .parse(STR_DATE_2017_03_11_13_15_00_999_Z);
+
+    public static final Date DATE_2017_03_11_13_15_00_999;
+
     static
     {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(YEAR, MONTH, DATE, HOUR, MINUTE, SECOND);
+        calendar.set(Calendar.MILLISECOND, MILLIS);
+        DATE_2017_03_11_13_15_00_999 = calendar.getTime();
     }
 
     private void assertDate(Date date)
@@ -66,4 +76,13 @@ public class DateUtilsTest
         assertEquals(STR_DATE_2017_03_11_13_15_00_999_Z, string);
     }
 
+    /**
+     * Tests the parsing of an Instant to Date
+     */
+    @Test
+    public void testInstantParsingToDate() throws ParseException
+    {
+        Date string = DateUtils.parseDate(INSTANT_DATE_2017_03_11_13_15_00_999);
+        assertEquals(DATE_2017_03_11_13_15_00_999, string);
+    }
 }

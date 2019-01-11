@@ -65,7 +65,7 @@ public class Element extends PostfixMathCommand
     private Object getElement(Object leftSide, int index)
     {
         List<?> list = CollectionsUtils.asList(leftSide);
-        return list.get(index);
+        return list.isEmpty() ? null : list.get(index);
     }
 
 }

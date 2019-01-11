@@ -28,7 +28,7 @@ public class DateToStringTest
     {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         Calendar calendar = Calendar.getInstance();
-        calendar.set(2017, Calendar.MARCH, 11, 13, 35, 00);
+        calendar.set(2017, Calendar.MARCH, 11, 13, 35, 0);
         calendar.set(Calendar.MILLISECOND, 123);
         DATE = calendar.getTime();
     }

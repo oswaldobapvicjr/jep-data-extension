@@ -2,11 +2,13 @@ package net.obvj.jep.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -157,7 +159,7 @@ public class JsonUtilsTest
     public void testCompileInvalidJSONArray() throws JSONException
     {
         exception.expect(InvalidPathException.class);
-        JsonUtils.compileJsonPath(JSONPATH_INVALID);
+        assertNull(JsonUtils.compileJsonPath(JSONPATH_INVALID));
     }
 
     /**
@@ -214,6 +216,15 @@ public class JsonUtilsTest
         Object result = JsonUtils.getSingleValueFromJSONArray(jsonAarray);
         assertTrue(result instanceof JSONArray);
         assertEquals(jsonAarray, result);
+    }
+
+    /**
+     * Tests reading of a JSONPath for a null JSON
+     */
+    @Test
+    public void testReadJsonPathForNullJson() throws JSONException
+    {
+        assertNull(JsonUtils.readJsonPath(null, StringUtils.EMPTY));
     }
 
 }

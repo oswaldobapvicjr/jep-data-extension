@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
 
 /**
  * Utility methods for working with Java Collections.
@@ -47,6 +48,19 @@ public class CollectionsUtils
         if (object instanceof Object[])
         {
             return Arrays.asList((Object[]) object);
+        }
+
+        if (object instanceof String)
+        {
+            try
+            {
+                JSONArray jsonArray = new JSONArray(object.toString());
+                return JsonUtils.convertJSONArrayToList(jsonArray);
+            }
+            catch (JSONException exception)
+            {
+                // Not a valid JSON array, so handle it as a normal string...
+            }
         }
 
         return Collections.singletonList(object);

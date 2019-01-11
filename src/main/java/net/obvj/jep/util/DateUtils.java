@@ -1,7 +1,6 @@
 package net.obvj.jep.util;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
