@@ -96,7 +96,7 @@ public class Max extends StatisticsCommandBase implements PostfixMathCommandI
     {
         if (StringUtils.isEmpty(string))
         {
-            return null;
+            return string;
         }
         try
         {

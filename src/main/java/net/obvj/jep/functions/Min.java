@@ -96,7 +96,7 @@ public class Min extends StatisticsCommandBase implements PostfixMathCommandI
     {
         if (StringUtils.isEmpty(string))
         {
-            return null;
+            return string;
         }
         try
         {

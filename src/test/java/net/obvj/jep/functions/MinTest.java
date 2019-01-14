@@ -36,6 +36,8 @@ public class MinTest
     private static final String[] ARRAY_STRING_NUMBERS = new String[] { STRING_2, STRING_3, STRING_1 };
     private static final List<String> LIST_STRING_NUMBERS = Arrays.asList(ARRAY_STRING_NUMBERS);
     private static final JSONArray JSON_ARRAY_STRING_NUMBERS = new JSONArray(LIST_STRING_NUMBERS);
+    private static final String STR_JSON_ARRAY_STRING_NUMBERS = String.format("[\"%s\",\"%s\",\"%s\"]", STRING_2,
+            STRING_3, STRING_1);
 
     private static final String STR_DATE_1 = "2018-09-27T12:42:27.000Z";
     private static final String STR_DATE_2 = "2018-09-28T13:43:28.000Z";
@@ -131,6 +133,20 @@ public class MinTest
      */
     @Test
     public void testMinStringNumberFromJsonArray() throws ParseException
+    {
+        Stack<Object> parameters = StackUtils.newParametersStack(STR_JSON_ARRAY_STRING_NUMBERS);
+        function.run(parameters);
+        assertEquals(STRING_1, parameters.pop());
+    }
+
+    /**
+     * Tests the minimum element for a string representation of JSON array of valid numbers as
+     * string
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testMinStringNumberFromStringRepresentationJsonArray() throws ParseException
     {
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STRING_NUMBERS);
         function.run(parameters);

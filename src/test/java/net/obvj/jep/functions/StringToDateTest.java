@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.Stack;
 import java.util.TimeZone;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -60,6 +61,18 @@ public class StringToDateTest
     }
 
     /**
+     * Tests date parsing with empty date
+     */
+    @Test
+    public void testParseDateEmptyDate() throws ParseException
+    {
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY,
+                ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        function.run(parameters);
+    }
+
+    /**
      * Tests date parsing with null format
      */
     @Test
@@ -67,6 +80,29 @@ public class StringToDateTest
     {
         exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = StackUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, null);
+        function.run(parameters);
+    }
+
+    /**
+     * Tests date parsing with empty format
+     */
+    @Test
+    public void testParseDateEmptyFormat() throws ParseException
+    {
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE,
+                StringUtils.EMPTY);
+        function.run(parameters);
+    }
+
+    /**
+     * Tests date parsing with an invalid format
+     */
+    @Test
+    public void testParseDateInvalidFormat() throws ParseException
+    {
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, "Y");
         function.run(parameters);
     }
 

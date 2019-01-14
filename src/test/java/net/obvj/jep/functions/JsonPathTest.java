@@ -23,7 +23,8 @@ public class JsonPathTest
     private static final String STRING_MOBILE_NUMBER = "+55 11 98765-4321";
 
     private static final String JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER = "$.phoneNumbers[?(@.type=='mobile')].number";
-    private static final String JSON_PATH_UNKNOWN_FIELD = "$..birthDate";
+    private static final String JSON_PATH_UNKNOWN_FIELD = "$.birthDate";
+    private static final String JSON_PATH_NO_DATA = "$..birthDate";
     private static final String JSON_PATH_INVALID = "$.phoneNumber[0*@#.type";
 
     private static final String JSON_VALID ="{\r\n" +
@@ -76,10 +77,23 @@ public class JsonPathTest
      * @throws ParseException
      */
     @Test
-    public void testJSONPathCommandWithValidExpressionAndEmptyResult() throws ParseException
+    public void testJSONPathCommandWithValidSearchExpressionAndEmptyResult() throws ParseException
     {
         exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, JSON_PATH_UNKNOWN_FIELD);
+        function.run(parameters);
+    }
+
+    /**
+     * Tests a valid expression for JSONPath command with empty result
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testJSONPathCommandWithValidExpressionAndEmptyResult() throws ParseException
+    {
+        exception.expect(IllegalArgumentException.class);
+        Stack<Object> parameters = StackUtils.newParametersStack(JSON_VALID, JSON_PATH_NO_DATA);
         function.run(parameters);
     }
 
