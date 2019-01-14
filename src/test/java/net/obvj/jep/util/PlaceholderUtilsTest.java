@@ -2,6 +2,9 @@ package net.obvj.jep.util;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,32 @@ public class PlaceholderUtilsTest
     {
         VARIABLES_MAP.put(VARIABLE_NAME_MY_PRICE, INT_PRICE_10);
         VARIABLES_MAP.put(VARIABLE_NAME_MY_CATEGORY, STRING_CATEGORY_FICTION);
+    }
+
+    /**
+     * Tests that no instances of this utility class are created
+     *
+     * @throws Exception in case of error getting constructor metadata or instantiating the
+     *                   private constructor via Reflection
+     */
+    @Test(expected = InvocationTargetException.class)
+    public void testNoInstancesAllowed() throws Exception
+    {
+        try
+        {
+            Constructor<PlaceholderUtils> constructor = PlaceholderUtils.class.getDeclaredConstructor();
+            assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
+
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        }
+        catch (InvocationTargetException ite)
+        {
+            Throwable cause = ite.getCause();
+            assertEquals(IllegalStateException.class, cause.getClass());
+            assertEquals("Utility class", cause.getMessage());
+            throw ite;
+        }
     }
 
     @Test

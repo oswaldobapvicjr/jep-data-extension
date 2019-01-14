@@ -5,6 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,9 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.jayway.jsonpath.InvalidPathException;
 
@@ -26,8 +27,31 @@ public class JsonUtilsTest
     private static final String JSONPATH_VALID = "$.partyNames[0]";
     private static final String JSONPATH_INVALID = ".partyNames[0";
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
+    /**
+     * Tests that no instances of this utility class are created
+     *
+     * @throws Exception in case of error getting constructor metadata or instantiating the
+     *                   private constructor via Reflection
+     */
+    @Test(expected = InvocationTargetException.class)
+    public void testNoInstancesAllowed() throws Exception
+    {
+        try
+        {
+            Constructor<JsonUtils> constructor = JsonUtils.class.getDeclaredConstructor();
+            assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
+
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        }
+        catch (InvocationTargetException ite)
+        {
+            Throwable cause = ite.getCause();
+            assertEquals(IllegalStateException.class, cause.getClass());
+            assertEquals("Utility class", cause.getMessage());
+            throw ite;
+        }
+    }
 
     /**
      * Tests if the null check succeeds for a null object
@@ -155,10 +179,9 @@ public class JsonUtilsTest
      *
      * @throws JSONException in case of exceptions handling the JSON object
      */
-    @Test
+    @Test(expected = InvalidPathException.class)
     public void testCompileInvalidJSONArray() throws JSONException
     {
-        exception.expect(InvalidPathException.class);
         assertNull(JsonUtils.compileJsonPath(JSONPATH_INVALID));
     }
 

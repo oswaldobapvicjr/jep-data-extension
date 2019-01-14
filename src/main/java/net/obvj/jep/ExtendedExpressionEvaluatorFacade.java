@@ -13,7 +13,7 @@ public class ExtendedExpressionEvaluatorFacade
 {
     private ExtendedExpressionEvaluatorFacade()
     {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("No instances allowed");
     }
 
     /**
