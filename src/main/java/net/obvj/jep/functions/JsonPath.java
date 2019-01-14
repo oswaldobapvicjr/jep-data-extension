@@ -55,12 +55,12 @@ public class JsonPath extends PostfixMathCommand
         try
         {
             JSONObject jsonObject = JsonUtils.convertToJSONObject(jsonVariableName);
-            if (JsonUtils.isNull(jsonObject))
+            if (JsonUtils.isEmpty(jsonObject))
             {
                 throw new IllegalArgumentException(String.format(ERROR_JSON_OBJECT_NOT_FOUND, jsonVariableName));
             }
             Object result = JsonUtils.readJsonPath(jsonObject, jsonPathString, true);
-            if (JsonUtils.isNull(result))
+            if (JsonUtils.isEmpty(result))
             {
                 throw new IllegalArgumentException(String.format(ERROR_NO_RESULTS_FOR_PATH, jsonPathString));
             }

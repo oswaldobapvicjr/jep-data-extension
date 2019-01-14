@@ -31,7 +31,7 @@ public class JsonUtils
      * @param jsonObject the JSON object to be validated
      * @return {@code true} if the JSON object is null or empty
      */
-    private static boolean isNull(JSONObject jsonObject)
+    private static boolean isEmpty(JSONObject jsonObject)
     {
         return jsonObject == null || jsonObject.length() == 0;
     }
@@ -40,7 +40,7 @@ public class JsonUtils
      * @param jsonArray the JSON array to be validated
      * @return {@code true} if the JSON array is null or empty
      */
-    private static boolean isNull(JSONArray jsonArray)
+    private static boolean isEmpty(JSONArray jsonArray)
     {
         return jsonArray == null || jsonArray.length() == 0;
     }
@@ -49,15 +49,15 @@ public class JsonUtils
      * @param object the Object to be validated
      * @return {@code true} if the Object is null or empty
      */
-    public static boolean isNull(Object object)
+    public static boolean isEmpty(Object object)
     {
         if (object instanceof JSONObject)
         {
-            return isNull((JSONObject) object);
+            return isEmpty((JSONObject) object);
         }
         if (object instanceof JSONArray)
         {
-            return isNull((JSONArray) object);
+            return isEmpty((JSONArray) object);
         }
         return object == null || JSONObject.NULL.equals(object);
     }
@@ -83,7 +83,7 @@ public class JsonUtils
      */
     public static Object readJsonPath(JSONObject json, String jsonPath)
     {
-        if (isNull(json))
+        if (isEmpty(json))
         {
             return null;
         }
@@ -170,7 +170,7 @@ public class JsonUtils
             List<Object> sourceListConverted = new ArrayList<>(jsonArray.length());
             for (int i = 0, length = jsonArray.length(); i < length; i++)
             {
-                if (isNull(jsonArray.get(i)))
+                if (isEmpty(jsonArray.get(i)))
                 {
                     return Collections.emptyList();
                 }

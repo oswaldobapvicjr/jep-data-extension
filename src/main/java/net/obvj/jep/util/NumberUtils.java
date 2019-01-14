@@ -17,7 +17,8 @@ public class NumberUtils
     }
 
     /**
-     * Gets an integer value from a {@code String}
+     * Gets an integer value from a {@code String}. If the string contains a representation of
+     * a double value, the decimal places are truncated.
      *
      * @param stringValue the string to get the integer value
      * @return the integer value or null if the string is null or empty
@@ -61,7 +62,8 @@ public class NumberUtils
     }
 
     /**
-     * Converts an Object to a integer
+     * Converts an Object to a integer. If the object is a Number or String representation of
+     * Number containing decimal places, the decimal places will be truncated.
      *
      * @param object the object to be parsed
      * @return an integer number or null if the string is null or empty
@@ -77,7 +79,7 @@ public class NumberUtils
         }
         if (object instanceof String)
         {
-            return Integer.parseInt(object.toString());
+            return Integer.valueOf(Double.valueOf((String) object).intValue());
         }
         throw new IllegalArgumentException("parseInt() does not support " + object.getClass().getSimpleName());
     }

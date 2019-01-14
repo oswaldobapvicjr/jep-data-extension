@@ -59,7 +59,7 @@ public class JsonUtilsTest
     @Test
     public void testNullCheckForANullObject()
     {
-        assertTrue(JsonUtils.isNull(null));
+        assertTrue(JsonUtils.isEmpty(null));
     }
 
     /**
@@ -70,7 +70,18 @@ public class JsonUtilsTest
     @Test
     public void testNullCheckForAnEmptyJSON() throws JSONException
     {
-        assertTrue(JsonUtils.isNull(new JSONObject(STR_JSON_EMPTY)));
+        assertTrue(JsonUtils.isEmpty(new JSONObject(STR_JSON_EMPTY)));
+    }
+
+    /**
+     * Tests if the null check succeeds for an empty JSONArray
+     *
+     * @throws JSONException in case of exceptions handling the JSON array
+     */
+    @Test
+    public void testNullCheckForAnEmptyJSONArray() throws JSONException
+    {
+        assertTrue(JsonUtils.isEmpty(new JSONArray()));
     }
 
     /**
@@ -211,12 +222,24 @@ public class JsonUtilsTest
     }
 
     /**
-     * Tests return of one element from a JSONArray with one element
+     * Tests that a JSONObject is not modified when passed to convertToJsonObject()
      *
      * @throws JSONException in case of exceptions handling the JSON object
      */
     @Test
-    public void testReturnFromJSONArrayWithOneElement() throws JSONException
+    public void testConvertJSONObject() throws JSONException
+    {
+        JSONObject jsonObject = new JSONObject();
+        assertEquals(jsonObject, JsonUtils.convertToJSONObject(jsonObject));
+    }
+
+    /**
+     * Tests retrieval of one element from a JSONArray with one element
+     *
+     * @throws JSONException in case of exceptions handling the JSON object
+     */
+    @Test
+    public void testReturnSingleValueFromJSONArrayWithOneElement() throws JSONException
     {
         JSONArray jsonAarray = new JSONArray();
         jsonAarray.put(ENTRY_1);
@@ -226,12 +249,12 @@ public class JsonUtilsTest
     }
 
     /**
-     * Tests retrieve of a JSONArray from a JSONArray with multiple elements
+     * Tests retrieval of a JSONArray from a JSONArray with multiple elements
      *
      * @throws JSONException in case of exceptions handling the JSON object
      */
     @Test
-    public void testReturnFromJSONArrayWithMultipleElements() throws JSONException
+    public void testReturnSingleValueFromJSONArrayWithMultipleElements() throws JSONException
     {
         JSONArray jsonAarray = new JSONArray();
         jsonAarray.put(ENTRY_1);
@@ -239,6 +262,18 @@ public class JsonUtilsTest
         Object result = JsonUtils.getSingleValueFromJSONArray(jsonAarray);
         assertTrue(result instanceof JSONArray);
         assertEquals(jsonAarray, result);
+    }
+
+    /**
+     * Tests retrieve of a JSONArray returns the same element if the input is not a JSONArray
+     *
+     * @throws JSONException in case of exceptions handling the JSON object
+     */
+    @Test
+    public void testReturnSingleValueFromJSONArrayForSingleObject() throws JSONException
+    {
+        Object result = JsonUtils.getSingleValueFromJSONArray(ENTRY_1);
+        assertEquals(ENTRY_1, result);
     }
 
     /**
