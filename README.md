@@ -31,7 +31,7 @@ lower(string1)
 
 ### Normalize String
 
-Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. Example: `"ações"` is transformed into `"acoes"`. 
+Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. Example: `"aÃ§Ãµes"` is transformed into `"acoes"`. 
 
 ```java
 normalizeString(string1)
@@ -185,7 +185,6 @@ uuid()
 
 ## Utility functions
 
-
 ### Get Environment Variable
 
 Returns the value of an environment variable associated with the given key in the Operating System.
@@ -211,6 +210,16 @@ Returns the value of system property associated with the given key.
 ```java
 getSystemProperty("os.name")
 ```
+
+### Read file
+
+Returns the content of a text file in the file system.
+
+```java
+readFile("/tmp/data.json", "json", "alias")
+```
+
+> **Note:** Not yet implemented
 
 ---
 
