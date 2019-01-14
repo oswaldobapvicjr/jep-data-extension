@@ -216,7 +216,7 @@ getSystemProperty("os.name")
 Returns the content of a text file in the file system.
 
 ```java
-readFile("/tmp/data.json", "json", "alias")
+readFile("/tmp/data.json", "json")
 ```
 
 > **Note:** Not yet implemented
