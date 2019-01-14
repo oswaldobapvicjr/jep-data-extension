@@ -20,7 +20,7 @@ public class JEPContextFactory
 {
     private JEPContextFactory()
     {
-        throw new IllegalStateException("Utility class");
+        throw new IllegalStateException("No instances allowed");
     }
 
     /**
@@ -136,9 +136,12 @@ public class JEPContextFactory
     {
         if (jep == null) throw new IllegalArgumentException("A null JEP object was received");
 
-        if (contextMap == null) throw new IllegalArgumentException("A null context map was received");
-
-        for (Entry<String, Object> entry : contextMap.entrySet())
-            jep.addVariable(entry.getKey(), entry.getValue());
+        if (contextMap != null)
+        {
+            for (Entry<String, Object> entry : contextMap.entrySet())
+            {
+                jep.addVariable(entry.getKey(), entry.getValue());
+            }
+        }
     }
 }

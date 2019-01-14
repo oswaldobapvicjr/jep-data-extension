@@ -3,6 +3,9 @@ package net.obvj.jep;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +17,33 @@ import org.nfunk.jep.ParseException;
 
 public class JEPContextFactoryTest
 {
+
+    /**
+     * Tests that no instances of this factory are created
+     *
+     * @throws Exception in case of error getting constructor metadata or instantiating the
+     *                   private constructor via Reflection
+     */
+    @Test(expected = InvocationTargetException.class)
+    public void testNoInstancesAllowed() throws Exception
+    {
+        try
+        {
+            Constructor<JEPContextFactory> constructor = JEPContextFactory.class.getDeclaredConstructor();
+            assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
+
+            constructor.setAccessible(true);
+            constructor.newInstance();
+        }
+        catch (InvocationTargetException ite)
+        {
+            Throwable cause = ite.getCause();
+            assertEquals(IllegalStateException.class, cause.getClass());
+            assertEquals("No instances allowed", cause.getMessage());
+            throw ite;
+        }
+    }
+
     /**
      * Checks that all custom functions are available at JEP
      */
@@ -66,8 +96,8 @@ public class JEPContextFactoryTest
     }
 
     /**
-     * Tests the JEP context can evaluate an expression with the replace() function
-     * and a source variable
+     * Tests the JEP context can evaluate an expression with the replace() function and a
+     * source variable
      *
      * @throws ParseException
      */

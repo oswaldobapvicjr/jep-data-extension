@@ -138,8 +138,6 @@ public class NumberUtilsTest
         assertFalse(NumberUtils.isInteger(STRING_10_2));
     }
 
-    //////////
-
     /**
      * Tests the parseInt method with an integer parameter
      */
@@ -202,6 +200,70 @@ public class NumberUtilsTest
     public void testParseIntWithAStringRepresentationOfDoubleWithDecimalPlaces()
     {
         assertEquals(INT_10.intValue(), NumberUtils.parseInt(STRING_10_2));
+    }
+
+    /**
+     * Tests the isNumber method with an integer parameter
+     */
+    @Test
+    public void testIsNumber()
+    {
+        assertTrue(NumberUtils.isNumber(INT_10));
+    }
+
+    /**
+     * Tests the isNumber method with string representing an integer as parameter
+     */
+    @Test
+    public void testIsNumberWithStringRepresentingInteger()
+    {
+        assertTrue(NumberUtils.isNumber(STRING_10));
+    }
+
+    /**
+     * Tests the isNumber method with an empty string as parameter
+     */
+    @Test
+    public void testIsNumberWithEmptyString()
+    {
+        assertFalse(NumberUtils.isNumber(StringUtils.EMPTY));
+    }
+
+    /**
+     * Tests the isNumber method with a string that is not convertible
+     */
+    @Test
+    public void testIsNumberWithInvalidString()
+    {
+        assertFalse(NumberUtils.isNumber(STRING_A));
+    }
+
+    /**
+     * Tests the isNumber method with a Double object that contains no decimal places
+     */
+    @Test
+    public void testIsNumberWithADoubleObjectWithoutDecimalPlaces()
+    {
+        assertTrue(NumberUtils.isNumber(DOUBLE_10));
+    }
+
+    /**
+     * Tests the isNumber method with a Double object containing decimal places
+     */
+    @Test
+    public void testIsNumberWithADoubleObjectWithDecimalPlaces()
+    {
+        assertTrue(NumberUtils.isNumber(DOUBLE_10_2));
+    }
+
+    /**
+     * Tests the isNumber method with a String object representing a double containing decimal
+     * places
+     */
+    @Test
+    public void testIsNumberWithAStringRepresentationOfDoubleWithDecimalPlaces()
+    {
+        assertTrue(NumberUtils.isNumber(STRING_10_2));
     }
 
 }
