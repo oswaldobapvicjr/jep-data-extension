@@ -26,7 +26,7 @@ public class PlaceholderUtils
 
     /**
      * Attempts to match the entire region against the pattern.
-     *
+     * 
      * @param string  The string to attempt the match.
      * @param pattern The pattern to use.
      *
@@ -37,7 +37,7 @@ public class PlaceholderUtils
         if (StringUtils.isEmpty(string)) return false;
 
         Matcher matcher = pattern.matcher(string);
-        return matcher.matches();
+        return matcher.find();
     }
 
     /**

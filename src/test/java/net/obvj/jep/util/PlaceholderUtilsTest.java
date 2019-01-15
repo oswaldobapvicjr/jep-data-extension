@@ -5,14 +5,14 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 public class PlaceholderUtilsTest
 {
+    private static final String STR_EMPTY = StringUtils.EMPTY;
     private static final String STRING_NO_PLACEHOLDER = "$..book[?(@.price<10)]";
     private static final String STRING_ONE_PLACEHOLDER = "$..book[?(@.price<${myPrice})]";
     private static final String STRING_TWO_PLACEHOLDERS = "$..book[?(@.price<${myPrice}&&@.category=='${myCategory}')]";
@@ -112,6 +112,66 @@ public class PlaceholderUtilsTest
     {
         String newString = PlaceholderUtils.replacePlaceholders(STRING_TWO_PLACEHOLDERS, VARIABLES_MAP);
         assertEquals(EXPECTED_STRING_TWO_PLACEHOLDERS, newString);
+    }
+
+    @Test
+    public void testMatchesForAPatternAndStringContainingOneMatch()
+    {
+        assertTrue(PlaceholderUtils.matches("${var}", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testMatchesForAPatternAndStringContainingNoMatch()
+    {
+        assertFalse(PlaceholderUtils.matches("var", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testMatchesForAPatternAndNullString()
+    {
+        assertFalse(PlaceholderUtils.matches(null, PlaceholderUtils.PATTERN_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testMatchesForAPatternAndEmptyString()
+    {
+        assertFalse(PlaceholderUtils.matches(STR_EMPTY, PlaceholderUtils.PATTERN_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testFindMatchesForAPatternAndStringContainingOneMatch()
+    {
+        assertEquals("test", PlaceholderUtils.findMatches("${test}", PlaceholderUtils.PATTERN_VARIABLE_NAME).get(0));
+    }
+
+    @Test
+    public void testFindMatchesForAPatternAndStringContainingNoMatch()
+    {
+        assertEquals(0, PlaceholderUtils.findMatches("test", PlaceholderUtils.PATTERN_VARIABLE_NAME).size());
+    }
+
+    @Test
+    public void testFindMatchesForAPatternAndAnEmptyString()
+    {
+        assertEquals(0, PlaceholderUtils.findMatches(STR_EMPTY, PlaceholderUtils.PATTERN_VARIABLE_NAME).size());
+    }
+
+    @Test
+    public void testFindMatchForAPatternAndStringContainingOneMatch()
+    {
+        assertEquals("test", PlaceholderUtils.findMatch("${test}", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testFindMatchForAPatternAndStringContainingNoMatch()
+    {
+        assertEquals(STR_EMPTY, PlaceholderUtils.findMatch("test", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testFindMatchForAPatternAndAnEmptyString()
+    {
+        assertEquals(STR_EMPTY, PlaceholderUtils.findMatch(STR_EMPTY, PlaceholderUtils.PATTERN_VARIABLE_NAME));
     }
 
 }
