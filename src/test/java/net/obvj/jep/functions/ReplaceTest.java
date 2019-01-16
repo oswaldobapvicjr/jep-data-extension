@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Replace} function
@@ -31,7 +31,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithTwoReplacements() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(FEE_BEE, EE, OO);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, EE, OO);
         function.run(parameters);
         assertEquals(FOO_BOO, parameters.pop());
     }
@@ -42,7 +42,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithNullString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(null, EE, OO);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, EE, OO);
         function.run(parameters);
         assertNull(parameters.pop());
     }
@@ -53,7 +53,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithEmptyString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY, EE, OO);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY, EE, OO);
         function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
@@ -64,7 +64,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithNullSearchCriteria() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(FEE_BEE, null, OO);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, null, OO);
         function.run(parameters);
         assertEquals(FEE_BEE, parameters.pop());
     }
@@ -75,7 +75,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithEmptySearchCriteria() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(FEE_BEE, StringUtils.EMPTY, OO);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, StringUtils.EMPTY, OO);
         function.run(parameters);
         assertEquals(FEE_BEE, parameters.pop());
     }
@@ -86,7 +86,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithNullReplacement() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(FEE_BEE, EE, null);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, EE, null);
         function.run(parameters);
         assertEquals(F_B, parameters.pop());
     }
@@ -97,7 +97,7 @@ public class ReplaceTest
     @Test
     public void testReplaceWithEmptyReplacement() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(FEE_BEE, EE, StringUtils.EMPTY);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, EE, StringUtils.EMPTY);
         function.run(parameters);
         assertEquals(F_B, parameters.pop());
     }

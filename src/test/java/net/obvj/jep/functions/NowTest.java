@@ -8,7 +8,7 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Now} function
@@ -26,7 +26,7 @@ public class NowTest
     public void testThatFunctionReturnsDate() throws ParseException
     {
         Now function = new Now();
-        Stack<Object> stack = StackUtils.newParametersStack();
+        Stack<Object> stack = CollectionsUtils.newParametersStack();
         function.run(stack);
         assertEquals(Date.class, stack.pop().getClass());
     }

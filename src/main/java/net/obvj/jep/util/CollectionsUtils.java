@@ -3,6 +3,7 @@ package net.obvj.jep.util;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -65,4 +66,21 @@ public class CollectionsUtils
 
         return Collections.singletonList(object);
     }
+
+    /**
+     * Produces a Stack to be processed by JEP functions.
+     *
+     * @param parameters the parameters to populate the stack
+     * @return a Stack with the given parameters.
+     */
+    public static Stack<Object> newParametersStack(Object... parameters)
+    {
+        Stack<Object> stack = new Stack<>();
+        for (Object param : parameters)
+        {
+            stack.push(param);
+        }
+        return stack;
+    }
+
 }

@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link DateToString} function
@@ -52,7 +52,7 @@ public class DateToStringTest
     public void testFormatDateNullDate() throws ParseException
     {
         exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = StackUtils.newParametersStack(null, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
         function.run(parameters);
     }
 
@@ -63,7 +63,7 @@ public class DateToStringTest
     public void testFormatDateNullFormat() throws ParseException
     {
         exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = StackUtils.newParametersStack(DATE, null);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(DATE, null);
         function.run(parameters);
     }
 
@@ -73,7 +73,7 @@ public class DateToStringTest
     @Test
     public void testFormatDateIsoExtendedDateTimeFormatWithTimeZone() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(DATE, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(DATE, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
         function.run(parameters);
         assertEquals(EXPECTED_STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, parameters.pop());
     }
@@ -84,7 +84,7 @@ public class DateToStringTest
     @Test
     public void testFormatDateIsoFullDateTimeFormatWithTimeZone() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(DATE, ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(DATE, ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE);
         function.run(parameters);
         assertEquals(EXPECTED_STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE, parameters.pop());
     }

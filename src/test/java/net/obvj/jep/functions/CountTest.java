@@ -10,7 +10,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Count} function
@@ -54,7 +54,7 @@ public class CountTest
     @Test
     public void testCountOfList() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_1);
         function.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_ARRAY_1, parameters.pop());
     }
@@ -65,7 +65,7 @@ public class CountTest
     @Test
     public void testCountOfJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_ARRAY_1);
         function.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_ARRAY_1, parameters.pop());
     }
@@ -76,7 +76,7 @@ public class CountTest
     @Test
     public void testCountOfStringRepresentationOfJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STRING_JSON_ARRAY_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_JSON_ARRAY_1);
         function.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_ARRAY_1, parameters.pop());
     }
@@ -88,7 +88,7 @@ public class CountTest
     public void testCountOfNullObject() throws ParseException
     {
         Object nullObject = null;
-        Stack<Object> parameters = StackUtils.newParametersStack(nullObject);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(nullObject);
         function.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_NULL, parameters.pop());
     }
@@ -99,7 +99,7 @@ public class CountTest
     @Test
     public void testCountOfString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STRING_A);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_A);
         function.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_SINGLE_ELEMENT, parameters.pop());
     }
@@ -110,7 +110,7 @@ public class CountTest
     @Test
     public void testCountOfInt() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(INT_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(INT_1);
         function.run(parameters);
         assertEquals(EXPECTED_COUNT_FOR_SINGLE_ELEMENT, parameters.pop());
     }

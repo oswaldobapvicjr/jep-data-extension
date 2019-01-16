@@ -7,7 +7,7 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link SystemPropertyReader} function
@@ -28,7 +28,7 @@ public class SystemPropertyReaderTest
     @Test
     public void testGetSystemProperty() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(KEY_OS_NAME);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(KEY_OS_NAME);
         function.run(parameters);
         assertEquals(EXPECTED_OS_NAME, parameters.pop());
     }

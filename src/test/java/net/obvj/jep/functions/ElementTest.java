@@ -11,7 +11,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Element} function
@@ -38,7 +38,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(ARRAY1, 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(ARRAY1, 0);
         function.run(parameters);
         assertEquals(STR_VALUE1, parameters.pop());
     }
@@ -51,7 +51,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfAVector() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(new Vector<>(LIST1), 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(new Vector<>(LIST1), 0);
         function.run(parameters);
         assertEquals(STR_VALUE1, parameters.pop());
     }
@@ -64,7 +64,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfAList() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST1, 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, 0);
         function.run(parameters);
         assertEquals(STR_VALUE1, parameters.pop());
     }
@@ -77,7 +77,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfAJSONArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY1, 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_ARRAY1, 0);
         function.run(parameters);
         assertEquals(STR_VALUE1, parameters.pop());
     }
@@ -90,7 +90,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfAJSONArrayString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STR_JSON_ARRAY1, 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_JSON_ARRAY1, 0);
         function.run(parameters);
         assertEquals(STR_VALUE1, parameters.pop());
     }
@@ -103,7 +103,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfAString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STR_VALUE1, 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_VALUE1, 0);
         function.run(parameters);
         assertEquals(STR_VALUE1, parameters.pop());
     }
@@ -116,7 +116,7 @@ public class ElementTest
     @Test
     public void testGetFirstElementOfANullObject() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(null, 0);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, 0);
         function.run(parameters);
         assertNull(parameters.pop());
     }

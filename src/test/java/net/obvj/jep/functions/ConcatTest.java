@@ -7,7 +7,7 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Concat} function
@@ -27,7 +27,7 @@ public class ConcatTest
     @Test
     public void testConcatenateStringAndInt() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STRING_A, INT_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_A, INT_1);
         function.run(parameters);
         assertEquals("A10", parameters.pop());
     }

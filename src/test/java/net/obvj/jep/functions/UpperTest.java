@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Upper} function
@@ -29,7 +29,7 @@ public class UpperTest
     @Test
     public void testUpperCaseWithValidString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STRING_ABC);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_ABC);
         function.run(parameters);
         assertEquals(EXPECTED_RESULT_STRING_ABC, parameters.pop());
     }
@@ -52,7 +52,7 @@ public class UpperTest
     @Test
     public void testUpperCaseWithEmptyString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY);
         function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link NormalizeString} function
@@ -30,7 +30,7 @@ public class NormalizeStringTest
     @Test
     public void testNormalizePortugueseCharacters() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STRING_UNICODE_PORTUGUESE_CHARACTERS);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_UNICODE_PORTUGUESE_CHARACTERS);
         function.run(parameters);
         assertEquals(STRING_ASCII_PORTUGUESE, parameters.pop());
     }
@@ -43,7 +43,7 @@ public class NormalizeStringTest
     @Test
     public void testNormalizeEmptyString() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(StringUtils.EMPTY);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY);
         function.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
@@ -57,7 +57,7 @@ public class NormalizeStringTest
     public void testNormalizeNullString() throws ParseException
     {
         String nullString = null;
-        Stack<Object> parameters = StackUtils.newParametersStack(nullString);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(nullString);
         function.run(parameters);
         assertNull(parameters.pop());
     }

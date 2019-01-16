@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.StackUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Min} function
@@ -81,7 +81,7 @@ public class MinTest
     @Test
     public void testMinDoubleFromList() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST_DOUBLES);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_DOUBLES);
         function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
@@ -94,7 +94,7 @@ public class MinTest
     @Test
     public void testMinDoubleFromJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_DOUBLES);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_ARRAY_DOUBLES);
         function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
@@ -121,7 +121,7 @@ public class MinTest
     @Test
     public void testMinStringNumberFromList() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST_STRING_NUMBERS);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_STRING_NUMBERS);
         function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
@@ -134,7 +134,7 @@ public class MinTest
     @Test
     public void testMinStringNumberFromJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STR_JSON_ARRAY_STRING_NUMBERS);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_JSON_ARRAY_STRING_NUMBERS);
         function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
@@ -148,7 +148,7 @@ public class MinTest
     @Test
     public void testMinStringNumberFromStringRepresentationJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STRING_NUMBERS);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_ARRAY_STRING_NUMBERS);
         function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
@@ -162,7 +162,7 @@ public class MinTest
     public void testMinOfNullObject() throws ParseException
     {
         Object nullObject = null;
-        Stack<Object> parameters = StackUtils.newParametersStack(nullObject);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(nullObject);
         function.run(parameters);
         assertNull(parameters.pop());
     }
@@ -175,7 +175,7 @@ public class MinTest
     @Test
     public void testMinOfSingleElementDouble() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(DOUBLE_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(DOUBLE_1);
         function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
@@ -188,7 +188,7 @@ public class MinTest
     @Test
     public void testMinOfSingleElementStringNumber() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STRING_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_1);
         function.run(parameters);
         assertEquals(STRING_1, parameters.pop());
     }
@@ -218,7 +218,7 @@ public class MinTest
     @Test
     public void testMinOfListWithOneElementDouble() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(Arrays.asList(DOUBLE_1));
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(Arrays.asList(DOUBLE_1));
         function.run(parameters);
         assertEquals(DOUBLE_1, parameters.pop());
     }
@@ -231,7 +231,7 @@ public class MinTest
     @Test
     public void testMinDateFromList() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST_DATES);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_DATES);
         function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
@@ -244,7 +244,7 @@ public class MinTest
     @Test
     public void testMinDateFromJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_DATES);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_ARRAY_DATES);
         function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
@@ -257,7 +257,7 @@ public class MinTest
     @Test
     public void testMinOfSingleElementDate() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(DATE_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(DATE_1);
         function.run(parameters);
         assertEquals(DATE_1, parameters.pop());
     }
@@ -270,7 +270,7 @@ public class MinTest
     @Test
     public void testMinStringDateFromList() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST_STR_DATES);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_STR_DATES);
         function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
@@ -283,7 +283,7 @@ public class MinTest
     @Test
     public void testMinStringDateFromJsonArray() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(JSON_ARRAY_STR_DATES);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_ARRAY_STR_DATES);
         function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
@@ -296,7 +296,7 @@ public class MinTest
     @Test
     public void testMinOfSingleElementStringDate() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(STR_DATE_1);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1);
         function.run(parameters);
         assertEquals(STR_DATE_1, parameters.pop());
     }
@@ -309,7 +309,7 @@ public class MinTest
     @Test
     public void testMinElementForListOfDifferentTypes() throws ParseException
     {
-        Stack<Object> parameters = StackUtils.newParametersStack(LIST_DATE_AND_NUMBER);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_DATE_AND_NUMBER);
         exception.expect(IllegalArgumentException.class);
         function.run(parameters);
     }
