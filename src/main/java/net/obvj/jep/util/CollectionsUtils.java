@@ -21,11 +21,16 @@ public class CollectionsUtils
     }
 
     /**
-     * Parses the given {@code pSourceObject} into a {@code List}. The object may be either an
-     * array, or an instance of {@code List} or {@code JSONArray}. An object is converted into
-     * a singleton list. If a null or empty object is received, an empty list is returned.
+     * Converts the given object into a {@code List}.
+     * <p>
+     * If the source {@code object} is either an array of Objects (primitive types not
+     * supported) or a {@code JSONArray}, it will return a List backed by the specified array.
+     * If a non-null Object is received (not a {@code List} or {@code JSONArray}), a singleton
+     * list will be returned (containing only the specified object). If a null or empty object
+     * is received, then an empty list will be returned. If the input is already a
+     * {@code List}, the same object will be returned.
      *
-     * @param object the source object to be parsed into a {@code List}.
+     * @param object the source object to be parsed into a {@code List}
      * @return a {@code List} object
      */
     public static List<Object> asList(Object object)

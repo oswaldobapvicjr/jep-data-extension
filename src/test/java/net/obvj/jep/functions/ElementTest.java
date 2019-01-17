@@ -129,7 +129,7 @@ public class ElementTest
     @Test(expected = IllegalArgumentException.class)
     public void testMathrixIndexParameterNotSupported() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, new int[] { 1, 2 });
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, new Integer[] { 1, 2 });
         function.run(parameters);
         assertNull(parameters.pop());
     }

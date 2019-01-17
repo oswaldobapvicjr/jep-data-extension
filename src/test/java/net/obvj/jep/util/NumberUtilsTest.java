@@ -175,6 +175,24 @@ public class NumberUtilsTest
     }
 
     /**
+     * Tests the parseInt method with an unsupported object as parameter
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testParseIntWithUnsupportedObject()
+    {
+        NumberUtils.parseInt(new Object());
+    }
+
+    /**
+     * Tests the parseInt method with a null object as parameter
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testParseIntWithNullObject()
+    {
+        NumberUtils.parseInt(null);
+    }
+
+    /**
      * Tests the isInteger method with a Double object that contains no decimal places
      */
     @Test
@@ -264,6 +282,24 @@ public class NumberUtilsTest
     public void testIsNumberWithAStringRepresentationOfDoubleWithDecimalPlaces()
     {
         assertTrue(NumberUtils.isNumber(STRING_10_2));
+    }
+
+    /**
+     * Tests the parseDouble method with an unsupported object as parameter
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testParseDoubleWithUnsupportedObject()
+    {
+        NumberUtils.parseDouble(new Object());
+    }
+
+    /**
+     * Tests the parseDouble method with a null object as parameter
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testParseDoubleWithNullObject()
+    {
+        NumberUtils.parseDouble(null);
     }
 
 }

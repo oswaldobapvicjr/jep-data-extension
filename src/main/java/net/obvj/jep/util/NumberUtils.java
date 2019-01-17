@@ -67,9 +67,7 @@ public class NumberUtils
      *
      * @param object the object to be parsed
      * @return an integer number or null if the string is null or empty
-     * @throws NumberFormatException    if the object is a string that does not contain a
-     *                                  parsable integer.
-     * @throws IllegalArgumentException if the object can not be converted into double.
+     * @throws NumberFormatException if the object cannot be converted into integer
      */
     public static int parseInt(Object object)
     {
@@ -81,7 +79,8 @@ public class NumberUtils
         {
             return Integer.valueOf(Double.valueOf((String) object).intValue());
         }
-        throw new IllegalArgumentException("parseInt() does not support " + object.getClass().getSimpleName());
+        throw new NumberFormatException(
+                "parseInt() does not support " + (object == null ? "null" : object.getClass().getSimpleName()));
     }
 
     /**
@@ -89,9 +88,7 @@ public class NumberUtils
      *
      * @param object the object to be parsed
      * @return the integer value or null if the string is null or empty
-     * @throws NumberFormatException    if the object is a string that does not contain a
-     *                                  parsable double.
-     * @throws IllegalArgumentException if the object can not be converted into double.
+     * @throws NumberFormatException if the object can not be converted into double
      */
     public static double parseDouble(Object object)
     {
@@ -103,7 +100,8 @@ public class NumberUtils
         {
             return Double.parseDouble(object.toString());
         }
-        throw new IllegalArgumentException("parseDouble() does not support " + object.getClass().getSimpleName());
+        throw new NumberFormatException(
+                "parseDouble() does not support " + (object == null ? "null" : object.getClass().getSimpleName()));
     }
 
     /**
