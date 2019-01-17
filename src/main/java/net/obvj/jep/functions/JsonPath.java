@@ -19,9 +19,11 @@ import net.obvj.jep.util.JsonUtils;
  */
 public class JsonPath extends PostfixMathCommand
 {
-    protected static final String ERROR_JSON_OBJECT_NOT_FOUND = "JSON object not found: %s";
-    protected static final String ERROR_NO_RESULTS_FOR_PATH = "No results for path: %s";
-    protected static final String ERROR_INVALID_JSONPATH = "Invalid JSONPath: %s";
+    private static final String ERROR_JSON_PATH_ARGUMENT_MISSING = "JSONPath argument missing";
+    private static final String ERROR_JSON_OBJECT_NOT_FOUND = "JSON object not found: %s";
+    private static final String ERROR_NO_RESULTS_FOR_PATH = "No results for path: %s";
+    private static final String ERROR_INVALID_JSONPATH = "Invalid JSONPath: %s";
+    private static final String ERROR_INVALID_JSON = "Invalid JSON";
 
     /**
      * Builds this function with two parameters
@@ -42,7 +44,7 @@ public class JsonPath extends PostfixMathCommand
         Object jsonPathArg = stack.peek();
         if (jsonPathArg == null || jsonPathArg.toString().isEmpty())
         {
-            throw new IllegalArgumentException("JSONPath argument missing");
+            throw new IllegalArgumentException(ERROR_JSON_PATH_ARGUMENT_MISSING);
         }
 
         String jsonPathString = stack.pop().toString();
@@ -68,7 +70,7 @@ public class JsonPath extends PostfixMathCommand
         }
         catch (JSONException jsonException)
         {
-            throw new IllegalArgumentException("Invalid JSON", jsonException);
+            throw new IllegalArgumentException(ERROR_INVALID_JSON, jsonException);
         }
         catch (PathNotFoundException pathNotFoundException)
         {

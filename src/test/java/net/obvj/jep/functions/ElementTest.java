@@ -121,4 +121,17 @@ public class ElementTest
         assertNull(parameters.pop());
     }
 
+    /**
+     * Tests that an exception is thrown if more than one index is passed as parameter
+     *
+     * @throws ParseException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testMathrixIndexParameterNotSupported() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, new int[] { 1, 2 });
+        function.run(parameters);
+        assertNull(parameters.pop());
+    }
+
 }

@@ -39,27 +39,23 @@ public class Element extends PostfixMathCommand
     }
 
     /**
-     * Extracts the index parameter from JEP's evaluation vector
+     * Extracts the index parameter from JEP's evaluation vector.
      *
      * @param object the object containing the index parameter for the element operation
      * @return the index to be searched in the left side of the operator
      */
-    protected int getIndexParameter(Object object)
+    private int getIndexParameter(Object object)
     {
-        if (object instanceof List<?>)
+        List<?> list = CollectionsUtils.asList(object);
+        if (list.isEmpty())
         {
-            List<?> list = (List<?>) object;
-            if (list.isEmpty())
-            {
-                throw new IllegalArgumentException("No index specified");
-            }
-            if (list.size() > 1)
-            {
-                throw new IllegalArgumentException("Only single-dimension arrays/collections supported");
-            }
-            return NumberUtils.parseInt(list.get(0));
+            throw new IllegalArgumentException("No index specified");
         }
-        return NumberUtils.parseInt(object);
+        if (list.size() > 1)
+        {
+            throw new IllegalArgumentException("Only single-dimension arrays/collections supported");
+        }
+        return NumberUtils.parseInt(list.get(0));
     }
 
     private Object getElement(Object leftSide, int index)

@@ -17,22 +17,22 @@ import org.junit.Test;
 public class DateUtilsTest
 {
     // Test data
-    public static final int YEAR = 2017;
-    public static final int MONTH = Calendar.MARCH;
-    public static final int DATE = 11;
-    public static final int HOUR = 13;
-    public static final int MINUTE = 15;
-    public static final int SECOND = 0;
-    public static final int MILLIS = 999;
+    private static final int YEAR = 2017;
+    private static final int MONTH = Calendar.MARCH;
+    private static final int DATE = 11;
+    private static final int HOUR = 13;
+    private static final int MINUTE = 15;
+    private static final int SECOND = 0;
+    private static final int MILLIS = 999;
 
-    public static final String STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
-    public static final String YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-    public static final String STR_DATE_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
+    private static final String STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
+    private static final String YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+    private static final String STR_DATE_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
 
     public static final Instant INSTANT_DATE_2017_03_11_13_15_00_999 = Instant
             .parse(STR_DATE_2017_03_11_13_15_00_999_Z);
 
-    public static final Date DATE_2017_03_11_13_15_00_999;
+    private static final Date DATE_2017_03_11_13_15_00_999;
 
     static
     {
