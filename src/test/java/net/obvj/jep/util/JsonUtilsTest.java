@@ -1,13 +1,11 @@
 package net.obvj.jep.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,10 +20,74 @@ import com.jayway.jsonpath.InvalidPathException;
 public class JsonUtilsTest
 {
     private static final String STR_JSON_EMPTY = "{}";
-    private static final String ENTRY_1 = "1";
-    private static final String ENTRY_2 = "2";
-    private static final String JSONPATH_VALID = "$.partyNames[0]";
-    private static final String JSONPATH_INVALID = ".partyNames[0";
+
+    private static final String STR_ENTRY_1 = "1";
+    private static final String STR_ENTRY_2 = "2";
+
+    private static final String JSONPATH_VALID = "$.array[0]";
+    private static final String JSONPATH_INVALID = ".array[0";
+
+    private static final String STR_JSON_STORE = "{\r\n"
+            + "   \"store\" : {\r\n"
+            + "      \"book\" : [\r\n"
+            + "         {\r\n"
+            + "            \"category\" : \"reference\",\r\n"
+            + "            \"author\" : \"Nigel Rees\",\r\n"
+            + "            \"title\" : \"Sayings of the Century\",\r\n"
+            + "            \"price\" : 8.95\r\n"
+            + "         },\r\n"
+            + "         {\r\n"
+            + "            \"category\" : \"fiction\",\r\n"
+            + "            \"author\" : \"Evelyn Waugh\",\r\n"
+            + "            \"title\" : \"Sword of Honour\",\r\n"
+            + "            \"price\" : 12.99\r\n"
+            + "         },\r\n"
+            + "         {\r\n"
+            + "            \"category\" : \"fiction\",\r\n"
+            + "            \"author\" : \"Herman Melville\",\r\n"
+            + "            \"title\" : \"Moby Dick\",\r\n"
+            + "            \"isbn\" : \"0-553-21311-3\",\r\n"
+            + "            \"price\" : 8.99\r\n"
+            + "         },\r\n"
+            + "         {\r\n"
+            + "            \"category\" : \"fiction\",\r\n"
+            + "            \"author\" : \"J. R. R. Tolkien\",\r\n"
+            + "            \"title\" : \"The Lord of the Rings\",\r\n"
+            + "            \"isbn\" : \"0-395-19395-8\",\r\n"
+            + "            \"price\" : 22.99\r\n"
+            + "         }\r\n"
+            + "      ],\r\n"
+            + "      \"bicycle\" : {\r\n"
+            + "         \"color\" : \"red\",\r\n"
+            + "         \"price\" : 19.95\r\n"
+            + "      }\r\n"
+            + "   },\r\n"
+            + "   \"expensive\" : 10\r\n"
+            + "}";
+
+    private static JSONObject JSON_STORE;
+
+    private static final String STR_BOOK_SWORD = "Sword of Honour";
+    private static final String STR_BOOK_MOBY = "Moby Dick";
+    private static final String STR_BOOK_LORD = "The Lord of the Rings";
+
+    private static final String JSONPATH_SEARCH_ALL_FICTION_BOOKS = "$..[?(@.category=='fiction')].title";
+    private static final String JSONPATH_SEARCH_CHEAP_FICTION_BOOKS = "$..[?(@.category=='fiction' && @.price < $.expensive)].title";
+
+    private static final List<String> ALL_FICTION_BOOKS = Arrays.asList(STR_BOOK_SWORD, STR_BOOK_MOBY, STR_BOOK_LORD);
+    private static final List<String> CHEAP_FICTION_BOOKS = Arrays.asList(STR_BOOK_MOBY);
+
+    static
+    {
+        try
+        {
+            JSON_STORE = new JSONObject(STR_JSON_STORE);
+        }
+        catch (JSONException e)
+        {
+            fail("Unable to create test data. Please review the test class");
+        }
+    }
 
     /**
      * Tests that no instances of this utility class are created
@@ -93,8 +155,8 @@ public class JsonUtilsTest
     public void testConvertJSONArrayToList()
     {
         JSONArray jsonArray = new JSONArray();
-        jsonArray.put(ENTRY_1);
-        jsonArray.put(ENTRY_2);
+        jsonArray.put(STR_ENTRY_1);
+        jsonArray.put(STR_ENTRY_2);
         List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
         assertEquals(jsonArray.length(), convertedList.size());
     }
@@ -108,10 +170,10 @@ public class JsonUtilsTest
     public void testConvertJSONArrayWithInnerJSONArray()
     {
         JSONArray jsonArray1 = new JSONArray();
-        jsonArray1.put(ENTRY_1);
-        jsonArray1.put(ENTRY_2);
+        jsonArray1.put(STR_ENTRY_1);
+        jsonArray1.put(STR_ENTRY_2);
         JSONArray jsonArray2 = new JSONArray();
-        jsonArray2.put(ENTRY_1);
+        jsonArray2.put(STR_ENTRY_1);
         jsonArray1.put(jsonArray2);
         List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray1);
         assertEquals(jsonArray1.length(), convertedList.size());
@@ -126,8 +188,8 @@ public class JsonUtilsTest
     public void testConvertJSONArrayWithInnerJSONObject() throws JSONException
     {
         JSONArray jsonArray = new JSONArray();
-        jsonArray.put(ENTRY_1);
-        jsonArray.put(ENTRY_2);
+        jsonArray.put(STR_ENTRY_1);
+        jsonArray.put(STR_ENTRY_2);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("testKey", "testValue");
         jsonArray.put(jsonObject);
@@ -242,10 +304,10 @@ public class JsonUtilsTest
     public void testReturnSingleValueFromJSONArrayWithOneElement() throws JSONException
     {
         JSONArray jsonAarray = new JSONArray();
-        jsonAarray.put(ENTRY_1);
+        jsonAarray.put(STR_ENTRY_1);
         Object result = JsonUtils.getSingleValueFromJSONArray(jsonAarray);
         assertTrue(result instanceof String);
-        assertEquals(ENTRY_1, result);
+        assertEquals(STR_ENTRY_1, result);
     }
 
     /**
@@ -257,8 +319,8 @@ public class JsonUtilsTest
     public void testReturnSingleValueFromJSONArrayWithMultipleElements() throws JSONException
     {
         JSONArray jsonAarray = new JSONArray();
-        jsonAarray.put(ENTRY_1);
-        jsonAarray.put(ENTRY_2);
+        jsonAarray.put(STR_ENTRY_1);
+        jsonAarray.put(STR_ENTRY_2);
         Object result = JsonUtils.getSingleValueFromJSONArray(jsonAarray);
         assertTrue(result instanceof JSONArray);
         assertEquals(jsonAarray, result);
@@ -272,8 +334,8 @@ public class JsonUtilsTest
     @Test
     public void testReturnSingleValueFromJSONArrayForSingleObject() throws JSONException
     {
-        Object result = JsonUtils.getSingleValueFromJSONArray(ENTRY_1);
-        assertEquals(ENTRY_1, result);
+        Object result = JsonUtils.getSingleValueFromJSONArray(STR_ENTRY_1);
+        assertEquals(STR_ENTRY_1, result);
     }
 
     /**
@@ -283,6 +345,61 @@ public class JsonUtilsTest
     public void testReadJsonPathForNullJson() throws JSONException
     {
         assertNull(JsonUtils.readJsonPath(null, StringUtils.EMPTY));
+    }
+
+    /**
+     * Tests retrieval of a JSONArray for a JSONPath that returns several objects with the
+     * "extractSinglElement" option disabled
+     *
+     * @throws JSONException in case of exceptions handling the JSON object
+     */
+    @Test
+    public void testReadJsonPathWithoutArrayExtractionDisabledForJsonPathThatReturnsAnArray() throws JSONException
+    {
+        JSONArray result = (JSONArray) JsonUtils.readJsonPath(JSON_STORE, JSONPATH_SEARCH_ALL_FICTION_BOOKS, false);
+        assertEquals(3, result.length());
+        assertTrue(CollectionsUtils.asList(result).containsAll(ALL_FICTION_BOOKS));
+    }
+
+    /**
+     * Tests retrieval of a JSONArray for a JSONPath that returns several objects with the
+     * "extractSinglElement" option disabled
+     *
+     * @throws JSONException in case of exceptions handling the JSON object
+     */
+    @Test
+    public void testReadJsonPathWithoutArrayExtractionEnabledForJsonPathThatReturnsAnArray() throws JSONException
+    {
+        JSONArray result = (JSONArray) JsonUtils.readJsonPath(JSON_STORE, JSONPATH_SEARCH_ALL_FICTION_BOOKS, true);
+        assertEquals(3, result.length());
+        assertTrue(CollectionsUtils.asList(result).containsAll(ALL_FICTION_BOOKS));
+    }
+
+    /**
+     * Tests retrieval of a JSONArray for a JSONPath that returns a single object with the
+     * "extractSinglElement" option disabled. The result shall be a singleton array.
+     *
+     * @throws JSONException in case of exceptions handling the JSON object
+     */
+    @Test
+    public void testReadJsonPathWithoutArrayExtractionDisabledForJsonPathThatReturnsASingleObject() throws JSONException
+    {
+        JSONArray result = (JSONArray) JsonUtils.readJsonPath(JSON_STORE, JSONPATH_SEARCH_CHEAP_FICTION_BOOKS, false);
+        assertEquals(1, result.length());
+        assertTrue(CollectionsUtils.asList(result).containsAll(CHEAP_FICTION_BOOKS));
+    }
+
+    /**
+     * Tests retrieval of a JSONArray for a JSONPath that returns a single object with the
+     * "extractSinglElement" option enabled. The result shall be a string.
+     *
+     * @throws JSONException in case of exceptions handling the JSON object
+     */
+    @Test
+    public void testReadJsonPathWithoutArrayExtractionEnabledForJsonPathThatReturnsASingleObject() throws JSONException
+    {
+        String result = (String) JsonUtils.readJsonPath(JSON_STORE, JSONPATH_SEARCH_CHEAP_FICTION_BOOKS, true);
+        assertEquals(STR_BOOK_MOBY, result);
     }
 
 }

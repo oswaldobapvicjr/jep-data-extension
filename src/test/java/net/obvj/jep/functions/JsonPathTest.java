@@ -3,6 +3,7 @@ package net.obvj.jep.functions;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -23,6 +24,7 @@ public class JsonPathTest
 {
     private static final String STRING_MOBILE_NUMBER = "+55 11 98765-4321";
     private static final String STRING_HOME_NUMBER = "+55 11 2345-6789";
+    private static final List<String> ALL_NUMBERS = Arrays.asList(STRING_MOBILE_NUMBER, STRING_HOME_NUMBER);
 
     private static final String JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER = "$.phoneNumbers[?(@.type=='mobile')].number";
     private static final String JSON_PATH_SEARCH_PHONE_NUMBERS = "$.phoneNumbers..number";
@@ -86,8 +88,7 @@ public class JsonPathTest
         function.run(parameters);
         List<Object> result = CollectionsUtils.asList(parameters.pop());
         assertEquals(2, result.size());
-        assertTrue("The mobile numbers was not returned", result.contains(STRING_MOBILE_NUMBER));
-        assertTrue("The home number was not returned", result.contains(STRING_HOME_NUMBER));
+        assertTrue("Not all expected numbers were returned", result.containsAll(ALL_NUMBERS));
     }
 
     /**
