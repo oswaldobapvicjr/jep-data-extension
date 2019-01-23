@@ -1,7 +1,9 @@
 package net.obvj.jep.functions;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,7 +12,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.JsonPath;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -21,8 +22,10 @@ import net.obvj.jep.util.CollectionsUtils;
 public class JsonPathTest
 {
     private static final String STRING_MOBILE_NUMBER = "+55 11 98765-4321";
+    private static final String STRING_HOME_NUMBER = "+55 11 2345-6789";
 
     private static final String JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER = "$.phoneNumbers[?(@.type=='mobile')].number";
+    private static final String JSON_PATH_SEARCH_PHONE_NUMBERS = "$.phoneNumbers..number";
     private static final String JSON_PATH_UNKNOWN_FIELD = "$.birthDate";
     private static final String JSON_PATH_NO_DATA = "$..birthDate";
     private static final String JSON_PATH_INVALID = "$.phoneNumber[0*@#.type";
@@ -43,7 +46,7 @@ public class JsonPathTest
             "    },\r\n" +
             "    {\r\n" +
             "      \"type\" : \"home\",\r\n" +
-            "      \"number\": \"+55 11 2345-6789\"\r\n" +
+            "      \"number\": \"" + STRING_HOME_NUMBER + "\"\r\n" +
             "    }\r\n" +
             "  ]\r\n" +
             "}";
@@ -59,16 +62,32 @@ public class JsonPathTest
     public ExpectedException exception = ExpectedException.none();
 
     /**
-     * Tests a valid expression for JSONPath command
+     * Tests a valid search expression for JSONPath command returning a single result
      *
      * @throws ParseException
      */
     @Test
-    public void testJSONPathCommandWithValidExpression() throws ParseException
+    public void testJSONPathCommandWithValidSearchExpressionSingleResult() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
         function.run(parameters);
         assertEquals(STRING_MOBILE_NUMBER, parameters.pop());
+    }
+
+    /**
+     * Tests a valid search expression for JSONPath command returning more than one result
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testJSONPathCommandWithValidSearchExpressionSeveralResults() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, JSON_PATH_SEARCH_PHONE_NUMBERS);
+        function.run(parameters);
+        List<Object> result = CollectionsUtils.asList(parameters.pop());
+        assertEquals(2, result.size());
+        assertTrue("The mobile numbers was not returned", result.contains(STRING_MOBILE_NUMBER));
+        assertTrue("The home number was not returned", result.contains(STRING_HOME_NUMBER));
     }
 
     /**
