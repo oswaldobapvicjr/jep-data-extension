@@ -20,6 +20,7 @@ import com.jayway.jsonpath.InvalidPathException;
 public class JsonUtilsTest
 {
     private static final String STR_JSON_EMPTY = "{}";
+    private static final String STR_JSON_ARRY_EMPTY = "[]";
 
     private static final String STR_ENTRY_1 = "1";
     private static final String STR_ENTRY_2 = "2";
@@ -116,32 +117,32 @@ public class JsonUtilsTest
     }
 
     /**
-     * Tests if the null check succeeds for a null object
+     * Tests if the empty check succeeds for a null object
      */
     @Test
-    public void testNullCheckForANullObject()
+    public void testEmptyCheckForANullObject()
     {
         assertTrue(JsonUtils.isEmpty(null));
     }
 
     /**
-     * Tests if the null check succeeds for an empty object
+     * Tests if the empty check succeeds for an empty object
      *
      * @throws JSONException in case of exceptions handling the JSON object
      */
     @Test
-    public void testNullCheckForAnEmptyJSON() throws JSONException
+    public void testEmptyCheckForAnEmptyJSON() throws JSONException
     {
         assertTrue(JsonUtils.isEmpty(new JSONObject(STR_JSON_EMPTY)));
     }
 
     /**
-     * Tests if the null check succeeds for an empty JSONArray
+     * Tests if the empty check succeeds for an empty JSONArray
      *
      * @throws JSONException in case of exceptions handling the JSON array
      */
     @Test
-    public void testNullCheckForAnEmptyJSONArray() throws JSONException
+    public void testEmptyCheckForAnEmptyJSONArray() throws JSONException
     {
         assertTrue(JsonUtils.isEmpty(new JSONArray()));
     }

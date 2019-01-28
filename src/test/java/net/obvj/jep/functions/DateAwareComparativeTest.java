@@ -155,4 +155,19 @@ public class DateAwareComparativeTest
         function.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
+
+    /**
+     * Tests execution with an unsupported operator code must behave similarly to JEP's
+     * standard comparator, returning false.
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testDateComparisonWithUnsupportedOperator() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1, STR_DATE_2);
+        DateAwareComparative function = new DateAwareComparative(10);
+        function.run(parameters);
+        assertEquals(FALSE, parameters.pop());
+    }
 }

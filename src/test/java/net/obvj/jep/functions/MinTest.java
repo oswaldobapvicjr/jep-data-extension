@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.junit.Rule;
 import org.junit.Test;
@@ -165,6 +166,17 @@ public class MinTest
         Stack<Object> parameters = CollectionsUtils.newParametersStack(nullObject);
         function.run(parameters);
         assertNull(parameters.pop());
+    }
+
+    /**
+     * Tests the minimum for an empty string returns the same string
+     */
+    @Test
+    public void testMinOfEmptyString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY);
+        function.run(parameters);
+        assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 
     /**

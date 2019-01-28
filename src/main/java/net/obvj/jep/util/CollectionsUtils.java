@@ -33,6 +33,7 @@ public class CollectionsUtils
      * @param object the source object to be parsed into a {@code List}
      * @return a {@code List} object
      */
+    @SuppressWarnings("unchecked")
     public static List<Object> asList(Object object)
     {
         if (object == null)
@@ -42,7 +43,10 @@ public class CollectionsUtils
 
         if (object instanceof List)
         {
-            return (List) object;
+            // We must support lists of any types
+            @SuppressWarnings("rawtypes")
+            List list = (List) object;
+            return list;
         }
 
         if (object instanceof JSONArray)
