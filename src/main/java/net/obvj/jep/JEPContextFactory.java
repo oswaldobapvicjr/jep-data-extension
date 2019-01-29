@@ -99,6 +99,7 @@ public class JEPContextFactory
         jep.addFunction("str2date", new DateToString());
 
         // Data manipulation functions
+        jep.addFunction("xpath", new XPath());
         jep.addFunction("jsonpath", new JsonPath());
 
         // Statistical functions

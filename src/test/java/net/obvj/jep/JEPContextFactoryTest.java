@@ -67,6 +67,7 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("str2date"));
 
         // Data manipulation
+        assertTrue(table.containsKey("xpath"));
         assertTrue(table.containsKey("jsonpath"));
 
         // Statistical

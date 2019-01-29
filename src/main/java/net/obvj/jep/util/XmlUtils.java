@@ -118,6 +118,29 @@ public class XmlUtils
     }
 
     /**
+     * Converts an object into an XML Document.
+     *
+     * @param object the object to be converted in to an XML Document
+     * @return the object as an XML Document
+     * @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     * @throws SAXException                 if any parse error occurs
+     * @throws IOException                  if the input string cannot be converted
+     */
+    public static Document convertToXML(Object object)
+            throws ParserConfigurationException, SAXException, IOException
+    {
+        if (object instanceof Document)
+        {
+            return (Document) object;
+        }
+        else if (object instanceof String)
+        {
+            return convertToXML((String) object);
+        }
+        throw new IllegalArgumentException("Input type " + object.getClass().getName() + " not supported.");
+    }
+
+    /**
      * Converts a String to an XML Document.
      *
      * @param xmlContent the object to be converted in to an XML Document

@@ -112,10 +112,8 @@ dblookup("dataSource1", "SELECT b.name FROM book b WHERE b.id = '247dc019'")
 Returns the evaluation result of the given XPath expression for the specified XML object.
 
 ```java
-xpath(xmlObject1, "//actor[@id<=3]")
+xpath(xmlObject1, "/bookstore/book[@category='fiction']/title/text()")
 ```
-
-> Note: Not yet implemented
 
 ### JSONPath
 

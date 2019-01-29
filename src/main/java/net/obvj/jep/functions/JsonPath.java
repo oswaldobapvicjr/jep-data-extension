@@ -48,18 +48,18 @@ public class JsonPath extends PostfixMathCommand
         }
 
         String jsonPathString = stack.pop().toString();
-        Object jsonVariableName = stack.pop();
-        stack.push(executeJsonPath(jsonPathString, jsonVariableName));
+        Object jsonVariable = stack.pop();
+        stack.push(executeJsonPath(jsonPathString, jsonVariable));
     }
 
-    private Object executeJsonPath(String jsonPathString, Object jsonVariableName)
+    private Object executeJsonPath(String jsonPathString, Object jsonVariable)
     {
         try
         {
-            JSONObject jsonObject = JsonUtils.convertToJSONObject(jsonVariableName);
+            JSONObject jsonObject = JsonUtils.convertToJSONObject(jsonVariable);
             if (JsonUtils.isEmpty(jsonObject))
             {
-                throw new IllegalArgumentException(String.format(ERROR_JSON_OBJECT_NOT_FOUND, jsonVariableName));
+                throw new IllegalArgumentException(String.format(ERROR_JSON_OBJECT_NOT_FOUND, jsonVariable));
             }
             Object result = JsonUtils.readJsonPath(jsonObject, jsonPathString, true);
             if (JsonUtils.isEmpty(result))
