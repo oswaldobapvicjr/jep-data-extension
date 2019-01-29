@@ -61,6 +61,25 @@ public class XmlUtils
     }
 
     /**
+     * Gets a list of values that matche the given JSONPath.
+     *
+     * @param xmlDocument the XML object to be queried
+     * @param expression  the XPath to be evaluated
+     * @return The value that matches the given XPath expression or {@code null} if the XML
+     *         Document is null.
+     * @throws XPathExpressionException     If the expression cannot be evaluated.
+     * @throws SAXException                 if any parse error occurs
+     * @throws IOException                  if the input string cannot be converted
+     * @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     */
+    public static NodeList evaluateXPath(String xmlContent, String expression)
+            throws XPathExpressionException, ParserConfigurationException, SAXException, IOException
+    {
+        Document xmlDocument = convertToXML(xmlContent);
+        return evaluateXPath(xmlDocument, expression);
+    }
+
+    /**
      * Gets a list of values that match the given JSONPath.
      *
      * @param xmlDocument the XML object to be queried
@@ -87,30 +106,10 @@ public class XmlUtils
      * @throws IOException                  if the input string cannot be converted
      * @throws ParserConfigurationException if a DocumentBuilder cannot be created
      */
-    public static NodeList evaluateXPath(String xmlContent, String expression)
+    public static List<Object> evaluateXPathAsObjectList(String xmlContent, String expression)
             throws XPathExpressionException, ParserConfigurationException, SAXException, IOException
     {
-        Document xmlDocument = convertToXML(xmlContent);
-        return evaluateXPath(xmlDocument, expression);
-    }
-
-    /**
-     * Gets a list of values that matche the given JSONPath.
-     *
-     * @param xmlDocument the XML object to be queried
-     * @param expression  the XPath to be evaluated
-     * @return The value that matches the given XPath expression or {@code null} if the XML
-     *         Document is null.
-     * @throws XPathExpressionException     If the expression cannot be evaluated.
-     * @throws SAXException                 if any parse error occurs
-     * @throws IOException                  if the input string cannot be converted
-     * @throws ParserConfigurationException if a DocumentBuilder cannot be created
-     */
-    public static List<Object> evaluateXPathAsObject(String xmlContent, String expression)
-            throws XPathExpressionException, ParserConfigurationException, SAXException, IOException
-    {
-        Document xmlDocument = convertToXML(xmlContent);
-        return asList(evaluateXPath(xmlDocument, expression));
+        return asList(evaluateXPath(xmlContent, expression));
     }
 
     public static List<Object> asList(NodeList n)
