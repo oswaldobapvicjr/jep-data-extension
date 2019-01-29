@@ -2,6 +2,10 @@ package net.obvj.jep.util;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.AbstractList;
+import java.util.Collections;
+import java.util.List;
+import java.util.RandomAccess;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -12,6 +16,8 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -41,7 +47,7 @@ public class XmlUtils
     }
 
     /**
-     * Gets a value that matches the given JSONPath.
+     * Gets a list of values that match the given JSONPath.
      *
      * @param xmlDocument the XML object to be queried
      * @param expression  the XPath to be evaluated
@@ -49,17 +55,28 @@ public class XmlUtils
      *         Document is null.
      * @throws XPathExpressionException If the expression cannot be evaluated.
      */
-    public static Object evaluateXPath(Document xmlDocument, String expression) throws XPathExpressionException
+    public static NodeList evaluateXPath(Document xmlDocument, String expression) throws XPathExpressionException
     {
-        if (xmlDocument == null)
-        {
-            return null;
-        }
-        return compileXPath(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+        return (NodeList) compileXPath(expression).evaluate(xmlDocument, XPathConstants.NODESET);
     }
 
     /**
-     * Gets a value that matches the given JSONPath.
+     * Gets a list of values that match the given JSONPath.
+     *
+     * @param xmlDocument the XML object to be queried
+     * @param expression  the XPath to be evaluated
+     * @return The value that matches the given XPath expression or {@code null} if the XML
+     *         Document is null.
+     * @throws XPathExpressionException If the expression cannot be evaluated.
+     */
+    public static List<Object> evaluateXPathAsObjectList(Document xmlDocument, String expression)
+            throws XPathExpressionException
+    {
+        return asList(evaluateXPath(xmlDocument, expression));
+    }
+
+    /**
+     * Gets a list of values that matche the given JSONPath.
      *
      * @param xmlDocument the XML object to be queried
      * @param expression  the XPath to be evaluated
@@ -70,11 +87,35 @@ public class XmlUtils
      * @throws IOException                  if the input string cannot be converted
      * @throws ParserConfigurationException if a DocumentBuilder cannot be created
      */
-    public static Object evaluateXPath(String xmlContent, String expression)
+    public static NodeList evaluateXPath(String xmlContent, String expression)
             throws XPathExpressionException, ParserConfigurationException, SAXException, IOException
     {
         Document xmlDocument = convertToXML(xmlContent);
         return evaluateXPath(xmlDocument, expression);
+    }
+
+    /**
+     * Gets a list of values that matche the given JSONPath.
+     *
+     * @param xmlDocument the XML object to be queried
+     * @param expression  the XPath to be evaluated
+     * @return The value that matches the given XPath expression or {@code null} if the XML
+     *         Document is null.
+     * @throws XPathExpressionException     If the expression cannot be evaluated.
+     * @throws SAXException                 if any parse error occurs
+     * @throws IOException                  if the input string cannot be converted
+     * @throws ParserConfigurationException if a DocumentBuilder cannot be created
+     */
+    public static List<Object> evaluateXPathAsObject(String xmlContent, String expression)
+            throws XPathExpressionException, ParserConfigurationException, SAXException, IOException
+    {
+        Document xmlDocument = convertToXML(xmlContent);
+        return asList(evaluateXPath(xmlDocument, expression));
+    }
+
+    public static List<Object> asList(NodeList n)
+    {
+        return n.getLength() == 0 ? Collections.emptyList() : new NodeListWrapper(n);
     }
 
     /**
@@ -94,4 +135,24 @@ public class XmlUtils
         return builder.parse(new InputSource(new StringReader(xmlContent)));
     }
 
+    private static final class NodeListWrapper extends AbstractList<Object> implements RandomAccess
+    {
+        private final NodeList list;
+
+        NodeListWrapper(NodeList list)
+        {
+            this.list = list;
+        }
+
+        public Object get(int index)
+        {
+            Node node = list.item(index);
+            return node.getNodeValue();
+        }
+
+        public int size()
+        {
+            return list.getLength();
+        }
+    }
 }

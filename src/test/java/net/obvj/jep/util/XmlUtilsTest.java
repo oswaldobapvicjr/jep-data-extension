@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpression;
@@ -23,8 +25,12 @@ public class XmlUtilsTest
 
     private static final String XPATH_ALL_BOOK_TITLES = "/bookstore/book/title/text()";
     private static final String XPATH_ALL_WEB_BOOK_TITLES = "/bookstore/book[@category='web']/title/text()";
+    private static final String XPATH_CHEAP_WEB_BOOK_TITLES = "/bookstore/book[@category='web'][price<40]/title/text()";
 
     private static final String XPATH_ALL_BOOK_TITLES_INVALID = "/bookstore/book/title/text(";
+
+    private static final List<String> ALL_BOOKS = Arrays.asList("Everyday Italian", "Harry Potter", "XQuery Kick Start", "Learning XML");
+    private static final List<String> ALL_WEB_BOOKS = Arrays.asList("XQuery Kick Start", "Learning XML");
 
     /**
      * Tests that no instances of this utility class are created
@@ -71,5 +77,32 @@ public class XmlUtilsTest
     {
         XPathExpression compiledXPath = XmlUtils.compileXPath(XPATH_ALL_BOOK_TITLES_INVALID);
         assertNotNull(compiledXPath);
+    }
+
+    @Test
+    public void testEvaluateXPathExpressionGetAllBookTitlesAsList() throws Exception
+    {
+        List<Object> result = XmlUtils.evaluateXPathAsObjectList(XmlUtils.convertToXML(STRING_XML_BOOKS),
+                XPATH_ALL_BOOK_TITLES);
+        assertEquals(ALL_BOOKS.size(), result.size());
+        assertTrue(result.containsAll(ALL_BOOKS));
+    }
+
+    @Test
+    public void testEvaluateXPathExpressionGetWebBookTitlesAsList() throws Exception
+    {
+        List<Object> result = XmlUtils.evaluateXPathAsObjectList(XmlUtils.convertToXML(STRING_XML_BOOKS),
+                XPATH_ALL_WEB_BOOK_TITLES);
+        assertEquals(ALL_WEB_BOOKS.size(), result.size());
+        assertTrue(result.containsAll(ALL_WEB_BOOKS));
+    }
+
+    @Test
+    public void testEvaluateXPathExpressionGetWebBookTitlesSingleResultAsList() throws Exception
+    {
+        List<Object> result = XmlUtils.evaluateXPathAsObjectList(XmlUtils.convertToXML(STRING_XML_BOOKS),
+                XPATH_CHEAP_WEB_BOOK_TITLES);
+        assertEquals(1, result.size());
+        assertTrue(result.contains("Learning XML"));
     }
 }
