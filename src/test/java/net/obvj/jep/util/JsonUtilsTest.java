@@ -20,7 +20,6 @@ import com.jayway.jsonpath.InvalidPathException;
 public class JsonUtilsTest
 {
     private static final String STR_JSON_EMPTY = "{}";
-    private static final String STR_JSON_ARRY_EMPTY = "[]";
 
     private static final String STR_ENTRY_1 = "1";
     private static final String STR_ENTRY_2 = "2";
