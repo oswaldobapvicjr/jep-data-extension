@@ -77,7 +77,7 @@ public class JsonUtils
      * Gets a value that matches the given JSONPath.
      *
      * @param json     a JSON object input data
-     * @param jsonPath the JSONPath to be validated
+     * @param jsonPath the JSONPath to be evaluated
      * @return The value that matches the given JSONPath string or {@code null} if no match
      *         was found or JSON is null.
      */
