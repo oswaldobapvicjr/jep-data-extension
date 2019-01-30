@@ -23,7 +23,8 @@ public class XPath extends PostfixMathCommand
     private static final String ERROR_XPATH_ARGUMENT_MISSING = "XPath argument missing";
     private static final String ERROR_NO_RESULTS_FOR_PATH = "No results for path: %s";
     private static final String ERROR_INVALID_XPATH = "Invalid XPath: %s";
-    private static final String ERROR_INVALID_XML = "Invalid XML";
+    private static final String ERROR_VARIABLE_NOT_FOUND = "XML object not found: %s";
+    private static final String ERROR_INVALID_XML = "Invalid XML: %s";
 
     /**
      * Builds this function with two parameters
@@ -49,6 +50,10 @@ public class XPath extends PostfixMathCommand
 
         String xPathString = stack.pop().toString();
         Object xmlVariable = stack.pop();
+        if (xmlVariable == null)
+        {
+            throw new IllegalArgumentException(String.format(ERROR_VARIABLE_NOT_FOUND, xmlVariable));
+        }
         stack.push(executeXPath(xPathString, xmlVariable));
     }
 
@@ -67,7 +72,7 @@ public class XPath extends PostfixMathCommand
         }
         catch (ParserConfigurationException | SAXException | IOException e)
         {
-            throw new IllegalArgumentException(ERROR_INVALID_XML, e);
+            throw new IllegalArgumentException(String.format(ERROR_INVALID_XML, e.getMessage()), e);
         }
         catch (XPathExpressionException e)
         {
