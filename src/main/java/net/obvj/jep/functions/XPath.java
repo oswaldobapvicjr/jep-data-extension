@@ -62,7 +62,7 @@ public class XPath extends PostfixMathCommand
         try
         {
             Document xmlDocument = XmlUtils.convertToXML(xmlVariable);
-            Object result = XmlUtils.evaluateXPath(xmlDocument, xPathString);
+            Object result = XmlUtils.evaluateXPathAsObjectList(xmlDocument, xPathString);
 
             if (result == null)
             {
