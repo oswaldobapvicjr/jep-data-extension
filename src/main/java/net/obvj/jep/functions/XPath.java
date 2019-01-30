@@ -21,7 +21,6 @@ import net.obvj.jep.util.XmlUtils;
 public class XPath extends PostfixMathCommand
 {
     private static final String ERROR_XPATH_ARGUMENT_MISSING = "XPath argument missing";
-    private static final String ERROR_NO_RESULTS_FOR_PATH = "No results for path: %s";
     private static final String ERROR_INVALID_XPATH = "Invalid XPath: %s";
     private static final String ERROR_VARIABLE_NOT_FOUND = "XML object not found: %s";
     private static final String ERROR_INVALID_XML = "Invalid XML: %s";
@@ -62,13 +61,7 @@ public class XPath extends PostfixMathCommand
         try
         {
             Document xmlDocument = XmlUtils.convertToXML(xmlVariable);
-            Object result = XmlUtils.evaluateXPathAsObjectList(xmlDocument, xPathString);
-
-            if (result == null)
-            {
-                throw new IllegalArgumentException(String.format(ERROR_NO_RESULTS_FOR_PATH, xPathString));
-            }
-            return result;
+            return XmlUtils.evaluateXPathAsObjectList(xmlDocument, xPathString);
         }
         catch (ParserConfigurationException | SAXException | IOException e)
         {

@@ -26,6 +26,7 @@ public class XmlUtilsTest
     private static final String XPATH_ALL_BOOK_TITLES = "/bookstore/book/title/text()";
     private static final String XPATH_ALL_WEB_BOOK_TITLES = "/bookstore/book[@category='web']/title/text()";
     private static final String XPATH_CHEAP_WEB_BOOK_TITLES = "/bookstore/book[@category='web'][price<40]/title/text()";
+    private static final String XPATH_FREE_BOOK_TITLES = "/bookstore/book[price=0]/title/text()";
 
     private static final String XPATH_ALL_BOOK_TITLES_INVALID = "/bookstore/book/title/text(";
 
@@ -104,5 +105,13 @@ public class XmlUtilsTest
                 XPATH_CHEAP_WEB_BOOK_TITLES);
         assertEquals(1, result.size());
         assertTrue(result.contains("Learning XML"));
+    }
+
+    @Test
+    public void testEvaluateXPathExpressionNoMatch() throws Exception
+    {
+        List<Object> result = XmlUtils.evaluateXPathAsObjectList(XmlUtils.convertToXML(STRING_XML_BOOKS),
+                XPATH_FREE_BOOK_TITLES);
+        assertEquals(0, result.size());
     }
 }
