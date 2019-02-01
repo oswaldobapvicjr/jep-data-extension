@@ -76,16 +76,16 @@ public class JsonUtils
     /**
      * Gets a value that matches the given JSONPath.
      *
-     * @param json     a JSON object input data
+     * @param json a JSON object input data
      * @param jsonPath the JSONPath to be evaluated
      * @return The value that matches the given JSONPath string or {@code null} if no match
-     *         was found or JSON is null.
+     * was found. If the JSON is empty or null, the same object will be returned.
      */
     public static Object readJsonPath(JSONObject json, String jsonPath)
     {
         if (isEmpty(json))
         {
-            return null;
+            return json;
         }
         return JsonPath.parse(json, JSON_PATH_CONFIGURATION).read(jsonPath);
     }
