@@ -37,9 +37,9 @@ public class XmlUtils
     /**
      * Compiles the given XPath expression.
      *
-     * @param expression the XPath expression to be validated
-     * @return a {@code XPathExpression} object for later evaluation
-     * @throws XPathExpressionException If the expression cannot be compiled
+     * @param expression the XPath expression to be compiled
+     * @return an {@code XPathExpression} object that can be used for further evaluation
+     * @throws XPathExpressionException if the expression cannot be compiled
      */
     public static XPathExpression compileXPath(String expression) throws XPathExpressionException
     {
@@ -47,13 +47,13 @@ public class XmlUtils
     }
 
     /**
-     * Gets a list of values that match the given JSONPath.
+     * Returns a list of XML nodes that match the given XPath expression.
      *
-     * @param xmlDocument the XML object to be queried
-     * @param expression  the XPath to be evaluated
-     * @return The value that matches the given XPath expression or {@code null} if the XML
-     *         Document is null.
-     * @throws XPathExpressionException If the expression cannot be evaluated.
+     * @param xmlDocument the XML object to be evaluated
+     * @param expression the XPath expression to be used for evaluation
+     * @return A list of XML nodes that match the given XPath expression or {@code null} if
+     * the XML Document is null.
+     * @throws XPathExpressionException if the expression cannot be evaluated.
      */
     public static NodeList evaluateXPath(Document xmlDocument, String expression) throws XPathExpressionException
     {
@@ -61,15 +61,15 @@ public class XmlUtils
     }
 
     /**
-     * Gets a list of values that matche the given JSONPath.
+     * Returns a list of XML nodes that match the given XPath expression.
      *
-     * @param xmlDocument the XML object to be queried
-     * @param expression  the XPath to be evaluated
-     * @return The value that matches the given XPath expression or {@code null} if the XML
-     *         Document is null.
-     * @throws XPathExpressionException     If the expression cannot be evaluated.
-     * @throws SAXException                 if any parse error occurs
-     * @throws IOException                  if the input string cannot be converted
+     * @param xmlContent a string in XML format representing the content to be evaluated
+     * @param expression the XPath expression to be used for evaluation
+     * @return a list of XML nodes that match the given XPath expression or {@code null} if
+     * the XML content is null.
+     * @throws XPathExpressionException if the expression cannot be compiled.
+     * @throws SAXException if any error occurs trying to parse the XML content string
+     * @throws IOException if the input string cannot be converted
      * @throws ParserConfigurationException if a DocumentBuilder cannot be created
      */
     public static NodeList evaluateXPath(String xmlContent, String expression)
@@ -80,13 +80,13 @@ public class XmlUtils
     }
 
     /**
-     * Gets a list of values that match the given JSONPath.
+     * Returns a list of Objects that match the given XPath expression.
      *
-     * @param xmlDocument the XML object to be queried
-     * @param expression  the XPath to be evaluated
-     * @return The value that matches the given XPath expression or {@code null} if the XML
-     *         Document is null.
-     * @throws XPathExpressionException If the expression cannot be evaluated.
+     * @param xmlDocument the XML object to be evaluated
+     * @param expression the XPath expression to be used for evaluation
+     * @return A list of Objects that match the given XPath expression or {@code null} if the
+     * XML Document is null.
+     * @throws XPathExpressionException If the expression cannot be compiled.
      */
     public static List<Object> evaluateXPathAsObjectList(Document xmlDocument, String expression)
             throws XPathExpressionException
@@ -95,15 +95,15 @@ public class XmlUtils
     }
 
     /**
-     * Gets a list of values that matche the given JSONPath.
+     * Returns a list of Objects that match the given XPath expression.
      *
-     * @param xmlDocument the XML object to be queried
-     * @param expression  the XPath to be evaluated
+     * @param xmlContent a string in XML format representing the content to be evaluated
+     * @param expression the XPath expression to be used for evaluation
      * @return The value that matches the given XPath expression or {@code null} if the XML
-     *         Document is null.
-     * @throws XPathExpressionException     If the expression cannot be evaluated.
-     * @throws SAXException                 if any parse error occurs
-     * @throws IOException                  if the input string cannot be converted
+     * Document is null.
+     * @throws XPathExpressionException if the expression cannot be compiled.
+     * @throws SAXException if any parse error occurs trying to parse the XML content string
+     * @throws IOException if the input string cannot be converted
      * @throws ParserConfigurationException if a DocumentBuilder cannot be created
      */
     public static List<Object> evaluateXPathAsObjectList(String xmlContent, String expression)
