@@ -109,11 +109,13 @@ dblookup("dataSource1", "SELECT b.name FROM book b WHERE b.id = '247dc019'")
 
 ### XPath
 
-Returns the evaluation result of the given XPath expression for the specified XML object.
+Returns the evaluation result of the given XPath expression for the specified XML object. Supports XPath expressions 
 
 ```java
 xpath(xmlObject1, "/bookstore/book[@category='fiction']/title/text()")
 ```
+
+> **Note:** This function currently supports XPath version 1.0 only. For additional details, refer to the [W3C's XML Path Language Version 1.0](https://www.w3.org/TR/1999/REC-xpath-19991116/) page.
 
 ### JSONPath
 
@@ -122,6 +124,8 @@ Returns the evaluation result of the given JSONPath expression for the specified
 ```java
 jsonpath(jsonObject1, "$.phoneNumbers[:1].type")
 ```
+
+> **Note:** For additional details, see [Jayway's JsonPath](https://github.com/json-path/JsonPath) project.
 
 ---
 
