@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -111,4 +112,19 @@ public class DateUtils
         }
         return true;
     }
+    
+	/**
+	 * Calculates the number of days between two dates
+	 * 
+	 * @param firstDate  the first date for the comparison
+	 * @param secondDate the seconds date for the comparison
+	 * @return the number of days between {@code firstDate} and {@code secondDate}
+	 * @throws NullPointerException if a null date is received
+	 */
+    public static long daysBetween(Date firstDate, Date secondDate)
+    {
+    	long differenceInMillis = Math.abs(firstDate.getTime() - secondDate.getTime());
+    	return TimeUnit.DAYS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+    }
+
 }

@@ -83,10 +83,18 @@ str2date(string1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 
 ### Date to string formatting
 
-Converts a date into string using the specified format
+Converts a date into string using the specified format.
 
 ```java
 date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
+```
+
+### Days between dates
+
+Returns the number of days between two dates.
+
+```java
+daysBetween(date1, date2)
 ```
 
 ---
@@ -109,7 +117,7 @@ dblookup("dataSource1", "SELECT b.name FROM book b WHERE b.id = '247dc019'")
 
 ### XPath
 
-Returns the evaluation result of the given XPath expression for the specified XML object. Supports XPath expressions 
+Returns the evaluation result of the given XPath expression for the specified XML object.
 
 ```java
 xpath(xmlObject1, "/bookstore/book[@category='fiction']/title/text()")

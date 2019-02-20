@@ -26,6 +26,7 @@ public class DateUtilsTest
     private static final int MILLIS = 999;
 
     private static final String STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
+    private static final String STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00 = "2018-03-11T10:15:00.999-03:00";
     private static final String YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
     private static final String STR_DATE_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
 
@@ -112,7 +113,43 @@ public class DateUtilsTest
     @Test
     public void testInstantParsingToDate() throws ParseException
     {
-        Date string = DateUtils.parseDate(INSTANT_DATE_2017_03_11_13_15_00_999);
-        assertEquals(DATE_2017_03_11_13_15_00_999, string);
+        Date date = DateUtils.parseDate(INSTANT_DATE_2017_03_11_13_15_00_999);
+        assertEquals(DATE_2017_03_11_13_15_00_999, date);
     }
+    
+	/**
+	 * Tests the number of days between two Date objects, being date 1 lower than date 2
+	 * 
+	 * @throws ParseException
+	 */
+    @Test
+    public void testNumberOfDaysBetweenTwoDatesBeingDate1LowerThanDate2() throws ParseException
+    {
+        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        assertEquals(365, DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, date2018_03_11));
+    }
+    
+	/**
+	 * Tests the number of days between two Date objects, being date 1 greater than date 2
+	 * 
+	 * @throws ParseException
+	 */
+    @Test
+    public void testNumberOfDaysBetweenTwoDatesBeingDate1GreaterThanDate2() throws ParseException
+    {
+        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        assertEquals(365, DateUtils.daysBetween(date2018_03_11, DATE_2017_03_11_13_15_00_999));
+    }
+    
+	/**
+	 * Tests the number of days between two equal Date objects
+	 * 
+	 * @throws ParseException
+	 */
+    @Test
+    public void testNumberOfDaysBetweenTwoEqualDates() throws ParseException
+    {
+        assertEquals(0, DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, DATE_2017_03_11_13_15_00_999));
+    }
+
 }
