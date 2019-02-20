@@ -1,7 +1,6 @@
 package net.obvj.jep.util;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -116,10 +115,10 @@ public class DateUtilsTest
         Date date = DateUtils.parseDate(INSTANT_DATE_2017_03_11_13_15_00_999);
         assertEquals(DATE_2017_03_11_13_15_00_999, date);
     }
-    
+
 	/**
 	 * Tests the number of days between two Date objects, being date 1 lower than date 2
-	 * 
+	 *
 	 * @throws ParseException
 	 */
     @Test
@@ -128,10 +127,10 @@ public class DateUtilsTest
         Date date2018_03_11 = DateUtils.parseDate(STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(365, DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, date2018_03_11));
     }
-    
+
 	/**
 	 * Tests the number of days between two Date objects, being date 1 greater than date 2
-	 * 
+	 *
 	 * @throws ParseException
 	 */
     @Test
@@ -140,16 +139,64 @@ public class DateUtilsTest
         Date date2018_03_11 = DateUtils.parseDate(STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(365, DateUtils.daysBetween(date2018_03_11, DATE_2017_03_11_13_15_00_999));
     }
-    
+
 	/**
 	 * Tests the number of days between two equal Date objects
-	 * 
-	 * @throws ParseException
 	 */
     @Test
-    public void testNumberOfDaysBetweenTwoEqualDates() throws ParseException
+    public void testNumberOfDaysBetweenTwoEqualDates()
     {
         assertEquals(0, DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, DATE_2017_03_11_13_15_00_999));
+    }
+
+    /**
+     * Tests the number of days between, with first date null
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNumberOfDaysBetweenWithFirstDateNull()
+    {
+        DateUtils.daysBetween(null, DATE_2017_03_11_13_15_00_999);
+    }
+
+    /**
+     * Tests the number of days between, with second date null
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNumberOfDaysBetweenWithSecondDateNull()
+    {
+        DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, null);
+    }
+
+    /**
+     * Tests isLeapYear with different input years as integers
+     */
+    @Test
+    public void testIsLeapYearForSeveralYearsAsIntegers() throws ParseException
+    {
+        assertTrue("1988 should be a leap year", DateUtils.isLeapYear(1988));
+        assertTrue("2000 should be a leap year", DateUtils.isLeapYear(2000));
+        assertTrue("2016 should be a leap year", DateUtils.isLeapYear(2016));
+        assertFalse("1900 should not be a leap year", DateUtils.isLeapYear(1900));
+        assertFalse("2018 should not be a leap year", DateUtils.isLeapYear(2018));
+    }
+
+    /**
+     * Tests isLeapYear with different input as dates
+     */
+    @Test
+    public void testIsLeapYearForSeveralDates() throws ParseException
+    {
+        assertFalse("2017 should not be a leap year", DateUtils.isLeapYear(DATE_2017_03_11_13_15_00_999));
+        assertTrue("2020 should be a leap year", DateUtils.isLeapYear(DateUtils.parseDate("2020", "yyyy")));
+    }
+
+    /**
+     * Tests isLeapYear with a null date
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testIsLeapYearForANullDate() throws ParseException
+    {
+        DateUtils.isLeapYear(null);
     }
 
 }

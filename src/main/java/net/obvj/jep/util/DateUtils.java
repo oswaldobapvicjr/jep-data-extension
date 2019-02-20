@@ -3,6 +3,7 @@ package net.obvj.jep.util;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -22,9 +23,10 @@ public class DateUtils
     }
 
     /**
-     * Converts the given string into {@link java.util.Date} by applying the given {@code pattern}
+     * Converts the given string into {@link java.util.Date} by applying the given
+     * {@code pattern}
      *
-     * @param string  the string to be converted
+     * @param string the string to be converted
      * @param pattern the date format pattern to be used
      * @return the string converted to {@code Date}
      * @throws IllegalArgumentException if a null string or pattern is received
@@ -38,7 +40,7 @@ public class DateUtils
     /**
      * Converts the given date into string with the the given {@code pattern}
      *
-     * @param date    the date to be formatted
+     * @param date the date to be formatted
      * @param pattern the date format pattern to be used
      * @return the string converted to {@code Date}
      */
@@ -112,19 +114,50 @@ public class DateUtils
         }
         return true;
     }
-    
-	/**
-	 * Calculates the number of days between two dates
-	 * 
-	 * @param firstDate  the first date for the comparison
-	 * @param secondDate the seconds date for the comparison
-	 * @return the number of days between {@code firstDate} and {@code secondDate}
-	 * @throws NullPointerException if a null date is received
-	 */
+
+    /**
+     * Calculates the number of days between two dates
+     *
+     * @param firstDate the first date for the comparison
+     * @param secondDate the seconds date for the comparison
+     * @return the number of days between {@code firstDate} and {@code secondDate}
+     * @throws IllegalArgumentException if a null date is received
+     */
     public static long daysBetween(Date firstDate, Date secondDate)
     {
-    	long differenceInMillis = Math.abs(firstDate.getTime() - secondDate.getTime());
-    	return TimeUnit.DAYS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
+        if (firstDate == null) throw new IllegalArgumentException("First date cannot be null");
+        if (secondDate == null) throw new IllegalArgumentException("Second date cannot be null");
+
+        long differenceInMillis = Math.abs(firstDate.getTime() - secondDate.getTime());
+        return TimeUnit.DAYS.convert(differenceInMillis, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Returns true if the given date is a leap year, that is, an year with 366 days, the
+     * extra day designated as February 29.
+     *
+     * @param date the date whose year is to be evaluated
+     * @return {@code true} if the given year is leap year, {@code false} if not.
+     * @throws IllegalArgumentException if a null date is received
+     */
+    public static boolean isLeapYear(Date date)
+    {
+        if (date == null) throw new IllegalArgumentException("Date cannot be null");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return isLeapYear(calendar.get(Calendar.YEAR));
+    }
+
+    /**
+     * Returns true if the given year is a leap year, that is, an year with 366 days, the
+     * extra day designated as February 29.
+     *
+     * @param year the year to be evaluated
+     * @return {@code true} if the given year is leap year, {@code false} if not.
+     */
+    public static boolean isLeapYear(int year)
+    {
+        return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+    }
 }
