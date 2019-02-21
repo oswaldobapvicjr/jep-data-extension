@@ -98,6 +98,7 @@ public class JEPContextFactory
         jep.addFunction("date2str", new DateToString());
         jep.addFunction("str2date", new DateToString());
         jep.addFunction("daysBetween", new DaysBetween());
+        jep.addFunction("isLeapYear", new IsLeapYear());
 
         // Data manipulation functions
         jep.addFunction("xpath", new XPath());

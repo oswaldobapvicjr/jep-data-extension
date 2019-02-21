@@ -97,6 +97,15 @@ Returns the number of days between two dates.
 daysBetween(date1, date2)
 ```
 
+### Is leap year
+
+Returns 1 (true) if the given argument is a leap year, that is, an year with 366 days, or 0 (false) if not.
+This function accepts an year (Number), a Date or a valid date representation as string in RFC-3339 format. 
+
+```java
+isLeapYear(date1)
+```
+
 ---
 
 ## Database functions

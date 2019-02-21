@@ -66,6 +66,7 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("date2str"));
         assertTrue(table.containsKey("str2date"));
         assertTrue(table.containsKey("daysBetween"));
+        assertTrue(table.containsKey("isLeapYear"));
 
         // Data manipulation
         assertTrue(table.containsKey("xpath"));
