@@ -1,6 +1,5 @@
 package net.obvj.jep.functions;
 
-import java.time.DateTimeException;
 import java.util.Date;
 import java.util.Stack;
 
@@ -48,7 +47,7 @@ public class DateAwareComparative extends Comparative
             boolean result = compareDates(date1, date2);
             pStack.push(result ? DOUBLE_TRUE : DOUBLE_FALSE);
         }
-        catch (DateTimeException exception)
+        catch (IllegalArgumentException exception)
         {
             // OK. It's not a Date. If it's a String, convert it to Double and let the super
             // class run default logic.
