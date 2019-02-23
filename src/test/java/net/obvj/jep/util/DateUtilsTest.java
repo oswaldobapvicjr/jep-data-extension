@@ -24,13 +24,17 @@ public class DateUtilsTest
     private static final int SECOND = 0;
     private static final int MILLIS = 999;
 
-    private static final String STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
-    private static final String STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00 = "2018-03-11T10:15:00.999-03:00";
-    private static final String YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
-    private static final String STR_DATE_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
+    private static final String STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
-    public static final Instant INSTANT_DATE_2017_03_11_13_15_00_999 = Instant
-            .parse(STR_DATE_2017_03_11_13_15_00_999_Z);
+    private static final String STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
+    private static final String STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00 = "2018-03-11T10:15:00.999-03:00";
+    private static final String STR_DATE_RFC_822_2017_03_11_10_15_00_999_MINUS_3 = "2017-03-11T10:15:00.999-0300";
+
+    private static final String STR_DATE_RFC_3339_MILLIS_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999Z";
+    private static final String STR_DATE_RFC_3339_NANOS_2017_03_11_13_15_00_999_Z = "2017-03-11T13:15:00.999876543Z";
+
+    public static final Instant INSTANT_2017_03_11_13_15_00_999 = Instant
+            .parse(STR_DATE_RFC_3339_MILLIS_2017_03_11_13_15_00_999_Z);
 
     private static final Date DATE_2017_03_11_13_15_00_999;
 
@@ -84,15 +88,64 @@ public class DateUtilsTest
     }
 
     /**
-     * Tests the successful parsing of a string in ISO 8601, full, with time zone.
+     * Tests the successful parsing of a string in ISO 8601, full, with time zone. The pattern
+     * provided as parameter.
      *
      * @throws ParseException
      */
     @Test
-    public void testParseDateISO8601FullWithTimeZone() throws ParseException
+    public void testParseDateISO8601FullWithTimeZoneWithPatternParam() throws ParseException
     {
-        Date date = DateUtils.parseDate(STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date = DateUtils.parseDate(STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00,
+                STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertDate(date);
+    }
+
+    /**
+     * Tests the successful parsing of a string in ISO 8601, full, with time zone. No pattern
+     * parameter provided.
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testParseDateISO8601FullWithTimeZoneNoPatternParam() throws ParseException
+    {
+        assertDate(DateUtils.parseDate(STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00));
+    }
+
+    /**
+     * Tests the successful parsing of a string in RFC 822. No pattern parameter provided.
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testParseDateRFC822NoPatternParam() throws ParseException
+    {
+        assertDate(DateUtils.parseDate(STR_DATE_RFC_822_2017_03_11_10_15_00_999_MINUS_3));
+    }
+
+    /**
+     * Tests the successful parsing of a string in RFC 3339 with milliseconds precision. No
+     * pattern parameter provided.
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testParseDateRFC3339MillisecondsNoPatternParam() throws ParseException
+    {
+        assertDate(DateUtils.parseDate(STR_DATE_RFC_3339_MILLIS_2017_03_11_13_15_00_999_Z));
+    }
+
+    /**
+     * Tests the successful parsing of a string in RFC 3339 with nanoseconds precision. No
+     * pattern parameter provided.
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testParseDateRFC3339NanosecondsNoPatternParam() throws ParseException
+    {
+        assertDate(DateUtils.parseDate(STR_DATE_RFC_3339_NANOS_2017_03_11_13_15_00_999_Z));
     }
 
     /**
@@ -101,9 +154,9 @@ public class DateUtilsTest
     @Test
     public void testFormatDateISO8601FullWithTimeZone() throws ParseException
     {
-        Date date = DateUtils.parseDate(STR_DATE_2017_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
-        String string = DateUtils.formatDate(date, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
-        assertEquals(STR_DATE_2017_03_11_13_15_00_999_Z, string);
+        Date date = DateUtils.parseDate(STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        String string = DateUtils.formatDate(date, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        assertEquals(STR_DATE_RFC_3339_MILLIS_2017_03_11_13_15_00_999_Z, string);
     }
 
     /**
@@ -112,7 +165,7 @@ public class DateUtilsTest
     @Test
     public void testInstantParsingToDate() throws ParseException
     {
-        Date date = DateUtils.parseDate(INSTANT_DATE_2017_03_11_13_15_00_999);
+        Date date = DateUtils.parseDate(INSTANT_2017_03_11_13_15_00_999);
         assertEquals(DATE_2017_03_11_13_15_00_999, date);
     }
 
@@ -124,7 +177,7 @@ public class DateUtilsTest
     @Test
     public void testNumberOfDaysBetweenTwoDatesBeingDate1LowerThanDate2() throws ParseException
     {
-        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(365, DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, date2018_03_11));
     }
 
@@ -136,7 +189,7 @@ public class DateUtilsTest
     @Test
     public void testNumberOfDaysBetweenTwoDatesBeingDate1GreaterThanDate2() throws ParseException
     {
-        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_2018_03_11_10_15_00_999_MINUS_03_00, YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(365, DateUtils.daysBetween(date2018_03_11, DATE_2017_03_11_13_15_00_999));
     }
 

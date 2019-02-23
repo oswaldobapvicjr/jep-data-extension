@@ -17,7 +17,9 @@ import org.apache.commons.lang3.time.DateFormatUtils;
  */
 public class DateUtils
 {
-
+    /**
+     * A set of common date parsing patterns according to ISO-8601 standard.
+     */
     private static final String[] ISO_8601_COMMON_PATTERNS = new String[] {
             "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
             "yyyy-MM-dd'T'HH:mm:ss.SSSXX",
@@ -197,21 +199,55 @@ public class DateUtils
     }
 
     /**
-     * Checks if all the elements are parsable date
+     * Checks if all the elements are parsable dates. Valid element types may be any of the
+     * following: {@link Date}, {@link Instant} or Strings in RFC-3339 or a set of
+     * commonly-used ISO-8601 format variations.
      *
      * @param iterable the iterable to be evaluated
-     * @return true if all elements are parsable date
+     * @return true if all elements are parsable to date
      */
     public static boolean containsParsableDates(Iterable<?> iterable)
     {
         Iterator<?> iterator = iterable.iterator();
         while (iterator.hasNext())
         {
+            if (!isParsable(iterator.next())) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if all the elements are parsable dates. Strings will be checked in RFC-3339
+     * format.
+     *
+     * @param iterable the iterable whose elements will be evaluated
+     * @return true if all elements are parsable to date
+     */
+    public static boolean containsParsableDatesRfc3339(Iterable<?> iterable)
+    {
+        Iterator<?> iterator = iterable.iterator();
+        while (iterator.hasNext())
+        {
             Object element = iterator.next();
-            if (!isParsable(element))
-            {
-                return false;
-            }
+            if (!isParsableRfc3339(String.valueOf(element))) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if all the elements are parsable dates. Strings will be checked against a set of
+     * common ISO-8601 format variations.
+     *
+     * @param iterable the iterable whose elements will be evaluated
+     * @return true if all elements are parsable to date
+     */
+    public static boolean containsParsableDatesIso8601(Iterable<?> iterable)
+    {
+        Iterator<?> iterator = iterable.iterator();
+        while (iterator.hasNext())
+        {
+            Object element = iterator.next();
+            if (!isParsableIso8601(String.valueOf(element))) return false;
         }
         return true;
     }
