@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ import org.nfunk.jep.FunctionTable;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
+
+import net.obvj.jep.util.DateUtils;
 
 public class JEPContextFactoryTest
 {
@@ -114,6 +117,50 @@ public class JEPContextFactoryTest
         Node node = jep.parseExpression("replace(myText, \"oo\", \"ee\")");
         String result = (String) jep.evaluate(node);
         assertEquals("fee", result.toString());
+    }
+
+    /**
+     * Tests the JEP context can evaluate an expression for the str2date() function with a
+     * single paramater
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testExpressionStringToDate() throws ParseException
+    {
+        String inputDate = "2015-10-03T08:00:01.123Z";
+        Date expectedDate = DateUtils.parseDate(inputDate);
+
+        Map<String, Object> myVariables = new HashMap<>();
+        myVariables.put("strDate", inputDate);
+
+        JEP jep = JEPContextFactory.newContext(myVariables);
+        Node node = jep.parseExpression("str2date(strDate)");
+        Date result = (Date) jep.evaluate(node);
+        assertEquals(expectedDate, result);
+    }
+
+    /**
+     * Tests the JEP context can evaluate an expression for the str2date() function with two
+     * paramaters
+     *
+     * @throws ParseException
+     * @throws java.text.ParseException
+     */
+    @Test
+    public void testExpressionStringToDateWithTwoParams() throws ParseException, java.text.ParseException
+    {
+        String inputDate = "2015/10/03";
+        String pattern = "yyyy/MM/dd";
+        Date expectedDate = DateUtils.parseDate(inputDate, pattern);
+
+        Map<String, Object> myVariables = new HashMap<>();
+        myVariables.put("strDate", inputDate);
+
+        JEP jep = JEPContextFactory.newContext(myVariables);
+        Node node = jep.parseExpression("str2date(strDate, \"" + pattern + "\")");
+        Date result = (Date) jep.evaluate(node);
+        assertEquals(expectedDate, result);
     }
 
 }

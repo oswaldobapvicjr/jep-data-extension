@@ -57,18 +57,18 @@ public class DateUtils
     }
 
     /**
-     * Converts the given string into {@link java.util.Date} by applying the given
-     * {@code pattern}
+     * Converts the given string into {@link java.util.Date} by applying the specified
+     * patterns until the operation succeeds
      *
      * @param string the string to be converted
-     * @param pattern the date format pattern to be used
+     * @param patterns the date format patterns to be used
      * @return the parsed date
      * @throws IllegalArgumentException if a null string or pattern is received
      * @throws ParseException if the date can not be parsed
      */
-    public static Date parseDate(String string, String pattern) throws ParseException
+    public static Date parseDate(String string, String... patterns) throws ParseException
     {
-        return org.apache.commons.lang3.time.DateUtils.parseDate(string, pattern);
+        return org.apache.commons.lang3.time.DateUtils.parseDate(string, patterns);
     }
 
     /**

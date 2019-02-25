@@ -75,11 +75,22 @@ Returns the system's current date & time, with precision of milliseconds.
 
 ### String to date conversion
 
-Parses a string representing a date with user-specified pattern. 
+Parses a string representing a date by trying different parse patterns, supporting RFC-3339, RFC-822 and a set of common ISO-8601 variations. This function can be the fastest choice when handling RFC-3339 dates. Also useful to convert from other formats when the parse pattern is heterogeneous or unknown. 
 
 ```java
-str2date(string1, "YYYY-MM-DD'T'HH:mm:ssZZ")
+str2date("2015-10-03T08:00:01.123Z")
 ```
+
+### String to date conversion with user-defined pattern
+
+Parses a string representing a date with user-defined pattern. This can be the fastest approach when the date format is known.
+
+```java
+str2date("2015-10-03", "YYYY-MM-DD")
+```
+
+> **Note:** This function also supports variable parse pattern arguments, so it will try each pattern specified until it finds one that converts the source string to a valid date.
+
 
 ### Date to string formatting
 

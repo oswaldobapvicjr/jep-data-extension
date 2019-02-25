@@ -8,9 +8,7 @@ import java.util.Stack;
 import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.util.CollectionsUtils;
@@ -46,50 +44,44 @@ public class StringToDateTest
 
     private static StringToDate function = new StringToDate();
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     /**
      * Tests date parsing with null date
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testParseDateNullDate() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        String input = null;
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(input);
         function.run(parameters);
     }
 
     /**
      * Tests date parsing with empty date
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testParseDateEmptyDate() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY,
-                ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY);
         function.run(parameters);
     }
 
     /**
      * Tests date parsing with null format
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testParseDateNullFormat() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, null);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE,
+                null);
         function.run(parameters);
     }
 
     /**
      * Tests date parsing with empty format
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testParseDateEmptyFormat() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE,
                 StringUtils.EMPTY);
         function.run(parameters);
@@ -98,19 +90,20 @@ public class StringToDateTest
     /**
      * Tests date parsing with an invalid format
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testParseDateInvalidFormat() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, "Y");
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE,
+                "Y");
         function.run(parameters);
     }
 
     /**
-     * Tests date parsing with ISO extended date & time format with time zone
+     * Tests date parsing with ISO extended date & time format with time zone and a valid
+     * pattern parameter
      */
     @Test
-    public void testParseDateIsoExtendedDateTimeFormatWithTimeZone() throws ParseException
+    public void testParseDateIsoExtendedDateTimeFormatWithTimeZoneWithParam() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE,
                 ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
@@ -119,13 +112,51 @@ public class StringToDateTest
     }
 
     /**
-     * Tests date formatting with ISO full date & time format with time zone
+     * Tests date parsing with ISO extended date & time format with time zone, no pattern
+     * parameter
      */
     @Test
-    public void testFormatDateIsoFullDateTimeFormatWithTimeZone() throws ParseException
+    public void testParseDateIsoExtendedDateTimeFormatWithTimeZoneNoParam() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        function.run(parameters);
+        assertEquals(EXPECTED_DATE_SECONDS, parameters.pop());
+    }
+
+    /**
+     * Tests date parsing with ISO full date & time format with time zone and valid pattern
+     * parameter
+     */
+    @Test
+    public void testParseDateIsoFullDateTimeFormatWithTimeZoneAndParam() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE,
                 ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        function.run(parameters);
+        assertEquals(EXPECTED_DATE_MILLISECONDS, parameters.pop());
+    }
+
+    /**
+     * Tests date parsing with ISO full date & time format with time zone and no pattern
+     * parameter
+     */
+    @Test
+    public void testParseDateIsoFullDateTimeFormatWithTimeZoneAndNoParam() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE);
+        function.run(parameters);
+        assertEquals(EXPECTED_DATE_MILLISECONDS, parameters.pop());
+    }
+
+    /**
+     * Tests date parsing with ISO full date & time format with time zone and valid pattern
+     * parameter
+     */
+    @Test
+    public void testParseDateWithMoreThanOnePatternParam() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE,
+                ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE, ISO_FULL_DATE_TIME_FORMAT_WITH_TIME_ZONE);
         function.run(parameters);
         assertEquals(EXPECTED_DATE_MILLISECONDS, parameters.pop());
     }
