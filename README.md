@@ -241,6 +241,17 @@ Returns the value of system property associated with the given key.
 getSystemProperty("os.name")
 ```
 
+### Is Empty
+
+Returns 1 (true) if the given parameter is either a null object or an empty String, JSON or Collection.
+
+If a given string can be parsed as JSON object or array, it will be first converted into JSON, then its structure will be evaluated for emptiness.
+
+```java
+isEmpty(object1)
+```
+
+
 ### Read file
 
 Returns the content of a text file in the file system.

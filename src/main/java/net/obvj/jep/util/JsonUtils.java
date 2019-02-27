@@ -135,7 +135,7 @@ public class JsonUtils
     /**
      * Converts an Object to JSONObject
      *
-     * @param inputObject the object to be converted in JSONObject
+     * @param inputObject the object to be converted
      * @return the object converted in JSONObject
      * @throws JSONException in case of errors converting into JSONObject
      */
@@ -150,6 +150,26 @@ public class JsonUtils
             return (JSONObject) inputObject;
         }
         return new JSONObject(inputObject.toString());
+    }
+
+    /**
+     * Converts an Object to JSONArray
+     *
+     * @param inputObject the object to be converted
+     * @return the object converted in JSONArray
+     * @throws JSONException in case of errors converting into JSONArray
+     */
+    public static JSONArray convertToJSONArray(Object inputObject) throws JSONException
+    {
+        if (inputObject == null)
+        {
+            return new JSONArray();
+        }
+        if (inputObject instanceof JSONArray)
+        {
+            return (JSONArray) inputObject;
+        }
+        return new JSONArray(inputObject.toString());
     }
 
     /**

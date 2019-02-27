@@ -276,11 +276,24 @@ public class JsonUtilsTest
      * @throws JSONException in case of exceptions handling the JSON object
      */
     @Test
-    public void testConvertNullToJSON() throws JSONException
+    public void testConvertNullToJSONObject() throws JSONException
     {
         JSONObject jsonObject = JsonUtils.convertToJSONObject(null);
         assertNotNull(jsonObject);
         assertTrue(jsonObject.length() == 0);
+    }
+
+    /**
+     * Tests convert null to JSONArrays, an empty JSONArray is returned
+     *
+     * @throws JSONException in case of exceptions handling the JSON array
+     */
+    @Test
+    public void testConvertNullToJSONArray() throws JSONException
+    {
+        JSONArray jsonArray = JsonUtils.convertToJSONArray(null);
+        assertNotNull(jsonArray);
+        assertTrue(jsonArray.length() == 0);
     }
 
     /**
@@ -293,6 +306,18 @@ public class JsonUtilsTest
     {
         JSONObject jsonObject = new JSONObject();
         assertEquals(jsonObject, JsonUtils.convertToJSONObject(jsonObject));
+    }
+
+    /**
+     * Tests that a JSONArray is not modified when passed to convertToJsonArray()
+     *
+     * @throws JSONException in case of exceptions handling the JSON array
+     */
+    @Test
+    public void testConvertJSONArray() throws JSONException
+    {
+        JSONArray jsonArray = new JSONArray();
+        assertEquals(jsonArray, JsonUtils.convertToJSONArray(jsonArray));
     }
 
     /**

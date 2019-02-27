@@ -20,6 +20,7 @@ import net.obvj.jep.util.DateUtils;
 
 public class JEPContextFactoryTest
 {
+    private static final double DOUBLE_TRUE = 1d;
 
     /**
      * Tests that no instances of this factory are created
@@ -85,6 +86,7 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("getEnv"));
         assertTrue(table.containsKey("getSystemProperty"));
         assertTrue(table.containsKey("getElement"));
+        assertTrue(table.containsKey("isEmpty"));
     }
 
     /**
@@ -161,6 +163,42 @@ public class JEPContextFactoryTest
         Node node = jep.parseExpression("str2date(strDate, \"" + pattern + "\")");
         Date result = (Date) jep.evaluate(node);
         assertEquals(expectedDate, result);
+    }
+
+    /**
+     * Tests the JEP context can evaluate an expression for the isEmpty() function for a
+     * non-empty JSON array as string
+     *
+     * @throws ParseException
+     * @throws java.text.ParseException
+     */
+    @Test
+    public void testExpressionIsEmptyForJsonArrayAsString() throws ParseException, java.text.ParseException
+    {
+        Map<String, Object> myVariables = new HashMap<>();
+        myVariables.put("myJSONArray", "[1,2]");
+
+        JEP jep = JEPContextFactory.newContext(myVariables);
+        Node node = jep.parseExpression("!isEmpty(myJSONArray)");
+        assertEquals(DOUBLE_TRUE, jep.evaluate(node));
+    }
+
+    /**
+     * Tests the JEP context can evaluate an expression for the isEmpty() function for an
+     * empty JSON array as string
+     *
+     * @throws ParseException
+     * @throws java.text.ParseException
+     */
+    @Test
+    public void testExpressionIsEmptyForEmptyJsonArrayAsString() throws ParseException, java.text.ParseException
+    {
+        Map<String, Object> myVariables = new HashMap<>();
+        myVariables.put("myJSONArray", "[]");
+
+        JEP jep = JEPContextFactory.newContext(myVariables);
+        Node node = jep.parseExpression("isEmpty(myJSONArray)");
+        assertEquals(DOUBLE_TRUE, jep.evaluate(node));
     }
 
 }
