@@ -32,4 +32,15 @@ public class ConcatTest
         assertEquals("A10", parameters.pop());
     }
 
+    /**
+     * Tests the successful concatenation of a string and an integer
+     */
+    @Test
+    public void testConcatenateOneString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_A);
+        function.run(parameters);
+        assertEquals("A", parameters.pop());
+    }
+
 }

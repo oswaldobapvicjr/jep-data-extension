@@ -1,8 +1,5 @@
 package net.obvj.jep.functions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,15 +28,24 @@ public class Concat extends PostfixMathCommand
     public void run(Stack stack) throws ParseException
     {
         checkStack(stack);
+        String[] arguments = getVarArgs(stack);
+        stack.push(StringUtils.join(arguments));
+    }
 
-        List<Object> arguments = new ArrayList<>();
+    /**
+     * Extracts an array of strings from the stack
+     *
+     * @param stack the stack of parameters to be evaluated
+     */
+    private String[] getVarArgs(Stack stack)
+    {
+        String[] arguments = new String[stack.size()];
+        int index = arguments.length;
         while (!stack.isEmpty())
         {
-            arguments.add(stack.pop());
+            arguments[--index] = String.valueOf(stack.pop());
         }
-        Collections.reverse(arguments);
-
-        stack.push(StringUtils.join(arguments, null));
+        return arguments;
     }
 
 }

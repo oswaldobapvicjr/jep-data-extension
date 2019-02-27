@@ -21,7 +21,7 @@ public class IsLeapYear extends PostfixMathCommand
     private static final double TRUE = 1d;
 
     /**
-     * Builds this custom command with a fixed number of 2 parameters
+     * Builds this custom command with a fixed number of 1 parameter
      */
     public IsLeapYear()
     {
