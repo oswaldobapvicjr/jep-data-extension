@@ -17,12 +17,53 @@ import net.obvj.jep.util.RegexUtils;
  */
 public class FindMatches extends PostfixMathCommand
 {
+    public enum ReturnStrategy
+    {
+        /**
+         * Returns all matches found in a string
+         */
+        ALL_MATCHES
+        {
+            @Override
+            void pushResult(Stack stack, String string, String pattern)
+            {
+                List<String> matches = RegexUtils.findMatches(string, pattern);
+                stack.push(matches);
+            }
+        },
+
+        /**
+         * Returns the first match found in a string
+         */
+        FIRST_MATCH
+        {
+            @Override
+            void pushResult(Stack stack, String string, String pattern)
+            {
+                String matches = RegexUtils.firstMatch(string, pattern);
+                stack.push(matches);
+            }
+        };
+
+        /**
+         * Pushes the function result depending on the strategy.
+         *
+         * @param stack the stack to which the result will be pushed
+         * @param string the string to be evaluated
+         * @param pattern the pattern to be used
+         */
+        abstract void pushResult(Stack stack, String string, String pattern);
+    }
+
+    private ReturnStrategy returnStrategy;
+
     /**
      * Builds this function with a fixed number of two parameters
      */
-    public FindMatches()
+    public FindMatches(ReturnStrategy returnStrategy)
     {
         numberOfParameters = 2;
+        this.returnStrategy = returnStrategy;
     }
 
     /**
@@ -45,8 +86,7 @@ public class FindMatches extends PostfixMathCommand
             throw new IllegalArgumentException("The RegEx cannot be null");
         }
 
-        List<String> matches = RegexUtils.findMatches(arg1.toString(), arg2.toString());
-        stack.push(matches);
+        returnStrategy.pushResult(stack, arg1.toString(), arg2.toString());
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -25,35 +26,64 @@ public class FindMatchesTest
     private static final String EXPECTED_EXTENSION = ".json";
 
     private static final String TWITTER_TWEET = "Women make the world beautiful, they protect it and keep it alive. They bring the grace of renewal, the embrace of inclusion, and the courage to give of oneself. #InternationalWomensDay @pontifex";
-    private static final List<String> EXPECTED_TWITTER_LINKS = Arrays.asList("#InternationalWomensDay", "@pontifex");
+    private static final String HASHTAG_INTERNATIONAL_WOMENS_DAY = "#InternationalWomensDay";
+    private static final List<String> EXPECTED_TWITTER_LINKS = Arrays.asList(HASHTAG_INTERNATIONAL_WOMENS_DAY,
+            "@pontifex");
 
-    private static FindMatches function = new FindMatches();
+    private static FindMatches findMatchesFunction = new FindMatches(ReturnStrategy.ALL_MATCHES);
+    private static FindMatches findMatchFunction = new FindMatches(ReturnStrategy.FIRST_MATCH);
 
     /**
-     * Tests with a valid string and a regex that returns a single match in a list
+     * Tests with a valid string and a regex that returns a single match in a list with the
+     * "all-matches" strategy
      */
     @Test
-    public void testExtractFileExtensionFromString() throws ParseException
+    public void testExtractFileExtensionFromStringWithAllMatches() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_FILE_EXTENSION_FINDER);
-        function.run(parameters);
+        findMatchesFunction.run(parameters);
         List<Object> matchesList = CollectionsUtils.asList(parameters.pop());
         assertEquals(1, matchesList.size());
         assertTrue("The file extension was not found in the returned list", matchesList.contains(EXPECTED_EXTENSION));
     }
 
     /**
-     * Tests with a valid string and a regex that returns two matches in a list
+     * Tests with a valid string and a regex that returns a single match with the
+     * "first-match" strategy
      */
     @Test
-    public void testExtractTwitterLinksFromString() throws ParseException
+    public void testExtractFileExtensionFromStringWithFirstMatch() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_FILE_EXTENSION_FINDER);
+        findMatchFunction.run(parameters);
+        assertEquals(EXPECTED_EXTENSION, parameters.pop());
+    }
+
+    /**
+     * Tests with a valid string and a regex that returns two matches in a list with the
+     * "all-matches" strategy
+     */
+    @Test
+    public void testExtractTwitterLinksFromStringWithAllMatches() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, REGEX_TWITTER_LINKS_FINDER);
-        function.run(parameters);
+        findMatchesFunction.run(parameters);
         List<Object> matchesList = CollectionsUtils.asList(parameters.pop());
         assertEquals(2, matchesList.size());
         assertTrue("Not all expressions were found in the returned list",
                 matchesList.containsAll(EXPECTED_TWITTER_LINKS));
+    }
+
+    /**
+     * Tests with a valid string and a regex that returns two matches in a list with the
+     * "first-match" strategy
+     */
+    @Test
+    public void testExtractTwitterLinksFromStringWithFirstMatch() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, REGEX_TWITTER_LINKS_FINDER);
+        findMatchFunction.run(parameters);
+        assertEquals(HASHTAG_INTERNATIONAL_WOMENS_DAY, parameters.pop());
     }
 
     /**
@@ -63,7 +93,7 @@ public class FindMatchesTest
     public void testWithNullString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(null, REGEX_TWITTER_LINKS_FINDER);
-        function.run(parameters);
+        findMatchesFunction.run(parameters);
         List<Object> matchesList = CollectionsUtils.asList(parameters.pop());
         assertEquals(0, matchesList.size());
     }
@@ -75,7 +105,7 @@ public class FindMatchesTest
     public void testWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack("", REGEX_TWITTER_LINKS_FINDER);
-        function.run(parameters);
+        findMatchesFunction.run(parameters);
         List<Object> matchesList = CollectionsUtils.asList(parameters.pop());
         assertEquals(0, matchesList.size());
     }
@@ -87,7 +117,7 @@ public class FindMatchesTest
     public void testWithNullRegex() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, null);
-        function.run(parameters);
+        findMatchesFunction.run(parameters);
     }
 
 }

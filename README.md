@@ -21,9 +21,19 @@ concat(object1, object2, ...)
 
 > **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
 
+
+### Find match
+
+Returns the first match of the given regular expression found inside a string.
+
+```java
+findMatch(string1, "(\\.\\w+$)")
+```
+
+
 ### Find matches
 
-Returns a list containing all matches of the given regular expression inside a string.
+Returns a list containing all matches of the given regular expression found inside a string.
 
 ```java
 findMatches(string1, "([@][A-z]+)|([#][A-z]+)")

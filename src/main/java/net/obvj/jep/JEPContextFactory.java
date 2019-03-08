@@ -10,6 +10,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
+import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 
 /**
  * A factory that creates JEP Contexts with extended functions.
@@ -87,7 +88,8 @@ public class JEPContextFactory
     {
         // String functions
         jep.addFunction("concat", new Concat());
-        jep.addFunction("findMatches", new FindMatches());
+        jep.addFunction("findMatch", new FindMatches(ReturnStrategy.FIRST_MATCH));
+        jep.addFunction("findMatches", new FindMatches(ReturnStrategy.ALL_MATCHES));
         jep.addFunction("lower", new Lower());
         jep.addFunction("normalizeString", new NormalizeString());
         jep.addFunction("replace", new Replace());
