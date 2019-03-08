@@ -30,8 +30,7 @@ public class FindMatchesTest
     private static FindMatches function = new FindMatches();
 
     /**
-     * Tests the replacement function with a valid string and a regex that returns a single
-     * match in a list
+     * Tests with a valid string and a regex that returns a single match in a list
      */
     @Test
     public void testExtractFileExtensionFromString() throws ParseException
@@ -44,8 +43,7 @@ public class FindMatchesTest
     }
 
     /**
-     * Tests the replacement function with a valid string and a regex that returns two matches
-     * in a list
+     * Tests with a valid string and a regex that returns two matches in a list
      */
     @Test
     public void testExtractTwitterLinksFromString() throws ParseException
@@ -56,6 +54,40 @@ public class FindMatchesTest
         assertEquals(2, matchesList.size());
         assertTrue("Not all expressions were found in the returned list",
                 matchesList.containsAll(EXPECTED_TWITTER_LINKS));
+    }
+
+    /**
+     * Tests with a null string
+     */
+    @Test
+    public void testWithNullString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, REGEX_TWITTER_LINKS_FINDER);
+        function.run(parameters);
+        List<Object> matchesList = CollectionsUtils.asList(parameters.pop());
+        assertEquals(0, matchesList.size());
+    }
+
+    /**
+     * Tests with an empty string
+     */
+    @Test
+    public void testWithEmptyString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack("", REGEX_TWITTER_LINKS_FINDER);
+        function.run(parameters);
+        List<Object> matchesList = CollectionsUtils.asList(parameters.pop());
+        assertEquals(0, matchesList.size());
+    }
+
+    /**
+     * Tests with a null regex
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithNullRegex() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, null);
+        function.run(parameters);
     }
 
 }
