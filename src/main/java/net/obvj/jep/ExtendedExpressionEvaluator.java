@@ -8,7 +8,7 @@ import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.TokenMgrError;
 
-import net.obvj.jep.util.PlaceholderUtils;
+import net.obvj.jep.util.RegexUtils;
 
 /**
  * An object that evaluates an user expression with extended capabilities, such as
@@ -70,9 +70,9 @@ public class ExtendedExpressionEvaluator
 
     private String replacePlaceholders(Map<String, Object> variables)
     {
-        if (PlaceholderUtils.hasPlaceholders(expression))
+        if (RegexUtils.hasUnixLikeVariablePlaceholders(expression))
         {
-            return PlaceholderUtils.replacePlaceholders(expression, variables);
+            return RegexUtils.replacePlaceholdersWithVariables(expression, variables);
         }
         return expression;
     }

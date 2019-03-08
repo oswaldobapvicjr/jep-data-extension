@@ -10,7 +10,7 @@ import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-public class PlaceholderUtilsTest
+public class RegexUtilsTest
 {
     private static final String STR_EMPTY = StringUtils.EMPTY;
     private static final String STRING_NO_PLACEHOLDER = "$..book[?(@.price<10)]";
@@ -45,7 +45,7 @@ public class PlaceholderUtilsTest
     {
         try
         {
-            Constructor<PlaceholderUtils> constructor = PlaceholderUtils.class.getDeclaredConstructor();
+            Constructor<RegexUtils> constructor = RegexUtils.class.getDeclaredConstructor();
             assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
 
             constructor.setAccessible(true);
@@ -63,115 +63,115 @@ public class PlaceholderUtilsTest
     @Test
     public void testHasPlaceholdersForAStringWithNoMatches()
     {
-        assertFalse(PlaceholderUtils.hasPlaceholders(STRING_NO_PLACEHOLDER));
+        assertFalse(RegexUtils.hasUnixLikeVariablePlaceholders(STRING_NO_PLACEHOLDER));
     }
 
     @Test
     public void testHasPlaceholdersForAStringWithOneMatch()
     {
-        assertTrue(PlaceholderUtils.hasPlaceholders(STRING_ONE_PLACEHOLDER));
+        assertTrue(RegexUtils.hasUnixLikeVariablePlaceholders(STRING_ONE_PLACEHOLDER));
     }
 
     @Test
     public void testFindNumberOfPlaceholdersForAStringWithNoMatches()
     {
-        List<String> matches = PlaceholderUtils.findPlaceholders(STRING_NO_PLACEHOLDER);
+        List<String> matches = RegexUtils.findUnixLikeVariablePlaceholders(STRING_NO_PLACEHOLDER);
         assertTrue(matches.isEmpty());
     }
 
     @Test
     public void testFindNumberOfPlaceholdersForAStringWithOneMatch()
     {
-        List<String> matches = PlaceholderUtils.findPlaceholders(STRING_ONE_PLACEHOLDER);
+        List<String> matches = RegexUtils.findUnixLikeVariablePlaceholders(STRING_ONE_PLACEHOLDER);
         assertEquals(1, matches.size());
     }
 
     @Test
     public void testFindNumberOfPlaceholdersForAStringWithTwoMatches()
     {
-        List<String> matches = PlaceholderUtils.findPlaceholders(STRING_TWO_PLACEHOLDERS);
+        List<String> matches = RegexUtils.findUnixLikeVariablePlaceholders(STRING_TWO_PLACEHOLDERS);
         assertEquals(2, matches.size());
     }
 
     @Test
     public void testReplacePlaceholdersForAStringWithNoMatch()
     {
-        String newString = PlaceholderUtils.replacePlaceholders(STRING_NO_PLACEHOLDER, VARIABLES_MAP);
+        String newString = RegexUtils.replacePlaceholdersWithVariables(STRING_NO_PLACEHOLDER, VARIABLES_MAP);
         assertEquals(STRING_NO_PLACEHOLDER, newString);
     }
 
     @Test
     public void testReplacePlaceholdersForAStringWithOneMatch()
     {
-        String newString = PlaceholderUtils.replacePlaceholders(STRING_ONE_PLACEHOLDER, VARIABLES_MAP);
+        String newString = RegexUtils.replacePlaceholdersWithVariables(STRING_ONE_PLACEHOLDER, VARIABLES_MAP);
         assertEquals(EXPECTED_STRING_ONE_PLACEHOLDER, newString);
     }
 
     @Test
     public void testReplacePlaceholdersForAStringWithTwoMatches()
     {
-        String newString = PlaceholderUtils.replacePlaceholders(STRING_TWO_PLACEHOLDERS, VARIABLES_MAP);
+        String newString = RegexUtils.replacePlaceholdersWithVariables(STRING_TWO_PLACEHOLDERS, VARIABLES_MAP);
         assertEquals(EXPECTED_STRING_TWO_PLACEHOLDERS, newString);
     }
 
     @Test
     public void testMatchesForAPatternAndStringContainingOneMatch()
     {
-        assertTrue(PlaceholderUtils.matches("${var}", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertTrue(RegexUtils.matches("${var}", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
     @Test
     public void testMatchesForAPatternAndStringContainingNoMatch()
     {
-        assertFalse(PlaceholderUtils.matches("var", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertFalse(RegexUtils.matches("var", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
     @Test
     public void testMatchesForAPatternAndNullString()
     {
-        assertFalse(PlaceholderUtils.matches(null, PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertFalse(RegexUtils.matches(null, RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
     @Test
     public void testMatchesForAPatternAndEmptyString()
     {
-        assertFalse(PlaceholderUtils.matches(STR_EMPTY, PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertFalse(RegexUtils.matches(STR_EMPTY, RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
     @Test
     public void testFindMatchesForAPatternAndStringContainingOneMatch()
     {
-        assertEquals("test", PlaceholderUtils.findMatches("${test}", PlaceholderUtils.PATTERN_VARIABLE_NAME).get(0));
+        assertEquals("test", RegexUtils.findMatches("${test}", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME).get(0));
     }
 
     @Test
     public void testFindMatchesForAPatternAndStringContainingNoMatch()
     {
-        assertEquals(0, PlaceholderUtils.findMatches("test", PlaceholderUtils.PATTERN_VARIABLE_NAME).size());
+        assertEquals(0, RegexUtils.findMatches("test", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME).size());
     }
 
     @Test
     public void testFindMatchesForAPatternAndAnEmptyString()
     {
-        assertEquals(0, PlaceholderUtils.findMatches(STR_EMPTY, PlaceholderUtils.PATTERN_VARIABLE_NAME).size());
+        assertEquals(0, RegexUtils.findMatches(STR_EMPTY, RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME).size());
     }
 
     @Test
     public void testFindMatchForAPatternAndStringContainingOneMatch()
     {
-        assertEquals("test", PlaceholderUtils.findMatch("${test}", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertEquals("test", RegexUtils.firstMatch("${test}", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
     @Test
     public void testFindMatchForAPatternAndStringContainingNoMatch()
     {
-        assertEquals(STR_EMPTY, PlaceholderUtils.findMatch("test", PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertEquals(STR_EMPTY, RegexUtils.firstMatch("test", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
     @Test
     public void testFindMatchForAPatternAndAnEmptyString()
     {
-        assertEquals(STR_EMPTY, PlaceholderUtils.findMatch(STR_EMPTY, PlaceholderUtils.PATTERN_VARIABLE_NAME));
+        assertEquals(STR_EMPTY, RegexUtils.firstMatch(STR_EMPTY, RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
     }
 
 }

@@ -87,6 +87,7 @@ public class JEPContextFactory
     {
         // String functions
         jep.addFunction("concat", new Concat());
+        jep.addFunction("findMatches", new FindMatches());
         jep.addFunction("lower", new Lower());
         jep.addFunction("normalizeString", new NormalizeString());
         jep.addFunction("replace", new Replace());

@@ -10,23 +10,23 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * A utility class for working with place-holders in strings
+ * A utility class for working with regular expressions in strings
  *
  * @author oswaldo.bapvic.jr
  */
-public class PlaceholderUtils
+public class RegexUtils
 {
-    protected static final Pattern PATTERN_VARIABLE_PLACEHOLDER = Pattern.compile("(\\$\\{)[\\w]+(\\})");
-    protected static final Pattern PATTERN_VARIABLE_NAME = Pattern.compile("(?<=\\$\\{)[\\w]+(?=\\})");
+    protected static final Pattern PATTERN_UNIX_LIKE_VARIABLE_PLACEHOLDER = Pattern.compile("(\\$\\{)[\\w]+(\\})");
+    protected static final Pattern PATTERN_UNIX_LIKE_VARIABLE_NAME = Pattern.compile("(?<=\\$\\{)[\\w]+(?=\\})");
 
-    private PlaceholderUtils()
+    private RegexUtils()
     {
         throw new IllegalStateException("Utility class");
     }
 
     /**
      * Attempts to match the entire region against the pattern.
-     * 
+     *
      * @param string  The string to attempt the match.
      * @param pattern The pattern to use.
      *
@@ -62,13 +62,26 @@ public class PlaceholderUtils
     }
 
     /**
+     * Returns the matches found for a given string using regular expression.
+     *
+     * @param string  The string to look for matches.
+     * @param pattern The pattern to use.
+     * @return A set of matches within the string.
+     */
+    public static List<String> findMatches(String string, String pattern)
+    {
+        Pattern compiledPattern = Pattern.compile(pattern);
+        return findMatches(string, compiledPattern);
+    }
+
+    /**
      * Returns the first match found for a given string using regular expression.
      *
      * @param string  The string to look for matches.
      * @param pattern The pattern to use.
      * @return The first match found within the string.
      */
-    public static String findMatch(String string, Pattern pattern)
+    public static String firstMatch(String string, Pattern pattern)
     {
         if (StringUtils.isEmpty(string)) return StringUtils.EMPTY;
 
@@ -82,26 +95,39 @@ public class PlaceholderUtils
     }
 
     /**
-     * Checks if the string has place-holders
+     * Returns the first match found for a given string using regular expression.
+     *
+     * @param string The string to look for matches.
+     * @param pattern The pattern to use.
+     * @return The first match found within the string.
+     */
+    public static String firstMatch(String string, String pattern)
+    {
+        Pattern compiledPattern = Pattern.compile(pattern);
+        return firstMatch(string, compiledPattern);
+    }
+
+    /**
+     * Checks if the string has place-holders for variables in Unix-like pattern
      *
      * @param string the given string to be replaced
-     * @return a boolean value which means it has or not place-holders.
+     * @return a boolean value which means it has or not place-holders in Unix-like pattern
      */
-    public static boolean hasPlaceholders(String string)
+    public static boolean hasUnixLikeVariablePlaceholders(String string)
     {
-        List<String> placeholders = findPlaceholders(string);
+        List<String> placeholders = findUnixLikeVariablePlaceholders(string);
         return !placeholders.isEmpty();
     }
 
     /**
-     * Method that finds the place-holders of a given string.
+     * Method that finds the place-holders in Unix-like pattern for the given string.
      *
      * @param string the given string to be used to find place-holders
      * @return the string set with the found place-holders
      */
-    public static List<String> findPlaceholders(String string)
+    public static List<String> findUnixLikeVariablePlaceholders(String string)
     {
-        return findMatches(string, PATTERN_VARIABLE_PLACEHOLDER);
+        return findMatches(string, PATTERN_UNIX_LIKE_VARIABLE_PLACEHOLDER);
     }
 
     /**
@@ -110,9 +136,9 @@ public class PlaceholderUtils
      * @param string the given string to be used to find the variable name
      * @return the the variable name, if found
      */
-    private static String findVariableName(String placeholder)
+    private static String findUnixLikeVariableName(String placeholder)
     {
-        return findMatch(placeholder, PATTERN_VARIABLE_NAME);
+        return firstMatch(placeholder, PATTERN_UNIX_LIKE_VARIABLE_NAME);
     }
 
     /**
@@ -123,14 +149,16 @@ public class PlaceholderUtils
      *                  replacement.
      * @return The string with the replaced place-holders.
      */
-    public static String replacePlaceholders(String string, Map<String, Object> variables)
+    public static String replacePlaceholdersWithVariables(String string, Map<String, Object> variables)
     {
+        if (StringUtils.isEmpty(string)) return string;
+
         String resultString = string;
-        List<String> placeholders = findPlaceholders(string);
+        List<String> placeholders = findUnixLikeVariablePlaceholders(string);
 
         for (String placeholder : placeholders)
         {
-            String variableName = findVariableName(placeholder);
+            String variableName = findUnixLikeVariableName(placeholder);
             resultString = resultString.replace(placeholder, String.valueOf(variables.get(variableName)));
         }
         return resultString;

@@ -59,6 +59,7 @@ public class JEPContextFactoryTest
 
         // String
         assertTrue(table.containsKey("concat"));
+        assertTrue(table.containsKey("findMatches"));
         assertTrue(table.containsKey("lower"));
         assertTrue(table.containsKey("normalizeString"));
         assertTrue(table.containsKey("replace"));
