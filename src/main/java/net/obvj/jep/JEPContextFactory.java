@@ -11,6 +11,7 @@ import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
+import net.obvj.jep.functions.Replace.SearchStrategy;
 
 /**
  * A factory that creates JEP Contexts with extended functions.
@@ -92,7 +93,7 @@ public class JEPContextFactory
         jep.addFunction("findMatches", new FindMatches(ReturnStrategy.ALL_MATCHES));
         jep.addFunction("lower", new Lower());
         jep.addFunction("normalizeString", new NormalizeString());
-        jep.addFunction("replace", new Replace());
+        jep.addFunction("replace", new Replace(SearchStrategy.NORMAL));
         jep.addFunction("trim", new Trim());
         jep.addFunction("upper", new Upper());
 
@@ -109,6 +110,8 @@ public class JEPContextFactory
 
         // Statistical functions
         jep.addFunction("count", new Count());
+        jep.addFunction("max", new Max());
+        jep.addFunction("min", new Min());
 
         // Random functions
         jep.addFunction("uuid", new UUID());

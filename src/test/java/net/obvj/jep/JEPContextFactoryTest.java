@@ -80,6 +80,8 @@ public class JEPContextFactoryTest
 
         // Statistical
         assertTrue(table.containsKey("count"));
+        assertTrue(table.containsKey("max"));
+        assertTrue(table.containsKey("min"));
 
         // Random
         assertTrue(table.containsKey("uuid"));

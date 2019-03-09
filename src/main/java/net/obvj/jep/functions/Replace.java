@@ -7,18 +7,36 @@ import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
 /**
- * This class implements a JEP function that converts a string to all lower-case letters.
+ * A JEP function that replaces occurrences of a string with another string
  *
  * @author oswaldo.bapvic.jr
  */
 public class Replace extends PostfixMathCommand
 {
+    public enum SearchStrategy
+    {
+        NORMAL
+        {
+            @Override
+            String replace(String sourceString, String searchString, String replacementString)
+            {
+                return StringUtils.replace(sourceString, searchString, replacementString);
+            }
+        };
+
+        abstract String replace(String sourceString, String searchString, String replacementString);
+    }
+
+    private SearchStrategy searchStrategy;
+
     /**
-     * Builds this function with a fixed number of three parameters
+     * Builds this function with a fixed number of three parameters and the given search
+     * strategy
      */
-    public Replace()
+    public Replace(SearchStrategy searchStrategy)
     {
         numberOfParameters = 3;
+        this.searchStrategy = searchStrategy;
     }
 
     /**
@@ -42,7 +60,7 @@ public class Replace extends PostfixMathCommand
         String searchString = arg2.toString();
         String replacementString = arg3 == null ? StringUtils.EMPTY : arg3.toString();
 
-        Object result = StringUtils.replace(sourceString, searchString, replacementString);
+        String result = searchStrategy.replace(sourceString, searchString, replacementString);
         stack.push(result);
     }
 

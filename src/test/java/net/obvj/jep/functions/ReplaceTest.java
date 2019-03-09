@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -23,7 +24,7 @@ public class ReplaceTest
     private static final String EE = "ee";
     private static final String OO = "oo";
 
-    private static Replace function = new Replace();
+    private static Replace function = new Replace(SearchStrategy.NORMAL);
 
     /**
      * Tests the replacement function with a valid string and two replacements
