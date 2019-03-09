@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
+import net.obvj.jep.util.RegexUtils;
+
 /**
  * A JEP function that replaces occurrences of a string with another string
  *
@@ -15,16 +17,31 @@ public class Replace extends PostfixMathCommand
 {
     public enum SearchStrategy
     {
-        NORMAL
+        /**
+         * Replaces occurrences of a string with another string
+         */
+    	NORMAL
         {
             @Override
-            String replace(String sourceString, String searchString, String replacementString)
+            String replace(String sourceString, String searchString, String replacement)
             {
-                return StringUtils.replace(sourceString, searchString, replacementString);
+                return StringUtils.replace(sourceString, searchString, replacement);
+            }
+        },
+
+        /**
+         * Uses regular expressions to find matches for replacement
+         */
+        REGEX
+        {
+            @Override
+            String replace(String sourceString, String searchString, String replacement)
+            {
+                return RegexUtils.replaceMatches(sourceString, searchString, replacement);
             }
         };
 
-        abstract String replace(String sourceString, String searchString, String replacementString);
+        abstract String replace(String sourceString, String searchString, String replacement);
     }
 
     private SearchStrategy searchStrategy;
@@ -58,9 +75,9 @@ public class Replace extends PostfixMathCommand
 
         String sourceString = arg1.toString();
         String searchString = arg2.toString();
-        String replacementString = arg3 == null ? StringUtils.EMPTY : arg3.toString();
+        String replacement = arg3 == null ? StringUtils.EMPTY : arg3.toString();
 
-        String result = searchStrategy.replace(sourceString, searchString, replacementString);
+        String result = searchStrategy.replace(sourceString, searchString, replacement);
         stack.push(result);
     }
 

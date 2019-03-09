@@ -23,17 +23,23 @@ public class ReplaceTest
     private static final String F_B = "f-b";
     private static final String EE = "ee";
     private static final String OO = "oo";
-
-    private static Replace function = new Replace(SearchStrategy.NORMAL);
+    
+    private static final String FILE1_JSON = "file1.json";
+    private static final String FILE1_XML = "file1.xml";
+    private static final String FILE1 = "file1";
+    private static final String REGEX_EXTRACT_FILE_EXTENSION = "(\\.\\w+$)";
+    
+    private static Replace replaceNormal = new Replace(SearchStrategy.NORMAL);
+    private static Replace replaceRegex = new Replace(SearchStrategy.REGEX);
 
     /**
      * Tests the replacement function with a valid string and two replacements
      */
     @Test
-    public void testReplaceWithTwoReplacements() throws ParseException
+    public void testReplaceNormalWithTwoReplacements() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, EE, OO);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertEquals(FOO_BOO, parameters.pop());
     }
 
@@ -41,10 +47,10 @@ public class ReplaceTest
      * Tests the replacement function with a null string
      */
     @Test
-    public void testReplaceWithNullString() throws ParseException
+    public void testReplaceNormalWithNullString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(null, EE, OO);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertNull(parameters.pop());
     }
 
@@ -52,10 +58,10 @@ public class ReplaceTest
      * Tests the replacement function with an empty string
      */
     @Test
-    public void testReplaceWithEmptyString() throws ParseException
+    public void testReplaceNormalWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY, EE, OO);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 
@@ -63,10 +69,10 @@ public class ReplaceTest
      * Tests the replacement function with a null search criteria
      */
     @Test
-    public void testReplaceWithNullSearchCriteria() throws ParseException
+    public void testReplaceNormalWithNullSearchCriteria() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, null, OO);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertEquals(FEE_BEE, parameters.pop());
     }
 
@@ -74,10 +80,10 @@ public class ReplaceTest
      * Tests the replacement function with an empty search criteria
      */
     @Test
-    public void testReplaceWithEmptySearchCriteria() throws ParseException
+    public void testReplaceNormalWithEmptySearchCriteria() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, StringUtils.EMPTY, OO);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertEquals(FEE_BEE, parameters.pop());
     }
 
@@ -85,10 +91,10 @@ public class ReplaceTest
      * Tests the replacement function with an null replacement
      */
     @Test
-    public void testReplaceWithNullReplacement() throws ParseException
+    public void testReplaceNormalWithNullReplacement() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, EE, null);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertEquals(F_B, parameters.pop());
     }
 
@@ -96,10 +102,43 @@ public class ReplaceTest
      * Tests the replacement function with an empty replacement
      */
     @Test
-    public void testReplaceWithEmptyReplacement() throws ParseException
+    public void testReplaceNormalWithEmptyReplacement() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FEE_BEE, EE, StringUtils.EMPTY);
-        function.run(parameters);
+        replaceNormal.run(parameters);
         assertEquals(F_B, parameters.pop());
+    }
+    
+    /**
+     * Tests the replacement regex function with a valid string and a replacement
+     */
+    @Test
+    public void testReplaceRegexNormalWithReplacement() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_EXTRACT_FILE_EXTENSION, ".xml");
+        replaceRegex.run(parameters);
+        assertEquals(FILE1_XML, parameters.pop());
+    }
+
+    /**
+     * Tests the replacement regex function with an null replacement
+     */
+    @Test
+    public void testReplaceRegexWithNullReplacement() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_EXTRACT_FILE_EXTENSION, null);
+        replaceRegex.run(parameters);
+        assertEquals(FILE1, parameters.pop());
+    }
+
+    /**
+     * Tests the replacement regex function with an empty replacement
+     */
+    @Test
+    public void testReplaceRegexWithEmptyReplacement() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_EXTRACT_FILE_EXTENSION, StringUtils.EMPTY);
+        replaceRegex.run(parameters);
+        assertEquals(FILE1, parameters.pop());
     }
 }

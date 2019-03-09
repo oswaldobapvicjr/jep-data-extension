@@ -94,6 +94,7 @@ public class JEPContextFactory
         jep.addFunction("lower", new Lower());
         jep.addFunction("normalizeString", new NormalizeString());
         jep.addFunction("replace", new Replace(SearchStrategy.NORMAL));
+        jep.addFunction("replaceRegex", new Replace(SearchStrategy.REGEX));
         jep.addFunction("trim", new Trim());
         jep.addFunction("upper", new Upper());
 

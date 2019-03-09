@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/oswaldobapvicjr/jep-data-extension.svg?branch=master)](https://travis-ci.org/oswaldobapvicjr/jep-data-extension)
 [![Coverage Status](https://coveralls.io/repos/github/oswaldobapvicjr/jep-data-extension/badge.svg?branch=master)](https://coveralls.io/github/oswaldobapvicjr/jep-data-extension?branch=master)
 
-**jep-data-extension** is a library that  extends JEP, a powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom data functions and operators, including **XPath** and **JSONPath**.
+**jep-data-extension** is a library that  extends JEP, a powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom data functions and operators, including 
+**RegEx**, **XPath** and **JSONPath**.
 
 > For details about JEP core functionality, click [here](http://www.singularsys.com/jep/doc/html/index.html). 
 
@@ -16,7 +17,7 @@
 Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
 
 ```java
-concat(object1, object2, ...)
+concat("{id:", 123, "}") //result: "{id:123}"
 ```
 
 > **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
@@ -27,7 +28,7 @@ concat(object1, object2, ...)
 Returns the first match of the given regular expression found inside a string.
 
 ```java
-findMatch(string1, "(\\.\\w+$)")
+findMatch("user@domain.com", "(?<=@)[^.]+(?=\.)") //result: "domain"
 ```
 
 
@@ -36,7 +37,7 @@ findMatch(string1, "(\\.\\w+$)")
 Returns a list containing all matches of the given regular expression found inside a string.
 
 ```java
-findMatches(string1, "([@][A-z]+)|([#][A-z]+)")
+findMatches("Sample tweet #java #jep", "([#][A-z]+)") //result: ["#java", "#jep"]
 ```
 
 ### Lower
@@ -44,15 +45,15 @@ findMatches(string1, "([@][A-z]+)|([#][A-z]+)")
 Converts a text string to all lower-case letters.
 
 ```java
-lower(string1)
+lower("STRING") //result: "string"
 ```
 
 ### Normalize String
 
-Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. Example: `"ações"` is transformed into `"acoes"`. 
+Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. 
 
 ```java
-normalizeString(string1)
+normalizeString("ações") //result: "acoes"
 ```
 
 ### Replace
@@ -60,7 +61,15 @@ normalizeString(string1)
 Returns a new string after replacing all occurrences of the search criteria within the original string with the replacement argument.
 
 ```java
-replace(sourceString, searchString, replacementString)
+replace("foo-boo", "oo", "ee") //result: "fee-bee"
+```
+
+### Replace RegEx
+
+Returns a new string after replacing all matches of the given regular expression with the replacement argument.
+
+```java
+replace("file1.json", "(\\.\\w+$)", "") //result: "file1"
 ```
 
 ### Trim
@@ -68,7 +77,7 @@ replace(sourceString, searchString, replacementString)
 Removes leading and trailing spaces.
 
 ```java
-trim(string1)
+trim("   string   ") //result: "string"
 ```
 
 ### Upper
@@ -76,7 +85,7 @@ trim(string1)
 Converts a text string to all upper-case letters.
 
 ```java
-upper(string1)
+upper("string") //result: "STRING"
 ```
 
 ---

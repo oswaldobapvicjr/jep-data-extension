@@ -64,6 +64,7 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("lower"));
         assertTrue(table.containsKey("normalizeString"));
         assertTrue(table.containsKey("replace"));
+        assertTrue(table.containsKey("replaceRegex"));
         assertTrue(table.containsKey("trim"));
         assertTrue(table.containsKey("upper"));
 

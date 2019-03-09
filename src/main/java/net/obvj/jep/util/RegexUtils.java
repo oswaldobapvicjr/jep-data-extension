@@ -27,8 +27,8 @@ public class RegexUtils
     /**
      * Attempts to match the entire region against the pattern.
      *
-     * @param string  The string to attempt the match.
-     * @param pattern The pattern to use.
+     * @param string  The string to attempt the match
+     * @param pattern The pattern to use
      *
      * @return {@code true} if matches, otherwise {@code false};
      */
@@ -43,9 +43,9 @@ public class RegexUtils
     /**
      * Returns the matches found for a given string using regular expression.
      *
-     * @param string  The string to look for matches.
-     * @param pattern The pattern to use.
-     * @return A set of matches within the string.
+     * @param string  The string to look for matches
+     * @param pattern The pattern to use
+     * @return A list containing all matches of the given pattern within the string.
      */
     public static List<String> findMatches(String string, Pattern pattern)
     {
@@ -64,22 +64,22 @@ public class RegexUtils
     /**
      * Returns the matches found for a given string using regular expression.
      *
-     * @param string  The string to look for matches.
-     * @param pattern The pattern to use.
-     * @return A set of matches within the string.
+     * @param string The string to look for matches
+     * @param regex  The regular expression to use
+     * @return A list containing all matches of the given regular expression within the string
      */
-    public static List<String> findMatches(String string, String pattern)
+    public static List<String> findMatches(String string, String regex)
     {
-        Pattern compiledPattern = Pattern.compile(pattern);
-        return findMatches(string, compiledPattern);
+        Pattern pattern = Pattern.compile(regex);
+        return findMatches(string, pattern);
     }
 
     /**
      * Returns the first match found for a given string using regular expression.
      *
-     * @param string  The string to look for matches.
-     * @param pattern The pattern to use.
-     * @return The first match found within the string.
+     * @param string  The string to look for matches
+     * @param pattern The pattern to use
+     * @return The first match found for the given pattern within the string
      */
     public static String firstMatch(String string, Pattern pattern)
     {
@@ -97,14 +97,30 @@ public class RegexUtils
     /**
      * Returns the first match found for a given string using regular expression.
      *
-     * @param string The string to look for matches.
-     * @param pattern The pattern to use.
-     * @return The first match found within the string.
+     * @param string The string to look for matches
+     * @param regex  The regular expression to use
+     * @return The first match of the given regular expression found within the string
      */
-    public static String firstMatch(String string, String pattern)
+    public static String firstMatch(String string, String regex)
     {
-        Pattern compiledPattern = Pattern.compile(pattern);
-        return firstMatch(string, compiledPattern);
+        Pattern pattern = Pattern.compile(regex);
+        return firstMatch(string, pattern);
+    }
+
+    /**
+     * Replaces all matches found for the given regular expression with a replacement string
+     *
+     * @param string      The string to look for matches
+     * @param regex       The regular expression to use
+     * @param replacement The replacement string
+     * @return The first match found for the given pattern within the string.
+     */
+    public static String replaceMatches(String string, String regex, String replacement)
+    {
+        if (StringUtils.isEmpty(string)) return string;
+
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(string).replaceAll(replacement);
     }
 
     /**
@@ -144,9 +160,9 @@ public class RegexUtils
     /**
      * Method to replace place-holders with variables
      *
-     * @param string    the given string to be replaced
+     * @param string    The given string to be replaced
      * @param variables A map containing place-holder names and value that will be used in
-     *                  replacement.
+     *                  replacement
      * @return The string with the replaced place-holders.
      */
     public static String replacePlaceholdersWithVariables(String string, Map<String, Object> variables)
