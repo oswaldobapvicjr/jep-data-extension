@@ -92,6 +92,7 @@ public class JEPContextFactory
         jep.addFunction("findMatch", new FindMatches(ReturnStrategy.FIRST_MATCH));
         jep.addFunction("findMatches", new FindMatches(ReturnStrategy.ALL_MATCHES));
         jep.addFunction("lower", new Lower());
+        jep.addFunction("matches", new FindMatches(ReturnStrategy.TRUE_IF_MATCHES));
         jep.addFunction("normalizeString", new NormalizeString());
         jep.addFunction("replace", new Replace(SearchStrategy.NORMAL));
         jep.addFunction("replaceRegex", new Replace(SearchStrategy.REGEX));

@@ -48,6 +48,14 @@ Converts a text string to all lower-case letters.
 lower("STRING") //result: "string"
 ```
 
+### Matches
+
+Returns a 1 (true) if the given string contains at least one match of the given regular expression or 0 (false) if not.
+
+```java
+matches("user@domain.com", "(?<=@)[^.]+(?=\.)") //result: 1.0
+```
+
 ### Normalize String
 
 Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. 
@@ -129,7 +137,7 @@ date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 
 ### Days between dates
 
-Returns the number of days between two dates.
+Returns the number of days between two dates (or valid date representations as string).
 
 ```java
 daysBetween(date1, date2)

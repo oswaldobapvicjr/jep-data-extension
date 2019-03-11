@@ -32,6 +32,7 @@ public class FindMatchesTest
 
     private static FindMatches findMatchesFunction = new FindMatches(ReturnStrategy.ALL_MATCHES);
     private static FindMatches findMatchFunction = new FindMatches(ReturnStrategy.FIRST_MATCH);
+    private static FindMatches matchesFunction = new FindMatches(ReturnStrategy.TRUE_IF_MATCHES);
 
     /**
      * Tests with a valid string and a regex that returns a single match in a list with the
@@ -84,6 +85,30 @@ public class FindMatchesTest
         Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, REGEX_TWITTER_LINKS_FINDER);
         findMatchFunction.run(parameters);
         assertEquals(HASHTAG_INTERNATIONAL_WOMENS_DAY, parameters.pop());
+    }
+
+    /**
+     * Tests with a valid string and a regex that returns a single match with the
+     * "true-if-matches" strategy (should return 1 - true)
+     */
+    @Test
+    public void testStringContainsFileExtensionWithTrueIfMatches() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_FILE_EXTENSION_FINDER);
+        matchesFunction.run(parameters);
+        assertEquals(1d, parameters.pop());
+    }
+
+    /**
+     * Tests with a valid string and a regex that returns no match with the "true-if-matches"
+     * strategy (should return 0 - false)
+     */
+    @Test
+    public void testStringDoesNotContainFileExtensionWithTrueIfMatches() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, REGEX_FILE_EXTENSION_FINDER);
+        matchesFunction.run(parameters);
+        assertEquals(0d, parameters.pop());
     }
 
     /**

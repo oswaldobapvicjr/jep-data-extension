@@ -62,6 +62,7 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("findMatch"));
         assertTrue(table.containsKey("findMatches"));
         assertTrue(table.containsKey("lower"));
+        assertTrue(table.containsKey("matches"));
         assertTrue(table.containsKey("normalizeString"));
         assertTrue(table.containsKey("replace"));
         assertTrue(table.containsKey("replaceRegex"));

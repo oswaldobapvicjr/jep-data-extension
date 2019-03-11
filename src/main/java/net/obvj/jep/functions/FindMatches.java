@@ -25,9 +25,9 @@ public class FindMatches extends PostfixMathCommand
         ALL_MATCHES
         {
             @Override
-            void pushResult(Stack stack, String string, String pattern)
+            void pushResult(Stack stack, String string, String regex)
             {
-                List<String> matches = RegexUtils.findMatches(string, pattern);
+                List<String> matches = RegexUtils.findMatches(string, regex);
                 stack.push(matches);
             }
         },
@@ -38,10 +38,23 @@ public class FindMatches extends PostfixMathCommand
         FIRST_MATCH
         {
             @Override
-            void pushResult(Stack stack, String string, String pattern)
+            void pushResult(Stack stack, String string, String regex)
             {
-                String matches = RegexUtils.firstMatch(string, pattern);
+                String matches = RegexUtils.firstMatch(string, regex);
                 stack.push(matches);
+            }
+        },
+
+        /**
+         * Returns the first match found in a string
+         */
+        TRUE_IF_MATCHES
+        {
+            @Override
+            void pushResult(Stack stack, String string, String regex)
+            {
+                boolean matches = RegexUtils.matches(string, regex);
+                stack.push(matches ? 1d : 0d);
             }
         };
 

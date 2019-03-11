@@ -25,12 +25,12 @@ public class RegexUtils
     }
 
     /**
-     * Attempts to match the entire region against the pattern.
+     * Returns true if the given string contains at least one match of the given pattern
      *
-     * @param string  The string to attempt the match
+     * @param string  The string to be matched
      * @param pattern The pattern to use
      *
-     * @return {@code true} if matches, otherwise {@code false};
+     * @return {@code true} if matches, otherwise {@code false}
      */
     public static boolean matches(String string, Pattern pattern)
     {
@@ -41,11 +41,26 @@ public class RegexUtils
     }
 
     /**
-     * Returns the matches found for a given string using regular expression.
+     * Returns true if the given string contains at least one match of the given regular
+     * expression
      *
-     * @param string  The string to look for matches
+     * @param string The string to be matched
+     * @param regex  The regular expression to use
+     *
+     * @return {@code true} if matches, otherwise {@code false}
+     */
+    public static boolean matches(String string, String regex)
+    {
+        Pattern pattern = Pattern.compile(regex);
+        return matches(string, pattern);
+    }
+
+    /**
+     * Returns the matches found for a given string using regular expression
+     *
+     * @param string  The string to be matched
      * @param pattern The pattern to use
-     * @return A list containing all matches of the given pattern within the string.
+     * @return A list containing all matches of the given pattern within the string
      */
     public static List<String> findMatches(String string, Pattern pattern)
     {
@@ -62,9 +77,9 @@ public class RegexUtils
     }
 
     /**
-     * Returns the matches found for a given string using regular expression.
+     * Returns the matches found for a given string using regular expression
      *
-     * @param string The string to look for matches
+     * @param string The string to be matched
      * @param regex  The regular expression to use
      * @return A list containing all matches of the given regular expression within the string
      */
@@ -75,9 +90,9 @@ public class RegexUtils
     }
 
     /**
-     * Returns the first match found for a given string using regular expression.
+     * Returns the first match found for a given string using regular expression
      *
-     * @param string  The string to look for matches
+     * @param string  The string to be matched
      * @param pattern The pattern to use
      * @return The first match found for the given pattern within the string
      */
@@ -95,9 +110,9 @@ public class RegexUtils
     }
 
     /**
-     * Returns the first match found for a given string using regular expression.
+     * Returns the first match found for a given string using regular expression
      *
-     * @param string The string to look for matches
+     * @param string The string to be matched
      * @param regex  The regular expression to use
      * @return The first match of the given regular expression found within the string
      */
@@ -110,10 +125,10 @@ public class RegexUtils
     /**
      * Replaces all matches found for the given regular expression with a replacement string
      *
-     * @param string      The string to look for matches
+     * @param string      The string to be matched
      * @param regex       The regular expression to use
      * @param replacement The replacement string
-     * @return The first match found for the given pattern within the string.
+     * @return The first match found for the given pattern within the string
      */
     public static String replaceMatches(String string, String regex, String replacement)
     {
@@ -126,7 +141,7 @@ public class RegexUtils
     /**
      * Checks if the string has place-holders for variables in Unix-like pattern
      *
-     * @param string the given string to be replaced
+     * @param string the string to be replaced
      * @return a boolean value which means it has or not place-holders in Unix-like pattern
      */
     public static boolean hasUnixLikeVariablePlaceholders(String string)
@@ -136,9 +151,9 @@ public class RegexUtils
     }
 
     /**
-     * Method that finds the place-holders in Unix-like pattern for the given string.
+     * Method that finds the place-holders in Unix-like pattern for the given string
      *
-     * @param string the given string to be used to find place-holders
+     * @param string the string to be used to find place-holders
      * @return the string set with the found place-holders
      */
     public static List<String> findUnixLikeVariablePlaceholders(String string)
@@ -147,9 +162,9 @@ public class RegexUtils
     }
 
     /**
-     * Method that finds the variable name given a string containing a place-holder.
+     * Method that finds the variable name given a string containing a place-holder
      *
-     * @param string the given string to be used to find the variable name
+     * @param string the string to be used to find the variable name
      * @return the the variable name, if found
      */
     private static String findUnixLikeVariableName(String placeholder)
