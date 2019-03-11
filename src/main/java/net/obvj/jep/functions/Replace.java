@@ -81,4 +81,9 @@ public class Replace extends PostfixMathCommand
         stack.push(result);
     }
 
+    public SearchStrategy getSearchStrategy()
+    {
+        return searchStrategy;
+    }
+
 }

@@ -178,7 +178,7 @@ public class RegexUtils
      * @param string    The given string to be replaced
      * @param variables A map containing place-holder names and value that will be used in
      *                  replacement
-     * @return The string with the replaced place-holders.
+     * @return The string with the replaced place-holders
      */
     public static String replacePlaceholdersWithVariables(String string, Map<String, Object> variables)
     {

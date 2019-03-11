@@ -16,6 +16,9 @@ import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.functions.*;
+import net.obvj.jep.functions.FindMatches.ReturnStrategy;
+import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.util.DateUtils;
 
 public class JEPContextFactoryTest
@@ -57,42 +60,109 @@ public class JEPContextFactoryTest
         JEP jep = JEPContextFactory.newContext();
         FunctionTable table = jep.getFunctionTable();
 
-        // String
+        // ---------------------
+        // String functions
+        // ---------------------
+
         assertTrue(table.containsKey("concat"));
+        assertEquals(Concat.class, table.get("concat").getClass());
+
         assertTrue(table.containsKey("findMatch"));
+        assertEquals(FindMatches.class, table.get("findMatch").getClass());
+        assertEquals(ReturnStrategy.FIRST_MATCH, ((FindMatches) table.get("findMatch")).getReturnStrategy());
+
         assertTrue(table.containsKey("findMatches"));
+        assertEquals(FindMatches.class, table.get("findMatches").getClass());
+        assertEquals(ReturnStrategy.ALL_MATCHES, ((FindMatches) table.get("findMatches")).getReturnStrategy());
+
         assertTrue(table.containsKey("lower"));
+        assertEquals(Lower.class, table.get("lower").getClass());
+
         assertTrue(table.containsKey("matches"));
+        assertEquals(FindMatches.class, table.get("matches").getClass());
+        assertEquals(ReturnStrategy.TRUE_IF_MATCHES, ((FindMatches) table.get("matches")).getReturnStrategy());
+
         assertTrue(table.containsKey("normalizeString"));
+        assertEquals(NormalizeString.class, table.get("normalizeString").getClass());
+
         assertTrue(table.containsKey("replace"));
+        assertEquals(Replace.class, table.get("replace").getClass());
+        assertEquals(SearchStrategy.NORMAL, ((Replace) table.get("replace")).getSearchStrategy());
+
         assertTrue(table.containsKey("replaceRegex"));
+        assertEquals(Replace.class, table.get("replaceRegex").getClass());
+        assertEquals(SearchStrategy.REGEX, ((Replace) table.get("replaceRegex")).getSearchStrategy());
+
         assertTrue(table.containsKey("trim"));
+        assertEquals(Trim.class, table.get("trim").getClass());
+
         assertTrue(table.containsKey("upper"));
+        assertEquals(Upper.class, table.get("upper").getClass());
 
-        // Date
+        // ---------------------
+        // Date functions
+        // ---------------------
+
         assertTrue(table.containsKey("now"));
+        assertEquals(Now.class, table.get("now").getClass());
+
         assertTrue(table.containsKey("date2str"));
+        assertEquals(DateToString.class, table.get("date2str").getClass());
+
         assertTrue(table.containsKey("str2date"));
+        assertEquals(StringToDate.class, table.get("str2date").getClass());
+
         assertTrue(table.containsKey("daysBetween"));
+        assertEquals(DaysBetween.class, table.get("daysBetween").getClass());
+
         assertTrue(table.containsKey("isLeapYear"));
+        assertEquals(IsLeapYear.class, table.get("isLeapYear").getClass());
 
+        // ---------------------
         // Data manipulation
+        // ---------------------
+
         assertTrue(table.containsKey("xpath"));
+        assertEquals(XPath.class, table.get("xpath").getClass());
+
         assertTrue(table.containsKey("jsonpath"));
+        assertEquals(JsonPath.class, table.get("jsonpath").getClass());
 
+        // ---------------------
         // Statistical
+        // ---------------------
+
         assertTrue(table.containsKey("count"));
+        assertEquals(Count.class, table.get("count").getClass());
+
         assertTrue(table.containsKey("max"));
+        assertEquals(Max.class, table.get("max").getClass());
+
         assertTrue(table.containsKey("min"));
+        assertEquals(Min.class, table.get("min").getClass());
 
+        // ---------------------
         // Random
-        assertTrue(table.containsKey("uuid"));
+        // ---------------------
 
+        assertTrue(table.containsKey("uuid"));
+        assertEquals(UUID.class, table.get("uuid").getClass());
+
+        // ---------------------
         // Utility
+        // ---------------------
+
         assertTrue(table.containsKey("getEnv"));
+        assertEquals(EnvironmentVariableReader.class, table.get("getEnv").getClass());
+
         assertTrue(table.containsKey("getSystemProperty"));
+        assertEquals(SystemPropertyReader.class, table.get("getSystemProperty").getClass());
+
         assertTrue(table.containsKey("getElement"));
+        assertEquals(Element.class, table.get("getElement").getClass());
+
         assertTrue(table.containsKey("isEmpty"));
+        assertEquals(IsEmpty.class, table.get("isEmpty").getClass());
     }
 
     /**

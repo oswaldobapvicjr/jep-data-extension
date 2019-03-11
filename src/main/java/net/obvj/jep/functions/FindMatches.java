@@ -46,7 +46,7 @@ public class FindMatches extends PostfixMathCommand
         },
 
         /**
-         * Returns the first match found in a string
+         * Returns 1 (true) if the string matches the given RegEx, or o (false) if not
          */
         TRUE_IF_MATCHES
         {
@@ -100,6 +100,11 @@ public class FindMatches extends PostfixMathCommand
         }
 
         returnStrategy.pushResult(stack, arg1.toString(), arg2.toString());
+    }
+
+    public ReturnStrategy getReturnStrategy()
+    {
+        return returnStrategy;
     }
 
 }
