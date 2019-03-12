@@ -79,8 +79,7 @@ public class JEPContextFactoryTest
         assertEquals(Lower.class, table.get("lower").getClass());
 
         assertTrue(table.containsKey("matches"));
-        assertEquals(FindMatches.class, table.get("matches").getClass());
-        assertEquals(ReturnStrategy.TRUE_IF_MATCHES, ((FindMatches) table.get("matches")).getReturnStrategy());
+        assertEquals(Matches.class, table.get("matches").getClass());
 
         assertTrue(table.containsKey("normalizeString"));
         assertEquals(NormalizeString.class, table.get("normalizeString").getClass());

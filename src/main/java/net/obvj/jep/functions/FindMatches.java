@@ -43,19 +43,6 @@ public class FindMatches extends PostfixMathCommand
                 String matches = RegexUtils.firstMatch(string, regex);
                 stack.push(matches);
             }
-        },
-
-        /**
-         * Returns 1 (true) if the string matches the given RegEx, or o (false) if not
-         */
-        TRUE_IF_MATCHES
-        {
-            @Override
-            void pushResult(Stack stack, String string, String regex)
-            {
-                boolean matches = RegexUtils.matches(string, regex);
-                stack.push(matches ? 1d : 0d);
-            }
         };
 
         /**
