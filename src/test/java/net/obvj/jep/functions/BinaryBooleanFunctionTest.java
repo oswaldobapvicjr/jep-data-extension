@@ -164,4 +164,80 @@ public class BinaryBooleanFunctionTest
         assertEquals(BinaryBooleanFunction.TRUE, parameters.pop());
     }
 
+    /**
+     * Tests the endsWith function with a valid string and a satisfying suffix
+     */
+    @Test
+    public void testEndsWithWithSatisfyingSuffix() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(ABCDEF, DEF);
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.TRUE, parameters.pop());
+    }
+
+    /**
+     * Tests the endsWith function with a valid string and not-satisfying suffix
+     */
+    @Test
+    public void testEndsWithWithNotSatisfyingSuffix() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(ABCDEF, ABC);
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
+    }
+
+    /**
+     * Tests the endsWith function with a null string
+     */
+    @Test
+    public void testEndsWithNullString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, DEF);
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
+    }
+
+    /**
+     * Tests the endsWith function with an empty string
+     */
+    @Test
+    public void testEndsWithEmptyString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack("", DEF);
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
+    }
+
+    /**
+     * Tests the endsWith function with a null suffix
+     */
+    @Test
+    public void testEndsWithNullSuffix() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(ABCDEF, null);
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
+    }
+
+    /**
+     * Tests the startsWith function with empty suffix
+     */
+    @Test
+    public void testEndsWithEmptySuffix() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(ABCDEF, "");
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.TRUE, parameters.pop());
+    }
+
+    /**
+     * Tests the endsWith function with null string and suffix
+     */
+    @Test
+    public void testEndsWithNullStringAndSuffix() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(null, null);
+        endsWithFunction.run(parameters);
+        assertEquals(BinaryBooleanFunction.TRUE, parameters.pop());
+    }
 }
