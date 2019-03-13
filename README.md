@@ -315,6 +315,29 @@ readFile("/tmp/data.json", "json")
 
 > **Note:** Not yet implemented
 
+
+### Type of
+
+Returns the Java type associated with the given variable 
+
+```java
+typeOf("text") //result: "java.lang.String"
+```
+
+---
+
+## Web Services
+
+### HTTP Get
+
+Returns data from a Web Service or RESTful API.
+
+```java
+httpGet("http://sampleservice.com/data/v1/wheather")
+```
+
+> **Note:** Not yet implemented
+
 ---
 
 ## Custom operators

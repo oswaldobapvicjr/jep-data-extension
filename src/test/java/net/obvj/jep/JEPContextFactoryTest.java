@@ -172,6 +172,9 @@ public class JEPContextFactoryTest
 
         assertTrue(table.containsKey("isEmpty"));
         assertEquals(IsEmpty.class, table.get("isEmpty").getClass());
+
+        assertTrue(table.containsKey("typeOf"));
+        assertEquals(TypeOf.class, table.get("typeOf").getClass());
     }
 
     /**

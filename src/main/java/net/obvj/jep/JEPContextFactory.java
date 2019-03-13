@@ -125,6 +125,7 @@ public class JEPContextFactory
         jep.addFunction("getSystemProperty", new SystemPropertyReader());
         jep.addFunction("getEnv", new EnvironmentVariableReader());
         jep.addFunction("isEmpty", new IsEmpty());
+        jep.addFunction("typeOf", new TypeOf());
 
         // Operators
         OperatorSet operators = jep.getOperatorSet();
