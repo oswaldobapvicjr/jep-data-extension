@@ -87,12 +87,6 @@ public class BinaryBooleanFunction extends PostfixMathCommand
         Object arg2 = stack.pop();
         Object arg1 = stack.pop();
 
-        if (arg1 == arg2)
-        {
-            stack.push(TRUE);
-            return;
-        }
-
         boolean booleanValue = operation.evaluate(arg1, arg2);
         stack.push(booleanValue ? TRUE : FALSE);
     }
