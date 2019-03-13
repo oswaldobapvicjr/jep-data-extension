@@ -17,6 +17,7 @@ import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.functions.*;
+import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.util.DateUtils;
@@ -67,6 +68,10 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("concat"));
         assertEquals(Concat.class, table.get("concat").getClass());
 
+        assertTrue(table.containsKey("endsWith"));
+        assertEquals(BinaryBooleanFunction.class, table.get("endsWith").getClass());
+        assertEquals(Operation.STRING_ENDS_WITH, ((BinaryBooleanFunction) table.get("endsWith")).getOperation());
+
         assertTrue(table.containsKey("findMatch"));
         assertEquals(FindMatches.class, table.get("findMatch").getClass());
         assertEquals(ReturnStrategy.FIRST_MATCH, ((FindMatches) table.get("findMatch")).getReturnStrategy());
@@ -79,10 +84,15 @@ public class JEPContextFactoryTest
         assertEquals(Lower.class, table.get("lower").getClass());
 
         assertTrue(table.containsKey("matches"));
-        assertEquals(Matches.class, table.get("matches").getClass());
+        assertEquals(BinaryBooleanFunction.class, table.get("matches").getClass());
+        assertEquals(Operation.STRING_MATCHES, ((BinaryBooleanFunction) table.get("matches")).getOperation());
 
         assertTrue(table.containsKey("normalizeString"));
         assertEquals(NormalizeString.class, table.get("normalizeString").getClass());
+
+        assertTrue(table.containsKey("startsWith"));
+        assertEquals(BinaryBooleanFunction.class, table.get("startsWith").getClass());
+        assertEquals(Operation.STRING_STARTS_WITH, ((BinaryBooleanFunction) table.get("startsWith")).getOperation());
 
         assertTrue(table.containsKey("replace"));
         assertEquals(Replace.class, table.get("replace").getClass());

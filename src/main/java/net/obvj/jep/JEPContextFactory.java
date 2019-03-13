@@ -10,6 +10,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
+import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 
@@ -89,11 +90,13 @@ public class JEPContextFactory
     {
         // String functions
         jep.addFunction("concat", new Concat());
+        jep.addFunction("endsWith", new BinaryBooleanFunction(Operation.STRING_ENDS_WITH));
         jep.addFunction("findMatch", new FindMatches(ReturnStrategy.FIRST_MATCH));
         jep.addFunction("findMatches", new FindMatches(ReturnStrategy.ALL_MATCHES));
         jep.addFunction("lower", new Lower());
-        jep.addFunction("matches", new Matches());
+        jep.addFunction("matches", new BinaryBooleanFunction(Operation.STRING_MATCHES));
         jep.addFunction("normalizeString", new NormalizeString());
+        jep.addFunction("startsWith", new BinaryBooleanFunction(Operation.STRING_STARTS_WITH));
         jep.addFunction("replace", new Replace(SearchStrategy.NORMAL));
         jep.addFunction("replaceRegex", new Replace(SearchStrategy.REGEX));
         jep.addFunction("trim", new Trim());

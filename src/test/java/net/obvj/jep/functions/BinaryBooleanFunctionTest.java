@@ -7,14 +7,15 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
+import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
- * Unit tests for the {@link Matches} function
+ * Unit tests for the {@link BinaryBooleanFunction} class
  *
  * @author oswaldo.bapvic.jr
  */
-public class MatchesTest
+public class BinaryBooleanFunctionTest
 {
     private static final String REGEX_FILE_EXTENSION_FINDER = "(\\.\\w+$)";
     private static final String REGEX_TWITTER_LINKS_FINDER = "([@][A-z]+)|([#][A-z]+)";
@@ -22,62 +23,59 @@ public class MatchesTest
     private static final String FILE1_JSON = "file1.json";
     private static final String TWITTER_TWEET = "Sample tweet. #hashtag1 @author1";
 
-    private static Matches matchesFunction = new Matches();
-
-    private static final double FALSE = 0d;
-    private static final double TRUE = 1d;
+    private static BinaryBooleanFunction matchesFunction = new BinaryBooleanFunction(Operation.STRING_MATCHES);
 
     /**
-     * Tests with a valid string and a regex that returns a single match with the
-     * "true-if-matches" strategy (should return 1 - true)
+     * Tests the matches function with a valid string and a regex that returns a single match
+     * (should return 1 - true)
      */
     @Test
-    public void testStringContainsFileExtensionWithTrueIfMatches() throws ParseException
+    public void testMatchesWithStringContainingFileExtensionRegex() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(FILE1_JSON, REGEX_FILE_EXTENSION_FINDER);
         matchesFunction.run(parameters);
-        assertEquals(TRUE, parameters.pop());
+        assertEquals(BinaryBooleanFunction.TRUE, parameters.pop());
     }
 
     /**
-     * Tests with a valid string and a regex that returns no match with the "true-if-matches"
-     * strategy (should return 0 - false)
+     * Tests the matches function with a valid string and a regex that returns no match
+     * (should return 0 - false)
      */
     @Test
-    public void testStringDoesNotContainFileExtensionWithTrueIfMatches() throws ParseException
+    public void testMatchesWithStringNotContainingFileExtensionRegex() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, REGEX_FILE_EXTENSION_FINDER);
         matchesFunction.run(parameters);
-        assertEquals(FALSE, parameters.pop());
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
     }
 
     /**
-     * Tests with a null string
+     * Tests the matches function with a null string
      */
     @Test
-    public void testWithNullString() throws ParseException
+    public void testMatchesWithNullString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(null, REGEX_TWITTER_LINKS_FINDER);
         matchesFunction.run(parameters);
-        assertEquals(0d, parameters.pop());
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
     }
 
     /**
-     * Tests with an empty string
+     * Tests the matches function with an empty string
      */
     @Test
-    public void testWithEmptyString() throws ParseException
+    public void testMatchesWithEmptyString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack("", REGEX_TWITTER_LINKS_FINDER);
         matchesFunction.run(parameters);
-        assertEquals(0d, parameters.pop());
+        assertEquals(BinaryBooleanFunction.FALSE, parameters.pop());
     }
 
     /**
-     * Tests with a null regex
+     * Tests the matches function with a null regex
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testWithNullRegex() throws ParseException
+    public void testMatchesWithNullRegex() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(TWITTER_TWEET, null);
         matchesFunction.run(parameters);

@@ -23,6 +23,15 @@ concat("{id:", 123, "}") //result: "{id:123}"
 > **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
 
 
+### Ends with
+
+Returns 1 (true) if the string received in the 1st parameter ends with the suffix specified in the 2nd parameter (case-sensitive).
+
+```java
+endsWith("abcdef", "def") //result: 1.0
+```
+
+
 ### Find match
 
 Returns the first match of the given regular expression found inside a string.
@@ -79,6 +88,15 @@ Returns a new string after replacing all matches of the given regular expression
 ```java
 replace("file1.json", "(\\.\\w+$)", "") //result: "file1"
 ```
+
+### Starts with
+
+Returns 1 (true) if the string received in the 1st parameter starts with the prefix specified in the 2nd parameter (case-sensitive).
+
+```java
+startsWith("abcdef", "abc") //result: 1.0
+```
+
 
 ### Trim
 

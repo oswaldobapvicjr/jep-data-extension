@@ -55,7 +55,7 @@ public class FindMatches extends PostfixMathCommand
         abstract void pushResult(Stack stack, String string, String pattern);
     }
 
-    private ReturnStrategy returnStrategy;
+    private final ReturnStrategy returnStrategy;
 
     /**
      * Builds this function with a fixed number of two parameters

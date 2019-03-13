@@ -44,7 +44,7 @@ public class Replace extends PostfixMathCommand
         abstract String replace(String sourceString, String searchString, String replacement);
     }
 
-    private SearchStrategy searchStrategy;
+    private final SearchStrategy searchStrategy;
 
     /**
      * Builds this function with a fixed number of three parameters and the given search
