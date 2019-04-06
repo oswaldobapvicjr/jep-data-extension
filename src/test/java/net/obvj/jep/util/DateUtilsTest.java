@@ -382,4 +382,20 @@ public class DateUtilsTest
         DateUtils.isLeapYear(null);
     }
 
+    /**
+     * Tests getIsoWeekNumber with different input as dates
+     *
+     * @throws ParseException if the test date cannot be parsed
+     */
+    @Test
+    public void testGetIsoWeekNumberForSeveralDates() throws ParseException
+    {
+        assertEquals(10, DateUtils.getIsoWeekNumber(DATE_2017_03_11_13_15_00_999));
+        assertEquals(14, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-06", "yyyy-MM-dd")));
+        assertEquals(14, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-07", "yyyy-MM-dd")));
+        assertEquals(15, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-08", "yyyy-MM-dd")));
+        assertEquals(53, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2016-01-01", "yyyy-MM-dd")));
+        assertEquals(1,  DateUtils.getIsoWeekNumber(DateUtils.parseDate("2018-01-01", "yyyy-MM-dd")));
+    }
+
 }

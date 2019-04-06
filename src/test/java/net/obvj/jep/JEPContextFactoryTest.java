@@ -18,6 +18,7 @@ import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
+import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.util.DateUtils;
@@ -30,7 +31,7 @@ public class JEPContextFactoryTest
      * Tests that no instances of this factory are created
      *
      * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * private constructor via Reflection
      */
     @Test(expected = InvocationTargetException.class)
     public void testNoInstancesAllowed() throws Exception
@@ -98,9 +99,8 @@ public class JEPContextFactoryTest
         assertEquals(Replace.class, table.get("replace").getClass());
         assertEquals(SearchStrategy.NORMAL, ((Replace) table.get("replace")).getSearchStrategy());
 
-        assertTrue(table.containsKey("replaceRegex"));
-        assertEquals(Replace.class, table.get("replaceRegex").getClass());
-        assertEquals(SearchStrategy.REGEX, ((Replace) table.get("replaceRegex")).getSearchStrategy());
+        assertTrue(table.containsKey("isLeapYear"));
+        assertEquals(IsLeapYear.class, table.get("isLeapYear").getClass());
 
         assertTrue(table.containsKey("trim"));
         assertEquals(Trim.class, table.get("trim").getClass());
@@ -126,6 +126,10 @@ public class JEPContextFactoryTest
 
         assertTrue(table.containsKey("isLeapYear"));
         assertEquals(IsLeapYear.class, table.get("isLeapYear").getClass());
+
+        assertTrue(table.containsKey("isoWeekNumber"));
+        assertEquals(DateFieldGetter.class, table.get("isoWeekNumber").getClass());
+        assertEquals(DateField.ISO_WEEK_NUMBER, ((DateFieldGetter) table.get("isoWeekNumber")).getDateField());
 
         // ---------------------
         // Data manipulation

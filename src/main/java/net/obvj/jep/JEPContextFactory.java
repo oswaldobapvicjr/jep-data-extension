@@ -11,6 +11,7 @@ import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
+import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 
@@ -108,6 +109,7 @@ public class JEPContextFactory
         jep.addFunction("str2date", new StringToDate());
         jep.addFunction("daysBetween", new DaysBetween());
         jep.addFunction("isLeapYear", new IsLeapYear());
+        jep.addFunction("isoWeekNumber", new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
 
         // Data manipulation functions
         jep.addFunction("xpath", new XPath());

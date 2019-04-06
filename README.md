@@ -170,6 +170,16 @@ This function accepts an year (Number), a Date or a valid date representation as
 isLeapYear(date1)
 ```
 
+### ISO week number
+
+Returns the ISO week number in the year for a given date.
+According to the standard, the first week of an year will be the first one with a minimum of 4 days, starting with Monday.
+This function accepts Dates or valid date representation as string in RFC-3339 format. 
+
+```java
+isoWeekNumber(date1)
+```
+
 ---
 
 ## Database functions

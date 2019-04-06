@@ -253,6 +253,21 @@ public class DateUtils
     }
 
     /**
+     * Converts a date to Calendar
+     *
+     * @param date the Date to be converted
+     * @return a Calendar with the given date set
+     */
+    public static Calendar toCalendar(Date date)
+    {
+        if (date == null) throw new IllegalArgumentException("Date cannot be null");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar;
+    }
+
+    /**
      * Calculates the number of days between two dates
      *
      * @param firstDate the first date for the comparison
@@ -279,10 +294,7 @@ public class DateUtils
      */
     public static boolean isLeapYear(Date date)
     {
-        if (date == null) throw new IllegalArgumentException("Date cannot be null");
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        Calendar calendar = toCalendar(date);
         return isLeapYear(calendar.get(Calendar.YEAR));
     }
 
@@ -296,5 +308,22 @@ public class DateUtils
     public static boolean isLeapYear(int year)
     {
         return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+    }
+
+    /**
+     * Returns the ISO week number in the year given a date.
+     * <p>
+     * According to the standard, the first week of the year will be the first one with a
+     * minimum of 4 days, starting with Monday.
+     *
+     * @param date the date to be accepted
+     * @return the week number in the year for the given date
+     */
+    public static int getIsoWeekNumber(Date date)
+    {
+        Calendar calendar = toCalendar(date);
+        calendar.setMinimalDaysInFirstWeek(4);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 }
