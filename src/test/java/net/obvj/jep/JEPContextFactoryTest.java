@@ -127,9 +127,37 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("isLeapYear"));
         assertEquals(IsLeapYear.class, table.get("isLeapYear").getClass());
 
+        assertTrue(table.containsKey("year"));
+        assertEquals(DateFieldGetter.class, table.get("year").getClass());
+        assertEquals(DateField.YEAR, ((DateFieldGetter) table.get("year")).getDateField());
+
+        assertTrue(table.containsKey("month"));
+        assertEquals(DateFieldGetter.class, table.get("month").getClass());
+        assertEquals(DateField.MONTH, ((DateFieldGetter) table.get("month")).getDateField());
+
         assertTrue(table.containsKey("isoWeekNumber"));
         assertEquals(DateFieldGetter.class, table.get("isoWeekNumber").getClass());
         assertEquals(DateField.ISO_WEEK_NUMBER, ((DateFieldGetter) table.get("isoWeekNumber")).getDateField());
+
+        assertTrue(table.containsKey("day"));
+        assertEquals(DateFieldGetter.class, table.get("day").getClass());
+        assertEquals(DateField.DAY, ((DateFieldGetter) table.get("day")).getDateField());
+
+        assertTrue(table.containsKey("hour"));
+        assertEquals(DateFieldGetter.class, table.get("hour").getClass());
+        assertEquals(DateField.HOUR, ((DateFieldGetter) table.get("hour")).getDateField());
+
+        assertTrue(table.containsKey("minute"));
+        assertEquals(DateFieldGetter.class, table.get("minute").getClass());
+        assertEquals(DateField.MINUTE, ((DateFieldGetter) table.get("minute")).getDateField());
+
+        assertTrue(table.containsKey("second"));
+        assertEquals(DateFieldGetter.class, table.get("second").getClass());
+        assertEquals(DateField.SECOND, ((DateFieldGetter) table.get("second")).getDateField());
+
+        assertTrue(table.containsKey("millisecond"));
+        assertEquals(DateFieldGetter.class, table.get("millisecond").getClass());
+        assertEquals(DateField.MILLISECOND, ((DateFieldGetter) table.get("millisecond")).getDateField());
 
         // ---------------------
         // Data manipulation

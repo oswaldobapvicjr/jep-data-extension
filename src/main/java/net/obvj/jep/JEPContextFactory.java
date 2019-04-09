@@ -109,7 +109,14 @@ public class JEPContextFactory
         jep.addFunction("str2date", new StringToDate());
         jep.addFunction("daysBetween", new DaysBetween());
         jep.addFunction("isLeapYear", new IsLeapYear());
+        jep.addFunction("year", new DateFieldGetter(DateField.YEAR));
+        jep.addFunction("month", new DateFieldGetter(DateField.MONTH));
         jep.addFunction("isoWeekNumber", new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
+        jep.addFunction("day", new DateFieldGetter(DateField.DAY));
+        jep.addFunction("hour", new DateFieldGetter(DateField.HOUR));
+        jep.addFunction("minute", new DateFieldGetter(DateField.MINUTE));
+        jep.addFunction("second", new DateFieldGetter(DateField.SECOND));
+        jep.addFunction("millisecond", new DateFieldGetter(DateField.MILLISECOND));
 
         // Data manipulation functions
         jep.addFunction("xpath", new XPath());

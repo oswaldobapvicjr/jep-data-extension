@@ -326,4 +326,29 @@ public class DateUtils
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
+
+    /**
+     * Returns the month number (January = 1) for the given date.
+     *
+     * @param date the date whose month number is to be retrieved
+     * @return the month number for the given date
+     */
+    public static int getMonth(Date date)
+    {
+        Calendar calendar = toCalendar(date);
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+
+    /**
+     * Returns the field referenced by the given {@code calendarCode} in the specified date.
+     *
+     * @param date the date whose field is to be retrieved
+     * @param calendarCode one of the integer constants from {@link Calendar}
+     * @return the field referenced by the given {@code calendarCode} in the specified date
+     */
+    public static int getDateField(Date date, int calendarCode)
+    {
+        Calendar calendar = toCalendar(date);
+        return calendar.get(calendarCode);
+    }
 }

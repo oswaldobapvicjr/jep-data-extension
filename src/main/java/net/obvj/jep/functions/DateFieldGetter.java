@@ -1,5 +1,6 @@
 package net.obvj.jep.functions;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Stack;
 
@@ -19,6 +20,30 @@ public class DateFieldGetter extends PostfixMathCommand
     public enum DateField
     {
         /**
+         * The year
+         */
+        YEAR
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getDateField(date, Calendar.YEAR);
+            }
+        },
+
+        /**
+         * The month, a number from 1 (January) to 12 (December)
+         */
+        MONTH
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getMonth(date);
+            }
+        },
+
+        /**
          * The week number of the year, according to ISO 8601 rules
          */
         ISO_WEEK_NUMBER
@@ -27,6 +52,66 @@ public class DateFieldGetter extends PostfixMathCommand
             int getFromDate(Date date)
             {
                 return DateUtils.getIsoWeekNumber(date);
+            }
+        },
+
+        /**
+         * The day of month (the first day of month is 1)
+         */
+        DAY
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getDateField(date, Calendar.DAY_OF_MONTH);
+            }
+        },
+
+        /**
+         * The hour as a number from 0 (12:00 AM) to 23 (23:00 PM)
+         */
+        HOUR
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getDateField(date, Calendar.HOUR_OF_DAY);
+            }
+        },
+
+        /**
+         * The minute, a number from 0 to 59
+         */
+        MINUTE
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getDateField(date, Calendar.MINUTE);
+            }
+        },
+
+        /**
+         * The second within the minute, a number from 0 to 59
+         */
+        SECOND
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getDateField(date, Calendar.SECOND);
+            }
+        },
+
+        /**
+         * The millisecond within a second
+         */
+        MILLISECOND
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getDateField(date, Calendar.MILLISECOND);
             }
         };
 
