@@ -22,6 +22,7 @@ public class DateUtilsTest
     private static final int SECOND = 0;
     private static final int MILLIS = 999;
 
+    private static final String STR_PATTERN_YMD = "yyyy-MM-dd";
     private static final String STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 
     private static final String STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00 = "2017-03-11T10:15:00.999-03:00";
@@ -391,11 +392,33 @@ public class DateUtilsTest
     public void testGetIsoWeekNumberForSeveralDates() throws ParseException
     {
         assertEquals(10, DateUtils.getIsoWeekNumber(DATE_2017_03_11_13_15_00_999));
-        assertEquals(14, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-06", "yyyy-MM-dd")));
-        assertEquals(14, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-07", "yyyy-MM-dd")));
-        assertEquals(15, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-08", "yyyy-MM-dd")));
-        assertEquals(53, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2016-01-01", "yyyy-MM-dd")));
-        assertEquals(1,  DateUtils.getIsoWeekNumber(DateUtils.parseDate("2018-01-01", "yyyy-MM-dd")));
+        assertEquals(14, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-06", STR_PATTERN_YMD)));
+        assertEquals(14, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-07", STR_PATTERN_YMD)));
+        assertEquals(15, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2019-04-08", STR_PATTERN_YMD)));
+        assertEquals(53, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2016-01-01", STR_PATTERN_YMD)));
+        assertEquals(1, DateUtils.getIsoWeekNumber(DateUtils.parseDate("2018-01-01", STR_PATTERN_YMD)));
+    }
+
+    /**
+     * Tests getQuarter with different input as dates
+     *
+     * @throws ParseException if the test date cannot be parsed
+     */
+    @Test
+    public void testGetQuarterForSeveralDates() throws ParseException
+    {
+        assertEquals(1, DateUtils.getQuarter(DateUtils.parseDate("2011-01-06", STR_PATTERN_YMD)));
+        assertEquals(1, DateUtils.getQuarter(DateUtils.parseDate("2012-02-07", STR_PATTERN_YMD)));
+        assertEquals(1, DateUtils.getQuarter(DateUtils.parseDate("2013-03-08", STR_PATTERN_YMD)));
+        assertEquals(2, DateUtils.getQuarter(DateUtils.parseDate("2014-04-01", STR_PATTERN_YMD)));
+        assertEquals(2, DateUtils.getQuarter(DateUtils.parseDate("2015-05-01", STR_PATTERN_YMD)));
+        assertEquals(2, DateUtils.getQuarter(DateUtils.parseDate("2016-06-06", STR_PATTERN_YMD)));
+        assertEquals(3, DateUtils.getQuarter(DateUtils.parseDate("2017-07-07", STR_PATTERN_YMD)));
+        assertEquals(3, DateUtils.getQuarter(DateUtils.parseDate("2018-08-08", STR_PATTERN_YMD)));
+        assertEquals(3, DateUtils.getQuarter(DateUtils.parseDate("2019-09-01", STR_PATTERN_YMD)));
+        assertEquals(4, DateUtils.getQuarter(DateUtils.parseDate("2000-10-01", STR_PATTERN_YMD)));
+        assertEquals(4, DateUtils.getQuarter(DateUtils.parseDate("2001-11-06", STR_PATTERN_YMD)));
+        assertEquals(4, DateUtils.getQuarter(DateUtils.parseDate("2002-12-07", STR_PATTERN_YMD)));
     }
 
 }

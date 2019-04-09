@@ -170,6 +170,30 @@ This function accepts an year (Number), a Date or a valid date representation as
 isLeapYear(date1)
 ```
 
+### Year
+
+Returns the year for a given date.
+
+```java
+year("2017-03-11T20:15:00:123Z") //result: 2017.0
+```
+
+### Quarter
+
+Returns the quarter of the year, for a given date, as a number from 1 to 4.
+
+```java
+quarter("2017-03-11T20:15:00:123Z") //result: 1.0
+```
+
+### Month
+
+Returns the month for a given date, a number starting from 1 (January) to 12 (December).
+
+```java
+month("2017-03-11T20:15:00:123Z") //result: 3.0
+```
+
 ### ISO week number
 
 Returns the ISO week number in the year for a given date.
@@ -177,7 +201,47 @@ According to the standard, the first week of an year will be the first one with 
 This function accepts Dates or valid date representation as string in RFC-3339 format. 
 
 ```java
-isoWeekNumber(date1)
+isoWeekNumber("2017-03-11T20:15:00:123Z") //result: 10.0
+```
+
+### Day
+
+Returns the day of the month for a given date. The first day of the month is 1.
+
+```java
+day("2017-03-11T20:15:00:123Z") //result: 11.0
+```
+
+### Hour
+
+Returns the hour of day, for a given date, as a number from 0 (12:00 AM) to 23 (11:00 PM).
+
+```java
+hour("2017-03-11T20:15:00:123Z") //result: 20.0
+```
+
+### Minute
+
+Returns the minute within the hour, for a given date, as a number from 0 to 59.
+
+```java
+minute("2017-03-11T20:15:00:123Z") //result: 15.0
+```
+
+### Second
+
+Returns the second within the minute, for a given date, as a number from 0 to 59.
+
+```java
+second("2017-03-11T20:15:00:123Z") //result: 0.0
+```
+
+### Millisecond
+
+Returns the milliseconds within the second, for a given date.
+
+```java
+millisecond("2017-03-11T20:15:00:123Z") //result: 123.0
 ```
 
 ---

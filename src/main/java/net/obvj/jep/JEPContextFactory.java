@@ -110,6 +110,7 @@ public class JEPContextFactory
         jep.addFunction("daysBetween", new DaysBetween());
         jep.addFunction("isLeapYear", new IsLeapYear());
         jep.addFunction("year", new DateFieldGetter(DateField.YEAR));
+        jep.addFunction("quarter", new DateFieldGetter(DateField.QUARTER));
         jep.addFunction("month", new DateFieldGetter(DateField.MONTH));
         jep.addFunction("isoWeekNumber", new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
         jep.addFunction("day", new DateFieldGetter(DateField.DAY));

@@ -32,6 +32,18 @@ public class DateFieldGetter extends PostfixMathCommand
         },
 
         /**
+         * The quarter of the year, a number from 1 to 4
+         */
+        QUARTER
+        {
+            @Override
+            int getFromDate(Date date)
+            {
+                return DateUtils.getQuarter(date);
+            }
+        },
+
+        /**
          * The month, a number from 1 (January) to 12 (December)
          */
         MONTH
@@ -68,7 +80,7 @@ public class DateFieldGetter extends PostfixMathCommand
         },
 
         /**
-         * The hour as a number from 0 (12:00 AM) to 23 (23:00 PM)
+         * The hour as a number from 0 (12:00 AM) to 23 (11:00 PM)
          */
         HOUR
         {

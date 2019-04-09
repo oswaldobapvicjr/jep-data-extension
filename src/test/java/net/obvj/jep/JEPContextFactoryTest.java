@@ -131,6 +131,10 @@ public class JEPContextFactoryTest
         assertEquals(DateFieldGetter.class, table.get("year").getClass());
         assertEquals(DateField.YEAR, ((DateFieldGetter) table.get("year")).getDateField());
 
+        assertTrue(table.containsKey("quarter"));
+        assertEquals(DateFieldGetter.class, table.get("quarter").getClass());
+        assertEquals(DateField.QUARTER, ((DateFieldGetter) table.get("quarter")).getDateField());
+
         assertTrue(table.containsKey("month"));
         assertEquals(DateFieldGetter.class, table.get("month").getClass());
         assertEquals(DateField.MONTH, ((DateFieldGetter) table.get("month")).getDateField());

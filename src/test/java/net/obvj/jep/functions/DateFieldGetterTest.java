@@ -23,6 +23,7 @@ public class DateFieldGetterTest
     private static final String STR_2019_04_08T14_45_00_123Z = "2019-04-08T14:45:00.123Z";
 
     private static DateFieldGetter yearGetter = new DateFieldGetter(DateField.YEAR);
+    private static DateFieldGetter quarterGetter = new DateFieldGetter(DateField.QUARTER);
     private static DateFieldGetter monthGetter = new DateFieldGetter(DateField.MONTH);
     private static DateFieldGetter isoWeekNumberGetter = new DateFieldGetter(DateField.ISO_WEEK_NUMBER);
     private static DateFieldGetter dayGetter = new DateFieldGetter(DateField.DAY);
@@ -78,6 +79,17 @@ public class DateFieldGetterTest
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_2019_04_08T14_45_00_123Z);
         yearGetter.run(parameters);
         assertEquals(2019, parameters.pop());
+    }
+
+    /**
+     * Tests the quarter from a date
+     */
+    @Test
+    public void testQuarterFromDate() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_2019_04_08T14_45_00_123Z);
+        quarterGetter.run(parameters);
+        assertEquals(2, parameters.pop());
     }
 
     /**

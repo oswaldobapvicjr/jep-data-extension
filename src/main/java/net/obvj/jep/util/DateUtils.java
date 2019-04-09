@@ -340,6 +340,18 @@ public class DateUtils
     }
 
     /**
+     * Returns the quarter of the year.
+     *
+     * @param date the date whose quarter is to be retrieved
+     * @return the quarter of the year for the given date
+     */
+    public static int getQuarter(Date date)
+    {
+        Calendar calendar = toCalendar(date);
+        return calendar.get(Calendar.MONTH) / 3 + 1;
+    }
+
+    /**
      * Returns the field referenced by the given {@code calendarCode} in the specified date.
      *
      * @param date the date whose field is to be retrieved
