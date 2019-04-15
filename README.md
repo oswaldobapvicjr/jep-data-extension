@@ -440,8 +440,10 @@ if("2017-03-11T10:15:00:123Z" < now(), "past", "not past")
 Standard "element" operator (`[]`) was overloaded to support extracting values from JSON arrays and other collections by index.
 
 ```java
-jsonArray[0]
+jsonArray[1] //extracts the first element of the given jsonArray
 ```
+
+> **Note:** Also achievable using the function `get(jsonArray, 1)`.
 
 ---
 

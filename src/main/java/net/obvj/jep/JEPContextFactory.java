@@ -148,7 +148,7 @@ public class JEPContextFactory
 
         // Element function and operator
         PostfixMathCommand elementCommand = new Element();
-        jep.addFunction("getElement", elementCommand);
+        jep.addFunction("get", elementCommand);
         operators.getElement().setPFMC(elementCommand);
     }
 

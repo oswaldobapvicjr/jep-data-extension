@@ -203,8 +203,8 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("getSystemProperty"));
         assertEquals(SystemPropertyReader.class, table.get("getSystemProperty").getClass());
 
-        assertTrue(table.containsKey("getElement"));
-        assertEquals(Element.class, table.get("getElement").getClass());
+        assertTrue(table.containsKey("get"));
+        assertEquals(Element.class, table.get("get").getClass());
 
         assertTrue(table.containsKey("isEmpty"));
         assertEquals(IsEmpty.class, table.get("isEmpty").getClass());

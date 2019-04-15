@@ -10,7 +10,8 @@ import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.NumberUtils;
 
 /**
- * A command that returns elements from Java Lists and JSONArrays
+ * A command that returns elements from Java Lists and JSONArrays given the index. The
+ * first element is referenced with the index 1
  *
  * @author oswaldo.bapvic.jr
  */
@@ -61,7 +62,7 @@ public class Element extends PostfixMathCommand
     private Object getElement(Object leftSide, int index)
     {
         List<?> list = CollectionsUtils.asList(leftSide);
-        return list.isEmpty() ? null : list.get(index);
+        return list.isEmpty() ? null : list.get(index - 1);
     }
 
 }
