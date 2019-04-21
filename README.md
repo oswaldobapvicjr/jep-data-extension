@@ -410,13 +410,20 @@ Computes the MD5 hash of the given string and transforms the binary result into 
 md5("asd") //result: "7815696ecbf1c96e6894b779456d330e"
 ```
 
-
 ### SHA1
 
 Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal lower case string.
 
 ```java
 sha1("dsasd") //result: "2fa183839c954e6366c206367c9be5864e4f4a65"
+```
+
+### SHA-256
+
+Computes the SHA-256 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+
+```java
+sha256("hello") //result: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
 ```
 
 ---

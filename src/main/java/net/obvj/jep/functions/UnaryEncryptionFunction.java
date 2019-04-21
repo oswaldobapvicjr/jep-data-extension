@@ -31,6 +31,14 @@ public class UnaryEncryptionFunction extends PostfixMathCommand
             {
                 return EncryptionUtils.sha1(content);
             }
+        },
+        SHA256
+        {
+            @Override
+            String encrypt(String content)
+            {
+                return EncryptionUtils.sha256(content);
+            }
         };
 
         abstract String encrypt(String content);

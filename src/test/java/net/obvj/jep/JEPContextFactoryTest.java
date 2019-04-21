@@ -224,6 +224,10 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("sha1"));
         assertEquals(UnaryEncryptionFunction.class, table.get("sha1").getClass());
         assertEquals(EncryptionAlgorithm.SHA1, ((UnaryEncryptionFunction) table.get("sha1")).getEncryptionAlgorithm());
+        
+        assertTrue(table.containsKey("sha256"));
+        assertEquals(UnaryEncryptionFunction.class, table.get("sha256").getClass());
+        assertEquals(EncryptionAlgorithm.SHA256, ((UnaryEncryptionFunction) table.get("sha256")).getEncryptionAlgorithm());
     }
 
     /**

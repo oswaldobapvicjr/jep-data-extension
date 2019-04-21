@@ -141,6 +141,7 @@ public class JEPContextFactory
         // Cryptography functions
         jep.addFunction("md5", new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
         jep.addFunction("sha1", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
+        jep.addFunction("sha256", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
         
         // Operators
         OperatorSet operators = jep.getOperatorSet();

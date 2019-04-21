@@ -1,6 +1,6 @@
 package net.obvj.jep.util;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -22,14 +22,14 @@ public class EncryptionUtils
      * @param array the bytes to convert
      * @return a string with the bytes converted into hexadecimal
      */
-    private static String toHexadecimalString(byte[] array)
+    private static String bytesToHex(byte[] array)
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuffer hexString = new StringBuffer();
         for (int i = 0; i < array.length; ++i)
         {
-            sb.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
+            hexString.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
         }
-        return sb.toString();
+        return hexString.toString();
     }
 
     /**
@@ -44,12 +44,11 @@ public class EncryptionUtils
     {
         try
         {
-            MessageDigest messageDigest;
-            messageDigest = MessageDigest.getInstance(algorithm);
-            byte[] digest = messageDigest.digest(content.getBytes("UTF-8"));
-            return toHexadecimalString(digest);
+            MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
+            byte[] encodedHash = messageDigest.digest(content.getBytes(StandardCharsets.UTF_8));
+            return bytesToHex(encodedHash);
         }
-        catch (NoSuchAlgorithmException | UnsupportedEncodingException e)
+        catch (NoSuchAlgorithmException e)
         {
             throw new IllegalStateException(e);
         }
@@ -77,6 +76,18 @@ public class EncryptionUtils
     public static String sha1(String content)
     {
         return hashWith("SHA1", content);
+    }
+    
+    /**
+     * Computes the SHA-256 hash for the given string and transforms the binary result into a
+     * hexadecimal lower case string.
+     *
+     * @param content a string input to encrypt
+     * @return the SHA-256 hash transformed into a hexadecimal lower case string.
+     */
+    public static String sha256(String content)
+    {
+        return hashWith("SHA-256", content);
     }
 
 }

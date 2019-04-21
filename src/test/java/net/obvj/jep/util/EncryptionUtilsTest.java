@@ -58,4 +58,15 @@ public class EncryptionUtilsTest
         String sha1 = EncryptionUtils.sha1(message);
         assertEquals("2fa183839c954e6366c206367c9be5864e4f4a65", sha1);
     }
+    
+    /**
+     * Tests the successful encryption of a string message with SHA-256
+     */
+    @Test
+    public void testSha256()
+    {
+        String message = "hello";
+        String sha256 = EncryptionUtils.sha256(message);
+        assertEquals("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824", sha256);
+    }
 }
