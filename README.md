@@ -400,6 +400,27 @@ typeOf("text") //result: "java.lang.String"
 
 ---
 
+## Cryptography functions
+
+### MD5
+
+Computes the MD5 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+
+```java
+md5("asd") //result: "7815696ecbf1c96e6894b779456d330e"
+```
+
+
+### SHA1
+
+Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+
+```java
+sha1("dsasd") //result: "2fa183839c954e6366c206367c9be5864e4f4a65"
+```
+
+---
+
 ## Web Services
 
 ### HTTP Get

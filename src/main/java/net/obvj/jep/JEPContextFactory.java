@@ -14,6 +14,7 @@ import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
+import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 
 /**
  * A factory that creates JEP Contexts with extended functions.
@@ -137,6 +138,10 @@ public class JEPContextFactory
         jep.addFunction("isEmpty", new IsEmpty());
         jep.addFunction("typeOf", new TypeOf());
 
+        // Cryptography functions
+        jep.addFunction("md5", new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
+        jep.addFunction("sha1", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
+        
         // Operators
         OperatorSet operators = jep.getOperatorSet();
         operators.getLT().setPFMC(new DateAwareComparative(Comparative.LT));

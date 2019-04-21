@@ -21,6 +21,7 @@ import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
+import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 import net.obvj.jep.util.DateUtils;
 
 public class JEPContextFactoryTest
@@ -211,6 +212,18 @@ public class JEPContextFactoryTest
 
         assertTrue(table.containsKey("typeOf"));
         assertEquals(TypeOf.class, table.get("typeOf").getClass());
+        
+        // ---------------------
+        // Cryptography
+        // ---------------------
+        
+        assertTrue(table.containsKey("md5"));
+        assertEquals(UnaryEncryptionFunction.class, table.get("md5").getClass());
+        assertEquals(EncryptionAlgorithm.MD5, ((UnaryEncryptionFunction) table.get("md5")).getEncryptionAlgorithm());
+        
+        assertTrue(table.containsKey("sha1"));
+        assertEquals(UnaryEncryptionFunction.class, table.get("sha1").getClass());
+        assertEquals(EncryptionAlgorithm.SHA1, ((UnaryEncryptionFunction) table.get("sha1")).getEncryptionAlgorithm());
     }
 
     /**
