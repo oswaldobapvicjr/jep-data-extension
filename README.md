@@ -86,7 +86,7 @@ replace("foo-boo", "oo", "ee") //result: "fee-bee"
 Returns a new string after replacing all matches of the given regular expression with the replacement argument.
 
 ```java
-replace("file1.json", "(\\.\\w+$)", "") //result: "file1"
+replaceRegex("file1.json", "(\\.\\w+$)", "") //result: "file1"
 ```
 
 ### Starts with
