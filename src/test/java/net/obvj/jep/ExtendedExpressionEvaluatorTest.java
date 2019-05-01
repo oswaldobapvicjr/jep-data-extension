@@ -7,9 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
 /**
@@ -64,16 +62,12 @@ public class ExtendedExpressionEvaluatorTest
             "}";
 
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     /**
      * Tests that the component is not created with a null expression
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfExpressionIsNull()
     {
-        exception.expect(IllegalArgumentException.class);
         ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator(null);
         assertNull(evaluator);
     }
@@ -81,10 +75,9 @@ public class ExtendedExpressionEvaluatorTest
     /**
      * Tests that the component is not created with a blank expression
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfExpressionIsBlank()
     {
-        exception.expect(IllegalArgumentException.class);
         ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator(STRING_BLANK);
         assertNull(evaluator);
     }
@@ -92,10 +85,9 @@ public class ExtendedExpressionEvaluatorTest
     /**
      * Tests that the component is not created with an invalid expression
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfExpressionIsInvalid()
     {
-        exception.expect(IllegalArgumentException.class);
         ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator(EXPRESSION_CONCAT_INVALID);
         assertNull(evaluator);
     }
@@ -201,10 +193,9 @@ public class ExtendedExpressionEvaluatorTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = ParseException.class)
     public void testComponentExecutionWithSourceVariableNotFound() throws ParseException
     {
-        exception.expect(ParseException.class);
         ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator(EXPRESSION_GOOD_PLUS_PERIOD);
         evaluator.evaluate(Collections.emptyMap());
     }

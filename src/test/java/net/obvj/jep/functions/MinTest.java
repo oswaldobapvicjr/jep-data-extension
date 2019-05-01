@@ -11,9 +11,7 @@ import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.util.CollectionsUtils;
@@ -53,12 +51,6 @@ public class MinTest
     private static final List<?> LIST_DATE_AND_NUMBER = Arrays.asList(STR_DATE_1, DOUBLE_1);
 
     private static Min function = new Min();
-
-    /**
-     * Expected exception
-     */
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests the minimum element for an array of doubles
@@ -318,11 +310,10 @@ public class MinTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testMinElementForListOfDifferentTypes() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_DATE_AND_NUMBER);
-        exception.expect(IllegalArgumentException.class);
         function.run(parameters);
     }
 }

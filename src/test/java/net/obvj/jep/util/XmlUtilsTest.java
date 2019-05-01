@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
 
 public class XmlUtilsTest
 {
-    private static final String STRING_XML_BOOKS = TextFileReader.readFile("books.xml");
+    private static final String STRING_XML_BOOKS = TextFileReader.readQuietlyFromClasspath("books.xml");
 
     private static final String XPATH_ALL_BOOK_TITLES = "/bookstore/book/title/text()";
     private static final String XPATH_ALL_WEB_BOOK_TITLES = "/bookstore/book[@category='web']/title/text()";

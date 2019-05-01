@@ -384,10 +384,8 @@ isEmpty(object1)
 Returns the content of a text file in the file system.
 
 ```java
-readFile("/tmp/data.json", "json")
+readFile("/tmp/data.json")
 ```
-
-> **Note:** Not yet implemented
 
 
 ### Type of

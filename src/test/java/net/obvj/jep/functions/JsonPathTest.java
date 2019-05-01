@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.util.CollectionsUtils;
@@ -58,12 +56,6 @@ public class JsonPathTest
     private static JsonPath function = new JsonPath();
 
     /**
-     * Expected exception
-     */
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-    /**
      * Tests a valid search expression for JSONPath command returning a single result
      *
      * @throws ParseException
@@ -96,10 +88,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithValidSearchExpressionAndEmptyResult() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, JSON_PATH_UNKNOWN_FIELD);
         function.run(parameters);
     }
@@ -109,10 +100,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithValidExpressionAndEmptyResult() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, JSON_PATH_NO_DATA);
         function.run(parameters);
     }
@@ -122,10 +112,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithInvalidExpression() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, JSON_PATH_INVALID);
         function.run(parameters);
     }
@@ -135,10 +124,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithEmptyExpression() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, "");
         function.run(parameters);
     }
@@ -148,10 +136,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithNullExpression() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_VALID, null);
         function.run(parameters);
     }
@@ -161,10 +148,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithEmptyJson() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY,
                 JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
         function.run(parameters);
@@ -175,10 +161,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithNullJson() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(null, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
         function.run(parameters);
     }
@@ -188,10 +173,9 @@ public class JsonPathTest
      *
      * @throws ParseException
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testJSONPathCommandWithInvalidJson() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(JSON_INVALID, JSON_PATH_SEARCH_MOBILE_PHONE_NUMBER);
         function.run(parameters);
     }

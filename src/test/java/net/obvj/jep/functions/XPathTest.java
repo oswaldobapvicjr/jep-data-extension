@@ -15,7 +15,7 @@ import net.obvj.jep.util.TextFileReader;
 
 public class XPathTest
 {
-    private static final String STR_XML_BOOKS = TextFileReader.readFile("books.xml");
+    private static final String STR_XML_BOOKS = TextFileReader.readQuietlyFromClasspath("books.xml");
 
     private static final String XPATH_ALL_BOOK_TITLES = "/bookstore/book/title/text()";
     private static final String XPATH_ALL_BOOK_TITLES_NOT_COMPILABLE = "/bookstore/book/title/text(";

@@ -7,9 +7,7 @@ import java.util.Date;
 import java.util.Stack;
 import java.util.TimeZone;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.util.CollectionsUtils;
@@ -42,16 +40,12 @@ public class DateToStringTest
 
     private static DateToString function = new DateToString();
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     /**
      * Tests date formatting with null date
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFormatDateNullDate() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(null, ISO_EXTENDED_DATE_TIME_FORMAT_WITH_TIME_ZONE);
         function.run(parameters);
     }
@@ -59,10 +53,9 @@ public class DateToStringTest
     /**
      * Tests date formatting with null format
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testFormatDateNullFormat() throws ParseException
     {
-        exception.expect(IllegalArgumentException.class);
         Stack<Object> parameters = CollectionsUtils.newParametersStack(DATE, null);
         function.run(parameters);
     }

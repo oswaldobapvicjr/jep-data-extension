@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  * Unit tests for the {@link ExpressionCommand} class.
@@ -38,16 +36,12 @@ public class ExpressionCommandTest
     private static final String GOOD_MORNING = "Good morning";
     private static final String GOOD_AFTERNOON = "Good afternoon";
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
     /**
      * Tests that the component is not created with a null expression
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfExpressionIsNull()
     {
-        exception.expect(IllegalArgumentException.class);
         ExpressionCommand evaluator = new ExpressionCommand(VARIABLE_RESULT, null);
         assertNull(evaluator);
     }
@@ -55,10 +49,9 @@ public class ExpressionCommandTest
     /**
      * Tests that the component is not created with a blank expression
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfExpressionIsBlank()
     {
-        exception.expect(IllegalArgumentException.class);
         ExpressionCommand evaluator = new ExpressionCommand(VARIABLE_RESULT, STRING_BLANK);
         assertNull(evaluator);
     }
@@ -66,10 +59,9 @@ public class ExpressionCommandTest
     /**
      * Tests that the component is not created with an invalid expression
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfExpressionIsInvalid()
     {
-        exception.expect(IllegalArgumentException.class);
         ExpressionCommand evaluator = new ExpressionCommand(VARIABLE_RESULT, EXPRESSION_CONCAT_INVALID);
         assertNull(evaluator);
     }
@@ -77,10 +69,9 @@ public class ExpressionCommandTest
     /**
      * Tests that the component is not created with a null target variable name
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfTargetIsNull()
     {
-        exception.expect(IllegalArgumentException.class);
         ExpressionCommand evaluator = new ExpressionCommand(null, EXPRESSION_CONCAT_GOOD_PERIOD);
         assertNull(evaluator);
     }
@@ -88,10 +79,9 @@ public class ExpressionCommandTest
     /**
      * Tests that the component is not created with a blank target name
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentNotCreatedIfTargetIsBlank()
     {
-        exception.expect(IllegalArgumentException.class);
         ExpressionCommand evaluator = new ExpressionCommand(STRING_BLANK, EXPRESSION_CONCAT_GOOD_PERIOD);
         assertNull(evaluator);
     }
@@ -144,10 +134,9 @@ public class ExpressionCommandTest
      * Tests component execution with an expression that evaluates a variable not found and
      * the default error behavior
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testComponentExecutionWithSourceVariableNotFoundAndDefaultBehavior()
     {
-        exception.expect(IllegalArgumentException.class);
         Consumer<Map<String, Object>> evaluator = new ExpressionCommand(VARIABLE_RESULT, EXPRESSION_GOOD_PLUS_PERIOD);
         evaluator.accept(Collections.emptyMap());
     }

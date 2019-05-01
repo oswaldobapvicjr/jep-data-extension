@@ -11,9 +11,7 @@ import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.functions.Max;
@@ -54,12 +52,6 @@ public class MaxTest
     private static final List<?> LIST_DATE_AND_NUMBER = Arrays.asList(STR_DATE_1, DOUBLE_1);
 
     private static Max function = new Max();
-
-    /**
-     * Expected exception
-     */
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     /**
      * Tests the maximum element for an array of doubles
@@ -281,11 +273,10 @@ public class MaxTest
     /**
      * Tests the maximum element for list of different types
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testMaxElementForListOfDifferentTypes() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST_DATE_AND_NUMBER);
-        exception.expect(IllegalArgumentException.class);
         function.run(parameters);
     }
 }
