@@ -136,13 +136,14 @@ public class JEPContextFactory
         jep.addFunction("getSystemProperty", new SystemPropertyReader());
         jep.addFunction("getEnv", new EnvironmentVariableReader());
         jep.addFunction("isEmpty", new IsEmpty());
+        jep.addFunction("readFile", new ReadFile());
         jep.addFunction("typeOf", new TypeOf());
 
         // Cryptography functions
         jep.addFunction("md5", new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
         jep.addFunction("sha1", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
         jep.addFunction("sha256", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
-        
+
         // Operators
         OperatorSet operators = jep.getOperatorSet();
         operators.getLT().setPFMC(new DateAwareComparative(Comparative.LT));

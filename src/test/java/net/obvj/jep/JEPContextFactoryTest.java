@@ -210,21 +210,24 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("isEmpty"));
         assertEquals(IsEmpty.class, table.get("isEmpty").getClass());
 
+        assertTrue(table.containsKey("readFile"));
+        assertEquals(ReadFile.class, table.get("readFile").getClass());
+
         assertTrue(table.containsKey("typeOf"));
         assertEquals(TypeOf.class, table.get("typeOf").getClass());
-        
+
         // ---------------------
         // Cryptography
         // ---------------------
-        
+
         assertTrue(table.containsKey("md5"));
         assertEquals(UnaryEncryptionFunction.class, table.get("md5").getClass());
         assertEquals(EncryptionAlgorithm.MD5, ((UnaryEncryptionFunction) table.get("md5")).getEncryptionAlgorithm());
-        
+
         assertTrue(table.containsKey("sha1"));
         assertEquals(UnaryEncryptionFunction.class, table.get("sha1").getClass());
         assertEquals(EncryptionAlgorithm.SHA1, ((UnaryEncryptionFunction) table.get("sha1")).getEncryptionAlgorithm());
-        
+
         assertTrue(table.containsKey("sha256"));
         assertEquals(UnaryEncryptionFunction.class, table.get("sha256").getClass());
         assertEquals(EncryptionAlgorithm.SHA256, ((UnaryEncryptionFunction) table.get("sha256")).getEncryptionAlgorithm());
