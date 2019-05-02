@@ -15,7 +15,7 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.obvj.jep.util.CollectionsUtils;
-import net.obvj.jep.util.TextFileReader;
+import net.obvj.jep.util.FileUtils;
 
 /**
  * Unit tests for the {@link ReadFile} function
@@ -23,7 +23,7 @@ import net.obvj.jep.util.TextFileReader;
  * @author oswaldo.bapvic.jr
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(TextFileReader.class)
+@PrepareForTest(FileUtils.class)
 public class ReadFileTest
 {
     private static final String PATH = "/tmp/data.json";
@@ -38,7 +38,7 @@ public class ReadFileTest
     @Before
     public void setup()
     {
-        PowerMockito.mockStatic(TextFileReader.class);
+        PowerMockito.mockStatic(FileUtils.class);
     }
 
     /**
@@ -47,7 +47,7 @@ public class ReadFileTest
     @Test
     public void testSuccessfulScenario() throws org.nfunk.jep.ParseException, IOException
     {
-        PowerMockito.when(TextFileReader.readFromFileSystem(PATH)).thenReturn(CONTENT);
+        PowerMockito.when(FileUtils.readFromFileSystem(PATH)).thenReturn(CONTENT);
 
         Stack<Object> parameters = CollectionsUtils.newParametersStack(PATH);
         function.run(parameters);
@@ -56,8 +56,8 @@ public class ReadFileTest
         assertEquals(CONTENT, parameters.pop());
 
         // Check that the correct method from the mock was called once
-        PowerMockito.verifyStatic(TextFileReader.class, BDDMockito.times(1));
-        TextFileReader.readFromFileSystem(PATH);
+        PowerMockito.verifyStatic(FileUtils.class, BDDMockito.times(1));
+        FileUtils.readFromFileSystem(PATH);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ReadFileTest
     @Test(expected = ParseException.class)
     public void testExceptionalScenario() throws org.nfunk.jep.ParseException, IOException
     {
-        PowerMockito.when(TextFileReader.readFromFileSystem(PATH)).thenThrow(new IOException("Mocked exception"));
+        PowerMockito.when(FileUtils.readFromFileSystem(PATH)).thenThrow(new IOException("Mocked exception"));
 
         Stack<Object> parameters = CollectionsUtils.newParametersStack(PATH);
         function.run(parameters);

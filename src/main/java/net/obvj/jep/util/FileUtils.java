@@ -15,9 +15,9 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Oswaldo Junior
  */
-public class TextFileReader
+public class FileUtils
 {
-    private TextFileReader()
+    private FileUtils()
     {
         throw new IllegalStateException("Utility class");
     }
@@ -32,7 +32,7 @@ public class TextFileReader
      */
     public static String readFromClasspath(String fileName) throws IOException
     {
-        URL url = TextFileReader.class.getClassLoader().getResource(fileName);
+        URL url = FileUtils.class.getClassLoader().getResource(fileName);
         if (url == null)
         {
             throw new IllegalArgumentException("File not found in class path: " + fileName);
@@ -50,7 +50,7 @@ public class TextFileReader
 
     /**
      * Loads the content of a file in the class path into a string. Returns an empty string if
-     * any I/O exception occurs. Useful for JUnit testing.
+     * any exception occurs. Useful for JUnit testing.
      *
      * @param fileName the name of the file to be loaded
      * @return a String with the content of the specified file name, or an empty string in
@@ -62,7 +62,7 @@ public class TextFileReader
         {
             return readFromClasspath(fileName);
         }
-        catch (IOException exception)
+        catch (Exception exception)
         {
             return StringUtils.EMPTY;
         }

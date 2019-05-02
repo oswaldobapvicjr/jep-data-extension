@@ -6,7 +6,7 @@ import java.util.Stack;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
-import net.obvj.jep.util.TextFileReader;
+import net.obvj.jep.util.FileUtils;
 
 /**
  * A function that reads the content a text file from the file system
@@ -36,7 +36,7 @@ public class ReadFile extends PostfixMathCommand
         String fileName = stack.pop().toString();
         try
         {
-            stack.push(TextFileReader.readFromFileSystem(fileName));
+            stack.push(FileUtils.readFromFileSystem(fileName));
         }
         catch (IOException e)
         {

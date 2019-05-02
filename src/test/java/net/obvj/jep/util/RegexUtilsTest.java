@@ -1,11 +1,12 @@
 package net.obvj.jep.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -40,24 +41,10 @@ public class RegexUtilsTest
      * @throws Exception in case of error getting constructor metadata or instantiating the
      *                   private constructor via Reflection
      */
-    @Test(expected = InvocationTargetException.class)
+    @Test
     public void testNoInstancesAllowed() throws Exception
     {
-        try
-        {
-            Constructor<RegexUtils> constructor = RegexUtils.class.getDeclaredConstructor();
-            assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
-
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        }
-        catch (InvocationTargetException ite)
-        {
-            Throwable cause = ite.getCause();
-            assertEquals(IllegalStateException.class, cause.getClass());
-            assertEquals("Utility class", cause.getMessage());
-            throw ite;
-        }
+        UtilitiesCommons.testNoInstancesAllowed(RegexUtils.class, IllegalStateException.class, "Utility class");
     }
 
     @Test

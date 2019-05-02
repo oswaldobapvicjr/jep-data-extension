@@ -11,11 +11,11 @@ import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
 import net.obvj.jep.util.CollectionsUtils;
-import net.obvj.jep.util.TextFileReader;
+import net.obvj.jep.util.FileUtils;
 
 public class XPathTest
 {
-    private static final String STR_XML_BOOKS = TextFileReader.readQuietlyFromClasspath("books.xml");
+    private static final String STR_XML_BOOKS = FileUtils.readQuietlyFromClasspath("books.xml");
 
     private static final String XPATH_ALL_BOOK_TITLES = "/bookstore/book/title/text()";
     private static final String XPATH_ALL_BOOK_TITLES_NOT_COMPILABLE = "/bookstore/book/title/text(";
