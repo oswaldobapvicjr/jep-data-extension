@@ -18,13 +18,13 @@ public class EncryptionUtils
 
     /**
      * Converts a byte array into a hexadecimal lower case string.
-     * 
+     *
      * @param array the bytes to convert
      * @return a string with the bytes converted into hexadecimal
      */
     private static String bytesToHex(byte[] array)
     {
-        StringBuffer hexString = new StringBuffer();
+        StringBuilder hexString = new StringBuilder();
         for (int i = 0; i < array.length; ++i)
         {
             hexString.append(Integer.toHexString((array[i] & 0xFF) | 0x100).substring(1, 3));
@@ -50,10 +50,10 @@ public class EncryptionUtils
         }
         catch (NoSuchAlgorithmException e)
         {
-            throw new IllegalStateException(e);
+            throw new IllegalArgumentException(e);
         }
     }
- 
+
     /**
      * Computes the MD5 hash for the given string and transforms the binary result into a
      * hexadecimal lower case string.
@@ -77,7 +77,7 @@ public class EncryptionUtils
     {
         return hashWith("SHA1", content);
     }
-    
+
     /**
      * Computes the SHA-256 hash for the given string and transforms the binary result into a
      * hexadecimal lower case string.
