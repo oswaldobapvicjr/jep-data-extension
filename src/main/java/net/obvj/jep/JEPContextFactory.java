@@ -125,6 +125,7 @@ public class JEPContextFactory
         jep.addFunction("jsonpath", new JsonPath());
 
         // Statistical functions
+        jep.addFunction("average", new Average());
         jep.addFunction("count", new Count());
         jep.addFunction("max", new Max());
         jep.addFunction("min", new Min());

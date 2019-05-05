@@ -178,6 +178,9 @@ public class JEPContextFactoryTest
         // Statistical
         // ---------------------
 
+        assertTrue(table.containsKey("average"));
+        assertEquals(Average.class, table.get("average").getClass());
+        
         assertTrue(table.containsKey("count"));
         assertEquals(Count.class, table.get("count").getClass());
 
@@ -343,6 +346,20 @@ public class JEPContextFactoryTest
         JEP jep = JEPContextFactory.newContext(myVariables);
         Node node = jep.parseExpression("isEmpty(myJSONArray)");
         assertEquals(DOUBLE_TRUE, jep.evaluate(node));
+    }
+    
+    /**
+     * Tests the JEP context can evaluate an expression average("[2,3]")
+     *
+     * @throws ParseException
+     * @throws java.text.ParseException
+     */
+    @Test
+    public void testExpressionAverageForStringRepresentationOfArrayWithTwoNumbers() throws ParseException, java.text.ParseException
+    {
+        JEP jep = JEPContextFactory.newContext();
+        Node node = jep.parseExpression("average(\"[2,3]\")");
+        assertEquals(2.5, jep.evaluate(node));
     }
 
 }
