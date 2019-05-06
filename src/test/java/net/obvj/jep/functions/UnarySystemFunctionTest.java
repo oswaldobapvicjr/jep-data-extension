@@ -7,21 +7,21 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.UnaryStringFunction.Strategy;
+import net.obvj.jep.functions.UnarySystemFunction.Strategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
- * Unit tests for the {@link UnaryStringFunction} function
+ * Unit tests for the {@link UnarySystemFunction} function
  *
  * @author oswaldo.bapvic.jr
  */
-public class UnaryStringFunctionTest
+public class UnarySystemFunctionTest
 {
     // Test data
     private static final String KEY_OS_NAME = "os.name";
     private static final String EXPECTED_OS_NAME = System.getProperty(KEY_OS_NAME);
 
-    private static UnaryStringFunction getSystemPropertiesfunction = new UnaryStringFunction(Strategy.GET_SYSTEM_PROPERTY);
+    private static UnarySystemFunction getSystemPropertiesfunction = new UnarySystemFunction(Strategy.GET_SYSTEM_PROPERTY);
 
     /**
      * Tests the getSystemProperty function retrieving a core system property

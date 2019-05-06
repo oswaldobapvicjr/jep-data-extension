@@ -15,7 +15,7 @@ import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
-import net.obvj.jep.functions.UnaryStringFunction.Strategy;
+import net.obvj.jep.functions.UnarySystemFunction.Strategy;
 
 /**
  * A factory that creates JEP Contexts with extended functions.
@@ -135,8 +135,8 @@ public class JEPContextFactory
         jep.addFunction("uuid", new UUID());
 
         // Utility functions
-        jep.addFunction("getSystemProperty", new UnaryStringFunction(Strategy.GET_SYSTEM_PROPERTY));
-        jep.addFunction("getEnv", new UnaryStringFunction(Strategy.GET_ENV));
+        jep.addFunction("getSystemProperty", new UnarySystemFunction(Strategy.GET_SYSTEM_PROPERTY));
+        jep.addFunction("getEnv", new UnarySystemFunction(Strategy.GET_ENV));
         jep.addFunction("isEmpty", new IsEmpty());
         jep.addFunction("readFile", new ReadFile());
         jep.addFunction("typeOf", new TypeOf());

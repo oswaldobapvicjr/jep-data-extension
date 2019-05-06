@@ -6,11 +6,11 @@ import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
 /**
- * A JEP function that receives a single parameter and returns a string.
+ * A JEP function that receives a single parameter and retrieves system data
  *
  * @author oswaldo.bapvic.jr
  */
-public class UnaryStringFunction extends PostfixMathCommand
+public class UnarySystemFunction extends PostfixMathCommand
 {
     public enum Strategy
     {
@@ -46,7 +46,7 @@ public class UnaryStringFunction extends PostfixMathCommand
     /**
      * Builds this function with a fixed number of one parameter
      */
-    public UnaryStringFunction(Strategy strategy)
+    public UnarySystemFunction(Strategy strategy)
     {
         numberOfParameters = 1;
         this.strategy = strategy;
