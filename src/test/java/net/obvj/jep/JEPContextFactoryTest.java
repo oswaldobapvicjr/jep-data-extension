@@ -22,6 +22,7 @@ import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
+import net.obvj.jep.functions.UnaryStringFunction.Strategy;
 import net.obvj.jep.util.DateUtils;
 
 public class JEPContextFactoryTest
@@ -202,10 +203,12 @@ public class JEPContextFactoryTest
         // ---------------------
 
         assertTrue(table.containsKey("getEnv"));
-        assertEquals(EnvironmentVariableReader.class, table.get("getEnv").getClass());
-
+        assertEquals(UnaryStringFunction.class, table.get("getEnv").getClass());
+        assertEquals(Strategy.GET_ENV, ((UnaryStringFunction) table.get("getEnv")).getStrategy());
+        
         assertTrue(table.containsKey("getSystemProperty"));
-        assertEquals(SystemPropertyReader.class, table.get("getSystemProperty").getClass());
+        assertEquals(UnaryStringFunction.class, table.get("getSystemProperty").getClass());
+        assertEquals(Strategy.GET_SYSTEM_PROPERTY, ((UnaryStringFunction) table.get("getSystemProperty")).getStrategy());
 
         assertTrue(table.containsKey("get"));
         assertEquals(Element.class, table.get("get").getClass());
