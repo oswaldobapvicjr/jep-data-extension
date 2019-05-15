@@ -291,10 +291,8 @@ jsonpath(jsonObject1, "$.phoneNumbers[:1].type")
 Returns the average (arithmetic mean) of the elements inside the given array. It also accepts JSON arrays, Java Collections and valid string representations of JSON arrays, provided that the collection contains only number elements. 
 
 ```java
-average(collection1)
+average("[2,3]") //result: 2.5
 ```
-
-> **Note**: Not yet implemented
 
 ### Count
 
