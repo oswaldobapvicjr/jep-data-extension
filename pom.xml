@@ -17,7 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
-        <junit4.version>4.4</junit4.version>
+        <junit4.version>4.5</junit4.version>
         <powermock.version>1.7.1</powermock.version>
     </properties>
 
@@ -50,6 +50,14 @@
             <artifactId>json-path</artifactId>
             <version>2.4.0</version>
         </dependency>
+
+        <!-- Jersey HTTP client API -->
+        <dependency>
+            <groupId>com.sun.jersey</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>1.8</version>
+        </dependency>        
+
 
         <!-- Test dependencies - start -->
 
