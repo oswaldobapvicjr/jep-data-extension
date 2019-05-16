@@ -428,13 +428,11 @@ sha256("hello") //result: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043
 
 ### HTTP Get
 
-Returns data from a Web Service or RESTful API.
+Returns data from a Web Service or RESTful API, as string.
 
 ```java
 httpGet("http://sampleservice.com/data/v1/wheather")
 ```
-
-> **Note:** Not yet implemented
 
 ---
 

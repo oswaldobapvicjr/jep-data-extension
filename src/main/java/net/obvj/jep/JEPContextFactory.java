@@ -146,6 +146,9 @@ public class JEPContextFactory
         jep.addFunction("sha1", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
         jep.addFunction("sha256", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
 
+        // Web Services functions
+        jep.addFunction("httpGet", new HttpGet());
+
         // Operators
         OperatorSet operators = jep.getOperatorSet();
         operators.getLT().setPFMC(new DateAwareComparative(Comparative.LT));

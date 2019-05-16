@@ -181,7 +181,7 @@ public class JEPContextFactoryTest
 
         assertTrue(table.containsKey("average"));
         assertEquals(Average.class, table.get("average").getClass());
-        
+
         assertTrue(table.containsKey("count"));
         assertEquals(Count.class, table.get("count").getClass());
 
@@ -205,7 +205,7 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("getEnv"));
         assertEquals(UnarySystemFunction.class, table.get("getEnv").getClass());
         assertEquals(Strategy.GET_ENV, ((UnarySystemFunction) table.get("getEnv")).getStrategy());
-        
+
         assertTrue(table.containsKey("getSystemProperty"));
         assertEquals(UnarySystemFunction.class, table.get("getSystemProperty").getClass());
         assertEquals(Strategy.GET_SYSTEM_PROPERTY, ((UnarySystemFunction) table.get("getSystemProperty")).getStrategy());
@@ -237,6 +237,12 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("sha256"));
         assertEquals(UnaryEncryptionFunction.class, table.get("sha256").getClass());
         assertEquals(EncryptionAlgorithm.SHA256, ((UnaryEncryptionFunction) table.get("sha256")).getEncryptionAlgorithm());
+
+        // ---------------------
+        // Web Services
+        // ---------------------
+        assertTrue(table.containsKey("httpGet"));
+        assertEquals(HttpGet.class, table.get("httpGet").getClass());
     }
 
     /**
@@ -350,7 +356,7 @@ public class JEPContextFactoryTest
         Node node = jep.parseExpression("isEmpty(myJSONArray)");
         assertEquals(DOUBLE_TRUE, jep.evaluate(node));
     }
-    
+
     /**
      * Tests the JEP context can evaluate an expression average("[2,3]")
      *
