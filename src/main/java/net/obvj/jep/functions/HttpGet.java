@@ -16,11 +16,11 @@ public class HttpGet extends PostfixMathCommand
 {
 
     /**
-     * Builds this custom command with a fixed number of 1 parameter
+     * Builds this custom command with a variable number of parameters
      */
     public HttpGet()
     {
-        numberOfParameters = 1;
+        numberOfParameters = -1;
     }
 
     /**
@@ -29,9 +29,22 @@ public class HttpGet extends PostfixMathCommand
     @Override
     public void run(Stack stack) throws ParseException
     {
-        checkStack(stack);
+        validateNumberOfParameters(stack);
+        String mediaType = stack.size() == 2 ? stack.pop().toString() : null;
         String url = stack.pop().toString();
-        stack.push(WebServiceUtils.getAsString(url));
+
+        String response = mediaType == null ? WebServiceUtils.getAsString(url)
+                : WebServiceUtils.getAsString(url, mediaType);
+        stack.push(response);
+    }
+
+    private void validateNumberOfParameters(Stack stack) throws ParseException
+    {
+        checkStack(stack);
+        if (stack.size() > 2)
+        {
+            throw new ParseException("This funcion accepts only one or two arguments");
+        }
     }
 
 }

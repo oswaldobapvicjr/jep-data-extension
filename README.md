@@ -434,6 +434,16 @@ Returns data from a Web Service or RESTful API, as string.
 httpGet("http://sampleservice.com/data/v1/wheather")
 ```
 
+### HTTP Get with a given media type
+
+Returns data from a Web Service or RESTful API in the given media type, if supported by the Web server, as string.
+
+```java
+httpGet("http://sampleservice.com/data/v1/wheather", "application/xml")
+```
+
+> **Note:** If no media type is specified, "application/json" will be considered by default.
+
 ---
 
 ## Custom operators
