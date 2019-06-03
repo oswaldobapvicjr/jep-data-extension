@@ -431,18 +431,43 @@ sha256("hello") //result: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043
 Returns data from a Web Service or RESTful API, as string.
 
 ```java
-httpGet("http://sampleservice.com/data/v1/wheather")
+httpGet("http://sampleservice.com/jep/v1/wheather")
 ```
 
-### HTTP Get with a given media type
+> **Note:** This is similar to invoking `httpResponse(http("GET", "http://sampleservice.com/data/v1/wheather", null))` 
 
-Returns data from a Web Service or RESTful API in the given media type, if supported by the Web server, as string.
+
+### HTTP Get with custom media type
+
+Returns data from a Web Service or RESTful API  in the given media type, if supported by the Web server, as string.
 
 ```java
-httpGet("http://sampleservice.com/data/v1/wheather", "application/xml")
+httpGet("http://sampleservice.com/jep/v1/wheather", "application/xml")
 ```
 
 > **Note:** If no media type is specified, "application/json" will be considered by default.
+
+
+
+### HTTP method
+
+Invokes the requested method towards a Web Service or RESTful API, with a given request body, and returns a client response object. 
+
+```java
+http("POST", "http://sampleservice.com/jep/v1/customer", requestBody)
+```
+
+> **Note:** A client response is an object that contains the HTTP status code and the response body/payload. These values can be obtained by the function `httpCode()` and `httpResponse()`, respectively.
+
+
+### HTTP method with custom media type
+
+Invokes the requested method towards a Web Service or RESTful API, with a given request body and a custom acceptable media type, and returns a client response object.
+
+```java
+http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, "application/xml")
+```
+
 
 ---
 

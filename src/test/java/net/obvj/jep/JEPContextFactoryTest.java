@@ -243,6 +243,9 @@ public class JEPContextFactoryTest
         // ---------------------
         assertTrue(table.containsKey("httpGet"));
         assertEquals(HttpGet.class, table.get("httpGet").getClass());
+
+        assertTrue(table.containsKey("http"));
+        assertEquals(Http.class, table.get("http").getClass());
     }
 
     /**

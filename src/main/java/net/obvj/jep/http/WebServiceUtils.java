@@ -13,7 +13,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
 /**
- * This class contains methods for consuming simple Web Services.
+ * This class contains methods for working with simple Web Services.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -52,9 +52,9 @@ public class WebServiceUtils
     }
 
     /**
-     * Executes HTTP GET on given URL with a preferable media type to be accepted. Returns the
-     * HTTP content as a string, if the status code received from the Web Server is one of the
-     * class 2xx (success).
+     * Executes HTTP GET on a given URL with a preferable media type to be accepted. Returns
+     * the HTTP content as a string, if the status code received from the Web Server is one of
+     * the class 2xx (success).
      *
      * @param url the URL of the resource
      * @param mediaType a preferable media type to be accepted
@@ -68,7 +68,7 @@ public class WebServiceUtils
     }
 
     /**
-     * Executes HTTP GET on given URL.
+     * Executes HTTP GET on a given URL.
      * <p>
      * The preferable media type "application/json" will be accepted by default, if supported
      * by the Web server.
@@ -83,7 +83,7 @@ public class WebServiceUtils
     }
 
     /**
-     * Executes HTTP GET on given URL, with a preferable media type to be acceptable.
+     * Executes HTTP GET on a given URL, with a preferable media type to be acceptable.
      *
      * @param url the URL of the resource
      * @param mediaType a preferable media type to be accepted
@@ -98,8 +98,55 @@ public class WebServiceUtils
         webResource.accept(mediaType);
         log.log(Level.INFO, "Acceptable media type requested: {0}", mediaType);
 
-        log.log(Level.INFO, "Invoking HTTP GET on URL {0}", url);
+        log.log(Level.INFO, "Invoking GET on URL {0}", url);
         ClientResponse response = webResource.get(ClientResponse.class);
+
+        log.log(Level.INFO, "HTTP status code: {0} ({1})",
+                new Object[] { response.getClientResponseStatus().getStatusCode(),
+                        response.getClientResponseStatus().getReasonPhrase() });
+        log.log(Level.INFO, "HTTP response content type: {0}", response.getType());
+
+        return response;
+    }
+
+    /**
+     * Executes the requested HTTP method on a given URL.
+     * <p>
+     * The preferable media type "application/json" will be accepted by default, if supported
+     * by the Web server.
+     *
+     * @param method the HTTP method to be invoked
+     * @param url the URL of the resource
+     * @param requestEntity the request body entity/payload to be sent
+     * @return a {@link ClientResponse} object, which may contain the HTTP status code and the
+     * content returned from the Web Service
+     */
+    public static ClientResponse invoke(String method, String url, Object requestEntity)
+    {
+        return invoke(method, url, requestEntity, DEFAULT_MEDIA_TYPE);
+    }
+
+    /**
+     * Executes the requested HTTP method on a given URL, with a preferable media type to be
+     * acceptable.
+     *
+     * @param method the HTTP method to be invoked
+     * @param url the URL of the resource
+     * @param requestEntity the request body entity/payload to be sent
+     * @param mediaType a preferable media type to be accepted
+     * @return a {@link ClientResponse} object, which may contain the HTTP status code and the
+     * content returned from the Web Service
+     */
+    public static ClientResponse invoke(String method, String url, Object requestEntity, String mediaType)
+    {
+        Client client = Client.create();
+        WebResource webResource = client.resource(url);
+
+        webResource.accept(mediaType);
+        log.log(Level.INFO, "Acceptable media type requested: {0}", mediaType);
+
+        log.log(Level.INFO, "Invoking {0} on URL {1}", new Object[] { method, url });
+        ClientResponse response = webResource.method(method, ClientResponse.class, requestEntity);
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),

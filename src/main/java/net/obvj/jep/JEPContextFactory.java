@@ -148,6 +148,7 @@ public class JEPContextFactory
 
         // Web Services functions
         jep.addFunction("httpGet", new HttpGet());
+        jep.addFunction("http", new Http());
 
         // Operators
         OperatorSet operators = jep.getOperatorSet();
