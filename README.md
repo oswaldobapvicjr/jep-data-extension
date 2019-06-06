@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/oswaldobapvicjr/jep-data-extension/badge.svg?branch=master)](https://coveralls.io/github/oswaldobapvicjr/jep-data-extension?branch=master)
 
 **jep-data-extension** is a library that  extends JEP, a powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom data functions and operators, including 
-**RegEx**, **XPath** and **JSONPath**.
+**RegEx**, **XPath**, **JSONPath** and **Web Services**.
 
 > For details about JEP core functionality, click [here](http://www.singularsys.com/jep/doc/html/index.html). 
 
@@ -457,7 +457,7 @@ Invokes the requested method towards a Web Service or RESTful API, with a given 
 http("POST", "http://sampleservice.com/jep/v1/customer", requestBody)
 ```
 
-> **Note:** A client response is an object that contains the HTTP status code and the response body/payload. These values can be obtained by the function `httpCode()` and `httpResponse()`, respectively.
+> **Note:** A client response is an object that contains the HTTP status code and the response body/payload. These values can be obtained by the function `httpStatusCode()` and `httpResponse()`, respectively.
 
 
 ### HTTP method with custom media type
@@ -466,6 +466,24 @@ Invokes the requested method towards a Web Service or RESTful API, with a given 
 
 ```java
 http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, "application/xml")
+```
+
+
+### HTTP status code getter
+
+Returns the HTTP status code, given a client response object, returned by the `http()` function.
+
+```java
+httpStatusCode(clientResponse)
+```
+
+
+### HTTP response body getter
+
+Returns the HTTP response body as string, given a client response object, returned by the `http()` function.
+
+```java
+httpResponse(clientResponse)
 ```
 
 

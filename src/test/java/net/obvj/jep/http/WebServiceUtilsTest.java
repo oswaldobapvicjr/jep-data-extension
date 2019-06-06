@@ -32,6 +32,7 @@ import net.obvj.jep.util.UtilitiesCommons;
 public class WebServiceUtilsTest
 {
     // Test data
+    private static final String GET = "GET";
     private static final String URL = "http://localhost/dummy";
     private static final String MOCKED_JSON_AS_STRING = "{\"foo\":\"bar\"}";
 
@@ -52,6 +53,19 @@ public class WebServiceUtilsTest
     private void mockClientResponseStatusCode(Status statusToBeMocked)
     {
         when(clientResponse.getClientResponseStatus()).thenReturn(statusToBeMocked);
+        when(clientResponse.getStatus()).thenReturn(statusToBeMocked.getStatusCode());
+    }
+
+    /**
+     * Utility method to mock the Client response with a given HTTP status and body
+     *
+     * @param statusToBeMocked the HTTP status to be set
+     * @param expectedResponse the response body to be set
+     */
+    private void mockClientResponse(Status statusToBeMocked, String expectedResponse)
+    {
+        mockClientResponseStatusCode(statusToBeMocked);
+        when(clientResponse.getEntity(String.class)).thenReturn(expectedResponse);
     }
 
     /**
@@ -64,15 +78,36 @@ public class WebServiceUtilsTest
      */
     private void mockGetAsStringResponse(String url, Status status, MediaType mediaType, String expectedResponse)
     {
-        mockClientResponseStatusCode(status);
+        mockClientResponse(status, expectedResponse);
+        mockClient(url);
+        when(webResource.get(ClientResponse.class)).thenReturn(clientResponse);
+        when(clientResponse.getType()).thenReturn(mediaType);
+    }
 
+    /**
+     * Utility method to mock the response from an HTTP request with the given URL and status
+     *
+     * @param method the HTTP method
+     * @param url the URL to be passed to the mock
+     * @param status the HTTP status to be set
+     * @param mediaType the media type to be set
+     * @param expectedResponse the content to be set
+     */
+    private void mockInvokeMethod(String method, String url, Status status, MediaType mediaType, String requestEntity,
+            String expectedResponse)
+    {
+        mockClientResponse(status, expectedResponse);
+        mockClient(url);
+        when(webResource.method(method, ClientResponse.class, requestEntity)).thenReturn(clientResponse);
+        when(clientResponse.getType()).thenReturn(mediaType);
+    }
+
+    private void mockClient(String url)
+    {
         PowerMockito.mockStatic(Client.class);
         PowerMockito.when(Client.create()).thenReturn(client);
 
         when(client.resource(url)).thenReturn(webResource);
-        when(webResource.get(ClientResponse.class)).thenReturn(clientResponse);
-        when(clientResponse.getType()).thenReturn(mediaType);
-        when(clientResponse.getEntity(String.class)).thenReturn(expectedResponse);
     }
 
     /**
@@ -82,6 +117,16 @@ public class WebServiceUtilsTest
     public void testNoInstancesAllowed() throws Exception
     {
         UtilitiesCommons.testNoInstancesAllowed(WebServiceUtils.class, IllegalStateException.class, "Utility class");
+    }
+
+    /**
+     * Tests that the status code is retrieved
+     */
+    @Test
+    public void testGetStatusCodeFromClientResponse()
+    {
+        mockClientResponseStatusCode(Status.NO_CONTENT);
+        assertEquals(Status.NO_CONTENT.getStatusCode(), WebServiceUtils.getStatusCode(clientResponse));
     }
 
     /**
@@ -105,6 +150,16 @@ public class WebServiceUtilsTest
     }
 
     /**
+     * Tests that the response body is retrieved from a client response
+     */
+    @Test
+    public void testGetResponseAsStringFromClientResponse()
+    {
+        mockClientResponse(Status.OK, MOCKED_JSON_AS_STRING);
+        assertEquals(MOCKED_JSON_AS_STRING, WebServiceUtils.getResponseAsString(clientResponse));
+    }
+
+    /**
      * Tests the getAsString method with a successful HTTP response
      */
     @Test
@@ -123,6 +178,18 @@ public class WebServiceUtilsTest
     {
         mockGetAsStringResponse(URL, Status.NOT_FOUND, MediaType.APPLICATION_JSON_TYPE, MOCKED_JSON_AS_STRING);
         assertEquals(StringUtils.EMPTY, WebServiceUtils.getAsString(URL));
+    }
+
+    /**
+     * Tests the invoke method, with GET and a successful HTTP response
+     */
+    @Test
+    public void testInvokeGetWithSuccess()
+    {
+        mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null, MOCKED_JSON_AS_STRING);
+        ClientResponse response = WebServiceUtils.invoke(GET, URL, null);
+        assertEquals(Status.OK.getStatusCode(), response.getStatus());
+        assertEquals(MOCKED_JSON_AS_STRING, response.getEntity(String.class));
     }
 
 }

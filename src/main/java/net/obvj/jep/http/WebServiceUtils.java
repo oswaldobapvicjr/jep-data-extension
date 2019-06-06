@@ -68,6 +68,17 @@ public class WebServiceUtils
     }
 
     /**
+     * Returns the HTTP response body, as string, given an HTTP client response.
+     *
+     * @param clientResponse the HTTP client response
+     * @return the response body, as string
+     */
+    public static String getResponseAsString(ClientResponse clientResponse)
+    {
+        return clientResponse.getEntity(String.class);
+    }
+
+    /**
      * Executes HTTP GET on a given URL.
      * <p>
      * The preferable media type "application/json" will be accepted by default, if supported
@@ -167,6 +178,17 @@ public class WebServiceUtils
     public static boolean isSuccessful(ClientResponse clientResponse)
     {
         return Family.SUCCESSFUL == clientResponse.getClientResponseStatus().getFamily();
+    }
+
+    /**
+     * Returns the HTTP status code, given an HTTP response.
+     *
+     * @param clientResponse the HTTP client response
+     * @return the status code
+     */
+    public static int getStatusCode(ClientResponse clientResponse)
+    {
+        return clientResponse.getStatus();
     }
 
 }

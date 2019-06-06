@@ -20,6 +20,7 @@ import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
+import net.obvj.jep.functions.HttpResponseHandler.HttpResponseHandlerStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 import net.obvj.jep.functions.UnarySystemFunction.Strategy;
@@ -246,6 +247,16 @@ public class JEPContextFactoryTest
 
         assertTrue(table.containsKey("http"));
         assertEquals(Http.class, table.get("http").getClass());
+
+        assertTrue(table.containsKey("httpStatusCode"));
+        assertEquals(HttpResponseHandler.class, table.get("httpStatusCode").getClass());
+        assertEquals(HttpResponseHandlerStrategy.GET_STATUS_CODE,
+                ((HttpResponseHandler) table.get("httpStatusCode")).getStrategy());
+
+        assertTrue(table.containsKey("httpResponse"));
+        assertEquals(HttpResponseHandler.class, table.get("httpResponse").getClass());
+        assertEquals(HttpResponseHandlerStrategy.GET_RESPONSE,
+                ((HttpResponseHandler) table.get("httpResponse")).getStrategy());
     }
 
     /**

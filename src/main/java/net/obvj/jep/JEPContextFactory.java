@@ -13,6 +13,7 @@ import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.FindMatches.ReturnStrategy;
+import net.obvj.jep.functions.HttpResponseHandler.HttpResponseHandlerStrategy;
 import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 import net.obvj.jep.functions.UnarySystemFunction.Strategy;
@@ -149,6 +150,8 @@ public class JEPContextFactory
         // Web Services functions
         jep.addFunction("httpGet", new HttpGet());
         jep.addFunction("http", new Http());
+        jep.addFunction("httpStatusCode", new HttpResponseHandler(HttpResponseHandlerStrategy.GET_STATUS_CODE));
+        jep.addFunction("httpResponse", new HttpResponseHandler(HttpResponseHandlerStrategy.GET_RESPONSE));
 
         // Operators
         OperatorSet operators = jep.getOperatorSet();
