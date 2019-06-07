@@ -3,6 +3,7 @@ package net.obvj.jep.util;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,6 +18,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class FileUtils
 {
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+
     private FileUtils()
     {
         throw new IllegalStateException("Utility class");
@@ -89,6 +92,6 @@ public class FileUtils
      */
     protected static String readFromPath(Path path) throws IOException
     {
-        return new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+        return new String(Files.readAllBytes(path), DEFAULT_CHARSET);
     }
 }
