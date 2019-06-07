@@ -3,6 +3,7 @@ package net.obvj.jep.functions;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Stack;
+import java.util.function.ToIntFunction;
 
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
@@ -22,112 +23,62 @@ public class DateFieldGetter extends PostfixMathCommand
         /**
          * The year
          */
-        YEAR
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getDateField(date, Calendar.YEAR);
-            }
-        },
+        YEAR(date -> DateUtils.getDateField(date, Calendar.YEAR)),
 
         /**
          * The quarter of the year, a number from 1 to 4
          */
-        QUARTER
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getQuarter(date);
-            }
-        },
+        QUARTER(DateUtils::getQuarter),
 
         /**
          * The month, a number from 1 (January) to 12 (December)
          */
-        MONTH
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getMonth(date);
-            }
-        },
+        MONTH(DateUtils::getMonth),
 
         /**
          * The week number of the year, according to ISO 8601 rules
          */
-        ISO_WEEK_NUMBER
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getIsoWeekNumber(date);
-            }
-        },
+        ISO_WEEK_NUMBER(DateUtils::getIsoWeekNumber),
 
         /**
          * The day of month (the first day of month is 1)
          */
-        DAY
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getDateField(date, Calendar.DAY_OF_MONTH);
-            }
-        },
+        DAY(date -> DateUtils.getDateField(date, Calendar.DAY_OF_MONTH)),
 
         /**
          * The hour as a number from 0 (12:00 AM) to 23 (11:00 PM)
          */
-        HOUR
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getDateField(date, Calendar.HOUR_OF_DAY);
-            }
-        },
+        HOUR(date -> DateUtils.getDateField(date, Calendar.HOUR_OF_DAY)),
 
         /**
          * The minute, a number from 0 to 59
          */
-        MINUTE
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getDateField(date, Calendar.MINUTE);
-            }
-        },
+        MINUTE(date -> DateUtils.getDateField(date, Calendar.MINUTE)),
 
         /**
          * The second within the minute, a number from 0 to 59
          */
-        SECOND
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getDateField(date, Calendar.SECOND);
-            }
-        },
+        SECOND(date -> DateUtils.getDateField(date, Calendar.SECOND)),
 
         /**
          * The millisecond within a second
          */
-        MILLISECOND
-        {
-            @Override
-            int getFromDate(Date date)
-            {
-                return DateUtils.getDateField(date, Calendar.MILLISECOND);
-            }
-        };
+        MILLISECOND(date -> DateUtils.getDateField(date, Calendar.MILLISECOND));
 
-        abstract int getFromDate(Date date);
+        private ToIntFunction<Date> function;
+
+        /*
+         * Builds each enum object with a mandatory function to be applied
+         */
+        private DateField(ToIntFunction<Date> function)
+        {
+            this.function = function;
+        }
+
+        int getFromDate(Date date)
+        {
+            return function.applyAsInt(date);
+        }
     }
 
     private final DateField dateField;
