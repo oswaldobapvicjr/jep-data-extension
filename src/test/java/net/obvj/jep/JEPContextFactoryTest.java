@@ -186,6 +186,9 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("count"));
         assertEquals(Count.class, table.get("count").getClass());
 
+        assertTrue(table.containsKey("length"));
+        assertEquals(Count.class, table.get("length").getClass());
+
         assertTrue(table.containsKey("max"));
         assertEquals(Max.class, table.get("max").getClass());
 

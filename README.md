@@ -246,20 +246,6 @@ millisecond("2017-03-11T20:15:00:123Z") //result: 123.0
 
 ---
 
-## Database functions
-
-### Database Lookup
-
-Executes an SQL query onto a relation data-source to retrieve data (only select statements allowed).
-
-```java
-dblookup("dataSource1", "SELECT b.name FROM book b WHERE b.id = '247dc019'")
-```
-
-> **Note:** Not yet implemented
-
----
-
 ## Data manipulation & filtering functions
 
 ### XPath
@@ -302,6 +288,16 @@ If a regular object (i.e., not a collection) is passed to the function, the resu
 
 ```java
 count(collection1)
+```
+
+> **Note:** Also achievable using `length()`.
+
+### Length
+
+Same as `count()`.
+
+```java
+length(collection1)
 ```
 
 ### Max
@@ -347,16 +343,6 @@ Returns the value of an environment variable associated with the given key in th
 ```java
 getEnv("TEMP")
 ```
-
-### Get Property
-
-Returns the value of property associated with the given key in the given properties file.
-
-```java
-getProperty("integration.properties", "database-host")
-```
-
-> **Note:** Not yet implemented
 
 ### Get System Property
 

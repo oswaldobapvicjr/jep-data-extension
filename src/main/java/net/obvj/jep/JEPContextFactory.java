@@ -128,7 +128,9 @@ public class JEPContextFactory
 
         // Statistical functions
         jep.addFunction("average", new Average());
-        jep.addFunction("count", new Count());
+        Count count = new Count();
+        jep.addFunction("count", count);
+        jep.addFunction("length", count);
         jep.addFunction("max", new Max());
         jep.addFunction("min", new Min());
 
