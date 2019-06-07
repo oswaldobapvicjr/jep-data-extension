@@ -1,7 +1,6 @@
 package net.obvj.jep;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.OperatorSet;
@@ -182,10 +181,7 @@ public class JEPContextFactory
 
         if (contextMap != null)
         {
-            for (Entry<String, Object> entry : contextMap.entrySet())
-            {
-                jep.addVariable(entry.getKey(), entry.getValue());
-            }
+            contextMap.forEach(jep::addVariable);
         }
     }
 }

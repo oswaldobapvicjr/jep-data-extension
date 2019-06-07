@@ -28,7 +28,12 @@ import net.obvj.jep.util.DateUtils;
 
 public class JEPContextFactoryTest
 {
+    // Test data
     private static final double DOUBLE_TRUE = 1d;
+
+    private static final int INTEGER_123 = 123;
+    private static final double DOUBLE_4 = 4d;
+    private static final Date DATE_1 = new Date();
 
     /**
      * Tests that no instances of this factory are created
@@ -260,6 +265,46 @@ public class JEPContextFactoryTest
         assertEquals(HttpResponseHandler.class, table.get("httpResponse").getClass());
         assertEquals(HttpResponseHandlerStrategy.GET_RESPONSE,
                 ((HttpResponseHandler) table.get("httpResponse")).getStrategy());
+    }
+
+    /**
+     * Tests that a new context is created with initial variables
+     */
+    @Test
+    public void testNewContextWithInitialVariables()
+    {
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("integer1", INTEGER_123);
+        variables.put("double1", DOUBLE_4);
+
+        JEP jep = JEPContextFactory.newContext(variables);
+
+        assertEquals(2, jep.getSymbolTable().size());
+        assertEquals(INTEGER_123, jep.getVarValue("integer1"));
+        assertEquals(DOUBLE_4, jep.getVarValue("double1"));
+    }
+
+    /**
+     * Tests that all input variables are added to JEP symbols table
+     */
+    @Test
+    public void testAddVariables()
+    {
+        JEP jep = JEPContextFactory.newContext();
+
+        assertEquals(0, jep.getSymbolTable().size());
+
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("integer1", INTEGER_123);
+        variables.put("double1", DOUBLE_4);
+        variables.put("date1", DATE_1);
+
+        JEPContextFactory.addVariables(jep, variables);
+
+        assertEquals(3, jep.getSymbolTable().size());
+        assertEquals(INTEGER_123, jep.getVarValue("integer1"));
+        assertEquals(DOUBLE_4, jep.getVarValue("double1"));
+        assertEquals(DATE_1, jep.getVarValue("date1"));
     }
 
     /**
