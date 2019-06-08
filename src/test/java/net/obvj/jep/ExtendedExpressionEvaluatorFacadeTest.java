@@ -33,8 +33,20 @@ public class ExtendedExpressionEvaluatorFacadeTest
 
     private static final String EXPRESSION_DATE1_LOWER_THAN_DATE2 = "date1<date2";
     private static final String EXPRESSION_DATE1_EQUALS_DATE2 = "date1==date2";
-    private static final String EXPRESSION_IF_DATE2_GREATER_THAN_DATE1 = "if(date2>date1,\"true\",\"false\")";
+    private static final String EXPRESSION_IF_DATE2_GREATER_THAN_DATE1 = "if(date2>date1,\"greater\",\"lower\")";
 
+    private static final String USER_JSON_KEY = "userJson";
+    private static final String USER_JSON = "{\"id\":1,\"firstName\":\"John\"}";
+
+    private static final String MESSAGE_TEMPLATE_KEY = "messageTemplate";
+    private static final String MESSAGE_TEMPLATE = "Hello, %NAME%!";
+
+    private static final String EXPRESSION_HELLO_MESSAGE =
+            "if(!isEmpty(userJson),"
+                    + "replace(messageTemplate, \"%NAME%\", jsonpath(userJson, \"$.firstName\")),"
+                    + "replace(messageTemplate, \"%NAME%\", \"guest\"))";
+
+    private static final String EMPTY_ARRAY = "[]";
     private static final double FALSE = 0d;
     private static final double TRUE = 1d;
 
@@ -93,7 +105,29 @@ public class ExtendedExpressionEvaluatorFacadeTest
     @Test
     public void testEvaluateExpressionIfDate2GreaterThanDate1() throws ParseException
     {
-        assertEquals("true",
+        assertEquals("greater",
                 ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_IF_DATE2_GREATER_THAN_DATE1, VARIABLES_MAP));
+    }
+
+    @Test
+    public void testEvaluateExpressionHelloUser() throws ParseException
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put(MESSAGE_TEMPLATE_KEY, MESSAGE_TEMPLATE);
+        map.put(USER_JSON_KEY, USER_JSON);
+
+        Object result = ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_HELLO_MESSAGE, map);
+        assertEquals("Hello, John!", result);
+    }
+
+    @Test
+    public void testEvaluateExpressionHelloGuest() throws ParseException
+    {
+        Map<String, Object> map = new HashMap<>();
+        map.put(MESSAGE_TEMPLATE_KEY, MESSAGE_TEMPLATE);
+        map.put(USER_JSON_KEY, EMPTY_ARRAY);
+
+        Object result = ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_HELLO_MESSAGE, map);
+        assertEquals("Hello, guest!", result);
     }
 }
