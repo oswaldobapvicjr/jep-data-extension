@@ -331,15 +331,50 @@ public class JEPContextFactoryTest
      * @throws ParseException
      */
     @Test
-    public void testExpressionReplaceWithVariable() throws ParseException
+    public void testExpressionReplaceWithInitialVariable() throws ParseException
     {
         Map<String, Object> myVariables = new HashMap<>();
-        myVariables.put("myText", "foo");
+        myVariables.put("myText", "call");
 
         JEP jep = JEPContextFactory.newContext(myVariables);
-        Node node = jep.parseExpression("replace(myText, \"oo\", \"ee\")");
+        Node node = jep.parseExpression("replace(myText, \"c\", \"f\")");
         String result = (String) jep.evaluate(node);
-        assertEquals("fee", result.toString());
+        assertEquals("fall", result.toString());
+    }
+
+    /**
+     * Tests the JEP context can evaluate an expression with the replace() function with
+     * assignment operator and the result can be retrieved when required
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testExpressionReplaceWithAssignmentOperator() throws ParseException
+    {
+        JEP jep = JEPContextFactory.newContext();
+        Node node = jep.parseExpression("myText = replace(\"fear\", \"f\", \"d\")");
+        jep.evaluate(node);
+        String result = (String) jep.getVarValue("myText");
+        assertEquals("dear", result.toString());
+    }
+
+    /**
+     * Tests the JEP context can evaluate an expression with the replace() function with
+     * initial variable and assignment operator. The result shall be retrieved when required
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testExpressionReplaceWithInitialVariableAndAssignmentOperator() throws ParseException
+    {
+        Map<String, Object> myVariables = new HashMap<>();
+        myVariables.put("sourceText", "bare");
+
+        JEP jep = JEPContextFactory.newContext(myVariables);
+        Node node = jep.parseExpression("newText = replace(sourceText, \"b\", \"c\")");
+        jep.evaluate(node);
+        String result = (String) jep.getVarValue("newText");
+        assertEquals("care", result.toString());
     }
 
     /**

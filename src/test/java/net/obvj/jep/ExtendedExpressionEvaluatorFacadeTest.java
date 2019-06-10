@@ -102,11 +102,30 @@ public class ExtendedExpressionEvaluatorFacadeTest
         assertEquals(FALSE, ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_DATE1_EQUALS_DATE2, VARIABLES_MAP));
     }
 
+    /**
+     * Tests expression evaluation with an expression that performs date comparison with the
+     * overloaded "equal" operator
+     *
+     * @throws ParseException
+     */
     @Test
     public void testEvaluateExpressionIfDate2GreaterThanDate1() throws ParseException
     {
         assertEquals("greater",
                 ExtendedExpressionEvaluatorFacade.evaluate(EXPRESSION_IF_DATE2_GREATER_THAN_DATE1, VARIABLES_MAP));
+    }
+
+    /**
+     * Tests expression evaluation updateSourceMap flag enabled
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testEvaluateExpressionAndUpdateSource() throws ParseException
+    {
+        Map<String, Object> map = new HashMap<>();
+        ExtendedExpressionEvaluatorFacade.evaluate("total=1+.5", map, true);
+        assertEquals(1.5, map.get("total"));
     }
 
     @Test

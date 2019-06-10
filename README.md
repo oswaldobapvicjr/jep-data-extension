@@ -546,24 +546,34 @@ jsonArray[1] //extracts the first element of the given jsonArray
 5. Evaluate the expression with JEP's `evaluate` method:
 
     ````java
-    String result = (String) jep.evaluate(node); //result="fee"
+    String result = (String) jep.evaluate(node); //result = "fee"
+    ````
+
+6. Alternatively, you can use the assignment operator inside an expression. The new variable will be available in JEP context for reuse and can be retrieved using the `getVarValue` method:
+
+    ````java
+    Node node = jep.parseExpression("myText = replace(\"fear\", \"f\", \"d\")"));
+    jep.evaluate(node);
+    String result = (String) jep.getVarValue("myText"); //result = "dear"
     ````
 
 
+
 ### Example 2: comparing dates using the `ExtendedExpressionEvaluatorFacade`
+
+The `ExtendedExpressionEvaluatorFacade` is a convenient object to quickly parse a single expression. A single call to the `evaluate` method will create a new evaluation context and return the expression result directly. It accepts a map with initial variables for use in the operation.
 
 1. Put your source variables in a map:
 
     ```java
     Map<String, Object> myVariables = new HashMap<>();
     myVariables.put("date1", "2018-12-20T09:10:00.123456789Z");
-    myVariables.put("date2", "2018-12-20T12:10:00.234567890Z");
     ```
 
 2. Evaluate your expression:
 
     ````java
-    String expression = "if(date1<date2,\"true\",\"false\")";
+    String expression = "if(date1 < now(), \"overdue\", \"not overdue\")";
     String result = (String) ExtendedExpressionEvaluatorFacade.evaluate(expression, myVariables); 
-    //result="true"
+    //result = "overdue"
     ````

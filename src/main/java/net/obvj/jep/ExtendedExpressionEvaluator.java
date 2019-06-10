@@ -3,10 +3,7 @@ package net.obvj.jep;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.nfunk.jep.JEP;
-import org.nfunk.jep.Node;
-import org.nfunk.jep.ParseException;
-import org.nfunk.jep.TokenMgrError;
+import org.nfunk.jep.*;
 
 import net.obvj.jep.util.RegexUtils;
 
@@ -18,6 +15,8 @@ import net.obvj.jep.util.RegexUtils;
  */
 public class ExtendedExpressionEvaluator
 {
+    private static final boolean DEFAULT_UPDATE_SOURCE_MAP_FLAG = false;
+
     private final String expression;
 
     /**
@@ -61,11 +60,29 @@ public class ExtendedExpressionEvaluator
      */
     public Object evaluate(Map<String, Object> variables) throws ParseException
     {
+        return evaluate(variables, DEFAULT_UPDATE_SOURCE_MAP_FLAG);
+    }
+
+    /**
+     * Evaluates the instance-defined expression with a map of variables.
+     *
+     * @param variables the map of variables to be used for the evaluation
+     * @param updateSourceMap a flag indicating whether or not the initial variables map shall
+     * be updated with the evaluation results (default: false)
+     * @return the expression evaluation result given the input variables
+     * @throws ParseException if for some reason the expression could not be evaluated
+     */
+    public Object evaluate(Map<String, Object> variables, boolean updateSourceMap) throws ParseException
+    {
         JEP evaluationContext = JEPContextFactory.newContext(variables);
         String localExpression = replacePlaceholders(variables);
 
         Node node = evaluationContext.parseExpression(localExpression);
-        return evaluationContext.evaluate(node);
+        Object result = evaluationContext.evaluate(node);
+
+        if (updateSourceMap) updateExternalMap(variables, evaluationContext.getSymbolTable());
+
+        return result;
     }
 
     private String replacePlaceholders(Map<String, Object> variables)
@@ -75,6 +92,11 @@ public class ExtendedExpressionEvaluator
             return RegexUtils.replacePlaceholdersWithVariables(expression, variables);
         }
         return expression;
+    }
+
+    private void updateExternalMap(Map<String, Object> map, SymbolTable internalTable)
+    {
+        internalTable.forEach((key, value) -> map.put((String) key, ((Variable) value).getValue()));
     }
 
 }

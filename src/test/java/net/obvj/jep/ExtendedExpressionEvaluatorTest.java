@@ -178,6 +178,24 @@ public class ExtendedExpressionEvaluatorTest
     }
 
     /**
+     * Tests component execution with the concat() function, a string containing literals
+     * delimited by double quotes and the assignment operator. The variables map shall be
+     * updated
+     *
+     * @throws ParseException
+     */
+    @Test
+    public void testComponentExecutionWithConcatExpressionAndAssignmentOperator() throws ParseException
+    {
+        ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator("message = concat(\"Good \", period)");
+        Map<String, Object> map = new HashMap<>();
+        map.put(VARIABLE_PERIOD, MORNING);
+        evaluator.evaluate(map, true);
+        assertEquals(2, map.size());
+        assertEquals(GOOD_MORNING, map.get("message"));
+    }
+
+    /**
      * Tests component execution with the concat operator
      *
      * @throws ParseException

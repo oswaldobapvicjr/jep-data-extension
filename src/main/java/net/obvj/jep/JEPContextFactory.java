@@ -76,6 +76,7 @@ public class JEPContextFactory
     {
         JEP jep = new JEP(traverse, allowUndeclared, implicitMultiplication, numberFactory);
 
+        jep.setAllowAssignment(true);
         jep.addStandardFunctions();
         addCustomFunctions(jep);
 
@@ -182,7 +183,7 @@ public class JEPContextFactory
 
         if (contextMap != null)
         {
-            contextMap.forEach(jep::addVariable);
+            jep.getSymbolTable().putAll(contextMap);
         }
     }
 }
