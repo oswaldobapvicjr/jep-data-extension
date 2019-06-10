@@ -110,6 +110,7 @@ public class JEPContextFactory
         jep.addFunction("date2str", new DateToString());
         jep.addFunction("str2date", new StringToDate());
         jep.addFunction("daysBetween", new DaysBetween());
+        jep.addFunction("endOfMonth", new EndOfMonth());
         jep.addFunction("isLeapYear", new IsLeapYear());
         jep.addFunction("year", new DateFieldGetter(DateField.YEAR));
         jep.addFunction("quarter", new DateFieldGetter(DateField.QUARTER));

@@ -406,4 +406,28 @@ public class DateUtilsTest
         assertEquals(4, DateUtils.getQuarter(DateUtils.parseDate("2002-12-07", STR_PATTERN_YMD)));
     }
 
+    /**
+     * Tests endOfMonth with different input
+     *
+     * @throws ParseException if the test date cannot be parsed
+     */
+    @Test
+    public void testEndOfMonthForSeveralDates() throws ParseException
+    {
+        Date date1 = DateUtils.parseDate("2017-01-06T00:00:00.000Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date2 = DateUtils.parseDate("2018-02-07T07:31:55.256Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date3 = DateUtils.parseDate("2019-04-08T14:00:01.128Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date4 = DateUtils.parseDate("2020-02-09T23:59:59.999Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+
+        Date date1eom = DateUtils.parseDate("2017-01-31T23:59:59.999Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date2eom = DateUtils.parseDate("2018-02-28T23:59:59.999Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date3eom = DateUtils.parseDate("2019-04-30T23:59:59.999Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date4eom = DateUtils.parseDate("2020-02-29T23:59:59.999Z", STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+
+        assertEquals(date1eom, DateUtils.endOfMonth(date1));
+        assertEquals(date2eom, DateUtils.endOfMonth(date2));
+        assertEquals(date3eom, DateUtils.endOfMonth(date3));
+        assertEquals(date4eom, DateUtils.endOfMonth(date4));
+    }
+
 }

@@ -132,6 +132,9 @@ public class JEPContextFactoryTest
         assertTrue(table.containsKey("daysBetween"));
         assertEquals(DaysBetween.class, table.get("daysBetween").getClass());
 
+        assertTrue(table.containsKey("endOfMonth"));
+        assertEquals(EndOfMonth.class, table.get("endOfMonth").getClass());
+
         assertTrue(table.containsKey("isLeapYear"));
         assertEquals(IsLeapYear.class, table.get("isLeapYear").getClass());
 

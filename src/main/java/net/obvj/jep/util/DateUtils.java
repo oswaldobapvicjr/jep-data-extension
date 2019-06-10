@@ -363,4 +363,21 @@ public class DateUtils
         Calendar calendar = toCalendar(date);
         return calendar.get(calendarCode);
     }
+
+    /**
+     * Returns the date corresponding to the last day of the month given a source date
+     *
+     * @param date the date to be converted
+     * @return the date corresponding to the last day of the month
+     */
+    public static Date endOfMonth(Date date)
+    {
+        Calendar calendar = toCalendar(date);
+        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
+        calendar.set(Calendar.HOUR_OF_DAY, calendar.getActualMaximum(Calendar.HOUR_OF_DAY));
+        calendar.set(Calendar.MINUTE, calendar.getActualMaximum(Calendar.MINUTE));
+        calendar.set(Calendar.SECOND, calendar.getActualMaximum(Calendar.SECOND));
+        calendar.set(Calendar.MILLISECOND, calendar.getActualMaximum(Calendar.MILLISECOND));
+        return calendar.getTime();
+    }
 }

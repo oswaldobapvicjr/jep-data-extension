@@ -161,6 +161,14 @@ Returns the number of days between two dates (or valid date representations as s
 daysBetween(date1, date2)
 ```
 
+### End of month
+
+Returns a date corresponding to the last day of the month given a source date.
+
+```java
+endOfMonth("2019-02-10T08:15:26.109Z") // result: "2019-02-28T23:59:59.999Z"
+```
+
 ### Is leap year
 
 Returns 1 (true) if the given argument is a leap year, that is, an year with 366 days, or 0 (false) if not.
