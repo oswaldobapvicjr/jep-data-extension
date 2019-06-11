@@ -1,16 +1,14 @@
 package net.obvj.jep;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
+
+import net.obvj.jep.util.UtilitiesCommons;
 
 /**
  * Unit tests for the {@link ExtendedExpressionEvaluatorFacade} class.
@@ -56,25 +54,11 @@ public class ExtendedExpressionEvaluatorFacadeTest
      * @throws Exception in case of error getting constructor metadata or instantiating the
      *                   private constructor via Reflection
      */
-    @Test(expected = InvocationTargetException.class)
+    @Test
     public void testNoInstancesAllowed() throws Exception
     {
-        try
-        {
-            Constructor<ExtendedExpressionEvaluatorFacade> constructor = ExtendedExpressionEvaluatorFacade.class
-                    .getDeclaredConstructor();
-            assertTrue("Constructor is not private", Modifier.isPrivate(constructor.getModifiers()));
-
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        }
-        catch (InvocationTargetException ite)
-        {
-            Throwable cause = ite.getCause();
-            assertEquals(IllegalStateException.class, cause.getClass());
-            assertEquals("No instances allowed", cause.getMessage());
-            throw ite;
-        }
+        UtilitiesCommons.testNoInstancesAllowed(ExtendedExpressionEvaluatorFacade.class, IllegalStateException.class,
+                "No instances allowed");
     }
 
     /**
