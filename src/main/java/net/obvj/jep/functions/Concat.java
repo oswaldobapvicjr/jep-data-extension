@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
+import net.obvj.jep.util.CollectionsUtils;
+
 /**
  * This class implements a JEP function command that concatenates elements.
  *
@@ -28,24 +30,8 @@ public class Concat extends PostfixMathCommand
     public void run(Stack stack) throws ParseException
     {
         checkStack(stack);
-        String[] arguments = getVarArgs(stack);
+        String[] arguments = CollectionsUtils.getStringVarArgs(stack);
         stack.push(StringUtils.join(arguments));
-    }
-
-    /**
-     * Extracts an array of strings from the stack
-     *
-     * @param stack the stack of parameters to be evaluated
-     */
-    private String[] getVarArgs(Stack stack)
-    {
-        String[] arguments = new String[stack.size()];
-        int index = arguments.length;
-        while (!stack.isEmpty())
-        {
-            arguments[--index] = String.valueOf(stack.pop());
-        }
-        return arguments;
     }
 
 }
