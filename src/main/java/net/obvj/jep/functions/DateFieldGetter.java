@@ -15,7 +15,7 @@ import net.obvj.jep.util.DateUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class DateFieldGetter extends PostfixMathCommand
+public class DateFieldGetter extends PostfixMathCommand implements MultiStrategyCommand
 {
 
     public enum DateField
@@ -105,9 +105,9 @@ public class DateFieldGetter extends PostfixMathCommand
     }
 
     /**
-     * @return the date field setup for this instance
+     * @return the date field retrieval strategy for this instance
      */
-    public DateField getDateField()
+    public Object getStrategy()
     {
         return dateField;
     }

@@ -13,9 +13,9 @@ import net.obvj.jep.util.RegexUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class Replace extends PostfixMathCommand
+public class Replace extends PostfixMathCommand implements MultiStrategyCommand
 {
-    public enum SearchStrategy
+    public enum Strategy
     {
         /**
          * Replaces occurrences of a string with another string
@@ -23,7 +23,7 @@ public class Replace extends PostfixMathCommand
     	NORMAL
         {
             @Override
-            String replace(String sourceString, String searchString, String replacement)
+            String execute(String sourceString, String searchString, String replacement)
             {
                 return StringUtils.replace(sourceString, searchString, replacement);
             }
@@ -35,25 +35,25 @@ public class Replace extends PostfixMathCommand
         REGEX
         {
             @Override
-            String replace(String sourceString, String searchString, String replacement)
+            String execute(String sourceString, String searchString, String replacement)
             {
                 return RegexUtils.replaceMatches(sourceString, searchString, replacement);
             }
         };
 
-        abstract String replace(String sourceString, String searchString, String replacement);
+        abstract String execute(String sourceString, String searchString, String replacement);
     }
 
-    private final SearchStrategy searchStrategy;
+    private final Strategy strategy;
 
     /**
      * Builds this function with a fixed number of three parameters and the given search
      * strategy
      */
-    public Replace(SearchStrategy searchStrategy)
+    public Replace(Strategy searchStrategy)
     {
         numberOfParameters = 3;
-        this.searchStrategy = searchStrategy;
+        this.strategy = searchStrategy;
     }
 
     /**
@@ -77,13 +77,16 @@ public class Replace extends PostfixMathCommand
         String searchString = arg2.toString();
         String replacement = arg3 == null ? StringUtils.EMPTY : arg3.toString();
 
-        String result = searchStrategy.replace(sourceString, searchString, replacement);
+        String result = strategy.execute(sourceString, searchString, replacement);
         stack.push(result);
     }
 
-    public SearchStrategy getSearchStrategy()
+    /**
+     * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
+     */
+    public Object getStrategy()
     {
-        return searchStrategy;
+        return strategy;
     }
 
 }

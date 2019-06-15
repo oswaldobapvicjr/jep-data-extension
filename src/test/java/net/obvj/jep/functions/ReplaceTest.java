@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.Replace.SearchStrategy;
+import net.obvj.jep.functions.Replace.Strategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -29,8 +29,8 @@ public class ReplaceTest
     private static final String FILE1 = "file1";
     private static final String REGEX_EXTRACT_FILE_EXTENSION = "(\\.\\w+$)";
     
-    private static Replace replaceNormal = new Replace(SearchStrategy.NORMAL);
-    private static Replace replaceRegex = new Replace(SearchStrategy.REGEX);
+    private static Replace replaceNormal = new Replace(Strategy.NORMAL);
+    private static Replace replaceRegex = new Replace(Strategy.REGEX);
 
     /**
      * Tests the replacement function with a valid string and two replacements

@@ -15,10 +15,10 @@ import net.obvj.jep.http.WebServiceUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class HttpResponseHandler extends PostfixMathCommand
+public class HttpResponseHandler extends PostfixMathCommand implements MultiStrategyCommand
 {
 
-    public enum HttpResponseHandlerStrategy
+    public enum Strategy
     {
         /**
          * A function that returns the HTTP status code, given a {@link ClientResponse} object
@@ -34,7 +34,7 @@ public class HttpResponseHandler extends PostfixMathCommand
 
         private Function<ClientResponse, Object> function;
 
-        HttpResponseHandlerStrategy(Function<ClientResponse, Object> returnStrategy)
+        Strategy(Function<ClientResponse, Object> returnStrategy)
         {
             this.function = returnStrategy;
         }
@@ -45,12 +45,12 @@ public class HttpResponseHandler extends PostfixMathCommand
         }
     }
 
-    private final HttpResponseHandlerStrategy strategy;
+    private final Strategy strategy;
 
     /**
      * Builds this function with a fixed number of one parameter
      */
-    public HttpResponseHandler(HttpResponseHandlerStrategy strategy)
+    public HttpResponseHandler(Strategy strategy)
     {
         numberOfParameters = 1;
         this.strategy = strategy;
@@ -76,7 +76,11 @@ public class HttpResponseHandler extends PostfixMathCommand
         }
     }
 
-    public HttpResponseHandlerStrategy getStrategy()
+    /**
+     * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
+     */
+    @Override
+    public Object getStrategy()
     {
         return strategy;
     }

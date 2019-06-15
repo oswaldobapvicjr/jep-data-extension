@@ -15,9 +15,9 @@ import net.obvj.jep.util.RegexUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class FindMatches extends PostfixMathCommand
+public class FindMatches extends PostfixMathCommand implements MultiStrategyCommand
 {
-    public enum ReturnStrategy
+    public enum Strategy
     {
         /**
          * Returns all matches found in a string
@@ -55,15 +55,15 @@ public class FindMatches extends PostfixMathCommand
         abstract void pushResult(Stack stack, String string, String pattern);
     }
 
-    private final ReturnStrategy returnStrategy;
+    private final Strategy strategy;
 
     /**
      * Builds this function with a fixed number of two parameters
      */
-    public FindMatches(ReturnStrategy returnStrategy)
+    public FindMatches(Strategy returnStrategy)
     {
         numberOfParameters = 2;
-        this.returnStrategy = returnStrategy;
+        this.strategy = returnStrategy;
     }
 
     /**
@@ -86,12 +86,15 @@ public class FindMatches extends PostfixMathCommand
             throw new IllegalArgumentException("The RegEx cannot be null");
         }
 
-        returnStrategy.pushResult(stack, arg1.toString(), arg2.toString());
+        strategy.pushResult(stack, arg1.toString(), arg2.toString());
     }
 
-    public ReturnStrategy getReturnStrategy()
+    /**
+     * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
+     */
+    public Object getStrategy()
     {
-        return returnStrategy;
+        return strategy;
     }
 
 }

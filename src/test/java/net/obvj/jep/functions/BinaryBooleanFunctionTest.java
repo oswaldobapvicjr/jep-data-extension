@@ -7,7 +7,7 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
+import net.obvj.jep.functions.BinaryBooleanFunction.Strategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -27,9 +27,9 @@ public class BinaryBooleanFunctionTest
     private static final String ABC = "abc";
     private static final String DEF = "def";
 
-    private static BinaryBooleanFunction matchesFunction = new BinaryBooleanFunction(Operation.STRING_MATCHES);
-    private static BinaryBooleanFunction startsWithFunction = new BinaryBooleanFunction(Operation.STRING_STARTS_WITH);
-    private static BinaryBooleanFunction endsWithFunction = new BinaryBooleanFunction(Operation.STRING_ENDS_WITH);
+    private static BinaryBooleanFunction matchesFunction = new BinaryBooleanFunction(Strategy.STRING_MATCHES);
+    private static BinaryBooleanFunction startsWithFunction = new BinaryBooleanFunction(Strategy.STRING_STARTS_WITH);
+    private static BinaryBooleanFunction endsWithFunction = new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH);
 
     /**
      * Tests the matches function with a valid string and a regex that returns a single match

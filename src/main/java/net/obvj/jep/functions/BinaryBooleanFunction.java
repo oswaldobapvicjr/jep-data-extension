@@ -16,12 +16,12 @@ import net.obvj.jep.util.RegexUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class BinaryBooleanFunction extends PostfixMathCommand
+public class BinaryBooleanFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
     protected static final double FALSE = 0d;
     protected static final double TRUE = 1d;
 
-    public enum Operation
+    public enum Strategy
     {
         /**
          * Returns true if the string in the 1st parameter starts with the string received in the
@@ -66,12 +66,12 @@ public class BinaryBooleanFunction extends PostfixMathCommand
         abstract boolean evaluate(Object arg1, Object arg2);
     }
 
-    private final Operation operation;
+    private final Strategy operation;
 
     /**
      * Builds this custom command with a fixed number of 2 parameters
      */
-    public BinaryBooleanFunction(Operation operation)
+    public BinaryBooleanFunction(Strategy operation)
     {
         numberOfParameters = 2;
         this.operation = operation;
@@ -91,7 +91,11 @@ public class BinaryBooleanFunction extends PostfixMathCommand
         stack.push(booleanValue ? TRUE : FALSE);
     }
 
-    public Operation getOperation()
+    /**
+     * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
+     */
+    @Override
+    public Object getStrategy()
     {
         return operation;
     }

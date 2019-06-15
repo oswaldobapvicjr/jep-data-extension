@@ -9,13 +9,9 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
-import net.obvj.jep.functions.BinaryBooleanFunction.Operation;
+import net.obvj.jep.functions.BinaryBooleanFunction.Strategy;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
-import net.obvj.jep.functions.FindMatches.ReturnStrategy;
-import net.obvj.jep.functions.HttpResponseHandler.HttpResponseHandlerStrategy;
-import net.obvj.jep.functions.Replace.SearchStrategy;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
-import net.obvj.jep.functions.UnarySystemFunction.Strategy;
 
 /**
  * A factory that creates JEP Contexts with extended functions.
@@ -94,17 +90,17 @@ public class JEPContextFactory
     {
         // String functions
         jep.addFunction("concat", new Concat());
-        jep.addFunction("endsWith", new BinaryBooleanFunction(Operation.STRING_ENDS_WITH));
-        jep.addFunction("findMatch", new FindMatches(ReturnStrategy.FIRST_MATCH));
-        jep.addFunction("findMatches", new FindMatches(ReturnStrategy.ALL_MATCHES));
-        jep.addFunction("lower", new Lower());
-        jep.addFunction("matches", new BinaryBooleanFunction(Operation.STRING_MATCHES));
+        jep.addFunction("endsWith", new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH));
+        jep.addFunction("findMatch", new FindMatches(FindMatches.Strategy.FIRST_MATCH));
+        jep.addFunction("findMatches", new FindMatches(FindMatches.Strategy.ALL_MATCHES));
+        jep.addFunction("lower", new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
+        jep.addFunction("matches", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
         jep.addFunction("normalizeString", new NormalizeString());
-        jep.addFunction("startsWith", new BinaryBooleanFunction(Operation.STRING_STARTS_WITH));
-        jep.addFunction("replace", new Replace(SearchStrategy.NORMAL));
-        jep.addFunction("replaceRegex", new Replace(SearchStrategy.REGEX));
-        jep.addFunction("trim", new Trim());
-        jep.addFunction("upper", new Upper());
+        jep.addFunction("startsWith", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
+        jep.addFunction("replace", new Replace(Replace.Strategy.NORMAL));
+        jep.addFunction("replaceRegex", new Replace(Replace.Strategy.REGEX));
+        jep.addFunction("trim", new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
+        jep.addFunction("upper", new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
 
         // Date functions
         jep.addFunction("now", new Now());
@@ -139,8 +135,8 @@ public class JEPContextFactory
         jep.addFunction("uuid", new UUID());
 
         // Utility functions
-        jep.addFunction("getSystemProperty", new UnarySystemFunction(Strategy.GET_SYSTEM_PROPERTY));
-        jep.addFunction("getEnv", new UnarySystemFunction(Strategy.GET_ENV));
+        jep.addFunction("getSystemProperty", new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
+        jep.addFunction("getEnv", new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
         jep.addFunction("isEmpty", new IsEmpty());
         jep.addFunction("readFile", new ReadFile());
         jep.addFunction("typeOf", new TypeOf());
@@ -153,8 +149,8 @@ public class JEPContextFactory
         // Web Services functions
         jep.addFunction("httpGet", new HttpGet());
         jep.addFunction("http", new Http());
-        jep.addFunction("httpStatusCode", new HttpResponseHandler(HttpResponseHandlerStrategy.GET_STATUS_CODE));
-        jep.addFunction("httpResponse", new HttpResponseHandler(HttpResponseHandlerStrategy.GET_RESPONSE));
+        jep.addFunction("httpStatusCode", new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
+        jep.addFunction("httpResponse", new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
 
         // Operators
         OperatorSet operators = jep.getOperatorSet();

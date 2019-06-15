@@ -14,7 +14,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.sun.jersey.api.client.ClientResponse;
 
-import net.obvj.jep.functions.HttpResponseHandler.HttpResponseHandlerStrategy;
+import net.obvj.jep.functions.HttpResponseHandler.Strategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -30,9 +30,9 @@ public class HttpResponseHandlerTest
 
     // Test subjects
     private static HttpResponseHandler httpStatusCodeFunction = new HttpResponseHandler(
-            HttpResponseHandlerStrategy.GET_STATUS_CODE);
+            Strategy.GET_STATUS_CODE);
     private static HttpResponseHandler httpResponseFunction = new HttpResponseHandler(
-            HttpResponseHandlerStrategy.GET_RESPONSE);
+            Strategy.GET_RESPONSE);
 
     @Mock
     private ClientResponse clientResponse;

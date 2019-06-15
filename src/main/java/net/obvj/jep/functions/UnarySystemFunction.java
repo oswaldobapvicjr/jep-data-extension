@@ -10,7 +10,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  *
  * @author oswaldo.bapvic.jr
  */
-public class UnarySystemFunction extends PostfixMathCommand
+public class UnarySystemFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
     public enum Strategy
     {
@@ -64,7 +64,11 @@ public class UnarySystemFunction extends PostfixMathCommand
         stack.push(result);
     }
 
-    public Strategy getStrategy()
+    /**
+     * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
+     */
+    @Override
+    public Object getStrategy()
     {
         return strategy;
     }

@@ -9,7 +9,7 @@ import java.util.Stack;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.FindMatches.ReturnStrategy;
+import net.obvj.jep.functions.FindMatches.Strategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -30,8 +30,8 @@ public class FindMatchesTest
     private static final List<String> EXPECTED_TWITTER_LINKS = Arrays.asList(HASHTAG_INTERNATIONAL_WOMENS_DAY,
             "@pontifex");
 
-    private static FindMatches findMatchesFunction = new FindMatches(ReturnStrategy.ALL_MATCHES);
-    private static FindMatches findMatchFunction = new FindMatches(ReturnStrategy.FIRST_MATCH);
+    private static FindMatches findMatchesFunction = new FindMatches(Strategy.ALL_MATCHES);
+    private static FindMatches findMatchFunction = new FindMatches(Strategy.FIRST_MATCH);
 
     /**
      * Tests with a valid string and a regex that returns a single match in a list with the

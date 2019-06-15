@@ -12,7 +12,7 @@ import net.obvj.jep.util.EncryptionUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-public class UnaryEncryptionFunction extends PostfixMathCommand
+public class UnaryEncryptionFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
     public enum EncryptionAlgorithm
     {
@@ -69,7 +69,11 @@ public class UnaryEncryptionFunction extends PostfixMathCommand
         stack.push(result);
     }
 
-    public EncryptionAlgorithm getEncryptionAlgorithm()
+    /**
+     * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
+     */
+    @Override
+    public Object getStrategy()
     {
         return encryptionAlgorithm;
     }
