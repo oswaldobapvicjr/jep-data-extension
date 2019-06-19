@@ -93,6 +93,7 @@ public class JEPContextFactory
         jep.addFunction("endsWith", new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH));
         jep.addFunction("findMatch", new FindMatches(FindMatches.Strategy.FIRST_MATCH));
         jep.addFunction("findMatches", new FindMatches(FindMatches.Strategy.ALL_MATCHES));
+        jep.addFunction("formatString", new FormatString());
         jep.addFunction("lower", new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
         jep.addFunction("matches", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
         jep.addFunction("normalizeString", new NormalizeString());

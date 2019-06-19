@@ -131,4 +131,23 @@ public class CollectionsUtils
         return arguments;
     }
 
+    /**
+     * Extracts each object from the second position of the stack until the last one, and
+     * populates an array of Objects, letting only the first element remaining in the stack.
+     *
+     * @param stack the stack of parameters to be retrieved
+     * @return an array of Objects for each element from the second to the last position of
+     * the stack
+     */
+    public static Object[] getVarArgsExceptFirst(final Stack<?> stack)
+    {
+        Object[] arguments = new Object[stack.size() - 1];
+        int index = arguments.length;
+        while (stack.size() > 1)
+        {
+            arguments[--index] = stack.pop();
+        }
+        return arguments;
+    }
+
 }

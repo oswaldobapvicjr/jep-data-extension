@@ -75,6 +75,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "endsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_ENDS_WITH);
         checkFunction(table, "findMatch", FindMatches.class, FindMatches.Strategy.FIRST_MATCH);
         checkFunction(table, "findMatches", FindMatches.class, FindMatches.Strategy.ALL_MATCHES);
+        checkFunction(table, "formatString", FormatString.class);
         checkFunction(table, "lower", UnaryStringFunction.class, UnaryStringFunction.Strategy.LOWER);
         checkFunction(table, "matches", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_MATCHES);
         checkFunction(table, "normalizeString", NormalizeString.class);

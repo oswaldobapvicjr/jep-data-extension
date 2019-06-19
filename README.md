@@ -49,6 +49,16 @@ Returns a list containing all matches of the given regular expression found insi
 findMatches("Sample tweet #java #jep", "([#][A-z]+)") //result: ["#java", "#jep"]
 ```
 
+
+### Format string
+
+Returns a formatted string according to given pattern and variable arguments.
+
+```java
+formatString("%s=%.0f", "test", 2.0) //result: "test=2"
+```
+
+
 ### Lower
 
 Converts a text string to all lower-case letters.
