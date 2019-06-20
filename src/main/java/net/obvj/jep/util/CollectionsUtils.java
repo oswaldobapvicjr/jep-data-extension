@@ -92,43 +92,4 @@ public class CollectionsUtils
         return stack;
     }
 
-    /**
-     * Extracts each object from the stack and populates an array of strings, letting the
-     * stack empty.
-     *
-     * @param stack the stack of parameters to be retrieved
-     * @return an array of strings for each element of the stack
-     */
-    public static String[] getStringVarArgs(final Stack<?> stack)
-    {
-        String[] arguments = new String[stack.size()];
-        int index = arguments.length;
-        while (!stack.isEmpty())
-        {
-            Object arg = stack.pop();
-            arguments[--index] = String.valueOf(arg);
-        }
-        return arguments;
-    }
-
-    /**
-     * Extracts each object from the second position of the stack until the last one, and
-     * populates an array of strings, letting only the first element remaining in the stack.
-     *
-     * @param stack the stack of parameters to be retrieved
-     * @return an array of strings for each element from the second to the last position of
-     * the stack
-     */
-    public static String[] getStringVarArgsExceptFirst(final Stack<?> stack)
-    {
-        String[] arguments = new String[stack.size() - 1];
-        int index = arguments.length;
-        while (stack.size() > 1)
-        {
-            Object arg = stack.pop();
-            arguments[--index] = String.valueOf(arg);
-        }
-        return arguments;
-    }
-
 }

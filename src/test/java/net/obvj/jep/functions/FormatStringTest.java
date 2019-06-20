@@ -43,7 +43,6 @@ public class FormatStringTest
     public void testNoPatternOrArgumentFormat() throws ParseException
     {
         evaluateExpression("formatString()");
-
     }
 
     /**

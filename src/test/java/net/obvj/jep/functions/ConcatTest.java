@@ -22,13 +22,22 @@ public class ConcatTest
     private static Concat function = new Concat();
 
     /**
+     * Runs the subject function with the given parameters
+     */
+    private void run(Stack<Object> parameters) throws ParseException
+    {
+        function.setCurNumberOfParameters(parameters.size());
+        function.run(parameters);
+    }
+
+    /**
      * Tests the successful concatenation of a string and an integer
      */
     @Test
     public void testConcatenateStringAndInt() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_A, INT_1);
-        function.run(parameters);
+        run(parameters);
         assertEquals("A10", parameters.pop());
     }
 
@@ -39,8 +48,18 @@ public class ConcatTest
     public void testConcatenateOneString() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_A);
-        function.run(parameters);
+        run(parameters);
         assertEquals("A", parameters.pop());
     }
 
+    /**
+     * Tests the concatenation function with no arguments
+     */
+    @Test
+    public void testConcatenateNoArgs() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack();
+        run(parameters);
+        assertEquals("", parameters.pop());
+    }
 }

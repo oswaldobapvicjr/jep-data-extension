@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
-import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.DateUtils;
 
 /**
@@ -57,10 +56,17 @@ public class StringToDate extends PostfixMathCommand
     public void run(Stack stack) throws ParseException
     {
         checkStack(stack);
-        if (stack.isEmpty()) throw new ParseException("No parameter received");
+        if (curNumberOfParameters < 1) throw new ParseException("At least one string is required");
 
-        String[] patterns = CollectionsUtils.getStringVarArgsExceptFirst(stack);
+        // The objects from the second to the last parameter may be the format arguments
+        int numberOfPatterns = curNumberOfParameters - 1;
+        String[] patterns = new String[numberOfPatterns];
+        for (int i = numberOfPatterns - 1; i >= 0; i--)
+        {
+            patterns[i] = String.valueOf(stack.pop());
+        }
 
+        // The first argument must be the string to be parsed
         Object date = stack.pop();
         validateInput(date);
 
