@@ -56,8 +56,8 @@ public class ExtendedExpressionEvaluatorTest
     private static final String EXPRESSION_CONCAT_INVALID = "concat('Good ', period";
     private static final String EXPRESSION_GOOD_PLUS_PERIOD = "\"Good \" + period";
     private static final String EXPRESSION_GOOD_PLUS_PERIOD_PLACEHOLDER_STRING = "\"Good \" + \"${period}\"";
-    private static final String EXPRESSION_BOOKS_MORE_EXPENSIVE_THAN_PLACEHOLDER = "jsonpath(storeJson, \"$..book[?(@.price>${minPrice})].title\")";
-    private static final String EXPRESSION_BOOKS_FROM_AUTHOR_PLACEHOLDER = "jsonpath(storeJson, \"$..book[?(@.author=='${author}')].title\")";
+    private static final String EXPRESSION_BOOKS_MORE_EXPENSIVE_THAN_PLACEHOLDER = "jsonpath(storeJson, formatString(\"$..book[?(@.price>%d)].title\", minPrice))";
+    private static final String EXPRESSION_BOOKS_FROM_AUTHOR_PLACEHOLDER = "jsonpath(storeJson, formatString(\"$..book[?(@.author=='%s')].title\", author))";
 
     // Expected results
     private static final String GOOD_MORNING = "Good morning";
@@ -102,7 +102,7 @@ public class ExtendedExpressionEvaluatorTest
     private static final String EXPRESSION_COUNT_HTTP_GET = "count(httpGet(\"http://localhost/services/employees\"))";
     private static final String EXPRESSION_GET_HTTP_GET = "get(httpGet(\"http://localhost/services/employees\"), 1)";
     private static final String EXPRESSION_JSONPATH_HTTP_GET = "jsonpath(httpGet(\"http://localhost/services/employee/1\"), \"$.name\")";
-    private static final String EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER = "jsonpath(httpGet(\"http://localhost/services/employee/${myId}\"), \"$.name\")";
+    private static final String EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER = "jsonpath(httpGet(formatString(\"http://localhost/services/employee/%s\", myId)), \"$.name\")";
 
     @Mock
     private ClientResponse clientResponse;
@@ -204,22 +204,6 @@ public class ExtendedExpressionEvaluatorTest
     public void testComponentExecutionWithConcatOperator() throws ParseException
     {
         ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator(EXPRESSION_GOOD_PLUS_PERIOD);
-        Map<String, Object> map = new HashMap<>();
-        map.put(VARIABLE_PERIOD, AFTERNOON);
-        assertEquals(GOOD_AFTERNOON, evaluator.evaluate(map));
-    }
-
-    /**
-     * Tests component execution with the concat operator and a string containing literals and
-     * a place-holder inside strings delimiter
-     *
-     * @throws ParseException
-     */
-    @Test
-    public void testComponentExecutionWithConcatOperatorAndPlaceholderString() throws ParseException
-    {
-        ExtendedExpressionEvaluator evaluator = new ExtendedExpressionEvaluator(
-                EXPRESSION_GOOD_PLUS_PERIOD_PLACEHOLDER_STRING);
         Map<String, Object> map = new HashMap<>();
         map.put(VARIABLE_PERIOD, AFTERNOON);
         assertEquals(GOOD_AFTERNOON, evaluator.evaluate(map));

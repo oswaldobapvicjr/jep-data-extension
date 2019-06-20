@@ -1,14 +1,14 @@
 package net.obvj.jep.functions;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-import java.util.Stack;
-
+import org.junit.Before;
 import org.junit.Test;
+import org.nfunk.jep.JEP;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.CollectionsUtils;
+import net.obvj.jep.JEPContextFactory;
 
 /**
  * Unit tests for the {@link FormatString} function
@@ -17,22 +17,24 @@ import net.obvj.jep.util.CollectionsUtils;
  */
 public class FormatStringTest
 {
-    // Test data
-    private static final String PATTERN_KEY_S = "key=%s";
-    private static final String TEST = "test";
-    private static final String KEY_TEST = "key=test";
+    private JEP jep;
 
-    private static final String PATTERN_S_TRUNC_FLOAT = "%s=%.0f";
-    private static final double TEN = 10.1;
-    private static final String TEST_TEN = "test=10";
+    /**
+     * Prepare objects before each test execution
+     */
+    @Before
+    public void setup()
+    {
+        jep = JEPContextFactory.newContext();
+    }
 
-    private static final String PATTERN_JSONPATH = "$..[?(@.from_user=='%s' && @.iso_language_code=='%s')].text";
-    private static final String USER = "anna_gatling";
-    private static final String LANGUAGE = "en";
-    private static final String FORMATTED_JSONPATH = "$..[?(@.from_user=='anna_gatling' && @.iso_language_code=='en')].text";
-
-    // Test subject
-    private static FormatString function = new FormatString();
+    /**
+     * Evaluates the given expression
+     */
+    private Object evaluateExpression(String expression) throws ParseException
+    {
+        return jep.evaluate(jep.parse(expression));
+    }
 
     /**
      * Test with no argument
@@ -40,16 +42,17 @@ public class FormatStringTest
     @Test(expected = ParseException.class)
     public void testNoPatternOrArgumentFormat() throws ParseException
     {
-        function.run(CollectionsUtils.newParametersStack());
+        evaluateExpression("formatString()");
+
     }
 
     /**
      * Test with no argument
      */
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = ParseException.class)
     public void testNoArgumentFormat() throws ParseException
     {
-        function.run(CollectionsUtils.newParametersStack(PATTERN_KEY_S));
+        evaluateExpression("formatString(\"key=%s\")");
     }
 
     /**
@@ -58,9 +61,7 @@ public class FormatStringTest
     @Test
     public void testValidPatternAndOneStringArgument() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(PATTERN_KEY_S, TEST);
-        function.run(parameters);
-        assertThat(parameters.pop(), is(KEY_TEST));
+        assertThat(evaluateExpression("formatString(\"key=%s\", \"test\")"), is("key=test"));
     }
 
     /**
@@ -69,9 +70,9 @@ public class FormatStringTest
     @Test
     public void testValidPatternAndTwoStringArguments() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(PATTERN_JSONPATH, USER, LANGUAGE);
-        function.run(parameters);
-        assertThat(parameters.pop(), is(FORMATTED_JSONPATH));
+        assertThat(evaluateExpression(
+                "formatString(\"$..[?(@.from_user=='%s' && @.iso_language_code=='%s')].text\", \"anna_gatling\", \"en\")"),
+                is("$..[?(@.from_user=='anna_gatling' && @.iso_language_code=='en')].text"));
     }
 
     /**
@@ -80,8 +81,6 @@ public class FormatStringTest
     @Test
     public void testValidPatternAndTwoArgumentsBeingOneNumberic() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(PATTERN_S_TRUNC_FLOAT, TEST, TEN);
-        function.run(parameters);
-        assertThat(parameters.pop(), is(TEST_TEN));
+        assertThat(evaluateExpression("formatString(\"%s=%.0f\", \"test\", 10.1)"), is("test=10"));
     }
 }

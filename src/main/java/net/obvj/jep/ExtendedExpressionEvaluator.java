@@ -5,11 +5,9 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.nfunk.jep.*;
 
-import net.obvj.jep.util.RegexUtils;
-
 /**
- * An object that evaluates an user expression with extended capabilities, such as
- * place-holders translation before expression evaluation.
+ * An object that validates an user expression at instantiation time and evaluates with
+ * given source variables at runtime.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -75,23 +73,13 @@ public class ExtendedExpressionEvaluator
     public Object evaluate(Map<String, Object> variables, boolean updateSourceMap) throws ParseException
     {
         JEP evaluationContext = JEPContextFactory.newContext(variables);
-        String localExpression = replacePlaceholders(variables);
 
-        Node node = evaluationContext.parseExpression(localExpression);
+        Node node = evaluationContext.parseExpression(expression);
         Object result = evaluationContext.evaluate(node);
 
         if (updateSourceMap) updateExternalMap(variables, evaluationContext.getSymbolTable());
 
         return result;
-    }
-
-    private String replacePlaceholders(Map<String, Object> variables)
-    {
-        if (RegexUtils.hasUnixLikeVariablePlaceholders(expression))
-        {
-            return RegexUtils.replacePlaceholdersWithVariables(expression, variables);
-        }
-        return expression;
     }
 
     private void updateExternalMap(Map<String, Object> map, SymbolTable internalTable)
