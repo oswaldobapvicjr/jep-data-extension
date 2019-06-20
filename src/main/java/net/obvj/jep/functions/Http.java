@@ -33,12 +33,12 @@ public class Http extends PostfixMathCommand
     public void run(Stack stack) throws ParseException
     {
         checkStack(stack);
-        if (stack.size() < 3 || stack.size() > 4)
+        if (curNumberOfParameters < 3 || curNumberOfParameters > 4)
         {
             throw new ParseException("This funcion accepts three or four arguments");
         }
 
-        String mediaType = stack.size() == 4 ? stack.pop().toString() : null;
+        String mediaType = curNumberOfParameters == 4 ? stack.pop().toString() : null;
         Object requestBody = stack.pop();
         String url = stack.pop().toString();
         String method = stack.pop().toString();

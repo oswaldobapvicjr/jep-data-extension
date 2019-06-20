@@ -31,12 +31,12 @@ public class HttpGet extends PostfixMathCommand
     public void run(Stack stack) throws ParseException
     {
         checkStack(stack);
-        if (stack.size() > 2)
+        if (curNumberOfParameters > 2)
         {
             throw new ParseException("This funcion accepts only one or two arguments");
         }
 
-        String mediaType = stack.size() == 2 ? stack.pop().toString() : null;
+        String mediaType = curNumberOfParameters == 2 ? stack.pop().toString() : null;
         String url = stack.pop().toString();
 
         String response = mediaType == null ? WebServiceUtils.getAsString(url)

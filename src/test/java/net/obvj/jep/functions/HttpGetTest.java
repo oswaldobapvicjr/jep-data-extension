@@ -44,6 +44,15 @@ public class HttpGetTest
     }
 
     /**
+     * Runs the function with the given parameters
+     */
+    private void run(Stack<Object> parameters) throws ParseException
+    {
+        function.setCurNumberOfParameters(parameters.size());
+        function.run(parameters);
+    }
+
+    /**
      * Checks that the correct method from WebServiceUtils was called. Successful scenario
      * with only one parameter (URL)
      */
@@ -53,7 +62,7 @@ public class HttpGetTest
         PowerMockito.when(WebServiceUtils.getAsString(URL)).thenReturn(CONTENT_JSON);
 
         Stack<Object> parameters = CollectionsUtils.newParametersStack(URL);
-        function.run(parameters);
+        run(parameters);
 
         // Check that the content from mock is returned
         assertEquals(CONTENT_JSON, parameters.pop());
@@ -73,7 +82,7 @@ public class HttpGetTest
         PowerMockito.when(WebServiceUtils.getAsString(URL, APPLICATION_XML)).thenReturn(CONTENT_XML);
 
         Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, APPLICATION_XML);
-        function.run(parameters);
+        run(parameters);
 
         // Check that the content from mocked is returned
         assertEquals(CONTENT_XML, parameters.pop());
@@ -90,7 +99,7 @@ public class HttpGetTest
     public void testWithThreeParameters() throws org.nfunk.jep.ParseException, IOException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, APPLICATION_XML, "test");
-        function.run(parameters);
+        run(parameters);
     }
 
 }

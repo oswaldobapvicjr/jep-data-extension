@@ -55,7 +55,6 @@ public class ExtendedExpressionEvaluatorTest
     private static final String EXPRESSION_CONCAT_GOOD_PERIOD = "concat(\"Good \", period)";
     private static final String EXPRESSION_CONCAT_INVALID = "concat('Good ', period";
     private static final String EXPRESSION_GOOD_PLUS_PERIOD = "\"Good \" + period";
-    private static final String EXPRESSION_GOOD_PLUS_PERIOD_PLACEHOLDER_STRING = "\"Good \" + \"${period}\"";
     private static final String EXPRESSION_BOOKS_MORE_EXPENSIVE_THAN_PLACEHOLDER = "jsonpath(storeJson, formatString(\"$..book[?(@.price>%d)].title\", minPrice))";
     private static final String EXPRESSION_BOOKS_FROM_AUTHOR_PLACEHOLDER = "jsonpath(storeJson, formatString(\"$..book[?(@.author=='%s')].title\", author))";
 
@@ -100,7 +99,7 @@ public class ExtendedExpressionEvaluatorTest
 
     // Expressions with Web Services
     private static final String EXPRESSION_COUNT_HTTP_GET = "count(httpGet(\"http://localhost/services/employees\"))";
-    private static final String EXPRESSION_GET_HTTP_GET = "get(httpGet(\"http://localhost/services/employees\"), 1)";
+    private static final String EXPRESSION_GET_HTTP_GET = "get(httpGet(\"http://localhost/services/employees\", \"application/json\"), 1)";
     private static final String EXPRESSION_JSONPATH_HTTP_GET = "jsonpath(httpGet(\"http://localhost/services/employee/1\"), \"$.name\")";
     private static final String EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER = "jsonpath(httpGet(formatString(\"http://localhost/services/employee/%s\", myId)), \"$.name\")";
 

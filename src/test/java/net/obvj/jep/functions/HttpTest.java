@@ -49,6 +49,15 @@ public class HttpTest
     private Client client;
 
     /**
+     * Runs the function with the given parameters
+     */
+    private void run(Stack<Object> stack) throws ParseException
+    {
+        function.setCurNumberOfParameters(stack.size());
+        function.run(stack);
+    }
+
+    /**
      * Tests the execution of the POST method with support of mocks. Successful scenario with
      * three parameters: method, URL and request body.
      */
@@ -69,7 +78,7 @@ public class HttpTest
 
         // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
-        function.run(parameters);
+        run(parameters);
 
         ClientResponse response = (ClientResponse) parameters.pop();
         assertEquals(Status.CREATED, response.getClientResponseStatus());
@@ -83,7 +92,7 @@ public class HttpTest
     public void testWithTwoParameters() throws org.nfunk.jep.ParseException, IOException
     {
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL);
-        function.run(parameters);
+        run(parameters);
     }
 
     /**
@@ -98,7 +107,7 @@ public class HttpTest
 
         // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
-        function.run(parameters);
+        run(parameters);
 
         // Verify the correct method was called
         PowerMockito.verifyStatic(WebServiceUtils.class, times(1));
@@ -118,7 +127,7 @@ public class HttpTest
 
         // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON);
-        function.run(parameters);
+        run(parameters);
 
         // Verify the correct method was called
         PowerMockito.verifyStatic(WebServiceUtils.class, times(1));
@@ -132,7 +141,7 @@ public class HttpTest
     public void testWithFiveParameters() throws org.nfunk.jep.ParseException, IOException
     {
         Stack<Object> stack = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON, "test");
-        function.run(stack);
+        run(stack);
     }
 
 }
