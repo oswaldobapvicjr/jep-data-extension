@@ -168,7 +168,7 @@ date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
 Returns the number of days between two dates (or valid date representations as string).
 
 ```java
-daysBetween(date1, date2)
+daysBetween("2019-01-19T22:40:38.678912543Z", "2019-02-19T22:41:39.123Z") //result: 31.0
 ```
 
 ### End of month
@@ -176,7 +176,7 @@ daysBetween(date1, date2)
 Returns a date corresponding to the last day of the month given a source date.
 
 ```java
-endOfMonth("2019-02-10T08:15:26.109Z") // result: "2019-02-28T23:59:59.999Z"
+endOfMonth("2019-02-10T08:15:26.109Z") //result: "2019-02-28T23:59:59.999Z"
 ```
 
 ### Is leap year
@@ -185,7 +185,7 @@ Returns 1 (true) if the given argument is a leap year, that is, an year with 366
 This function accepts an year (Number), a Date or a valid date representation as string in RFC-3339 format. 
 
 ```java
-isLeapYear(date1)
+isLeapYear("2020-02-20T22:41:39.123Z") //result: true
 ```
 
 ### Year
@@ -305,7 +305,7 @@ Returns the number of elements inside the given array. It also accepts JSON arra
 If a regular object (i.e., not a collection) is passed to the function, the result will always be 1 (one); if a null or empty object is passed to this function, the result will always be 0 (zero).
 
 ```java
-count(collection1)
+count("[0,1,2]") //result: 3.0
 ```
 
 > **Note:** Also achievable using `length()`.
@@ -315,7 +315,7 @@ count(collection1)
 Same as `count()`.
 
 ```java
-length(collection1)
+length("[0,1,2]") //result: 3.0
 ```
 
 ### Max
@@ -323,7 +323,7 @@ length(collection1)
 Returns the largest value in the given array. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
 
 ```java
-max(collection1)
+max("[9,10,8]") //result: 10
 ```
 
 > **Note:** Supported data types: numbers, dates and string representations of date in RFC-3339 format.
@@ -333,7 +333,7 @@ max(collection1)
 Returns the smallest value in the given array or set. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
 
 ```java
-min(array1)
+min("[9,10,8]") //result: 8
 ```
 
 > **Note:** Supported data types: numbers, dates and string representations of date in RFC-3339 format.
@@ -377,7 +377,7 @@ Returns 1 (true) if the given parameter is either a null object or an empty Stri
 If a given string can be parsed as JSON object or array, it will be first converted into JSON, then its structure will be evaluated for emptiness.
 
 ```java
-isEmpty(object1)
+isEmpty("{}") //returns: true
 ```
 
 
