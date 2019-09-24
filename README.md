@@ -185,7 +185,7 @@ Returns 1 (true) if the given argument is a leap year, that is, an year with 366
 This function accepts an year (Number), a Date or a valid date representation as string in RFC-3339 format. 
 
 ```java
-isLeapYear("2020-02-20T22:41:39.123Z") //result: true
+isLeapYear("2020-02-20T22:41:39.123Z") //result: 1.0
 ```
 
 ### Year
@@ -377,7 +377,9 @@ Returns 1 (true) if the given parameter is either a null object or an empty Stri
 If a given string can be parsed as JSON object or array, it will be first converted into JSON, then its structure will be evaluated for emptiness.
 
 ```java
-isEmpty("{}") //returns: true
+isEmpty("")   //returns: 1.0
+isEmpty("{}") //returns: 1.0
+isEmpty("[]") //returns: 1.0
 ```
 
 
@@ -508,7 +510,7 @@ Standard JEP relational operators accept only numerical variables (including str
 - Equal (`==`)
 - Not equal (`!=`)
 
-This enables the use of these operators in any expression that can be evaluated to `true` or `false` using dates. For example:  
+This allows the usage of dates in expressions that can be evaluated to `true` or `false`. For example:  
 
 ```java
 if("2017-03-11T10:15:00:123Z" < now(), "past", "not past")
