@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response.Status.Family;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -44,7 +43,7 @@ public class WebServiceUtils
      *
      * @param url the URL of the resource
      * @return a string with the content received from the Web server, if the request was
-     * successful; an empty string, otherwise
+     *         successful; an empty string, otherwise
      */
     public static String getAsString(String url)
     {
@@ -56,26 +55,26 @@ public class WebServiceUtils
      * the HTTP content as a string, if the status code received from the Web Server is one of
      * the class 2xx (success).
      *
-     * @param url the URL of the resource
+     * @param url       the URL of the resource
      * @param mediaType a preferable media type to be accepted
      * @return a string with the content received from the Web server, if the request was
-     * successful; an empty string, otherwise
+     *         successful; an empty string, otherwise
      */
     public static String getAsString(String url, String mediaType)
     {
-        ClientResponse response = get(url, mediaType);
-        return isSuccessful(response) ? response.getEntity(String.class) : StringUtils.EMPTY;
+        WebServiceResponse response = get(url, mediaType);
+        return response.isSuccessful() ? response.getBody() : StringUtils.EMPTY;
     }
 
     /**
      * Returns the HTTP response body, as string, given an HTTP client response.
      *
-     * @param clientResponse the HTTP client response
+     * @param webServiceResponse the HTTP client response
      * @return the response body, as string
      */
-    public static String getResponseAsString(ClientResponse clientResponse)
+    public static String getResponseAsString(WebServiceResponse webServiceResponse)
     {
-        return clientResponse.getEntity(String.class);
+        return webServiceResponse.getBody();
     }
 
     /**
@@ -85,10 +84,10 @@ public class WebServiceUtils
      * by the Web server.
      *
      * @param url the URL of the resource
-     * @return a {@link ClientResponse} object, which may contain the HTTP status code and the
-     * content returned from the Web Service
+     * @return a {@link WebServiceResponse} object, which may contain the HTTP status code and
+     *         the content returned from the Web Service
      */
-    public static ClientResponse get(String url)
+    public static WebServiceResponse get(String url)
     {
         return get(url, DEFAULT_MEDIA_TYPE);
     }
@@ -96,12 +95,12 @@ public class WebServiceUtils
     /**
      * Executes HTTP GET on a given URL, with a preferable media type to be acceptable.
      *
-     * @param url the URL of the resource
+     * @param url       the URL of the resource
      * @param mediaType a preferable media type to be accepted
-     * @return a {@link ClientResponse} object, which may contain the HTTP status code and the
-     * content returned from the Web Service
+     * @return a {@link WebServiceResponse} object, which may contain the HTTP status code and
+     *         the content returned from the Web Service
      */
-    public static ClientResponse get(String url, String mediaType)
+    public static WebServiceResponse get(String url, String mediaType)
     {
         Client client = Client.create();
         WebResource webResource = client.resource(url);
@@ -117,7 +116,7 @@ public class WebServiceUtils
                         response.getClientResponseStatus().getReasonPhrase() });
         log.log(Level.INFO, "HTTP response content type: {0}", response.getType());
 
-        return response;
+        return WebServiceResponse.fromClientResponse(response);
     }
 
     /**
@@ -126,13 +125,13 @@ public class WebServiceUtils
      * The preferable media type "application/json" will be accepted by default, if supported
      * by the Web server.
      *
-     * @param method the HTTP method to be invoked
-     * @param url the URL of the resource
+     * @param method        the HTTP method to be invoked
+     * @param url           the URL of the resource
      * @param requestEntity the request body entity/payload to be sent
-     * @return a {@link ClientResponse} object, which may contain the HTTP status code and the
-     * content returned from the Web Service
+     * @return a {@link WebServiceResponse} object, which may contain the HTTP status code and
+     *         the content returned from the Web Service
      */
-    public static ClientResponse invoke(String method, String url, Object requestEntity)
+    public static WebServiceResponse invoke(String method, String url, Object requestEntity)
     {
         return invoke(method, url, requestEntity, DEFAULT_MEDIA_TYPE);
     }
@@ -141,14 +140,14 @@ public class WebServiceUtils
      * Executes the requested HTTP method on a given URL, with a preferable media type to be
      * acceptable.
      *
-     * @param method the HTTP method to be invoked
-     * @param url the URL of the resource
+     * @param method        the HTTP method to be invoked
+     * @param url           the URL of the resource
      * @param requestEntity the request body entity/payload to be sent
-     * @param mediaType a preferable media type to be accepted
-     * @return a {@link ClientResponse} object, which may contain the HTTP status code and the
-     * content returned from the Web Service
+     * @param mediaType     a preferable media type to be accepted
+     * @return a {@link WebServiceResponse} object, which may contain the HTTP status code and
+     *         the content returned from the Web Service
      */
-    public static ClientResponse invoke(String method, String url, Object requestEntity, String mediaType)
+    public static WebServiceResponse invoke(String method, String url, Object requestEntity, String mediaType)
     {
         Client client = Client.create();
         WebResource webResource = client.resource(url);
@@ -164,31 +163,18 @@ public class WebServiceUtils
                         response.getClientResponseStatus().getReasonPhrase() });
         log.log(Level.INFO, "HTTP response content type: {0}", response.getType());
 
-        return response;
-    }
-
-    /**
-     * Returns true if the status code from an HTTP client response is one of the family 2xx
-     * (success)
-     *
-     * @param clientResponse the HTTP client response whose status code is to be evaluated
-     * @return {@code true} if the status code belongs to the "successful" family 2xx;
-     * otherwise, {@code false}
-     */
-    public static boolean isSuccessful(ClientResponse clientResponse)
-    {
-        return Family.SUCCESSFUL == clientResponse.getClientResponseStatus().getFamily();
+        return WebServiceResponse.fromClientResponse(response);
     }
 
     /**
      * Returns the HTTP status code, given an HTTP response.
      *
-     * @param clientResponse the HTTP client response
+     * @param webServiceResponse the HTTP client response
      * @return the status code
      */
-    public static int getStatusCode(ClientResponse clientResponse)
+    public static int getStatusCode(WebServiceResponse webServiceResponse)
     {
-        return clientResponse.getStatus();
+        return webServiceResponse.getStatusCode();
     }
 
 }

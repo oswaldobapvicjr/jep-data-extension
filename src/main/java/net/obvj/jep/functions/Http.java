@@ -5,8 +5,7 @@ import java.util.Stack;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
-import com.sun.jersey.api.client.ClientResponse;
-
+import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
 
 /**
@@ -43,7 +42,7 @@ public class Http extends PostfixMathCommand
         String url = stack.pop().toString();
         String method = stack.pop().toString();
 
-        ClientResponse response = mediaType == null ? WebServiceUtils.invoke(method, url, requestBody)
+        WebServiceResponse response = mediaType == null ? WebServiceUtils.invoke(method, url, requestBody)
                 : WebServiceUtils.invoke(method, url, requestBody, mediaType);
         stack.push(response);
     }

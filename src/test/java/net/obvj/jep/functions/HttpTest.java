@@ -2,7 +2,8 @@ package net.obvj.jep.functions;
 
 import static net.obvj.jep.util.CollectionsUtils.newParametersStack;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.Stack;
@@ -21,6 +22,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.WebResource;
 
+import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
 
 /**
@@ -73,6 +75,7 @@ public class HttpTest
         when(webResource.method(POST, ClientResponse.class, EMPLOYEE_REQUEST_BODY)).thenReturn(clientResponse);
 
         // Mock ClientResponse
+        when(clientResponse.getStatus()).thenReturn(Status.CREATED.getStatusCode());
         when(clientResponse.getClientResponseStatus()).thenReturn(Status.CREATED);
         when(clientResponse.getEntity(String.class)).thenReturn(EMPLOYEE_RESPONSE_BODY);
 
@@ -80,9 +83,9 @@ public class HttpTest
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
         run(parameters);
 
-        ClientResponse response = (ClientResponse) parameters.pop();
-        assertEquals(Status.CREATED, response.getClientResponseStatus());
-        assertEquals(EMPLOYEE_RESPONSE_BODY, response.getEntity(String.class));
+        WebServiceResponse response = (WebServiceResponse) parameters.pop();
+        assertEquals(Status.CREATED, Status.fromStatusCode(response.getStatusCode()));
+        assertEquals(EMPLOYEE_RESPONSE_BODY, response.getBody());
     }
 
     /**
@@ -103,7 +106,6 @@ public class HttpTest
     {
         // Mock WebServiceUtils
         PowerMockito.mockStatic(WebServiceUtils.class);
-        PowerMockito.when(WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY)).thenReturn(clientResponse);
 
         // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
@@ -122,8 +124,6 @@ public class HttpTest
     {
         // Mock WebServiceUtils
         PowerMockito.mockStatic(WebServiceUtils.class);
-        PowerMockito.when(WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON))
-                .thenReturn(clientResponse);
 
         // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON);

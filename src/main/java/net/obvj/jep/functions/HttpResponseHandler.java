@@ -8,6 +8,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
 
 import com.sun.jersey.api.client.ClientResponse;
 
+import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
 
 /**
@@ -32,16 +33,16 @@ public class HttpResponseHandler extends PostfixMathCommand implements MultiStra
          */
         GET_RESPONSE(WebServiceUtils::getResponseAsString);
 
-        private Function<ClientResponse, Object> function;
+        private Function<WebServiceResponse, Object> function;
 
-        Strategy(Function<ClientResponse, Object> returnStrategy)
+        Strategy(Function<WebServiceResponse, Object> returnStrategy)
         {
             this.function = returnStrategy;
         }
 
-        public Object execute(ClientResponse clientResponse)
+        public Object execute(WebServiceResponse webServiceResponse)
         {
-            return function.apply(clientResponse);
+            return function.apply(webServiceResponse);
         }
     }
 
@@ -65,14 +66,14 @@ public class HttpResponseHandler extends PostfixMathCommand implements MultiStra
         checkStack(stack);
         Object parameter = stack.pop();
 
-        if (parameter instanceof ClientResponse)
+        if (parameter instanceof WebServiceResponse)
         {
-            ClientResponse clientResponse = (ClientResponse) parameter;
-            stack.push(strategy.execute(clientResponse));
+            WebServiceResponse webServiceResponse = (WebServiceResponse) parameter;
+            stack.push(strategy.execute(webServiceResponse));
         }
         else
         {
-            throw new ParseException("Not a ClientResponse object");
+            throw new ParseException("Not a WebServiceResponse object");
         }
     }
 

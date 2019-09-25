@@ -1,8 +1,6 @@
 package net.obvj.jep.http;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
 import javax.ws.rs.core.MediaType;
@@ -71,9 +69,9 @@ public class WebServiceUtilsTest
     /**
      * Utility method to mock the response from an HTTP request with the given URL and status
      *
-     * @param url the URL to be passed to the mock
-     * @param status the HTTP status to be set
-     * @param mediaType the media type to be set
+     * @param url              the URL to be passed to the mock
+     * @param status           the HTTP status to be set
+     * @param mediaType        the media type to be set
      * @param expectedResponse the content to be set
      */
     private void mockGetAsStringResponse(String url, Status status, MediaType mediaType, String expectedResponse)
@@ -87,10 +85,10 @@ public class WebServiceUtilsTest
     /**
      * Utility method to mock the response from an HTTP request with the given URL and status
      *
-     * @param method the HTTP method
-     * @param url the URL to be passed to the mock
-     * @param status the HTTP status to be set
-     * @param mediaType the media type to be set
+     * @param method           the HTTP method
+     * @param url              the URL to be passed to the mock
+     * @param status           the HTTP status to be set
+     * @param mediaType        the media type to be set
      * @param expectedResponse the content to be set
      */
     private void mockInvokeMethod(String method, String url, Status status, MediaType mediaType, String requestEntity,
@@ -126,27 +124,8 @@ public class WebServiceUtilsTest
     public void testGetStatusCodeFromClientResponse()
     {
         mockClientResponseStatusCode(Status.NO_CONTENT);
-        assertEquals(Status.NO_CONTENT.getStatusCode(), WebServiceUtils.getStatusCode(clientResponse));
-    }
-
-    /**
-     * Tests that the status code 200 (OK) is classified as successful
-     */
-    @Test
-    public void testIsSuccessfulStatusCodeWithOK()
-    {
-        mockClientResponseStatusCode(Status.OK);
-        assertTrue("Status code 200 should return true", WebServiceUtils.isSuccessful(clientResponse));
-    }
-
-    /**
-     * Tests that the status code 404 (not found) is classified as not successful
-     */
-    @Test
-    public void testIsSuccessfulStatusWithNotFound()
-    {
-        mockClientResponseStatusCode(Status.NOT_FOUND);
-        assertFalse("Status code 404 should return false", WebServiceUtils.isSuccessful(clientResponse));
+        assertEquals(Status.NO_CONTENT.getStatusCode(),
+                WebServiceUtils.getStatusCode(WebServiceResponse.fromClientResponse(clientResponse)));
     }
 
     /**
@@ -156,7 +135,8 @@ public class WebServiceUtilsTest
     public void testGetResponseAsStringFromClientResponse()
     {
         mockClientResponse(Status.OK, MOCKED_JSON_AS_STRING);
-        assertEquals(MOCKED_JSON_AS_STRING, WebServiceUtils.getResponseAsString(clientResponse));
+        assertEquals(MOCKED_JSON_AS_STRING,
+                WebServiceUtils.getResponseAsString(WebServiceResponse.fromClientResponse(clientResponse)));
     }
 
     /**
@@ -187,9 +167,9 @@ public class WebServiceUtilsTest
     public void testInvokeGetWithSuccess()
     {
         mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null, MOCKED_JSON_AS_STRING);
-        ClientResponse response = WebServiceUtils.invoke(GET, URL, null);
-        assertEquals(Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(MOCKED_JSON_AS_STRING, response.getEntity(String.class));
+        WebServiceResponse response = WebServiceUtils.invoke(GET, URL, null);
+        assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
+        assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
     }
 
 }

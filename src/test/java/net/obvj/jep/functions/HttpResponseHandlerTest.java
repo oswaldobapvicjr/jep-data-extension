@@ -13,8 +13,10 @@ import org.nfunk.jep.ParseException;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.ClientResponse.Status;
 
 import net.obvj.jep.functions.HttpResponseHandler.Strategy;
+import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -29,10 +31,8 @@ public class HttpResponseHandlerTest
     private static final String CONTENT_JSON = "{\"city\":\"SP\";\"temp\":\"30\"}";
 
     // Test subjects
-    private static HttpResponseHandler httpStatusCodeFunction = new HttpResponseHandler(
-            Strategy.GET_STATUS_CODE);
-    private static HttpResponseHandler httpResponseFunction = new HttpResponseHandler(
-            Strategy.GET_RESPONSE);
+    private static HttpResponseHandler httpStatusCodeFunction = new HttpResponseHandler(Strategy.GET_STATUS_CODE);
+    private static HttpResponseHandler httpResponseFunction = new HttpResponseHandler(Strategy.GET_RESPONSE);
 
     @Mock
     private ClientResponse clientResponse;
@@ -40,12 +40,13 @@ public class HttpResponseHandlerTest
     /**
      * Utility method to mock the Client response with a given HTTP status and body
      *
-     * @param statusCode the HTTP status code to be set
+     * @param statusCode       the HTTP status code to be set
      * @param expectedResponse the response body to be set
      */
     private void mockClientResponse(int statusCode, String expectedResponse)
     {
         when(clientResponse.getStatus()).thenReturn(statusCode);
+        when(clientResponse.getClientResponseStatus()).thenReturn(Status.fromStatusCode(statusCode));
         when(clientResponse.getEntity(String.class)).thenReturn(expectedResponse);
     }
 
@@ -56,7 +57,8 @@ public class HttpResponseHandlerTest
     public void testStatusCodeWithClientResponse() throws org.nfunk.jep.ParseException, IOException
     {
         mockClientResponse(STATUS_CODE_OK, CONTENT_JSON);
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(clientResponse);
+        Stack<Object> parameters = CollectionsUtils
+                .newParametersStack(WebServiceResponse.fromClientResponse(clientResponse));
         httpStatusCodeFunction.run(parameters);
         assertEquals(STATUS_CODE_OK, parameters.pop());
     }
@@ -68,7 +70,8 @@ public class HttpResponseHandlerTest
     public void testResponseWithClientResponse() throws org.nfunk.jep.ParseException, IOException
     {
         mockClientResponse(STATUS_CODE_OK, CONTENT_JSON);
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(clientResponse);
+        Stack<Object> parameters = CollectionsUtils
+                .newParametersStack(WebServiceResponse.fromClientResponse(clientResponse));
         httpResponseFunction.run(parameters);
         assertEquals(CONTENT_JSON, parameters.pop());
     }
