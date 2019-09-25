@@ -140,7 +140,9 @@ public class JEPContextFactory
         jep.addFunction("getEnv", new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
         jep.addFunction("isEmpty", new IsEmpty());
         jep.addFunction("readFile", new ReadFile());
-        jep.addFunction("typeOf", new TypeOf());
+        TypeOf typeOf = new TypeOf();
+        jep.addFunction("typeOf", typeOf);
+        jep.addFunction("class", typeOf);
 
         // Cryptography functions
         jep.addFunction("md5", new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));

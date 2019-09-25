@@ -139,6 +139,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "isEmpty", IsEmpty.class);
         checkFunction(table, "readFile", ReadFile.class);
         checkFunction(table, "typeOf", TypeOf.class);
+        checkFunction(table, "class", TypeOf.class);
 
         // ---------------------
         // Cryptography

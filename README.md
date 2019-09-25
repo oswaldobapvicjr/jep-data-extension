@@ -308,7 +308,7 @@ If a regular object (i.e., not a collection) is passed to the function, the resu
 count("[0,1,2]") //result: 3.0
 ```
 
-> **Note:** Also achievable using `length()`.
+> **Note:** Also achievable using `length(object)`.
 
 ### Length
 
@@ -400,6 +400,8 @@ Returns the Java type associated with the given variable
 typeOf("text") //result: "java.lang.String"
 ```
 
+> **Note:** Also achievable using `class(object)`.
+
 ---
 
 ## Cryptography functions
@@ -457,18 +459,18 @@ httpGet("http://sampleservice.com/jep/v1/wheather", "application/xml")
 
 ### Invoke HTTP method
 
-Invokes the requested method towards a Web Service or RESTful API, with a given request body, and returns a client response object. 
+Invokes the requested method towards a Web Service or RESTful API, with a given request body, and returns a `WebServiceResponse`. 
 
 ```java
 http("POST", "http://sampleservice.com/jep/v1/customer", requestBody)
 ```
 
-> **Note:** A client response is an object that contains the HTTP status code and the response body/payload. These values can be obtained by the function `httpStatusCode()` and `httpResponse()`, respectively.
+> **Note:** A `WebServiceResponse` is an object that contains the HTTP status code and the response body/payload. These values can be obtained by the function `httpStatusCode()` and `httpResponse()`, respectively.
 
 
 ### Invoke HTTP method with custom media type
 
-Invokes the requested method towards a Web Service or RESTful API, with a given request body and a custom acceptable media type, and returns a client response object.
+Invokes the requested method towards a Web Service or RESTful API, with a given request body and a custom acceptable media type, and returns a `WebServiceResponse`.
 
 ```java
 http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, "application/xml")
@@ -477,19 +479,19 @@ http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, "applicati
 
 ### HTTP status code getter
 
-Returns the HTTP status code, given a client response object, returned by the `http()` function.
+Returns the HTTP status code, given a `WebServiceResponse` object, returned by the `http()` function.
 
 ```java
-httpStatusCode(clientResponse)
+httpStatusCode(webServiceResponse)
 ```
 
 
 ### HTTP response body getter
 
-Returns the HTTP response body as string, given a client response object, returned by the `http()` function.
+Returns the HTTP response body as string, given a `WebServiceResponse` object, returned by the `http()` function.
 
 ```java
-httpResponse(clientResponse)
+httpResponse(webServiceResponse)
 ```
 
 
@@ -571,9 +573,9 @@ jsonArray[1] //extracts the first element of the given jsonArray
 
 
 
-### Example 2: comparing dates using the `ExtendedExpressionEvaluatorFacade`
+### Example 2: comparing dates using the `ExpressionEvaluatorFacade`
 
-The `ExtendedExpressionEvaluatorFacade` is a convenient object to quickly parse a single expression. A single call to the `evaluate` method will create a new evaluation context and return the expression result directly. It accepts a map with initial variables for use in the operation.
+The `ExpressionEvaluatorFacade` is a convenient object to quickly parse a single expression. A single call to the `evaluate` method will create a new evaluation context and return the expression result directly. It accepts a map with initial variables for use in the operation.
 
 1. Put your source variables in a map:
 
@@ -586,6 +588,6 @@ The `ExtendedExpressionEvaluatorFacade` is a convenient object to quickly parse 
 
     ````java
     String expression = "if(date1 < now(), \"overdue\", \"not overdue\")";
-    String result = (String) ExtendedExpressionEvaluatorFacade.evaluate(expression, myVariables); 
+    String result = (String) ExpressionEvaluatorFacade.evaluate(expression, myVariables); 
     //result = "overdue"
     ````
