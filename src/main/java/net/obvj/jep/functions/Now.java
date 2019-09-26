@@ -25,9 +25,9 @@ public class Now extends PostfixMathCommand
      * @see org.nfunk.jep.function.PostfixMathCommand#run(java.util.Stack)
      */
     @Override
-    public void run(Stack pStack) throws ParseException
+    public void run(Stack stack) throws ParseException
     {
-        pStack.push(new Date());
+        stack.push(new Date());
     }
 
 }

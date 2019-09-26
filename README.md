@@ -280,6 +280,26 @@ millisecond("2017-03-11T20:15:00:123Z") //result: 123.0
 
 ---
 
+## Math functions
+
+### Arabic
+
+Converts a Roman numeral to Arabic.
+
+```java
+arabic("MCMXCIX") //result: 1999.0
+```
+
+### Roman
+
+Converts an Arabic numeral to Roman.
+
+```java
+roman(1999) //result: "MCMXCIX"
+```
+
+---
+
 ## Data manipulation & filtering functions
 
 ### XPath

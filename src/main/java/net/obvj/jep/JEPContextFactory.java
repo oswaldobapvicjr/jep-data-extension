@@ -157,6 +157,10 @@ public class JEPContextFactory
         jep.addFunction("httpStatusCode", new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
         jep.addFunction("httpResponse", new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
 
+        // Math functions
+        jep.addFunction("arabic", new Arabic());
+        jep.addFunction("roman", new Roman());
+        
         // Operators
         OperatorSet operators = jep.getOperatorSet();
         operators.getLT().setPFMC(new DateAwareComparative(Comparative.LT));

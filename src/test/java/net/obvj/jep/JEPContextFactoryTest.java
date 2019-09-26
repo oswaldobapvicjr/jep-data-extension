@@ -159,6 +159,13 @@ public class JEPContextFactoryTest
         checkFunction(table, "http", Http.class);
         checkFunction(table, "httpStatusCode", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_STATUS_CODE);
         checkFunction(table, "httpResponse", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_RESPONSE);
+        
+        // ---------------------
+        // Math
+        // ---------------------
+        
+        checkFunction(table, "arabic", Arabic.class);
+        checkFunction(table, "roman", Roman.class);
     }
 
     /**
