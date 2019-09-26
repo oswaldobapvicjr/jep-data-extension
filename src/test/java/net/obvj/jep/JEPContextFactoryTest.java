@@ -79,6 +79,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "lower", UnaryStringFunction.class, UnaryStringFunction.Strategy.LOWER);
         checkFunction(table, "matches", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_MATCHES);
         checkFunction(table, "normalizeString", NormalizeString.class);
+        checkFunction(table, "proper", UnaryStringFunction.class, UnaryStringFunction.Strategy.PROPER);
         checkFunction(table, "startsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
         checkFunction(table, "replace", Replace.class, Replace.Strategy.NORMAL);
         checkFunction(table, "replaceRegex", Replace.class, Replace.Strategy.REGEX);
@@ -100,6 +101,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "quarter", DateFieldGetter.class, DateField.QUARTER);
         checkFunction(table, "month", DateFieldGetter.class, DateField.MONTH);
         checkFunction(table, "isoWeekNumber", DateFieldGetter.class, DateField.ISO_WEEK_NUMBER);
+        checkFunction(table, "weekday", DateFieldGetter.class, DateField.WEEK_DAY);
         checkFunction(table, "day", DateFieldGetter.class, DateField.DAY);
         checkFunction(table, "hour", DateFieldGetter.class, DateField.HOUR);
         checkFunction(table, "minute", DateFieldGetter.class, DateField.MINUTE);

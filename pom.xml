@@ -16,7 +16,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        
+
         <junit4.version>4.5</junit4.version>
         <powermock.version>2.0.2</powermock.version>
     </properties>
@@ -44,6 +44,13 @@
             <version>3.8.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.8</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -56,7 +63,7 @@
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
             <version>1.8</version>
-        </dependency>        
+        </dependency>
 
 
         <!-- Test dependencies - start -->
@@ -67,14 +74,14 @@
             <version>${junit4.version}</version>
             <scope>test</scope>
         </dependency>
-    
+
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito2</artifactId>

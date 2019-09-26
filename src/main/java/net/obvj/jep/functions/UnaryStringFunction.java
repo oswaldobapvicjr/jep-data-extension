@@ -2,7 +2,9 @@ package net.obvj.jep.functions;
 
 import java.util.Stack;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
+import org.apache.commons.text.WordUtils;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
@@ -13,13 +15,19 @@ import org.nfunk.jep.function.PostfixMathCommand;
  */
 public class UnaryStringFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
-    public enum Strategy implements Function<String, String>
+    public enum Strategy implements UnaryOperator<String>
     {
         /**
          * Converts a string to all lower-case letters
          */
         LOWER(param -> param.toLowerCase()),
 
+        /**
+         * Converts a string to proper case; the first letter in each word to upper-case, and all
+         * other letter to lower-case
+         */
+        PROPER(WordUtils::capitalizeFully),
+        
         /**
          * Removes leading and trailing spaces from a string
          */
@@ -32,7 +40,7 @@ public class UnaryStringFunction extends PostfixMathCommand implements MultiStra
 
         Function<String, String> function;
 
-        private Strategy(Function<String, String> function)
+        private Strategy(UnaryOperator<String> function)
         {
             this.function = function;
         }

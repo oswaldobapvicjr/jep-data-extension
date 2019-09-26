@@ -83,6 +83,14 @@ Normalizes a Unicode string, replacing accents and other diacritics with ASCII c
 normalizeString("ações") //result: "acoes"
 ```
 
+### Proper
+
+Converts a string to proper case: the first letter in each word to upper-case, and all other letter to lower-case.
+
+```java
+proper("good DAY!") //result: "Good Day!"
+```
+
 ### Replace
 
 Returns a new string after replacing all occurrences of the search criteria within the original string with the replacement argument.
@@ -220,6 +228,14 @@ This function accepts Dates or valid date representation as string in RFC-3339 f
 
 ```java
 isoWeekNumber("2017-03-11T20:15:00:123Z") //result: 10.0
+```
+
+### Week day
+
+Returns the day of the week of a date, a number from 1 (Sunday) to 7 (Saturday).
+
+```java
+day("2019-06-12T18:00:01:988Z") //result: 4.0
 ```
 
 ### Day

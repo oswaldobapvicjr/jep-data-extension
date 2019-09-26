@@ -97,9 +97,10 @@ public class JEPContextFactory
         jep.addFunction("lower", new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
         jep.addFunction("matches", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
         jep.addFunction("normalizeString", new NormalizeString());
-        jep.addFunction("startsWith", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
+        jep.addFunction("proper", new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
         jep.addFunction("replace", new Replace(Replace.Strategy.NORMAL));
         jep.addFunction("replaceRegex", new Replace(Replace.Strategy.REGEX));
+        jep.addFunction("startsWith", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
         jep.addFunction("trim", new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
         jep.addFunction("upper", new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
 
@@ -114,6 +115,7 @@ public class JEPContextFactory
         jep.addFunction("quarter", new DateFieldGetter(DateField.QUARTER));
         jep.addFunction("month", new DateFieldGetter(DateField.MONTH));
         jep.addFunction("isoWeekNumber", new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
+        jep.addFunction("weekday", new DateFieldGetter(DateField.WEEK_DAY));
         jep.addFunction("day", new DateFieldGetter(DateField.DAY));
         jep.addFunction("hour", new DateFieldGetter(DateField.HOUR));
         jep.addFunction("minute", new DateFieldGetter(DateField.MINUTE));

@@ -39,6 +39,11 @@ public class DateFieldGetter extends PostfixMathCommand implements MultiStrategy
          * The week number of the year, according to ISO 8601 rules
          */
         ISO_WEEK_NUMBER(DateUtils::getIsoWeekNumber),
+        
+        /**
+         * The day of the week of a date, a number from 1 (Sunday) to 7 (Saturday)
+         */
+        WEEK_DAY(date -> DateUtils.getDateField(date, Calendar.DAY_OF_WEEK)),
 
         /**
          * The day of month (the first day of month is 1)

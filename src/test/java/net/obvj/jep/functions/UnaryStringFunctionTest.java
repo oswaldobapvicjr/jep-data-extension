@@ -30,6 +30,7 @@ public class UnaryStringFunctionTest
     private static UnaryStringFunction funcLower = new UnaryStringFunction(Strategy.LOWER);
     private static UnaryStringFunction funcUpper = new UnaryStringFunction(Strategy.UPPER);
     private static UnaryStringFunction funcTrim = new UnaryStringFunction(Strategy.TRIM);
+    private static UnaryStringFunction funcProper = new UnaryStringFunction(Strategy.PROPER);
 
     /**
      * Tests the lower function for a valid string
@@ -96,6 +97,17 @@ public class UnaryStringFunctionTest
         Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY);
         funcLower.run(parameters);
         assertEquals(StringUtils.EMPTY, parameters.pop());
+    }
+    
+    /**
+     * Tests the proper case function for a valid string
+     */
+    @Test
+    public void testProperCaseWithValidString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack("good DAY");
+        funcProper.run(parameters);
+        assertEquals("Good Day", parameters.pop());
     }
 
 }

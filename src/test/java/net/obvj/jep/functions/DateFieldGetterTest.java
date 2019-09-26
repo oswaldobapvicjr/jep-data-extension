@@ -26,6 +26,7 @@ public class DateFieldGetterTest
     private static DateFieldGetter quarterGetter = new DateFieldGetter(DateField.QUARTER);
     private static DateFieldGetter monthGetter = new DateFieldGetter(DateField.MONTH);
     private static DateFieldGetter isoWeekNumberGetter = new DateFieldGetter(DateField.ISO_WEEK_NUMBER);
+    private static DateFieldGetter weekDayGetter = new DateFieldGetter(DateField.WEEK_DAY);
     private static DateFieldGetter dayGetter = new DateFieldGetter(DateField.DAY);
     private static DateFieldGetter hourGetter = new DateFieldGetter(DateField.HOUR);
     private static DateFieldGetter minuteGetter = new DateFieldGetter(DateField.MINUTE);
@@ -103,6 +104,17 @@ public class DateFieldGetterTest
         assertEquals(4, parameters.pop());
     }
 
+    /**
+     * Tests the week day from a date
+     */
+    @Test
+    public void testWeekDayFromDate() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_2019_04_08T14_45_00_123Z);
+        weekDayGetter.run(parameters);
+        assertEquals(2, parameters.pop());
+    }
+    
     /**
      * Tests the day from a date
      */
