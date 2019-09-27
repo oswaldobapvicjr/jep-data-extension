@@ -4,6 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+/**
+ * Unit tests for the {@link EncryptionUtils} class.
+ * 
+ * @author oswaldo.bapvic.jr
+ */
 public class EncryptionUtilsTest
 {
     /**
@@ -49,5 +54,15 @@ public class EncryptionUtilsTest
         String message = "hello";
         String sha256 = EncryptionUtils.sha256(message);
         assertEquals("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824", sha256);
+    }
+
+    /**
+     * Tests hashWith with an unknown algorithm
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testHashWithUnknown()
+    {
+        String message = "asd";
+        EncryptionUtils.hashWith("unknown", message);
     }
 }

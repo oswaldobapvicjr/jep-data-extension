@@ -41,6 +41,11 @@ public class RomanNumeralUtils
         }
     }
 
+    private RomanNumeralUtils()
+    {
+        throw new IllegalStateException("Utility class");
+    }
+    
     /**
      * Converts a Roman number to an Arabic number.
      * 

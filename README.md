@@ -673,8 +673,6 @@ The `ExpressionEvaluatorFacade` is a convenient object to quickly parse a single
     ```
     JEP > date = str2date(date, "dd-MM-yyyy")
     Wed Dec 05 00:00:00 BRST 2012
-    JEP > class(date)
-    java.util.Date
     ```
 
 5. Extract the week number from the converted date:

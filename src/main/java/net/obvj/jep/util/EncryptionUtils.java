@@ -40,7 +40,7 @@ public class EncryptionUtils
      * @param content   a string input to encrypt
      * @return the MD5 hash transformed into a hexadecimal lower case string.
      */
-    protected static String hashWith(String algorithm, String content)
+    public static String hashWith(String algorithm, String content)
     {
         try
         {
