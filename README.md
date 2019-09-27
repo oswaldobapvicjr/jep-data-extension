@@ -566,6 +566,12 @@ jsonArray[1] //extracts the first element of the given jsonArray
 
 ---
 
+## How to build the project
+
+Use Maven to build the project, running `mvn clean install`, then copy the generated JAR files from the `lib` folder. 
+
+---
+
 ## How to use it
 
 ### Example 1: replacing characters from a text variable using the `JEPContextFactory`
@@ -627,3 +633,54 @@ The `ExpressionEvaluatorFacade` is a convenient object to quickly parse a single
     String result = (String) ExpressionEvaluatorFacade.evaluate(expression, myVariables); 
     //result = "overdue"
     ````
+
+
+
+### Example 3: Consuming data from a RESTful API using the Evaluation Console
+
+1. Run `jep-data-extension` JAR file from a terminal:
+
+    ```
+    $ java -jar jep-data-extension-1.0.jar
+    ```
+
+2. Consume the RESTful API with the `httpGet` function:
+
+    ```
+    JEP > dateTime = httpGet("http://date.jsontest.com/")
+    {
+       "time": "08:31:19 PM",
+       "date": "05-12-2012"
+    }
+    ```
+
+3. Filter the JSON using a JsonPath expression that extracts the date field:
+
+    ```
+    JEP > date = jsonpath(dateTime, "$.date")
+    05-12-2012
+    ```
+
+3. Check the type of the generated `date` variable:
+
+    ```
+    JEP > class(date)
+    java.lang.String
+    ```
+
+4. Convert the string to Date:
+
+    ```
+    JEP > date = str2date(date, "dd-MM-yyyy")
+    Wed Dec 05 00:00:00 BRST 2012
+    JEP > class(date)
+    java.util.Date
+    ```
+
+5. Extract the week number from the converted date:
+
+    ```
+    JEP > isoWeekNumber(date)
+    49
+
+    ```

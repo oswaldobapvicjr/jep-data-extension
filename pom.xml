@@ -6,7 +6,8 @@
 
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>jar</packaging>
     <name>JEP Data Extension</name>
     <description>
         An extension of the Java Expression Parser library with useful functions for data handling
@@ -58,6 +59,12 @@
             <version>2.4.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+
         <!-- Jersey HTTP client API -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
@@ -95,6 +102,41 @@
 
     <build>
         <plugins>
+
+            <!-- Copies all dependencies to the target/lib folder -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Generates jep-data-extension runnable JAR into the target/lib folder -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!--  <classpathPrefix>lib/</classpathPrefix> -->
+                            <mainClass>net.obvj.jep.Console</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.jacoco</groupId>
