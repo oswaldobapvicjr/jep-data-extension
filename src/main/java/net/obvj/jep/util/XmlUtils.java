@@ -137,7 +137,7 @@ public class XmlUtils
         {
             return convertToXML((String) object);
         }
-        throw new IllegalArgumentException("Input type " + object.getClass().getName() + " not supported.");
+        throw new IllegalArgumentException("Input type " + object.getClass().getName() + " not supported as XML");
     }
 
     /**

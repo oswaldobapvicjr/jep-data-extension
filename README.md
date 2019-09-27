@@ -680,5 +680,4 @@ The `ExpressionEvaluatorFacade` is a convenient object to quickly parse a single
     ```
     JEP > isoWeekNumber(date)
     49
-
     ```

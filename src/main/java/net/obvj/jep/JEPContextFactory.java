@@ -45,20 +45,6 @@ public class JEPContextFactory
     }
 
     /**
-     * @param traverse               an optional to print expression trees (useful for debug)
-     * @param allowUndeclared        the "allow undeclared variables" option
-     * @param implicitMultiplication the "implicit multiplication" option
-     * @param numberFactory          the number factory to be used
-     *
-     * @return a new {@code JEP} object with custom functions and operators registered
-     */
-    public static JEP newContext(boolean traverse, boolean allowUndeclared, boolean implicitMultiplication,
-            NumberFactory numberFactory)
-    {
-        return newContext(null, traverse, allowUndeclared, implicitMultiplication, numberFactory);
-    }
-
-    /**
      * @param contextMap             a map of variables to be used by the evaluation context
      * @param traverse               an optional to print expression trees (useful for debug)
      * @param allowUndeclared        the "allow undeclared variables" option
