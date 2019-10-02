@@ -46,7 +46,7 @@ public class JEPContextFactoryTest
      */
     private void checkFunction(final FunctionTable table, String functionName, Class<?> clazz)
     {
-        assertTrue(table.containsKey(functionName));
+        assertTrue("Table does not contain function name: " + functionName, table.containsKey(functionName));
         assertEquals(clazz, table.get(functionName).getClass());
     }
 
@@ -76,6 +76,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "findMatch", FindMatches.class, FindMatches.Strategy.FIRST_MATCH);
         checkFunction(table, "findMatches", FindMatches.class, FindMatches.Strategy.ALL_MATCHES);
         checkFunction(table, "formatString", FormatString.class);
+        checkFunction(table, "leftPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
         checkFunction(table, "lower", UnaryStringFunction.class, UnaryStringFunction.Strategy.LOWER);
         checkFunction(table, "matches", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_MATCHES);
         checkFunction(table, "normalizeString", NormalizeString.class);
@@ -83,7 +84,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "startsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
         checkFunction(table, "replace", Replace.class, Replace.Strategy.NORMAL);
         checkFunction(table, "replaceRegex", Replace.class, Replace.Strategy.REGEX);
-        checkFunction(table, "isLeapYear", IsLeapYear.class);
+        checkFunction(table, "rightPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
         checkFunction(table, "trim", UnaryStringFunction.class, UnaryStringFunction.Strategy.TRIM);
         checkFunction(table, "upper", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
 

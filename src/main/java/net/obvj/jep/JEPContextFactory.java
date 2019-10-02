@@ -80,12 +80,14 @@ public class JEPContextFactory
         jep.addFunction("findMatch", new FindMatches(FindMatches.Strategy.FIRST_MATCH));
         jep.addFunction("findMatches", new FindMatches(FindMatches.Strategy.ALL_MATCHES));
         jep.addFunction("formatString", new FormatString());
+        jep.addFunction("leftPad", new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
         jep.addFunction("lower", new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
         jep.addFunction("matches", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
         jep.addFunction("normalizeString", new NormalizeString());
         jep.addFunction("proper", new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
         jep.addFunction("replace", new Replace(Replace.Strategy.NORMAL));
         jep.addFunction("replaceRegex", new Replace(Replace.Strategy.REGEX));
+        jep.addFunction("rightPad", new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
         jep.addFunction("startsWith", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
         jep.addFunction("trim", new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
         jep.addFunction("upper", new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));

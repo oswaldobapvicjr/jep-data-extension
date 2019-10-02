@@ -22,7 +22,6 @@ concat("{id:", 123, "}") //result: "{id:123}"
 
 > **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
 
-
 ### Ends with
 
 Returns 1 (true) if the string received in the 1st parameter ends with the suffix specified in the 2nd parameter (case-sensitive).
@@ -30,7 +29,6 @@ Returns 1 (true) if the string received in the 1st parameter ends with the suffi
 ```java
 endsWith("abcdef", "def") //result: 1.0
 ```
-
 
 ### Find match
 
@@ -40,7 +38,6 @@ Returns the first match of the given regular expression found inside a string.
 findMatch("user@domain.com", "(?<=@)[^.]+(?=\.)") //result: "domain"
 ```
 
-
 ### Find matches
 
 Returns a list containing all matches of the given regular expression found inside a string.
@@ -48,7 +45,6 @@ Returns a list containing all matches of the given regular expression found insi
 ```java
 findMatches("Sample tweet #java #jep", "([#][A-z]+)") //result: ["#java", "#jep"]
 ```
-
 
 ### Format string
 
@@ -58,6 +54,14 @@ Returns a formatted string according to given pattern and variable arguments.
 formatString("%s=%.0f", "test", 2.0) //result: "test=2"
 ```
 
+### Left pad
+
+Left-pads a given string to the given size with white-spaces or a custom padding string. 
+
+```java
+leftPad("123", 5)      //result: "  123"
+leftPad("123", 5, "0") //result: "00123"
+```
 
 ### Lower
 
@@ -107,6 +111,15 @@ Returns a new string after replacing all matches of the given regular expression
 replaceRegex("file1.json", "(\\.\\w+$)", "") //result: "file1"
 ```
 
+### Right pad
+
+Right-pads a given string to the given size with white-spaces or a custom padding string. 
+
+```java
+rightPad("abc", 5)      //result: "abc  "
+rightPad("abc", 5, ".") //result: "abc.."
+```
+
 ### Starts with
 
 Returns 1 (true) if the string received in the 1st parameter starts with the prefix specified in the 2nd parameter (case-sensitive).
@@ -114,7 +127,6 @@ Returns 1 (true) if the string received in the 1st parameter starts with the pre
 ```java
 startsWith("abcdef", "abc") //result: 1.0
 ```
-
 
 ### Trim
 
