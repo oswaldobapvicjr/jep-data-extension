@@ -80,23 +80,25 @@ public class JEPContextFactoryTest
         checkFunction(table, "formatString", FormatString.class);
         checkFunction(table, "leftPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
         checkFunction(table, "lpad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
+        checkFunction(table, "lcase", UnaryStringFunction.class, UnaryStringFunction.Strategy.LOWER);
         checkFunction(table, "lower", UnaryStringFunction.class, UnaryStringFunction.Strategy.LOWER);
         checkFunction(table, "matches", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_MATCHES);
         checkFunction(table, "normalizeString", NormalizeString.class);
         checkFunction(table, "proper", UnaryStringFunction.class, UnaryStringFunction.Strategy.PROPER);
-        checkFunction(table, "startsWith", BinaryBooleanFunction.class,
-                BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
+        checkFunction(table, "startsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
         checkFunction(table, "replace", Replace.class, Replace.Strategy.NORMAL);
         checkFunction(table, "replaceRegex", Replace.class, Replace.Strategy.REGEX);
         checkFunction(table, "rightPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
         checkFunction(table, "rpad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
         checkFunction(table, "trim", UnaryStringFunction.class, UnaryStringFunction.Strategy.TRIM);
+        checkFunction(table, "ucase", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
         checkFunction(table, "upper", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
 
         // ---------------------
         // Date functions
         // ---------------------
 
+        checkFunction(table, "sysdate", Now.class);
         checkFunction(table, "now", Now.class);
         checkFunction(table, "date2str", DateToString.class);
         checkFunction(table, "str2date", StringToDate.class);
@@ -126,6 +128,7 @@ public class JEPContextFactoryTest
         // ---------------------
 
         checkFunction(table, "average", Average.class);
+        checkFunction(table, "avg", Average.class);
         checkFunction(table, "count", Count.class);
         checkFunction(table, "length", Count.class);
         checkFunction(table, "max", Max.class);

@@ -63,6 +63,8 @@ leftPad("123", 5)      //result: "  123"
 leftPad("123", 5, "0") //result: "00123"
 ```
 
+> **Note:** Also achievable using the alias: `lpad`
+
 ### Lower
 
 Converts a text string to all lower-case letters.
@@ -70,6 +72,8 @@ Converts a text string to all lower-case letters.
 ```java
 lower("STRING") //result: "string"
 ```
+
+> **Note:** Also achievable using the alias: `lcase`
 
 ### Matches
 
@@ -120,6 +124,9 @@ rightPad("abc", 5)      //result: "abc  "
 rightPad("abc", 5, ".") //result: "abc.."
 ```
 
+> **Note:** Also achievable using the alias: `rpad`
+
+
 ### Starts with
 
 Returns 1 (true) if the string received in the 1st parameter starts with the prefix specified in the 2nd parameter (case-sensitive).
@@ -144,6 +151,8 @@ Converts a text string to all upper-case letters.
 upper("string") //result: "STRING"
 ```
 
+> **Note:** Also achievable using the alias: `ucase`
+
 ---
 
 ## Date functions
@@ -155,6 +164,8 @@ Returns the system's current date & time, with precision of milliseconds.
 ```java
  now()
 ```
+
+> **Note:** Also achievable using the alias: `sysdate()`
 
 ### String to date conversion
 
@@ -247,7 +258,7 @@ isoWeekNumber("2017-03-11T20:15:00:123Z") //result: 10.0
 Returns the day of the week of a date, a number from 1 (Sunday) to 7 (Saturday).
 
 ```java
-day("2019-06-12T18:00:01:988Z") //result: 4.0
+weekday("2019-06-12T18:00:01:988Z") //result: 4.0
 ```
 
 ### Day
@@ -346,6 +357,9 @@ Returns the average (arithmetic mean) of the elements inside the given array. It
 average("[2,3]") //result: 2.5
 ```
 
+> **Note:** Also achievable using the alias: `avg`
+
+
 ### Count
 
 Returns the number of elements inside the given array. It also accepts JSON arrays, Java Collections and valid string representations of JSON arrays. 
@@ -356,15 +370,7 @@ If a regular object (i.e., not a collection) is passed to the function, the resu
 count("[0,1,2]") //result: 3.0
 ```
 
-> **Note:** Also achievable using `length(object)`.
-
-### Length
-
-Same as `count()`.
-
-```java
-length("[0,1,2]") //result: 3.0
-```
+> **Note:** Also achievable using the alias `length`.
 
 ### Max
 
@@ -448,7 +454,7 @@ Returns the Java type associated with the given variable
 typeOf("text") //result: "java.lang.String"
 ```
 
-> **Note:** Also achievable using `class(object)`.
+> **Note:** Also achievable using the alias `class`.
 
 ---
 

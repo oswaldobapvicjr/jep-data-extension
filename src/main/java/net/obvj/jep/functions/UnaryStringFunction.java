@@ -20,7 +20,7 @@ public class UnaryStringFunction extends PostfixMathCommand implements MultiStra
         /**
          * Converts a string to all lower-case letters
          */
-        @Function("lower")
+        @Function({ "lower", "lcase" })
         LOWER(param -> param.toLowerCase()),
 
         /**
@@ -29,7 +29,7 @@ public class UnaryStringFunction extends PostfixMathCommand implements MultiStra
          */
         @Function("proper")
         PROPER(WordUtils::capitalizeFully),
-        
+
         /**
          * Removes leading and trailing spaces from a string
          */
@@ -39,7 +39,7 @@ public class UnaryStringFunction extends PostfixMathCommand implements MultiStra
         /**
          * Converts a string to all upper-case letters
          */
-        @Function("upper")
+        @Function({ "upper", "ucase" })
         UPPER(param -> param.toUpperCase());
 
         java.util.function.Function<String, String> function;
