@@ -13,6 +13,7 @@ import net.obvj.jep.http.WebServiceUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("httpGet")
 public class HttpGet extends PostfixMathCommand
 {
 

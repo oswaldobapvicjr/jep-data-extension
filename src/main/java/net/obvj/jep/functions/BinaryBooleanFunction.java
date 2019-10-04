@@ -27,6 +27,7 @@ public class BinaryBooleanFunction extends PostfixMathCommand implements MultiSt
          * Returns true if the string in the 1st parameter starts with the string received in the
          * 2nd parameter
          */
+        @Function("startsWith")
         STRING_STARTS_WITH
         {
             @Override
@@ -40,6 +41,7 @@ public class BinaryBooleanFunction extends PostfixMathCommand implements MultiSt
          * Returns true if the string in the 1st parameter ends with the string received in the
          * 2nd parameter
          */
+        @Function("endsWith")
         STRING_ENDS_WITH
         {
             @Override
@@ -53,6 +55,7 @@ public class BinaryBooleanFunction extends PostfixMathCommand implements MultiSt
          * Returns true if the string in the 1st parameter matches the regular expression received
          * in the 2nd parameter
          */
+        @Function("matches")
         STRING_MATCHES
         {
             @Override

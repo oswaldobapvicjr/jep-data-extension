@@ -17,6 +17,7 @@ public class UnarySystemFunction extends PostfixMathCommand implements MultiStra
         /**
          * Retrieves environment variables
          */
+        @Function("getEnv")
         GET_ENV
         {
             @Override
@@ -29,6 +30,7 @@ public class UnarySystemFunction extends PostfixMathCommand implements MultiStra
         /**
          * Retrieves system properties
          */
+        @Function("getSystemProperty")
         GET_SYSTEM_PROPERTY
         {
             @Override

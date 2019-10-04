@@ -27,6 +27,7 @@ import net.obvj.jep.util.JsonUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("isEmpty")
 public class IsEmpty extends PostfixMathCommand
 {
     private static final double FALSE = 0d;

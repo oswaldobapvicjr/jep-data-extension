@@ -15,6 +15,7 @@ import net.obvj.jep.util.NumberUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("isLeapYear")
 public class IsLeapYear extends PostfixMathCommand
 {
     private static final double FALSE = 0d;

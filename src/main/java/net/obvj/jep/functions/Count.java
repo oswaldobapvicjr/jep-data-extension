@@ -14,6 +14,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  * 
  * @author oswaldo.bapvic.jr
  */
+@Function({ "count", "length" })
 public class Count extends PostfixMathCommand
 {
     /**

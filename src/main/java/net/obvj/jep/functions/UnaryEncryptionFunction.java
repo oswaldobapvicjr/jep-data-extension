@@ -16,6 +16,7 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
 {
     public enum EncryptionAlgorithm
     {
+        @Function("md5")
         MD5
         {
             @Override
@@ -24,6 +25,8 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
                 return EncryptionUtils.md5(content);
             }
         },
+
+        @Function("sha1")
         SHA1
         {
             @Override
@@ -32,6 +35,8 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
                 return EncryptionUtils.sha1(content);
             }
         },
+
+        @Function("sha256")
         SHA256
         {
             @Override

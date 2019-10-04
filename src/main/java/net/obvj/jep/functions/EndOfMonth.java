@@ -14,6 +14,7 @@ import net.obvj.jep.util.DateUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("endOfMonth")
 public class EndOfMonth extends PostfixMathCommand
 {
     /**

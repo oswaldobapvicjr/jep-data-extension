@@ -14,6 +14,7 @@ import net.obvj.jep.http.WebServiceUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("http")
 public class Http extends PostfixMathCommand
 {
 

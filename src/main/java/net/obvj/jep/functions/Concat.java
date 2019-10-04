@@ -11,6 +11,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function({"concat", "join"})
 public class Concat extends PostfixMathCommand
 {
     /**

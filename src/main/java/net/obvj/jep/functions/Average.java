@@ -15,6 +15,7 @@ import net.obvj.jep.util.NumberUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("average")
 public class Average extends PostfixMathCommand
 {
     /**

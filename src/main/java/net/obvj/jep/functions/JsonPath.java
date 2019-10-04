@@ -17,6 +17,7 @@ import net.obvj.jep.util.JsonUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("jsonpath")
 public class JsonPath extends PostfixMathCommand
 {
     private static final String ERROR_JSON_PATH_ARGUMENT_MISSING = "JSONPath argument missing";

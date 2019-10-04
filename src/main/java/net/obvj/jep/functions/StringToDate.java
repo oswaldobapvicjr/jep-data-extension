@@ -39,6 +39,7 @@ import net.obvj.jep.util.DateUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("str2date")
 public class StringToDate extends PostfixMathCommand
 {
     /**

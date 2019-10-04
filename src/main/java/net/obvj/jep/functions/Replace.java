@@ -20,6 +20,7 @@ public class Replace extends PostfixMathCommand implements MultiStrategyCommand
         /**
          * Replaces occurrences of a string with another string
          */
+        @Function("replace")
     	NORMAL
         {
             @Override
@@ -32,6 +33,7 @@ public class Replace extends PostfixMathCommand implements MultiStrategyCommand
         /**
          * Uses regular expressions to find matches for replacement
          */
+        @Function("replaceRegex")
         REGEX
         {
             @Override

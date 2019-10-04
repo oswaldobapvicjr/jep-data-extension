@@ -12,6 +12,7 @@ import net.obvj.jep.util.RomanNumeralUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("arabic")
 public class Arabic extends PostfixMathCommand
 {
     /**

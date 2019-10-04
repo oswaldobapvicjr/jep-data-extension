@@ -22,6 +22,7 @@ public class StringPaddingFunction extends PostfixMathCommand implements MultiSt
         /**
          * The input string in right-padded to the given size using the padString
          */
+        @Function({ "rightPad", "rpad" })
         RIGHT_PAD
         {
             @Override
@@ -34,6 +35,7 @@ public class StringPaddingFunction extends PostfixMathCommand implements MultiSt
         /**
          * The input string in left-padded to the given size using the padString
          */
+        @Function({ "leftPad", "lpad" })
         LEFT_PAD
         {
             @Override
@@ -49,11 +51,11 @@ public class StringPaddingFunction extends PostfixMathCommand implements MultiSt
     private final Strategy strategy;
 
     /**
-     * Builds this function with a fixed number of one parameter
+     * Builds this function with a variable number of parameters
      */
     public StringPaddingFunction(Strategy strategy)
     {
-        numberOfParameters = 1;
+        numberOfParameters = -1;
         this.strategy = strategy;
     }
 

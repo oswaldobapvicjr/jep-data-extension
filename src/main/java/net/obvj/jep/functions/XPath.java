@@ -18,6 +18,7 @@ import net.obvj.jep.util.XmlUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("xpath")
 public class XPath extends PostfixMathCommand
 {
     private static final String ERROR_XPATH_ARGUMENT_MISSING = "XPath argument missing";

@@ -15,6 +15,7 @@ import net.obvj.jep.util.NumberUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("get")
 public class Element extends PostfixMathCommand
 {
     /**

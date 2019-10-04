@@ -1,18 +1,15 @@
 package net.obvj.jep.functions;
 
 import java.util.Stack;
-import java.util.function.Function;
 
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
-
-import com.sun.jersey.api.client.ClientResponse;
 
 import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
 
 /**
- * A JEP function that accepts a ClientResponse object.
+ * A JEP function that reads data from a {@link WebServiceResponse} object.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -22,20 +19,22 @@ public class HttpResponseHandler extends PostfixMathCommand implements MultiStra
     public enum Strategy
     {
         /**
-         * A function that returns the HTTP status code, given a {@link ClientResponse} object
+         * A function that returns the HTTP status code, given a {@link WebServiceResponse} object
          * returned by the {@code http()} function
          */
+        @Function("httpStatusCode")
         GET_STATUS_CODE(WebServiceUtils::getStatusCode),
 
         /**
          * A function that returns the HTTP response body as string, given a
-         * {@link ClientResponse} object returned by the {@code http()} function
+         * {@link WebServiceResponse} object returned by the {@code http()} function
          */
+        @Function("httpResponse")
         GET_RESPONSE(WebServiceUtils::getResponseAsString);
 
-        private Function<WebServiceResponse, Object> function;
+        private java.util.function.Function<WebServiceResponse, Object> function;
 
-        Strategy(Function<WebServiceResponse, Object> returnStrategy)
+        Strategy(java.util.function.Function<WebServiceResponse, Object> returnStrategy)
         {
             this.function = returnStrategy;
         }

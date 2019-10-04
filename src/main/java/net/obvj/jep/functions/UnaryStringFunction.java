@@ -1,7 +1,7 @@
 package net.obvj.jep.functions;
 
 import java.util.Stack;
-import java.util.function.Function;
+
 import java.util.function.UnaryOperator;
 
 import org.apache.commons.text.WordUtils;
@@ -20,25 +20,29 @@ public class UnaryStringFunction extends PostfixMathCommand implements MultiStra
         /**
          * Converts a string to all lower-case letters
          */
+        @Function("lower")
         LOWER(param -> param.toLowerCase()),
 
         /**
          * Converts a string to proper case; the first letter in each word to upper-case, and all
          * other letter to lower-case
          */
+        @Function("proper")
         PROPER(WordUtils::capitalizeFully),
         
         /**
          * Removes leading and trailing spaces from a string
          */
+        @Function("trim")
         TRIM(param -> param.trim()),
 
         /**
          * Converts a string to all upper-case letters
          */
+        @Function("upper")
         UPPER(param -> param.toUpperCase());
 
-        Function<String, String> function;
+        java.util.function.Function<String, String> function;
 
         private Strategy(UnaryOperator<String> function)
         {

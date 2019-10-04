@@ -13,6 +13,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("normalizeString")
 public class NormalizeString extends PostfixMathCommand
 {
     /**

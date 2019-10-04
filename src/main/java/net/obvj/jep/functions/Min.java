@@ -19,6 +19,7 @@ import net.obvj.jep.util.NumberUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("min")
 public class Min extends StatisticsCommandBase implements PostfixMathCommandI
 {
     /**

@@ -10,6 +10,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function({ "typeOf", "class" })
 public class TypeOf extends PostfixMathCommand
 {
     /**

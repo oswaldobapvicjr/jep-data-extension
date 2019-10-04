@@ -1,7 +1,12 @@
 package net.obvj.jep;
 
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.OperatorSet;
 import org.nfunk.jep.function.Comparative;
@@ -20,6 +25,9 @@ import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
  */
 public class JEPContextFactory
 {
+    private static final String MSG_ANNOTATION_NOT_FOUND_IN_CLASS = "@Function annotation not found in class: %s";
+    private static final String MSG_ANNOTATION_NOT_FOUND_IN_STRATEGY = "@Function annotation not found in strategy enum type: %s";
+
     private JEPContextFactory()
     {
         throw new IllegalStateException("No instances allowed");
@@ -75,80 +83,76 @@ public class JEPContextFactory
     public static void addCustomFunctions(JEP jep)
     {
         // String functions
-        jep.addFunction("concat", new Concat());
-        jep.addFunction("endsWith", new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH));
-        jep.addFunction("findMatch", new FindMatches(FindMatches.Strategy.FIRST_MATCH));
-        jep.addFunction("findMatches", new FindMatches(FindMatches.Strategy.ALL_MATCHES));
-        jep.addFunction("formatString", new FormatString());
-        jep.addFunction("leftPad", new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
-        jep.addFunction("lower", new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
-        jep.addFunction("matches", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
-        jep.addFunction("normalizeString", new NormalizeString());
-        jep.addFunction("proper", new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
-        jep.addFunction("replace", new Replace(Replace.Strategy.NORMAL));
-        jep.addFunction("replaceRegex", new Replace(Replace.Strategy.REGEX));
-        jep.addFunction("rightPad", new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
-        jep.addFunction("startsWith", new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
-        jep.addFunction("trim", new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
-        jep.addFunction("upper", new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
+        addAnnotatedFunction(jep, new Concat());
+        addAnnotatedFunction(jep, new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH));
+        addAnnotatedFunction(jep, new FindMatches(FindMatches.Strategy.FIRST_MATCH));
+        addAnnotatedFunction(jep, new FindMatches(FindMatches.Strategy.ALL_MATCHES));
+        addAnnotatedFunction(jep, new FormatString());
+        addAnnotatedFunction(jep, new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
+        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
+        addAnnotatedFunction(jep, new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
+        addAnnotatedFunction(jep, new NormalizeString());
+        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
+        addAnnotatedFunction(jep, new Replace(Replace.Strategy.NORMAL));
+        addAnnotatedFunction(jep, new Replace(Replace.Strategy.REGEX));
+        addAnnotatedFunction(jep, new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
+        addAnnotatedFunction(jep, new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
+        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
+        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
 
         // Date functions
-        jep.addFunction("now", new Now());
-        jep.addFunction("date2str", new DateToString());
-        jep.addFunction("str2date", new StringToDate());
-        jep.addFunction("daysBetween", new DaysBetween());
-        jep.addFunction("endOfMonth", new EndOfMonth());
-        jep.addFunction("isLeapYear", new IsLeapYear());
-        jep.addFunction("year", new DateFieldGetter(DateField.YEAR));
-        jep.addFunction("quarter", new DateFieldGetter(DateField.QUARTER));
-        jep.addFunction("month", new DateFieldGetter(DateField.MONTH));
-        jep.addFunction("isoWeekNumber", new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
-        jep.addFunction("weekday", new DateFieldGetter(DateField.WEEK_DAY));
-        jep.addFunction("day", new DateFieldGetter(DateField.DAY));
-        jep.addFunction("hour", new DateFieldGetter(DateField.HOUR));
-        jep.addFunction("minute", new DateFieldGetter(DateField.MINUTE));
-        jep.addFunction("second", new DateFieldGetter(DateField.SECOND));
-        jep.addFunction("millisecond", new DateFieldGetter(DateField.MILLISECOND));
+        addAnnotatedFunction(jep, new Now());
+        addAnnotatedFunction(jep, new DateToString());
+        addAnnotatedFunction(jep, new StringToDate());
+        addAnnotatedFunction(jep, new DaysBetween());
+        addAnnotatedFunction(jep, new EndOfMonth());
+        addAnnotatedFunction(jep, new IsLeapYear());
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.YEAR));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.QUARTER));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.MONTH));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.WEEK_DAY));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.DAY));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.HOUR));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.MINUTE));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.SECOND));
+        addAnnotatedFunction(jep, new DateFieldGetter(DateField.MILLISECOND));
 
         // Data manipulation functions
-        jep.addFunction("xpath", new XPath());
-        jep.addFunction("jsonpath", new JsonPath());
+        addAnnotatedFunction(jep, new XPath());
+        addAnnotatedFunction(jep, new JsonPath());
 
         // Statistical functions
-        jep.addFunction("average", new Average());
-        Count count = new Count();
-        jep.addFunction("count", count);
-        jep.addFunction("length", count);
-        jep.addFunction("max", new Max());
-        jep.addFunction("min", new Min());
+        addAnnotatedFunction(jep, new Average());
+        addAnnotatedFunction(jep, new Count());
+        addAnnotatedFunction(jep, new Max());
+        addAnnotatedFunction(jep, new Min());
 
         // Random functions
-        jep.addFunction("uuid", new UUID());
+        addAnnotatedFunction(jep, new UUID());
 
         // Utility functions
-        jep.addFunction("getSystemProperty", new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
-        jep.addFunction("getEnv", new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
-        jep.addFunction("isEmpty", new IsEmpty());
-        jep.addFunction("readFile", new ReadFile());
-        TypeOf typeOf = new TypeOf();
-        jep.addFunction("typeOf", typeOf);
-        jep.addFunction("class", typeOf);
+        addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
+        addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
+        addAnnotatedFunction(jep, new IsEmpty());
+        addAnnotatedFunction(jep, new ReadFile());
+        addAnnotatedFunction(jep, new TypeOf());
 
         // Cryptography functions
-        jep.addFunction("md5", new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
-        jep.addFunction("sha1", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
-        jep.addFunction("sha256", new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
+        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
+        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
+        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
 
         // Web Services functions
-        jep.addFunction("httpGet", new HttpGet());
-        jep.addFunction("http", new Http());
-        jep.addFunction("httpStatusCode", new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
-        jep.addFunction("httpResponse", new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
+        addAnnotatedFunction(jep, new HttpGet());
+        addAnnotatedFunction(jep, new Http());
+        addAnnotatedFunction(jep, new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
+        addAnnotatedFunction(jep, new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
 
         // Math functions
-        jep.addFunction("arabic", new Arabic());
-        jep.addFunction("roman", new Roman());
-        
+        addAnnotatedFunction(jep, new Arabic());
+        addAnnotatedFunction(jep, new Roman());
+
         // Operators
         OperatorSet operators = jep.getOperatorSet();
         operators.getLT().setPFMC(new DateAwareComparative(Comparative.LT));
@@ -160,8 +164,47 @@ public class JEPContextFactory
 
         // Element function and operator
         PostfixMathCommand elementCommand = new Element();
-        jep.addFunction("get", elementCommand);
+        addAnnotatedFunction(jep, elementCommand);
         operators.getElement().setPFMC(elementCommand);
+    }
+
+    /**
+     * Add a custom function, annotated with @Function, to the given JEP context.
+     * 
+     * @param jep      the JEP object where functions will be registered
+     * @param function the function to be registered
+     * @throws IllegalStateException if the given function is not annotated
+     */
+    protected static void addAnnotatedFunction(JEP jep, PostfixMathCommand function)
+    {
+        Optional<Function> annotation = getAnnotation(function);
+        if (!annotation.isPresent())
+        {
+            throw new IllegalStateException(String.format(MSG_ANNOTATION_NOT_FOUND_IN_CLASS, function));
+        }
+        Arrays.stream(annotation.get().value()).forEach(alias -> jep.addFunction(alias, function));
+    }
+
+    private static Optional<Function> getAnnotation(PostfixMathCommand function)
+    {
+        return function instanceof MultiStrategyCommand ? getAnnotation((MultiStrategyCommand) function)
+                : Optional.ofNullable(function.getClass().getAnnotation(Function.class));
+    }
+
+    private static Optional<Function> getAnnotation(MultiStrategyCommand function)
+    {
+        Object strategy = function.getStrategy();
+
+        // Get all types annotated with @Function inside the enumeration
+        List<Field> annotations = FieldUtils.getFieldsListWithAnnotation(strategy.getClass(), Function.class);
+
+        // Get the field for the strategy in particular
+        Field strategyField = annotations.stream().filter(field -> field.getName().equals(strategy.toString()))
+                .findAny().orElseThrow(() -> new IllegalStateException(
+                        String.format(MSG_ANNOTATION_NOT_FOUND_IN_STRATEGY, strategy.toString())));
+
+        // Finally, get the @Function annotation
+        return Optional.ofNullable(strategyField.getAnnotation(Function.class));
     }
 
     /**

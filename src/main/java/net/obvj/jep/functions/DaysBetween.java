@@ -13,6 +13,7 @@ import net.obvj.jep.util.DateUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("daysBetween")
 public class DaysBetween extends PostfixMathCommand
 {
     /**

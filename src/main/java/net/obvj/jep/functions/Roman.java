@@ -13,6 +13,7 @@ import net.obvj.jep.util.RomanNumeralUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("roman")
 public class Roman extends PostfixMathCommand
 {
     /**

@@ -22,6 +22,7 @@ public class FindMatches extends PostfixMathCommand implements MultiStrategyComm
         /**
          * Returns all matches found in a string
          */
+        @Function("findMatches")
         ALL_MATCHES
         {
             @Override
@@ -35,6 +36,7 @@ public class FindMatches extends PostfixMathCommand implements MultiStrategyComm
         /**
          * Returns the first match found in a string
          */
+        @Function("findMatch")
         FIRST_MATCH
         {
             @Override

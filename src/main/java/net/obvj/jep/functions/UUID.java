@@ -9,6 +9,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("uuid")
 public class UUID extends PostfixMathCommand
 {
     /**

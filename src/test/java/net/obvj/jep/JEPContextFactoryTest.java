@@ -12,6 +12,7 @@ import org.nfunk.jep.FunctionTable;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.Node;
 import org.nfunk.jep.ParseException;
+import org.nfunk.jep.function.PostfixMathCommand;
 
 import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
@@ -32,7 +33,7 @@ public class JEPContextFactoryTest
      * Tests that no instances of this factory are created
      *
      * @throws Exception in case of error getting constructor metadata or instantiating the
-     * private constructor via Reflection
+     *                   private constructor via Reflection
      */
     @Test
     public void testNoInstancesAllowed() throws Exception
@@ -72,19 +73,23 @@ public class JEPContextFactoryTest
         // ---------------------
 
         checkFunction(table, "concat", Concat.class);
+        checkFunction(table, "join", Concat.class);
         checkFunction(table, "endsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_ENDS_WITH);
         checkFunction(table, "findMatch", FindMatches.class, FindMatches.Strategy.FIRST_MATCH);
         checkFunction(table, "findMatches", FindMatches.class, FindMatches.Strategy.ALL_MATCHES);
         checkFunction(table, "formatString", FormatString.class);
         checkFunction(table, "leftPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
+        checkFunction(table, "lpad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
         checkFunction(table, "lower", UnaryStringFunction.class, UnaryStringFunction.Strategy.LOWER);
         checkFunction(table, "matches", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_MATCHES);
         checkFunction(table, "normalizeString", NormalizeString.class);
         checkFunction(table, "proper", UnaryStringFunction.class, UnaryStringFunction.Strategy.PROPER);
-        checkFunction(table, "startsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
+        checkFunction(table, "startsWith", BinaryBooleanFunction.class,
+                BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
         checkFunction(table, "replace", Replace.class, Replace.Strategy.NORMAL);
         checkFunction(table, "replaceRegex", Replace.class, Replace.Strategy.REGEX);
         checkFunction(table, "rightPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
+        checkFunction(table, "rpad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
         checkFunction(table, "trim", UnaryStringFunction.class, UnaryStringFunction.Strategy.TRIM);
         checkFunction(table, "upper", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
 
@@ -137,7 +142,8 @@ public class JEPContextFactoryTest
         // ---------------------
 
         checkFunction(table, "getEnv", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_ENV);
-        checkFunction(table, "getSystemProperty", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY);
+        checkFunction(table, "getSystemProperty", UnarySystemFunction.class,
+                UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY);
         checkFunction(table, "get", Element.class);
         checkFunction(table, "isEmpty", IsEmpty.class);
         checkFunction(table, "readFile", ReadFile.class);
@@ -150,7 +156,7 @@ public class JEPContextFactoryTest
 
         checkFunction(table, "md5", UnaryEncryptionFunction.class, EncryptionAlgorithm.MD5);
         checkFunction(table, "sha1", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA1);
-        checkFunction(table, "sha256", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA256 );
+        checkFunction(table, "sha256", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA256);
 
         // ---------------------
         // Web Services
@@ -160,11 +166,11 @@ public class JEPContextFactoryTest
         checkFunction(table, "http", Http.class);
         checkFunction(table, "httpStatusCode", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_STATUS_CODE);
         checkFunction(table, "httpResponse", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_RESPONSE);
-        
+
         // ---------------------
         // Math
         // ---------------------
-        
+
         checkFunction(table, "arabic", Arabic.class);
         checkFunction(table, "roman", Roman.class);
     }
@@ -369,6 +375,30 @@ public class JEPContextFactoryTest
         JEP jep = JEPContextFactory.newContext();
         Node node = jep.parseExpression("average(\"[2,3]\")");
         assertEquals(2.5, jep.evaluate(node));
+    }
+
+    /**
+     * Tests that a proper exception is thrown when a non-annotated function is passed to the
+     * addAnnotatedFunction() method
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testAddAnnotatedFunctionWithoutNoFunctionAnnotation()
+    {
+        // A dummy function without annotation
+        PostfixMathCommand function = new PostfixMathCommand();
+        JEPContextFactory.addAnnotatedFunction(new JEP(), function);
+    }
+
+    /**
+     * Tests that a proper exception is thrown when a non-annotated multi-strategy function is
+     * passed to the addAnnotatedFunction() method
+     */
+    @Test(expected = IllegalStateException.class)
+    public void testAddAnnotatedMultiStrategyFunctionWithoutNoFunctionAnnotation()
+    {
+        // A dummy function without annotation
+        JEPContextFactory.addAnnotatedFunction(new JEP(),
+                new DummyMultiStrategyCommand(DummyMultiStrategyCommand.Strategy.TYPE1));
     }
 
 }

@@ -13,6 +13,7 @@ import net.obvj.jep.util.FileUtils;
  *
  * @author oswaldo.bapvic.jr
  */
+@Function("readFile")
 public class ReadFile extends PostfixMathCommand
 {
 
