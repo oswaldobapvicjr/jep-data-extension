@@ -4,116 +4,122 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Stack;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.StringPaddingFunction.Strategy;
+import net.obvj.jep.functions.UnaryStringFunction.Strategy;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
- * Unit tests for the {@link StringPaddingFunction}
+ * Unit tests for the {@link UnaryStringFunction} class.
  *
  * @author oswaldo.bapvic.jr
  */
 public class UnaryStringFunctionTest
 {
+    // Test data
+    private static final String STRING_ABC_UPPER = "ABC123";
+    private static final String STRING_ABC_LOWER = "abc123";
+    private static final String STRING_TEST = "test";
+    private static final String STRING_TEST_SPACES = " test  ";
+    private static final String STRING_BLANK = " ";
+
+
     /// Test subjects
-    private static StringPaddingFunction rightPad = new StringPaddingFunction(Strategy.RIGHT_PAD);
-    private static StringPaddingFunction leftPad = new StringPaddingFunction(Strategy.LEFT_PAD);
+    private static UnaryStringFunction funcLower = new UnaryStringFunction(Strategy.LOWER);
+    private static UnaryStringFunction funcUpper = new UnaryStringFunction(Strategy.UPPER);
+    private static UnaryStringFunction funcTrim = new UnaryStringFunction(Strategy.TRIM);
+    private static UnaryStringFunction funcProper = new UnaryStringFunction(Strategy.PROPER);
+    private static UnaryStringFunction funcCamel = new UnaryStringFunction(Strategy.CAMEL);
 
     /**
-     * Runs the function with the given parameters
-     */
-    private void run(StringPaddingFunction function, Stack<Object> stack) throws ParseException
-    {
-        function.setCurNumberOfParameters(stack.size());
-        function.run(stack);
-    }
-
-    /**
-     * Tests the rightPad function with one parameter
-     */
-    @Test(expected = ParseException.class)
-    public void testRightPadWithOneParam() throws ParseException
-    {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc");
-        run(rightPad, parameters);
-    }
-
-    /**
-     * Tests the rightPad function with two parameters
+     * Tests the lower function for a valid string
      */
     @Test
-    public void testRightPadWithTwoParams() throws ParseException
+    public void testLowerCaseWithValidString() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc", 5);
-        run(rightPad, parameters);
-        assertEquals("abc  ", parameters.pop());
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_ABC_UPPER);
+        funcLower.run(parameters);
+        assertEquals(STRING_ABC_LOWER, parameters.pop());
     }
 
     /**
-     * Tests the rightPad function with three parameters
+     * Tests the upper function for a valid string
      */
     @Test
-    public void testRightPadWithThreeParams() throws ParseException
+    public void testUpperCaseWithValidString() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc", 5, "-");
-        run(rightPad, parameters);
-        assertEquals("abc--", parameters.pop());
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_ABC_LOWER);
+        funcUpper.run(parameters);
+        assertEquals(STRING_ABC_UPPER, parameters.pop());
     }
 
     /**
-     * Tests the rightPad function with four parameters
-     */
-    @Test(expected = ParseException.class)
-    public void testRightPadWithFourParams() throws ParseException
-    {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc", 5, " ", 1);
-        run(rightPad, parameters);
-    }
-
-    /**
-     * Tests the rightPad function with empty string
+     * Tests the trim function with a blank string
      */
     @Test
-    public void testRightPadWithEmptyString() throws ParseException
+    public void testTrimWithBlankString() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("", 5);
-        run(rightPad, parameters);
-        assertEquals("     ", parameters.pop());
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_BLANK);
+        funcTrim.run(parameters);
+        assertEquals(StringUtils.EMPTY, parameters.pop());
     }
 
     /**
-     * Tests the rightPad function with larger input string than the size
+     * Tests the trim function with a valid string
      */
     @Test
-    public void testRightPadWithLargerStringThanSize() throws ParseException
+    public void testTrimWithValidString() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc", 1);
-        run(rightPad, parameters);
-        assertEquals("abc", parameters.pop());
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STRING_TEST_SPACES);
+        funcTrim.run(parameters);
+        assertEquals(STRING_TEST, parameters.pop());
     }
 
     /**
-     * Tests the leftPad function with two parameters
+     * Tests with a null object. Shall not throw NullPointerException.
      */
     @Test
-    public void testLeftPadWithTwoParams() throws ParseException
+    public void testWithNull() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc", 5);
-        run(leftPad, parameters);
-        assertEquals("  abc", parameters.pop());
+        Stack<Object> parameters = new Stack<>();
+        parameters.push(null);
+        funcLower.run(parameters);
+        assertEquals(null, parameters.pop());
     }
 
     /**
-     * Tests the leftPad function with three parameters
+     * Tests with an empty string
      */
     @Test
-    public void testLeftPadWithThreeParams() throws ParseException
+    public void testWithEmptyString() throws ParseException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack("abc", 5, "-");
-        run(leftPad, parameters);
-        assertEquals("--abc", parameters.pop());
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(StringUtils.EMPTY);
+        funcLower.run(parameters);
+        assertEquals(StringUtils.EMPTY, parameters.pop());
+    }
+    
+    /**
+     * Tests the proper case function for a valid string
+     */
+    @Test
+    public void testProperCaseWithValidString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack("good DAY");
+        funcProper.run(parameters);
+        assertEquals("Good Day", parameters.pop());
+    }
+    
+    /**
+     * Tests the camel case case function for a valid string
+     */
+    @Test
+    public void testCamelCaseWithValidString() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack("This is-a_STRING");
+        funcCamel.run(parameters);
+        assertEquals("thisIsAString", parameters.pop());
     }
 
 }

@@ -72,11 +72,12 @@ public class JEPContextFactoryTest
         // String functions
         // ---------------------
 
+        checkFunction(table, "camel", UnaryStringFunction.class, UnaryStringFunction.Strategy.CAMEL);
         checkFunction(table, "concat", Concat.class);
         checkFunction(table, "join", Concat.class);
         checkFunction(table, "endsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_ENDS_WITH);
-        checkFunction(table, "findMatch", FindMatches.class, FindMatches.Strategy.FIRST_MATCH);
-        checkFunction(table, "findMatches", FindMatches.class, FindMatches.Strategy.ALL_MATCHES);
+        checkFunction(table, "findMatch", BinaryStringFunction.class, BinaryStringFunction.Strategy.FIRST_MATCH);
+        checkFunction(table, "findMatches", BinaryStringFunction.class, BinaryStringFunction.Strategy.ALL_MATCHES);
         checkFunction(table, "formatString", FormatString.class);
         checkFunction(table, "leftPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
         checkFunction(table, "lpad", StringPaddingFunction.class, StringPaddingFunction.Strategy.LEFT_PAD);
@@ -85,11 +86,12 @@ public class JEPContextFactoryTest
         checkFunction(table, "matches", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_MATCHES);
         checkFunction(table, "normalizeString", NormalizeString.class);
         checkFunction(table, "proper", UnaryStringFunction.class, UnaryStringFunction.Strategy.PROPER);
-        checkFunction(table, "startsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
         checkFunction(table, "replace", Replace.class, Replace.Strategy.NORMAL);
         checkFunction(table, "replaceRegex", Replace.class, Replace.Strategy.REGEX);
         checkFunction(table, "rightPad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
         checkFunction(table, "rpad", StringPaddingFunction.class, StringPaddingFunction.Strategy.RIGHT_PAD);
+        checkFunction(table, "split", BinaryStringFunction.class, BinaryStringFunction.Strategy.SPLIT);
+        checkFunction(table, "startsWith", BinaryBooleanFunction.class, BinaryBooleanFunction.Strategy.STRING_STARTS_WITH);
         checkFunction(table, "trim", UnaryStringFunction.class, UnaryStringFunction.Strategy.TRIM);
         checkFunction(table, "ucase", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
         checkFunction(table, "upper", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);

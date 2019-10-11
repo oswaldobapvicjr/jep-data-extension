@@ -12,6 +12,16 @@
 
 ## String functions
 
+### Camel
+
+Converts a string to camel case.
+
+```java
+camel("This is-a_STRING") //result: "thisIsAString"
+```
+
+> **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
+
 ### Concatenation
 
 Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
@@ -126,6 +136,15 @@ rightPad("abc", 5, ".") //result: "abc.."
 
 > **Note:** Also achievable using the alias: `rpad`
 
+
+### Split
+
+Splits a string into a string array based on a separating string or regular expression.
+
+```java
+split("do-re-mi", "-")            //result: ["do", "re", "mi"]
+split("192.168.0.1/24", "[.\\/]") //result: ["192", "168", "0", "1", "24"]
+```
 
 ### Starts with
 

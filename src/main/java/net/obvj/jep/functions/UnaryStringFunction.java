@@ -1,9 +1,9 @@
 package net.obvj.jep.functions;
 
 import java.util.Stack;
-
 import java.util.function.UnaryOperator;
 
+import org.apache.commons.text.CaseUtils;
 import org.apache.commons.text.WordUtils;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
@@ -15,8 +15,16 @@ import org.nfunk.jep.function.PostfixMathCommand;
  */
 public class UnaryStringFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
+    protected static final char[] SEPARATORS = { ' ', '_', '-' };
+
     public enum Strategy implements UnaryOperator<String>
     {
+        /**
+         * Returns a string in camel case
+         */
+        @Function("camel")
+        CAMEL(param -> CaseUtils.toCamelCase(param, false, SEPARATORS)),
+
         /**
          * Converts a string to all lower-case letters
          */

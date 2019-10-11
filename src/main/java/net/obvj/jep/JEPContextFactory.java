@@ -83,10 +83,11 @@ public class JEPContextFactory
     public static void addCustomFunctions(JEP jep)
     {
         // String functions
+        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.CAMEL));
         addAnnotatedFunction(jep, new Concat());
         addAnnotatedFunction(jep, new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH));
-        addAnnotatedFunction(jep, new FindMatches(FindMatches.Strategy.FIRST_MATCH));
-        addAnnotatedFunction(jep, new FindMatches(FindMatches.Strategy.ALL_MATCHES));
+        addAnnotatedFunction(jep, new BinaryStringFunction(BinaryStringFunction.Strategy.FIRST_MATCH));
+        addAnnotatedFunction(jep, new BinaryStringFunction(BinaryStringFunction.Strategy.ALL_MATCHES));
         addAnnotatedFunction(jep, new FormatString());
         addAnnotatedFunction(jep, new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
         addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
@@ -96,6 +97,7 @@ public class JEPContextFactory
         addAnnotatedFunction(jep, new Replace(Replace.Strategy.NORMAL));
         addAnnotatedFunction(jep, new Replace(Replace.Strategy.REGEX));
         addAnnotatedFunction(jep, new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
+        addAnnotatedFunction(jep, new BinaryStringFunction(BinaryStringFunction.Strategy.SPLIT));
         addAnnotatedFunction(jep, new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
         addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
         addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
