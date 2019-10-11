@@ -20,8 +20,6 @@ Converts a string to camel case.
 camel("This is-a_STRING") //result: "thisIsAString"
 ```
 
-> **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
-
 ### Concatenation
 
 Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
