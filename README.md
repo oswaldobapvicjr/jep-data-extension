@@ -441,6 +441,17 @@ Returns the value of system property associated with the given key.
 getSystemProperty("os.name")
 ```
 
+### Is Decimal
+
+Returns 1 (true) if the given parameter is a number (or string representing a number) containing decimals.
+
+```java
+isDecimal(10.333) //returns: 1.0
+isDecimal(999.0)  //returns: 0.0
+isDecimal("10.3") //returns: 1.0
+isDecimal("1.0")  //returns: 0.0
+```
+
 ### Is Empty
 
 Returns 1 (true) if the given parameter is either a null object or an empty String, JSON or Collection.
@@ -453,6 +464,16 @@ isEmpty("{}") //returns: 1.0
 isEmpty("[]") //returns: 1.0
 ```
 
+### Is Integer
+
+Returns 1 (true) if the given parameter is a number (or string representing a number) is a whole number (which lacks decimals).
+
+```java
+isInteger(10.0)  //returns: 1.0
+isInteger(9.90)  //returns: 0.0
+isInteger("0.3") //returns: 1.0
+isInteger("1.0") //returns: 0.0
+```
 
 ### Read file
 
@@ -461,7 +482,6 @@ Returns the content of a text file in the file system.
 ```java
 readFile("/tmp/data.json")
 ```
-
 
 ### Type of
 

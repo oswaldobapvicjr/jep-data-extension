@@ -136,7 +136,9 @@ public class JEPContextFactory
         // Utility functions
         addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
         addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
+        addAnnotatedFunction(jep, new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_DECIMAL));
         addAnnotatedFunction(jep, new IsEmpty());
+        addAnnotatedFunction(jep, new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_INTEGER));
         addAnnotatedFunction(jep, new ReadFile());
         addAnnotatedFunction(jep, new TypeOf());
 

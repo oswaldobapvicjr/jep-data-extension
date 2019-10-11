@@ -147,10 +147,11 @@ public class JEPContextFactoryTest
         // ---------------------
 
         checkFunction(table, "getEnv", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_ENV);
-        checkFunction(table, "getSystemProperty", UnarySystemFunction.class,
-                UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY);
+        checkFunction(table, "getSystemProperty", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY);
         checkFunction(table, "get", Element.class);
+        checkFunction(table, "isDecimal", UnaryBooleanFunction.class, UnaryBooleanFunction.Strategy.IS_DECIMAL);
         checkFunction(table, "isEmpty", IsEmpty.class);
+        checkFunction(table, "isInteger", UnaryBooleanFunction.class, UnaryBooleanFunction.Strategy.IS_INTEGER);
         checkFunction(table, "readFile", ReadFile.class);
         checkFunction(table, "typeOf", TypeOf.class);
         checkFunction(table, "class", TypeOf.class);

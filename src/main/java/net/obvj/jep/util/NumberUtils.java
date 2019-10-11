@@ -49,6 +49,24 @@ public class NumberUtils
             return false;
         }
     }
+    
+    /**
+     * Checks if a {@code String} represents a number with decimal.
+     *
+     * @param stringValue the string to be checked
+     * @return true if is decimal otherwise false
+     */
+    public static boolean isDecimal(String stringValue)
+    {
+        try
+        {
+            return isDecimal(Double.valueOf(stringValue));
+        }
+        catch (NumberFormatException exception)
+        {
+            return false;
+        }
+    }
 
     /**
      * Checks if a {@code Number} is an integer
@@ -59,6 +77,17 @@ public class NumberUtils
     public static boolean isInteger(Number numberValue)
     {
         return numberValue != null && numberValue.doubleValue() % 1 == 0;
+    }
+    
+    /**
+     * Checks if a {@code Number} contains a decimal
+     *
+     * @param numberValue the number to be checked
+     * @return true if is decimal otherwise false
+     */
+    public static boolean isDecimal(Number numberValue)
+    {
+        return numberValue != null && numberValue.doubleValue() % 1 != 0;
     }
 
     /**

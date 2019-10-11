@@ -124,6 +124,71 @@ public class NumberUtilsTest
     }
 
     /**
+     * Tests the isDecimal method with an integer parameter
+     */
+    @Test
+    public void testIsDecimalWithValidInteger()
+    {
+        assertFalse(NumberUtils.isDecimal(INT_10));
+    }
+
+    /**
+     * Tests the isDecimal method with a valid string as parameter
+     */
+    @Test
+    public void testIsDecimalWithValidString()
+    {
+        assertTrue(NumberUtils.isDecimal(STRING_10_2));
+    }
+
+    /**
+     * Tests the isDecimal method with an empty string as parameter
+     */
+    @Test
+    public void testIsDecimalWithEmptyString()
+    {
+        assertFalse(NumberUtils.isDecimal(StringUtils.EMPTY));
+    }
+
+    /**
+     * Tests the isDecimal method with a string that is not convertible to decimal as
+     * parameter
+     */
+    @Test
+    public void testIsDecimalWithInvalidString()
+    {
+        assertFalse(NumberUtils.isDecimal(STRING_A));
+    }
+
+    /**
+     * Tests the isDecimal method with a Double object that contains no decimal places
+     */
+    @Test
+    public void testIsDecimalWithADoubleObjectWithoutDecimalPlaces()
+    {
+        assertFalse(NumberUtils.isDecimal(DOUBLE_10));
+    }
+
+    /**
+     * Tests the isDecimal method with a Double object containing decimal places
+     */
+    @Test
+    public void testIsDecimalWithADoubleObjectWithDecimalPlaces()
+    {
+        assertTrue(NumberUtils.isDecimal(DOUBLE_10_2));
+    }
+
+    /**
+     * Tests the isDecimal method with a String object representing a number containing
+     * no decimal places
+     */
+    @Test
+    public void testisDecimalWithAStringRepresentationOfDoubleWithDecimalPlaces()
+    {
+        assertFalse(NumberUtils.isDecimal(STRING_10));
+    }
+
+    /**
      * Tests the parseInt method with an integer parameter
      */
     @Test
