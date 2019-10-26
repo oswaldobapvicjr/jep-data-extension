@@ -3,6 +3,7 @@ package net.obvj.jep.util;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 /**
  * Utility methods for working with encryptions.
@@ -88,6 +89,28 @@ public class EncryptionUtils
     public static String sha256(String content)
     {
         return hashWith("SHA-256", content);
+    }
+
+    /**
+     * Encodes the specified String using the Base64 encoding scheme.
+     * 
+     * @param content the String to be encoded
+     * @return the Base64 encoded string
+     */
+    public static String toBase64(String content)
+    {
+        return Base64.getEncoder().encodeToString(content.getBytes(StandardCharsets.UTF_8));
+    }
+    
+    /**
+     * Decodes a Base64 encoded string.
+     * 
+     * @param a String encoded using the Base64 encoding scheme
+     * @return the decoded string
+     */
+    public static String fromBase64(String content)
+    {
+        return new String(Base64.getDecoder().decode(content), StandardCharsets.UTF_8);
     }
 
 }

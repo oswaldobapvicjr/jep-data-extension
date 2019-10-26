@@ -1,6 +1,7 @@
 package net.obvj.jep.util;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
@@ -29,9 +30,7 @@ public class EncryptionUtilsTest
     @Test
     public void testMd5()
     {
-        String message = "asd";
-        String md5 = EncryptionUtils.md5(message);
-        assertEquals("7815696ecbf1c96e6894b779456d330e", md5);
+        assertThat(EncryptionUtils.md5("asd"), is("7815696ecbf1c96e6894b779456d330e"));
     }
 
     /**
@@ -40,9 +39,7 @@ public class EncryptionUtilsTest
     @Test
     public void testSha1()
     {
-        String message = "dsasd";
-        String sha1 = EncryptionUtils.sha1(message);
-        assertEquals("2fa183839c954e6366c206367c9be5864e4f4a65", sha1);
+        assertThat(EncryptionUtils.sha1("dsasd"), is("2fa183839c954e6366c206367c9be5864e4f4a65"));
     }
 
     /**
@@ -51,9 +48,8 @@ public class EncryptionUtilsTest
     @Test
     public void testSha256()
     {
-        String message = "hello";
-        String sha256 = EncryptionUtils.sha256(message);
-        assertEquals("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824", sha256);
+        assertThat(EncryptionUtils.sha256("hello"),
+                is("2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"));
     }
 
     /**
@@ -62,7 +58,24 @@ public class EncryptionUtilsTest
     @Test(expected = IllegalArgumentException.class)
     public void testHashWithUnknown()
     {
-        String message = "asd";
-        EncryptionUtils.hashWith("unknown", message);
+        EncryptionUtils.hashWith("unknown", "message");
+    }
+
+    /**
+     * Tests toBase64 with a valid string
+     */
+    @Test
+    public void testToBase64()
+    {
+        assertThat(EncryptionUtils.toBase64("myMessage"), is("bXlNZXNzYWdl"));
+    }
+
+    /**
+     * Tests fromBase64 with a valid Base64 encoded string
+     */
+    @Test
+    public void testFromBase64()
+    {
+        assertThat(EncryptionUtils.fromBase64("bXlNZXNzYWdl"), is("myMessage"));
     }
 }

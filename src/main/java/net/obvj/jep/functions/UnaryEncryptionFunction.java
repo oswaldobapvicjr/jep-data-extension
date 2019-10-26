@@ -20,7 +20,7 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
         MD5
         {
             @Override
-            String encrypt(String content)
+            String execute(String content)
             {
                 return EncryptionUtils.md5(content);
             }
@@ -30,7 +30,7 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
         SHA1
         {
             @Override
-            String encrypt(String content)
+            String execute(String content)
             {
                 return EncryptionUtils.sha1(content);
             }
@@ -40,13 +40,33 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
         SHA256
         {
             @Override
-            String encrypt(String content)
+            String execute(String content)
             {
                 return EncryptionUtils.sha256(content);
             }
+        },
+
+        @Function("toBase64")
+        TO_BASE64()
+        {
+            @Override
+            String execute(String content)
+            {
+                return EncryptionUtils.toBase64(content);
+            }
+        },
+
+        @Function("fromBase64")
+        FROM_BASE64()
+        {
+            @Override
+            String execute(String content)
+            {
+                return EncryptionUtils.fromBase64(content);
+            }
         };
 
-        abstract String encrypt(String content);
+        abstract String execute(String content);
     }
 
     private final EncryptionAlgorithm encryptionAlgorithm;
@@ -70,7 +90,7 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
         checkStack(stack);
         Object arg1 = stack.pop();
         String sourceString = arg1.toString();
-        String result = encryptionAlgorithm.encrypt(sourceString);
+        String result = encryptionAlgorithm.execute(sourceString);
         stack.push(result);
     }
 

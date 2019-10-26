@@ -163,6 +163,8 @@ public class JEPContextFactoryTest
         checkFunction(table, "md5", UnaryEncryptionFunction.class, EncryptionAlgorithm.MD5);
         checkFunction(table, "sha1", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA1);
         checkFunction(table, "sha256", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA256);
+        checkFunction(table, "toBase64", UnaryEncryptionFunction.class, EncryptionAlgorithm.TO_BASE64);
+        checkFunction(table, "fromBase64", UnaryEncryptionFunction.class, EncryptionAlgorithm.FROM_BASE64);
 
         // ---------------------
         // Web Services

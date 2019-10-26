@@ -521,6 +521,23 @@ Computes the SHA-256 hash of the given string and transforms the binary result i
 sha256("hello") //result: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
 ```
 
+### To Base64
+
+Encodes the specified string using the Base64 encoding scheme.
+
+```java
+toBase64("myMessage") //result: "bXlNZXNzYWdl"
+```
+
+### From Base64
+
+Decodes a Base64 encoded string.
+
+```java
+toBase64("bXlNZXNzYWdl") //result: "myMessage"
+```
+
+
 ---
 
 ## Web Services
