@@ -152,6 +152,7 @@ public class JEPContextFactory
         // Web Services functions
         addAnnotatedFunction(jep, new HttpGet());
         addAnnotatedFunction(jep, new Http());
+        addAnnotatedFunction(jep, new HttpHeader());
         addAnnotatedFunction(jep, new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
         addAnnotatedFunction(jep, new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
 

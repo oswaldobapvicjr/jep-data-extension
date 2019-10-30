@@ -172,6 +172,7 @@ public class JEPContextFactoryTest
 
         checkFunction(table, "httpGet", HttpGet.class);
         checkFunction(table, "http", Http.class);
+        checkFunction(table, "httpHeader", HttpHeader.class);
         checkFunction(table, "httpStatusCode", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_STATUS_CODE);
         checkFunction(table, "httpResponse", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_RESPONSE);
 

@@ -1,10 +1,11 @@
 package net.obvj.jep.util;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 
@@ -15,6 +16,9 @@ import org.codehaus.jettison.json.JSONException;
  */
 public class CollectionsUtils
 {
+    private static final String ENTRY_SEPARATORS_REGEX = "=|:";
+    private static final String ERROR_UNABLE_TO_PARSE_ENTRY = "Unable to parse entry: %s";
+
     private CollectionsUtils()
     {
         throw new IllegalStateException("Utility class");
@@ -74,6 +78,43 @@ public class CollectionsUtils
         }
 
         return Collections.singletonList(object);
+    }
+
+    /**
+     * Accepts one or more entries as strings in the format recognized by
+     * {@link CollectionsUtils#parseMapEntry(String)} and populates a {@link Map} of Strings
+     * with these associations.
+     * 
+     * @param entries one or more strings containing, each one, a map entry parseable by
+     *                {@link CollectionsUtils#parseMapEntry(String)}
+     * @return a {@link Map} containing associations for the given entries
+     */
+    public static Map<String, String> asMap(String... entries)
+    {
+        return Arrays.stream(entries).map(CollectionsUtils::parseMapEntry)
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+    }
+
+    /**
+     * Parses a string into a {@link Map.Entry}.
+     * 
+     * @param entry a string containing a key, a separator, and a value. A separator can be
+     *              either an equal sign ({@code =}) or colon ({@code :}). For example:
+     *              {@code "key1=value1"} or {@code "key2:value2"}
+     * @return a {@link Map.Entry} of Strings for the given entry string
+     */
+    public static Map.Entry<String, String> parseMapEntry(String entry)
+    {
+        if (StringUtils.isEmpty(entry))
+        {
+            throw new IllegalArgumentException(String.format(ERROR_UNABLE_TO_PARSE_ENTRY, "<EMPTY>"));
+        }
+        String[] strings = entry.split(ENTRY_SEPARATORS_REGEX, 2);
+        if (strings.length < 2)
+        {
+            throw new IllegalArgumentException(String.format(ERROR_UNABLE_TO_PARSE_ENTRY, entry));
+        }
+        return new SimpleEntry<>(strings[0].trim(), strings[1].trim());
     }
 
     /**
