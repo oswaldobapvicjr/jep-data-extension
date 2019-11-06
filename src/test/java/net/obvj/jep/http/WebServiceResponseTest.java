@@ -79,4 +79,16 @@ public class WebServiceResponseTest
                 WebServiceResponse.fromClientResponse(clientResponse).isSuccessful());
     }
 
+    /**
+     * Tests the toString method contains expected data
+     */
+    @Test
+    public void testToStringWithStatusCodeOK()
+    {
+        mockClientResponseStatusCode(Status.OK);
+        String string = WebServiceResponse.fromClientResponse(clientResponse).toString();
+        assertTrue("Status code (200) not found", string.contains(String.valueOf(Status.OK.getStatusCode())));
+        assertTrue("Reason phrase (OK) but not found", string.contains(Status.OK.getReasonPhrase()));
+    }
+
 }

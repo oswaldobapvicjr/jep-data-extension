@@ -550,19 +550,18 @@ Returns data from a Web Service or RESTful API, as string.
 httpGet("http://sampleservice.com/jep/v1/wheather")
 ```
 
-> **Note:** This is similar to invoking `httpResponse(http("GET", "http://sampleservice.com/data/v1/wheather", null))` 
+> **Note:** This is similar to invoking `httpResponse(http("GET", "http://sampleservice.com/data/v1/wheather"))` 
 
 
-### HTTP Get with custom media type
+### HTTP Get with custom headers
 
-Returns data from a Web Service or RESTful API  in the given media type, if supported by the Web server, as string.
+Returns data from a Web Service or RESTful API, as string, with custom HTTP headers in the request.
 
 ```java
-httpGet("http://sampleservice.com/jep/v1/wheather", "application/xml")
+httpGet("http://sampleservice.com/jep/v1/wheather", httpHeader("Accept=text/xml"))
 ```
 
-> **Note:** If no media type is specified, "application/json" will be considered by default.
-
+> **Note:** Refer to the `httpHeaders` function for additional details.
 
 
 ### Invoke HTTP method
@@ -573,15 +572,27 @@ Invokes the requested method towards a Web Service or RESTful API, with a given 
 http("POST", "http://sampleservice.com/jep/v1/customer", requestBody)
 ```
 
-> **Note:** A `WebServiceResponse` is an object that contains the HTTP status code and the response body/payload. These values can be obtained by the function `httpStatusCode()` and `httpResponse()`, respectively.
+> **Note:** A `WebServiceResponse` is an object that contains the HTTP status code and the response body/payload. These values can be retrieved by the functions `httpStatusCode()` and `httpResponse()`, respectively.
 
 
-### Invoke HTTP method with custom media type
+### Invoke HTTP method with custom headers
 
-Invokes the requested method towards a Web Service or RESTful API, with a given request body and a custom acceptable media type, and returns a `WebServiceResponse`.
+Invokes the requested method towards a Web Service or RESTful API, with a given request body and a custom HTTP headers, and returns a `WebServiceResponse`.
 
 ```java
-http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, "application/xml")
+http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, httpHeader("Media-Type=text/xml"))
+```
+
+> **Note:** Refer to the `httpHeaders` function for additional details.
+
+
+### HTTP header(s)
+
+This function groups together a variable number of string arguments containing HTTP header entries for usage with the `http()` and `httpGet()` functions. Each entry is a string containing a key, a separator, and a value. A separator can be either an equal sign (`=`) or a colon (`:`). For example, an entry can be defined as `"Accept=text/xml"` or `"Accept:text/xml"`.
+
+```java
+httpHeader("Accept=text/xml")
+httpHeaders("Accept=text/xml", "Authentication=Basic dXNlcjpwYXNz")
 ```
 
 

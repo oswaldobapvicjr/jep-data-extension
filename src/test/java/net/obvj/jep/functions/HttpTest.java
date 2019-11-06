@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Stack;
 
 import org.junit.Test;
@@ -24,6 +25,7 @@ import com.sun.jersey.api.client.WebResource;
 
 import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
+import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * Unit tests for the {@link Http} function
@@ -31,14 +33,15 @@ import net.obvj.jep.http.WebServiceUtils;
  * @author oswaldo.bapvic.jr
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ Client.class, WebServiceUtils.class })
+@PrepareForTest({ Client.class, WebServiceUtils.class, WebResource.Builder.class })
 public class HttpTest
 {
     private static final String EMPLOYEE_URL = "http://dummy.restapiexample.com/api/v1/employee";
     private static final String EMPLOYEE_REQUEST_BODY = "{\"employee_name\":\"John\",\"employee_age\":23}";
     private static final String EMPLOYEE_RESPONSE_BODY = "{\"id\":9}";;
     private static final String POST = "POST";
-    private static final String APPLICATION_JSON = "application/json";
+    private static final String ACCEPT_APPLICATION_JSON = "Accept=application/json";
+    private static final Map<String, String> HEADERS = CollectionsUtils.asMap(ACCEPT_APPLICATION_JSON);
 
     // Test subject
     private static Http function = new Http();
@@ -47,6 +50,8 @@ public class HttpTest
     private ClientResponse clientResponse;
     @Mock
     private WebResource webResource;
+    @Mock
+    private WebResource.Builder requestBuilder;
     @Mock
     private Client client;
 
@@ -72,7 +77,9 @@ public class HttpTest
         Mockito.when(client.resource(EMPLOYEE_URL)).thenReturn(webResource);
 
         // Mock HTTP method invocation
-        when(webResource.method(POST, ClientResponse.class, EMPLOYEE_REQUEST_BODY)).thenReturn(clientResponse);
+        requestBuilder = PowerMockito.mock(WebResource.Builder.class);
+        when(webResource.getRequestBuilder()).thenReturn(requestBuilder);
+        when(requestBuilder.method(POST, ClientResponse.class, EMPLOYEE_REQUEST_BODY)).thenReturn(clientResponse);
 
         // Mock ClientResponse
         when(clientResponse.getStatus()).thenReturn(Status.CREATED.getStatusCode());
@@ -89,12 +96,12 @@ public class HttpTest
     }
 
     /**
-     * Checks that the function does not accept less than 3 parameters
+     * Checks that the function does not accept less than 2 parameters
      */
     @Test(expected = ParseException.class)
-    public void testWithTwoParameters() throws org.nfunk.jep.ParseException, IOException
+    public void testWithOneParameter() throws org.nfunk.jep.ParseException, IOException
     {
-        Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL);
+        Stack<Object> parameters = newParametersStack(POST);
         run(parameters);
     }
 
@@ -113,7 +120,7 @@ public class HttpTest
 
         // Verify the correct method was called
         PowerMockito.verifyStatic(WebServiceUtils.class, times(1));
-        WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
+        WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, null);
     }
 
     /**
@@ -126,12 +133,12 @@ public class HttpTest
         PowerMockito.mockStatic(WebServiceUtils.class);
 
         // Test
-        Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON);
+        Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, HEADERS);
         run(parameters);
 
         // Verify the correct method was called
         PowerMockito.verifyStatic(WebServiceUtils.class, times(1));
-        WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON);
+        WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, HEADERS);
     }
 
     /**
@@ -140,7 +147,7 @@ public class HttpTest
     @Test(expected = ParseException.class)
     public void testWithFiveParameters() throws org.nfunk.jep.ParseException, IOException
     {
-        Stack<Object> stack = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, APPLICATION_JSON, "test");
+        Stack<Object> stack = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, null, "test");
         run(stack);
     }
 

@@ -34,7 +34,7 @@ import net.obvj.jep.util.JsonUtils;
  * @author oswaldo.bapvic.jr
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Client.class)
+@PrepareForTest({ Client.class, WebResource.Builder.class})
 public class ExpressionEvaluatorTest
 {
     // Test variable names
@@ -99,7 +99,7 @@ public class ExpressionEvaluatorTest
 
     // Expressions with Web Services
     private static final String EXPRESSION_COUNT_HTTP_GET = "count(httpGet(\"http://localhost/services/employees\"))";
-    private static final String EXPRESSION_GET_HTTP_GET = "get(httpGet(\"http://localhost/services/employees\", \"application/json\"), 1)";
+    private static final String EXPRESSION_GET_HTTP_GET = "get(httpGet(\"http://localhost/services/employees\"), 1)";
     private static final String EXPRESSION_JSONPATH_HTTP_GET = "jsonpath(httpGet(\"http://localhost/services/employee/1\"), \"$.name\")";
     private static final String EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER = "jsonpath(httpGet(formatString(\"http://localhost/services/employee/%s\", myId)), \"$.name\")";
 
@@ -108,6 +108,9 @@ public class ExpressionEvaluatorTest
 
     @Mock
     private WebResource webResource;
+    
+    @Mock
+    private WebResource.Builder requestBuilder;
 
     @Mock
     private Client client;
@@ -125,7 +128,8 @@ public class ExpressionEvaluatorTest
         PowerMockito.when(Client.create()).thenReturn(client);
 
         when(client.resource(url)).thenReturn(webResource);
-        when(webResource.get(ClientResponse.class)).thenReturn(clientResponse);
+        when(webResource.getRequestBuilder()).thenReturn(requestBuilder);
+        when(requestBuilder.get(ClientResponse.class)).thenReturn(clientResponse);
         when(clientResponse.getClientResponseStatus()).thenReturn(Status.OK);
         when(clientResponse.getType()).thenReturn(mediaType);
         when(clientResponse.getEntity(String.class)).thenReturn(expectedResponse);

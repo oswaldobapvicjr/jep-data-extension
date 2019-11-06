@@ -9,11 +9,11 @@ import net.obvj.jep.util.CollectionsUtils;
 
 /**
  * This class implements a JEP function that groups HTTP header values together into a Map
- * os Strings for usage with the {@link Http} function.
+ * os Strings for usage with the {@link Http} and {@link HttpGet} functions.
  *
  * @author oswaldo.bapvic.jr
  */
-@Function("httpHeader")
+@Function({ "httpHeader", "httpHeaders" })
 public class HttpHeader extends PostfixMathCommand
 {
     /**

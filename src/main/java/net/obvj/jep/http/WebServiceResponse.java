@@ -67,4 +67,12 @@ public class WebServiceResponse
         return Family.SUCCESSFUL == Status.fromStatusCode(statusCode).getFamily();
     }
 
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append("WebServiceResponse: ").append(statusCode).append(" (").append(statusDescription).append(")");
+        return sb.toString();
+    }
+
 }

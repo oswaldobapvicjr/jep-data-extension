@@ -3,6 +3,7 @@ package net.obvj.jep.functions;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Stack;
 
 import org.junit.Before;
@@ -29,7 +30,8 @@ public class HttpGetTest
     private static final String URL = "http://sampleservice.com/data/v1/wheather/sp";
     private static final String CONTENT_JSON = "{\"city\":\"SP\";\"temp\":\"30\"}";
     private static final String CONTENT_XML = "<xml><city>SP</city><temp>30</temp></xml>";
-    private static final String APPLICATION_XML = "application/xml";
+    private static final String ACCEPT_APPLICATION_XML = "Accept=application/xml";
+    private static final Map<String, String> HEADERS = CollectionsUtils.asMap(ACCEPT_APPLICATION_XML);
 
     // Test subject
     private static HttpGet function = new HttpGet();
@@ -74,14 +76,14 @@ public class HttpGetTest
 
     /**
      * Checks that the correct method from WebServiceUtils was called. Successful scenario
-     * with two parameters (URL and media type)
+     * with two parameters (URL and header)
      */
     @Test
-    public void testSuccessfulScenarioWithUrlAndMediaTypeParams() throws org.nfunk.jep.ParseException, IOException
+    public void testSuccessfulScenarioWithUrlAndHeaderParams() throws org.nfunk.jep.ParseException, IOException
     {
-        PowerMockito.when(WebServiceUtils.getAsString(URL, APPLICATION_XML)).thenReturn(CONTENT_XML);
+        PowerMockito.when(WebServiceUtils.getAsString(URL, HEADERS)).thenReturn(CONTENT_XML);
 
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, APPLICATION_XML);
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, HEADERS);
         run(parameters);
 
         // Check that the content from mocked is returned
@@ -89,16 +91,16 @@ public class HttpGetTest
 
         // Check that the correct method from the mock was called once
         PowerMockito.verifyStatic(WebServiceUtils.class, BDDMockito.times(1));
-        WebServiceUtils.getAsString(URL, APPLICATION_XML);
+        WebServiceUtils.getAsString(URL, HEADERS);
     }
 
     /**
-     * Checks that the function does not accept more than 2 parameters
+     * Checks that the function does not accept more than 3 parameters
      */
     @Test(expected = ParseException.class)
-    public void testWithThreeParameters() throws org.nfunk.jep.ParseException, IOException
+    public void testWithFourParameters() throws org.nfunk.jep.ParseException, IOException
     {
-        Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, APPLICATION_XML, "test");
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, ACCEPT_APPLICATION_XML, null, "test");
         run(parameters);
     }
 

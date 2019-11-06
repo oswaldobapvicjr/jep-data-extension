@@ -1,5 +1,6 @@
 package net.obvj.jep.functions;
 
+import java.util.Map;
 import java.util.Stack;
 
 import org.nfunk.jep.ParseException;
@@ -10,7 +11,7 @@ import net.obvj.jep.http.WebServiceUtils;
 
 /**
  * A function that invokes a method from a Web Server, given a method, a URL, a request
- * body, and an optional media type, and returns a client response object.
+ * body, and an optional headers, and returns a client response object.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -33,18 +34,20 @@ public class Http extends PostfixMathCommand
     public void run(Stack stack) throws ParseException
     {
         checkStack(stack);
-        if (curNumberOfParameters < 3 || curNumberOfParameters > 4)
+        if (curNumberOfParameters < 2 || curNumberOfParameters > 4)
         {
-            throw new ParseException("This funcion accepts three or four arguments");
+            throw new ParseException("Invalid number of arguments. Usages: \n"
+                    + " http(method, url)\n"
+                    + " http(method, url, requestBody)\n"
+                    + " http(method, url, requestBody, headers)");
         }
 
-        String mediaType = curNumberOfParameters == 4 ? stack.pop().toString() : null;
-        Object requestBody = stack.pop();
+        Map<String, String> headers = stack.size() == 4 ? (Map) stack.pop() : null;
+        Object requestBody = stack.size() == 3 ? stack.pop() : null;
         String url = stack.pop().toString();
         String method = stack.pop().toString();
 
-        WebServiceResponse response = mediaType == null ? WebServiceUtils.invoke(method, url, requestBody)
-                : WebServiceUtils.invoke(method, url, requestBody, mediaType);
+        WebServiceResponse response = WebServiceUtils.invoke(method, url, requestBody, headers);
         stack.push(response);
     }
 

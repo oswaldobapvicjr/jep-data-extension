@@ -1,5 +1,6 @@
 package net.obvj.jep.functions;
 
+import java.util.Map;
 import java.util.Stack;
 
 import org.nfunk.jep.ParseException;
@@ -34,14 +35,16 @@ public class HttpGet extends PostfixMathCommand
         checkStack(stack);
         if (curNumberOfParameters > 2)
         {
-            throw new ParseException("This funcion accepts only one or two arguments");
+            throw new ParseException("Invalid number of arguments. Usages: \n"
+                    + " httpGet(url)\n"
+                    + " httpGet(url, headers)");
         }
 
-        String mediaType = curNumberOfParameters == 2 ? stack.pop().toString() : null;
+        Map<String, String> headers = stack.size() == 2 ? (Map) stack.pop() : null;
         String url = stack.pop().toString();
 
-        String response = mediaType == null ? WebServiceUtils.getAsString(url)
-                : WebServiceUtils.getAsString(url, mediaType);
+        String response = headers == null ? WebServiceUtils.getAsString(url)
+                : WebServiceUtils.getAsString(url, headers);
         stack.push(response);
     }
 

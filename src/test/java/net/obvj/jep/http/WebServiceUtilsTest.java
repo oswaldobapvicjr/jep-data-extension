@@ -1,7 +1,11 @@
 package net.obvj.jep.http;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
@@ -17,7 +21,9 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.ClientResponse.Status;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 
+import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.UtilitiesCommons;
 
 /**
@@ -26,7 +32,7 @@ import net.obvj.jep.util.UtilitiesCommons;
  * @author oswaldo.bapvic.jr
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Client.class)
+@PrepareForTest({ Client.class, Builder.class })
 public class WebServiceUtilsTest
 {
     // Test data
@@ -41,7 +47,11 @@ public class WebServiceUtilsTest
     private WebResource webResource;
 
     @Mock
+    private Builder requestBuilder;
+
+    @Mock
     private Client client;
+
 
     /**
      * Utility method to mock the Client response with a given HTTP status
@@ -71,14 +81,14 @@ public class WebServiceUtilsTest
      *
      * @param url              the URL to be passed to the mock
      * @param status           the HTTP status to be set
-     * @param mediaType        the media type to be set
      * @param expectedResponse the content to be set
      */
     private void mockGetAsStringResponse(String url, Status status, MediaType mediaType, String expectedResponse)
     {
         mockClientResponse(status, expectedResponse);
         mockClient(url);
-        when(webResource.get(ClientResponse.class)).thenReturn(clientResponse);
+        when(webResource.getRequestBuilder()).thenReturn(requestBuilder);
+        when(requestBuilder.get(ClientResponse.class)).thenReturn(clientResponse);
         when(clientResponse.getType()).thenReturn(mediaType);
     }
 
@@ -96,7 +106,8 @@ public class WebServiceUtilsTest
     {
         mockClientResponse(status, expectedResponse);
         mockClient(url);
-        when(webResource.method(method, ClientResponse.class, requestEntity)).thenReturn(clientResponse);
+        when(webResource.getRequestBuilder()).thenReturn(requestBuilder);
+        when(requestBuilder.method(method, ClientResponse.class, requestEntity)).thenReturn(clientResponse);
         when(clientResponse.getType()).thenReturn(mediaType);
     }
 
@@ -161,6 +172,20 @@ public class WebServiceUtilsTest
     }
 
     /**
+     * Tests the get method
+     */
+    @Test
+    public void testGetWithSuccess()
+    {
+        mockGetAsStringResponse(URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, MOCKED_JSON_AS_STRING);
+        WebServiceResponse response = WebServiceUtils.get(URL);
+        assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
+        assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
+        verify(requestBuilder, never()).header("Authorization", "Basic dXNlcjpwYXNz");
+        verify(requestBuilder, never()).header("Content-Type", "application/json");
+    }
+
+    /**
      * Tests the invoke method, with GET and a successful HTTP response
      */
     @Test
@@ -170,6 +195,20 @@ public class WebServiceUtilsTest
         WebServiceResponse response = WebServiceUtils.invoke(GET, URL, null);
         assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
         assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
+    }
+
+    /**
+     * Tests the invoke method, with custom headers
+     */
+    @Test
+    public void testInvokeGetWithCustomHeadersSuccess()
+    {
+        mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null, MOCKED_JSON_AS_STRING);
+        Map<String, String> headers = CollectionsUtils.asMap("Authorization=Basic dXNlcjpwYXNz",
+                "Content-Type=application/json");
+        WebServiceUtils.invoke(GET, URL, null, headers);
+        verify(requestBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
+        verify(requestBuilder).header("Content-Type", "application/json");
     }
 
 }
