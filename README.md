@@ -596,6 +596,15 @@ httpHeaders("Accept=text/xml", "Authentication=Basic dXNlcjpwYXNz")
 ```
 
 
+### Basic authorization header
+
+Generates a basic authorization header from a given username and password. 
+
+```java
+basicAuthorizationHeader("Aladdin", "OpenSesame") //result: "Basic QWxhZGRpbjpPcGVuU2VzYW1l"
+```
+
+
 ### HTTP status code getter
 
 Returns the HTTP status code, given a `WebServiceResponse` object, returned by the `http()` function.

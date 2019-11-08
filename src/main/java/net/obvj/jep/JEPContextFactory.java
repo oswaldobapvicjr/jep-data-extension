@@ -150,6 +150,7 @@ public class JEPContextFactory
         addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.FROM_BASE64));
 
         // Web Services functions
+        addAnnotatedFunction(jep, new BasicAuthorizationHeader());
         addAnnotatedFunction(jep, new HttpGet());
         addAnnotatedFunction(jep, new Http());
         addAnnotatedFunction(jep, new HttpHeader());

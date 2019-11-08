@@ -210,5 +210,17 @@ public class WebServiceUtilsTest
         verify(requestBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
         verify(requestBuilder).header("Content-Type", "application/json");
     }
+    
+    @Test
+    public void testGenerateBasicAuthorizationHeaderWithValidCredentials()
+    {
+        assertEquals("Basic QWxhZGRpbjpPcGVuU2VzYW1l", WebServiceUtils.generateBasicAuthorizationHeader("Aladdin", "OpenSesame"));
+    }
+    
+    @Test (expected = IllegalArgumentException.class)
+    public void testGenerateBasicAuthorizationHeaderWithBadUsername()
+    {
+        WebServiceUtils.generateBasicAuthorizationHeader("Ala:ddin", "OpenSesame");
+    }
 
 }

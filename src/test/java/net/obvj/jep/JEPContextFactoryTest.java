@@ -170,6 +170,7 @@ public class JEPContextFactoryTest
         // Web Services
         // ---------------------
 
+        checkFunction(table, "basicAuthorizationHeader", BasicAuthorizationHeader.class);
         checkFunction(table, "httpGet", HttpGet.class);
         checkFunction(table, "http", Http.class);
         checkFunction(table, "httpHeader", HttpHeader.class);

@@ -11,6 +11,8 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
+import net.obvj.jep.util.EncryptionUtils;
+
 /**
  * This class contains methods for working with simple Web Services.
  *
@@ -27,6 +29,8 @@ public class WebServiceUtils
     // ---------------------------------------------------
 
     private static Logger log = Logger.getLogger("jep-data-extension");
+
+    private static final String BASIC_AUTHORIZATION_HEADER_PATTERN = "Basic %s";
 
     private WebServiceUtils()
     {
@@ -178,6 +182,32 @@ public class WebServiceUtils
     public static int getStatusCode(WebServiceResponse webServiceResponse)
     {
         return webServiceResponse.getStatusCode();
+    }
+
+    /**
+     * Generates a basic authorization header from the given credentials.
+     * 
+     * @param username the username to be encoded
+     * @param password the password to be encoded
+     * @return a String containing the generated the basic authorization header value
+     */
+    public static final String generateBasicAuthorizationHeader(String username, String password)
+    {
+        if (StringUtils.isEmpty(username))
+        {
+            throw new IllegalArgumentException("Username cannot be empty");
+        }
+        if (StringUtils.isEmpty(password))
+        {
+            throw new IllegalArgumentException("Password cannot be empty");
+        }
+        if (username.contains(":"))
+        {
+            throw new IllegalArgumentException("Username contains an invalid character (':')");
+        }
+
+        String encoding = EncryptionUtils.toBase64(username + ":" + password);
+        return String.format(BASIC_AUTHORIZATION_HEADER_PATTERN, encoding);
     }
 
 }
