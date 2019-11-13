@@ -43,14 +43,14 @@ public class Max extends StatisticsCommandBase implements PostfixMathCommandI
     /**
      * Returns the maximum element inside the given Iterable
      *
-     * @param pCollection the Iterable whose maximum element is to be evaluated
+     * @param iterable the {@link Iterable} whose maximum element is to be evaluated
      * @return The maximum element inside the given Iterable.
      */
-    private Object max(Iterable<?> pIterable)
+    private Object max(Iterable<?> iterable)
     {
-        if (DateUtils.containsParsableDates(pIterable))
+        if (DateUtils.containsParsableDates(iterable))
         {
-            Map<Object, Object> parsedDateMap = createMapOfParsedObjects(pIterable);
+            Map<Object, Object> parsedDateMap = createMapOfParsedObjects(iterable);
 
             Optional<Date> value = parsedDateMap.keySet().stream().map(DateUtils::parseDate).max(Date::compareTo);
             if (value.isPresent())
@@ -58,9 +58,9 @@ public class Max extends StatisticsCommandBase implements PostfixMathCommandI
                 return parsedDateMap.get(value.get());
             }
         }
-        else if (NumberUtils.containsParsableNumbers(pIterable))
+        if (NumberUtils.containsParsableNumbers(iterable))
         {
-            Map<Object, Object> parsedNumberMap = createMapOfParsedObjects(pIterable);
+            Map<Object, Object> parsedNumberMap = createMapOfParsedObjects(iterable);
 
             Optional<Double> value = parsedNumberMap.keySet().stream().map(NumberUtils::parseDouble)
                     .max(Double::compareTo);
@@ -71,18 +71,18 @@ public class Max extends StatisticsCommandBase implements PostfixMathCommandI
         }
 
         throw new IllegalArgumentException(
-                "Unable to compare maximum value for the arguments: " + pIterable.toString());
+                "Unable to compare maximum value for the arguments: " + iterable.toString());
     }
 
     /**
      * Returns the maximum element inside the given JSON Array
      *
-     * @param pJsonArray the JSON array whose maximum element is to be evaluated
+     * @param jsonArray the JSON array whose maximum element is to be evaluated
      * @return The maximum element inside the given JSON Array.
      */
-    private Object max(JSONArray pJsonArray)
+    private Object max(JSONArray jsonArray)
     {
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(pJsonArray);
+        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
         return max(convertedList);
     }
 

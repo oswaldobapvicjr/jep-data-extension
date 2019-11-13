@@ -43,7 +43,7 @@ public class Min extends StatisticsCommandBase implements PostfixMathCommandI
     /**
      * Returns the minimum element inside the given Iterable
      *
-     * @param pCollection the Iterable whose minimum element is to be evaluated
+     * @param iterable the Iterable whose minimum element is to be evaluated
      * @return The minimum element inside the given Iterable.
      */
     private Object min(Iterable<?> iterable)
@@ -58,7 +58,7 @@ public class Min extends StatisticsCommandBase implements PostfixMathCommandI
                 return parsedDateMap.get(value.get());
             }
         }
-        else if (NumberUtils.containsParsableNumbers(iterable))
+        if (NumberUtils.containsParsableNumbers(iterable))
         {
             Map<Object, Object> parsedNumberMap = createMapOfParsedObjects(iterable);
 
