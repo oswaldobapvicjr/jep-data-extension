@@ -11,6 +11,7 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import com.jayway.jsonpath.InvalidPathException;
 
@@ -191,7 +192,8 @@ public class JsonUtilsTest
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(JSONObject.NULL);
         List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
-        assertEquals(Collections.EMPTY_LIST, convertedList);
+        assertEquals(1, convertedList.size());
+        assertEquals(null, convertedList.get(0));
     }
 
     /**
@@ -207,6 +209,20 @@ public class JsonUtilsTest
         assertEquals(Collections.EMPTY_LIST, convertedList);
     }
 
+    /**
+     * Tests the conversion of a JSONArray to list with an exception
+     *
+     * @throws JSONException in case of exceptions handling the JSONArray object
+     */
+    @Test (expected = IllegalArgumentException.class)
+    public void testConvertJSONArrayToListWithException() throws JSONException
+    {
+        JSONArray jsonArray = Mockito.mock(JSONArray.class);
+        Mockito.when(jsonArray.length()).thenReturn(1);
+        Mockito.when(jsonArray.get(0)).thenThrow(new JSONException("message1"));
+        JsonUtils.convertJSONArrayToList(jsonArray);
+    }
+    
     /**
      * Tests the conversion of a null parameter
      *

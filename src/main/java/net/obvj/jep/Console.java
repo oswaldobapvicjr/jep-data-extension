@@ -1,5 +1,7 @@
 package net.obvj.jep;
 
+import org.nfunk.jep.JEP;
+
 /**
  * This class implements a simple command line utility for evaluating JEP expressions.
  * 
@@ -36,6 +38,14 @@ public class Console extends org.lsmp.djepExamples.Console
                                      + "\noswaldo.bapvic.jr - 2019";
     }
 
+    /**
+     * @return The JEP context for this console
+     */
+    protected JEP getJep()
+    {
+        return super.j;
+    }
+    
     public static void main(String args[])
     {
         new Console().run(args);

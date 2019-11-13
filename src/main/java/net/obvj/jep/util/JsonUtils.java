@@ -183,24 +183,27 @@ public class JsonUtils
     {
         try
         {
-            if (jsonArray == null || jsonArray.length() == 0)
+            if (isEmpty(jsonArray))
             {
                 return Collections.emptyList();
             }
-            List<Object> sourceListConverted = new ArrayList<>(jsonArray.length());
+            List<Object> list = new ArrayList<>(jsonArray.length());
             for (int i = 0, length = jsonArray.length(); i < length; i++)
             {
                 if (isEmpty(jsonArray.get(i)))
                 {
-                    return Collections.emptyList();
+                    list.add(null);
                 }
-                sourceListConverted.add(jsonArray.get(i));
+                else
+                {
+                    list.add(jsonArray.get(i));
+                }
             }
-            return sourceListConverted;
+            return list;
         }
         catch (JSONException exception)
         {
-            throw new IllegalArgumentException("Invalid JSONArray", exception);
+            throw new IllegalArgumentException(exception);
         }
     }
 }
