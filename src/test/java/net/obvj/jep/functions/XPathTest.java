@@ -13,6 +13,11 @@ import org.nfunk.jep.ParseException;
 import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.FileUtils;
 
+/**
+ * Unit tests for the {@link XPath} function
+ *
+ * @author oswaldo.bapvic.jr
+ */
 public class XPathTest
 {
     private static final String STR_XML_BOOKS = FileUtils.readQuietlyFromClasspath("books.xml");
@@ -52,6 +57,13 @@ public class XPathTest
     public void testWithInvalidXPath() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_XML_BOOKS, XPATH_ALL_BOOK_TITLES_NOT_COMPILABLE);
+        function.run(parameters);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithEmptyXPath() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_XML_BOOKS, STR_EMPTY);
         function.run(parameters);
     }
 
