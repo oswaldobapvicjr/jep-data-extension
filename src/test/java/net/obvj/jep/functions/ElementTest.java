@@ -2,10 +2,7 @@ package net.obvj.jep.functions;
 
 import static org.junit.Assert.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
+import java.util.*;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.junit.Test;
@@ -133,7 +130,18 @@ public class ElementTest
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, new Integer[] { 1, 2 });
         function.run(parameters);
-        assertNull(parameters.pop());
+    }
+    
+    /**
+     * Tests that an exception is thrown if no index is passed
+     *
+     * @throws ParseException
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNoIndexParameterThrowsException() throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, null);
+        function.run(parameters);
     }
 
 }
