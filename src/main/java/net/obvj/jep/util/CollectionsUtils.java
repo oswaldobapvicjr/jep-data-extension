@@ -25,6 +25,15 @@ public class CollectionsUtils
     }
 
     /**
+     * @param collections the collection to be evaluated
+     * @return {@code true} if the given collection is either null or empty; otherwise, false.
+     */
+    public static boolean isEmpty(Collection<?> collection)
+    {
+        return collection == null || collection.isEmpty();
+    }
+
+    /**
      * Converts the given object into a {@code List}.
      * <p>
      * If the source {@code object} is either an array of Objects (primitive types not
@@ -115,6 +124,116 @@ public class CollectionsUtils
             throw new IllegalArgumentException(String.format(ERROR_UNABLE_TO_PARSE_ENTRY, entry));
         }
         return new SimpleEntry<>(strings[0].trim(), strings[1].trim());
+    }
+
+    /**
+     * Converts the given {@link Iterable} into a {@link Map} where each key is an element of
+     * the given {@link Iterable}, parsed either as {@link Double} or {@link Date}, and the
+     * associated value is the original element without conversion.
+     *
+     * @param iterable the {@link Iterable} to be converted
+     * @return A map contains the parsed objects as keys and the original elements as values
+     */
+    public static Map<Object, Object> createMapOfParsedObjects(Iterable<?> iterable)
+    {
+        Map<Object, Object> parsedObjectsMap = new HashMap<>();
+        Iterator<?> iterator = iterable.iterator();
+        while (iterator.hasNext())
+        {
+            Object element = iterator.next();
+            if (DateUtils.isParsable(element))
+            {
+                parsedObjectsMap.put(DateUtils.parseDate(element), element);
+            }
+            else if (NumberUtils.isNumber(element))
+            {
+                parsedObjectsMap.put(Double.valueOf(NumberUtils.parseDouble(element)), element);
+            }
+        }
+        return parsedObjectsMap;
+    }
+
+    /**
+     * Returns the maximum element inside the given Iterable
+     *
+     * @param iterable the {@link Iterable} whose maximum element is to be evaluated
+     * @return The maximum element inside the given Iterable.
+     */
+    public static Object max(Iterable<?> iterable)
+    {
+        if (DateUtils.containsParsableDates(iterable))
+        {
+            Map<Object, Object> parsedDateMap = CollectionsUtils.createMapOfParsedObjects(iterable);
+
+            Optional<Date> maxDate = parsedDateMap.keySet().stream().map(DateUtils::parseDate).max(Date::compareTo);
+            if (maxDate.isPresent())
+            {
+                return parsedDateMap.get(maxDate.get());
+            }
+        }
+        if (NumberUtils.containsParsableNumbers(iterable))
+        {
+            Map<Object, Object> parsedNumberMap = CollectionsUtils.createMapOfParsedObjects(iterable);
+
+            Optional<Double> maxNumber = parsedNumberMap.keySet().stream().map(NumberUtils::parseDouble)
+                    .max(Double::compareTo);
+            if (maxNumber.isPresent())
+            {
+                return parsedNumberMap.get(maxNumber.get());
+            }
+        }
+
+        throw new IllegalArgumentException(
+                "Unable to determine the maximum value for the arguments: " + iterable.toString());
+    }
+
+    /**
+     * Returns the minimum element inside the given Iterable
+     *
+     * @param iterable the Iterable whose minimum element is to be evaluated
+     * @return The minimum element inside the given Iterable.
+     */
+    public static Object min(Iterable<?> iterable)
+    {
+        if (DateUtils.containsParsableDates(iterable))
+        {
+            Map<Object, Object> parsedDateMap = CollectionsUtils.createMapOfParsedObjects(iterable);
+
+            Optional<Date> value = parsedDateMap.keySet().stream().map(DateUtils::parseDate).min(Date::compareTo);
+            if (value.isPresent())
+            {
+                return parsedDateMap.get(value.get());
+            }
+        }
+        if (NumberUtils.containsParsableNumbers(iterable))
+        {
+            Map<Object, Object> parsedNumberMap = CollectionsUtils.createMapOfParsedObjects(iterable);
+
+            Optional<Double> value = parsedNumberMap.keySet().stream().map(NumberUtils::parseDouble)
+                    .min(Double::compareTo);
+            if (value.isPresent())
+            {
+                return parsedNumberMap.get(value.get());
+            }
+        }
+
+        throw new IllegalArgumentException("Unable to compare minimum value for the arguments: " + iterable.toString());
+    }
+
+    /**
+     * Returns a list consisting of the distinct elements (according to Object.equals(Object))
+     * of a given list.
+     * 
+     * @param list the list to be processed
+     * @return a new list containing only distinct elements
+     */
+    public static List<Object> distincList(List<Object> list)
+    {
+        if (isEmpty(list))
+        {
+            return list;
+        }
+        return list.stream().distinct().collect(Collectors.toList());
     }
 
     /**

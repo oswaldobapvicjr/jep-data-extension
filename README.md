@@ -425,6 +425,14 @@ uuid()
 
 ## Utility functions
 
+### Distinct
+
+Returns a list consisting of the distinct elements of a given vector, list, array or JSON array.
+
+```java
+distinct(["say", "what", "you", "need", "to", "say"]) //result: ["say", "what", "you", "need", "to"]
+```
+
 ### Get Environment Variable
 
 Returns the value of an environment variable associated with the given key in the Operating System.

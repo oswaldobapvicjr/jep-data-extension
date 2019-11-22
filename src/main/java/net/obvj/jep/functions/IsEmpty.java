@@ -10,6 +10,7 @@ import org.codehaus.jettison.json.JSONObject;
 import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
+import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.JsonUtils;
 
 /**
@@ -61,7 +62,7 @@ public class IsEmpty extends PostfixMathCommand
         }
         else if (object instanceof Collection)
         {
-            return ((Collection) object).isEmpty();
+            return CollectionsUtils.isEmpty((Collection) object);
         }
         else if (object instanceof JSONObject || object instanceof JSONArray)
         {

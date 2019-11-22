@@ -10,6 +10,11 @@ import java.util.*;
 
 import org.junit.Test;
 
+/**
+ * Unit tests for the {@link DateUtils}.
+ * 
+ * @author oswaldo.bapvic.jr
+ */
 public class DateUtilsTest
 {
     // Test data
@@ -219,7 +224,8 @@ public class DateUtilsTest
     @Test
     public void testFormatDateISO8601FullWithTimeZone() throws ParseException
     {
-        Date date = DateUtils.parseDate(STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date = DateUtils.parseDate(STR_DATE_ISO_8601_2017_03_11_10_15_00_999_MINUS_03_00,
+                STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         String string = DateUtils.formatDate(date, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(STR_DATE_RFC_3339_MILLIS_2017_03_11_13_15_00_999_Z, string);
     }
@@ -283,7 +289,7 @@ public class DateUtilsTest
         assertTrue(DateUtils.containsParsableDates(list));
     }
 
-	/**
+    /**
      * Tests the number of days between two Date objects, being date 1 lower than date 2
      *
      * @throws ParseException if the test date cannot be parsed
@@ -291,11 +297,12 @@ public class DateUtilsTest
     @Test
     public void testNumberOfDaysBetweenTwoDatesBeingDate1LowerThanDate2() throws ParseException
     {
-        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00,
+                STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(365, DateUtils.daysBetween(DATE_2017_03_11_13_15_00_999, date2018_03_11));
     }
 
-	/**
+    /**
      * Tests the number of days between two Date objects, being date 1 greater than date 2
      *
      * @throws ParseException if the test date cannot be parsed
@@ -303,13 +310,14 @@ public class DateUtilsTest
     @Test
     public void testNumberOfDaysBetweenTwoDatesBeingDate1GreaterThanDate2() throws ParseException
     {
-        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00, STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
+        Date date2018_03_11 = DateUtils.parseDate(STR_DATE_ISO_8601_2018_03_11_10_15_00_999_MINUS_03_00,
+                STR_ISO_PATTERN_YYYY_MM_DD_T_HH_MM_SS_SSSXXX);
         assertEquals(365, DateUtils.daysBetween(date2018_03_11, DATE_2017_03_11_13_15_00_999));
     }
 
-	/**
-	 * Tests the number of days between two equal Date objects
-	 */
+    /**
+     * Tests the number of days between two equal Date objects
+     */
     @Test
     public void testNumberOfDaysBetweenTwoEqualDates()
     {

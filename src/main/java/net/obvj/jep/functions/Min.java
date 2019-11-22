@@ -1,16 +1,17 @@
 package net.obvj.jep.functions;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.nfunk.jep.ParseException;
-import org.nfunk.jep.function.PostfixMathCommandI;
+import org.nfunk.jep.function.PostfixMathCommand;
 
-import net.obvj.jep.util.DateUtils;
+import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.JsonUtils;
-import net.obvj.jep.util.NumberUtils;
 
 /**
  * This class implements a function that returns the lowest element in a collection of
@@ -20,7 +21,7 @@ import net.obvj.jep.util.NumberUtils;
  * @author oswaldo.bapvic.jr
  */
 @Function("min")
-public class Min extends StatisticsCommandBase implements PostfixMathCommandI
+public class Min extends PostfixMathCommand
 {
     /**
      * Builds this function with a fixed number of parameters
@@ -38,40 +39,6 @@ public class Min extends StatisticsCommandBase implements PostfixMathCommandI
     {
         checkStack(stack);
         stack.push(min(stack.pop()));
-    }
-
-    /**
-     * Returns the minimum element inside the given Iterable
-     *
-     * @param iterable the Iterable whose minimum element is to be evaluated
-     * @return The minimum element inside the given Iterable.
-     */
-    private Object min(Iterable<?> iterable)
-    {
-        if (DateUtils.containsParsableDates(iterable))
-        {
-            Map<Object, Object> parsedDateMap = createMapOfParsedObjects(iterable);
-
-            Optional<Date> value = parsedDateMap.keySet().stream().map(DateUtils::parseDate).min(Date::compareTo);
-            if (value.isPresent())
-            {
-                return parsedDateMap.get(value.get());
-            }
-        }
-        if (NumberUtils.containsParsableNumbers(iterable))
-        {
-            Map<Object, Object> parsedNumberMap = createMapOfParsedObjects(iterable);
-
-            Optional<Double> value = parsedNumberMap.keySet().stream().map(NumberUtils::parseDouble)
-                    .min(Double::compareTo);
-            if (value.isPresent())
-            {
-                return parsedNumberMap.get(value.get());
-            }
-        }
-
-        throw new IllegalArgumentException(
-                "Unable to compare minimum value for the arguments: " + iterable.toString());
     }
 
     /**
@@ -123,7 +90,7 @@ public class Min extends StatisticsCommandBase implements PostfixMathCommandI
         {
             if (object instanceof Iterable)
             {
-                return min((Iterable<?>) object);
+                return CollectionsUtils.min((Iterable<?>) object);
             }
             else if (object instanceof JSONArray)
             {

@@ -134,6 +134,7 @@ public class JEPContextFactory
         addAnnotatedFunction(jep, new UUID());
 
         // Utility functions
+        addAnnotatedFunction(jep, new Distinct());
         addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
         addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
         addAnnotatedFunction(jep, new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_DECIMAL));

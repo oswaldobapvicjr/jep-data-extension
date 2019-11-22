@@ -1,16 +1,17 @@
 package net.obvj.jep.functions;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.nfunk.jep.ParseException;
-import org.nfunk.jep.function.PostfixMathCommandI;
+import org.nfunk.jep.function.PostfixMathCommand;
 
-import net.obvj.jep.util.DateUtils;
+import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.JsonUtils;
-import net.obvj.jep.util.NumberUtils;
 
 /**
  * This class implements a function that returns the highest element in a collection of
@@ -20,7 +21,7 @@ import net.obvj.jep.util.NumberUtils;
  * @author oswaldo.bapvic.jr
  */
 @Function("max")
-public class Max extends StatisticsCommandBase implements PostfixMathCommandI
+public class Max extends PostfixMathCommand
 {
     /**
      * Builds this function with a fixed number of parameters
@@ -38,40 +39,6 @@ public class Max extends StatisticsCommandBase implements PostfixMathCommandI
     {
         checkStack(pStack);
         pStack.push(max(pStack.pop()));
-    }
-
-    /**
-     * Returns the maximum element inside the given Iterable
-     *
-     * @param iterable the {@link Iterable} whose maximum element is to be evaluated
-     * @return The maximum element inside the given Iterable.
-     */
-    private Object max(Iterable<?> iterable)
-    {
-        if (DateUtils.containsParsableDates(iterable))
-        {
-            Map<Object, Object> parsedDateMap = createMapOfParsedObjects(iterable);
-
-            Optional<Date> value = parsedDateMap.keySet().stream().map(DateUtils::parseDate).max(Date::compareTo);
-            if (value.isPresent())
-            {
-                return parsedDateMap.get(value.get());
-            }
-        }
-        if (NumberUtils.containsParsableNumbers(iterable))
-        {
-            Map<Object, Object> parsedNumberMap = createMapOfParsedObjects(iterable);
-
-            Optional<Double> value = parsedNumberMap.keySet().stream().map(NumberUtils::parseDouble)
-                    .max(Double::compareTo);
-            if (value.isPresent())
-            {
-                return parsedNumberMap.get(value.get());
-            }
-        }
-
-        throw new IllegalArgumentException(
-                "Unable to compare maximum value for the arguments: " + iterable.toString());
     }
 
     /**
@@ -123,7 +90,7 @@ public class Max extends StatisticsCommandBase implements PostfixMathCommandI
         {
             if (object instanceof Iterable)
             {
-                return max((Iterable<?>) object);
+                return CollectionsUtils.max((Iterable<?>) object);
             }
             else if (object instanceof JSONArray)
             {

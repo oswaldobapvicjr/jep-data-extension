@@ -37,7 +37,8 @@ public class DateUtils
             "yyyy-MM-dd'T'K:mm:ss.SSS a, z",
             "yyyy-MM-dd'T'K:mm:ss a, z",
             "yyyy-MM-dd K:mm:ss a, z",
-            "yyyy-MM-dd K:mm:ss.SSS a, z"};
+            "yyyy-MM-dd K:mm:ss.SSS a, z",
+            "yyyy-MM-dd"};
 
     private DateUtils()
     {

@@ -146,6 +146,7 @@ public class JEPContextFactoryTest
         // Utility
         // ---------------------
 
+        checkFunction(table, "distinct", Distinct.class);
         checkFunction(table, "getEnv", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_ENV);
         checkFunction(table, "getSystemProperty", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY);
         checkFunction(table, "get", Element.class);

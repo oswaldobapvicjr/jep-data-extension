@@ -3,6 +3,8 @@ package net.obvj.jep.util;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
@@ -110,5 +112,13 @@ public class CollectionsUtilsTest
     public void asMapWithEmptyStringArray()
     {
         assertThat(CollectionsUtils.asMap(new String[] {}).isEmpty(), is(true));
+    }
+    
+    @Test
+    public void distinctListWithAValidList()
+    {
+        List<Object> sourceList = Arrays.asList(KEY1, KEY2, KEY2, VALUE1, VALUE2, KEY1, 0, 1.1, 0);
+        List<Object> expectedList = Arrays.asList(KEY1, KEY2, VALUE1, VALUE2, 0, 1.1);
+        assertThat(CollectionsUtils.distincList(sourceList), is(expectedList));
     }
 }
