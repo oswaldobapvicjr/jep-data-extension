@@ -25,7 +25,7 @@ public class CollectionsUtils
     }
 
     /**
-     * @param collections the collection to be evaluated
+     * @param collection the collection to be evaluated
      * @return {@code true} if the given collection is either null or empty; otherwise, false.
      */
     public static boolean isEmpty(Collection<?> collection)
@@ -93,7 +93,7 @@ public class CollectionsUtils
      * Accepts one or more entries as strings in the format recognized by
      * {@link CollectionsUtils#parseMapEntry(String)} and populates a {@link Map} of Strings
      * with these associations.
-     * 
+     *
      * @param entries one or more strings containing, each one, a map entry parseable by
      *                {@link CollectionsUtils#parseMapEntry(String)}
      * @return a {@link Map} containing associations for the given entries
@@ -106,7 +106,7 @@ public class CollectionsUtils
 
     /**
      * Parses a string into a {@link Map.Entry}.
-     * 
+     *
      * @param entry a string containing a key, a separator, and a value. A separator can be
      *              either an equal sign ({@code =}) or colon ({@code :}). For example:
      *              {@code "key1=value1"} or {@code "key2:value2"}
@@ -223,7 +223,7 @@ public class CollectionsUtils
     /**
      * Returns a list consisting of the distinct elements (according to Object.equals(Object))
      * of a given list.
-     * 
+     *
      * @param list the list to be processed
      * @return a new list containing only distinct elements
      */

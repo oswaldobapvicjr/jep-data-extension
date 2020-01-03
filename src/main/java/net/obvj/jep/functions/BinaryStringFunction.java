@@ -74,7 +74,9 @@ public class BinaryStringFunction extends PostfixMathCommand implements MultiStr
     private final Strategy strategy;
 
     /**
-     * Builds this function with a fixed number of two parameters
+     * Builds this function with a fixed number of two parameters.
+     *
+     * @param returnStrategy the {@link Strategy} to be set
      */
     public BinaryStringFunction(Strategy returnStrategy)
     {
@@ -108,6 +110,7 @@ public class BinaryStringFunction extends PostfixMathCommand implements MultiStr
     /**
      * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
      */
+    @Override
     public Object getStrategy()
     {
         return strategy;

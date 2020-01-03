@@ -72,7 +72,9 @@ public class BinaryBooleanFunction extends PostfixMathCommand implements MultiSt
     private final Strategy operation;
 
     /**
-     * Builds this custom command with a fixed number of 2 parameters
+     * Builds this custom command with a fixed number of 2 parameters.
+     *
+     * @param operation the {@link Strategy} to be set
      */
     public BinaryBooleanFunction(Strategy operation)
     {

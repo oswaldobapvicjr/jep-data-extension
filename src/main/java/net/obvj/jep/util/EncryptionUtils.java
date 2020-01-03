@@ -93,7 +93,7 @@ public class EncryptionUtils
 
     /**
      * Encodes the specified String using the Base64 encoding scheme.
-     * 
+     *
      * @param content the String to be encoded
      * @return the Base64 encoded string
      */
@@ -101,11 +101,11 @@ public class EncryptionUtils
     {
         return Base64.getEncoder().encodeToString(content.getBytes(StandardCharsets.UTF_8));
     }
-    
+
     /**
      * Decodes a Base64 encoded string.
-     * 
-     * @param a String encoded using the Base64 encoding scheme
+     *
+     * @param content a String encoded using the Base64 encoding scheme
      * @return the decoded string
      */
     public static String fromBase64(String content)

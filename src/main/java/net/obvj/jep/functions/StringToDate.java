@@ -23,13 +23,13 @@ import net.obvj.jep.util.DateUtils;
  * pattern is unknown or heterogeneous, but it comes with a cost)</li>
  * </ul>
  *
- * <li><code>str2date("2015-10-03", "yyyy-MM-dd")</code></li>
+ * <li><code>str2date("2015-10-03", "yyyy-MM-dd")</code>
  * <ul>
  * <li>attempts to parse the given string using the specified parse pattern in the second
  * parameter (fastest approach when possible, but does not support RFC-3339)</li>
  * </ul>
  *
- * <li><code>str2date("2015-10-03", "yyyy-MM-dd'T'HH", "yyyy-MM-dd'T'HH", ...)</code></li>
+ * <li><code>str2date("2015-10-03", "yyyy-MM-dd'T'HH", "yyyy-MM-dd'T'HH", ...)</code>
  * <ul>
  * <li>attempts to parse the given string by evaluating the parse patterns provided in the
  * second and following parameters, until a pattern that fits the date is evaluated</li>

@@ -214,7 +214,7 @@ public class JsonUtilsTest
      *
      * @throws JSONException in case of exceptions handling the JSONArray object
      */
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void testConvertJSONArrayToListWithException() throws JSONException
     {
         JSONArray jsonArray = Mockito.mock(JSONArray.class);
@@ -222,7 +222,7 @@ public class JsonUtilsTest
         Mockito.when(jsonArray.get(0)).thenThrow(new JSONException("message1"));
         JsonUtils.convertJSONArrayToList(jsonArray);
     }
-    
+
     /**
      * Tests the conversion of a null parameter
      *

@@ -73,7 +73,9 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
 
     /**
      * Builds this function with a fixed number of three parameters and the given encryption
-     * algorithm
+     * algorithm.
+     *
+     * @param encryptionAlgorithm the {@link EncryptionAlgorithm} to be set
      */
     public UnaryEncryptionFunction(EncryptionAlgorithm encryptionAlgorithm)
     {

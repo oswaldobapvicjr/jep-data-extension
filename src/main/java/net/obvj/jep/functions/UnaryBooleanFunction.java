@@ -48,7 +48,9 @@ public class UnaryBooleanFunction extends PostfixMathCommand implements MultiStr
     private final Strategy strategy;
 
     /**
-     * Builds this custom command with a fixed number of 1 parameter
+     * Builds this custom command with a fixed number of 1 parameter.
+     *
+     * @param strategy the {@link Strategy} to be set
      */
     public UnaryBooleanFunction(Strategy strategy)
     {

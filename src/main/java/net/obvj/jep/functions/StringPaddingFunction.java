@@ -51,7 +51,9 @@ public class StringPaddingFunction extends PostfixMathCommand implements MultiSt
     private final Strategy strategy;
 
     /**
-     * Builds this function with a variable number of parameters
+     * Builds this function with a variable number of parameters.
+     *
+     * @param strategy the {@link Strategy} to be set
      */
     public StringPaddingFunction(Strategy strategy)
     {

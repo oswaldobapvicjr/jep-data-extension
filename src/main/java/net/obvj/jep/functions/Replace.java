@@ -50,7 +50,9 @@ public class Replace extends PostfixMathCommand implements MultiStrategyCommand
 
     /**
      * Builds this function with a fixed number of three parameters and the given search
-     * strategy
+     * strategy.
+     *
+     * @param searchStrategy the {@link Strategy} to be set
      */
     public Replace(Strategy searchStrategy)
     {
@@ -86,6 +88,7 @@ public class Replace extends PostfixMathCommand implements MultiStrategyCommand
     /**
      * @see net.obvj.jep.functions.MultiStrategyCommand#getStrategy()
      */
+    @Override
     public Object getStrategy()
     {
         return strategy;

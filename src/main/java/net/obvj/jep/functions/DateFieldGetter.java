@@ -43,7 +43,7 @@ public class DateFieldGetter extends PostfixMathCommand implements MultiStrategy
          */
         @Function("isoWeekNumber")
         ISO_WEEK_NUMBER(DateUtils::getIsoWeekNumber),
-        
+
         /**
          * The day of the week of a date, a number from 1 (Sunday) to 7 (Saturday)
          */
@@ -99,7 +99,9 @@ public class DateFieldGetter extends PostfixMathCommand implements MultiStrategy
     private final DateField dateField;
 
     /**
-     * Builds this custom command with a fixed number of 1 parameter
+     * Builds this custom command with a fixed number of 1 parameter.
+     *
+     * @param dateField the {@link DateField} strategy to be set
      */
     public DateFieldGetter(DateField dateField)
     {
@@ -122,6 +124,7 @@ public class DateFieldGetter extends PostfixMathCommand implements MultiStrategy
     /**
      * @return the date field retrieval strategy for this instance
      */
+    @Override
     public Object getStrategy()
     {
         return dateField;

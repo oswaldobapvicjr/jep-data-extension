@@ -177,7 +177,6 @@ public class JsonUtils
      *
      * @param jsonArray the JSONArray object to be converted
      * @return the list converted from a JSONArray object
-     * @throws JSONException in case of errors handling the JSONArray
      */
     public static List<Object> convertJSONArrayToList(JSONArray jsonArray)
     {
@@ -203,7 +202,7 @@ public class JsonUtils
         }
         catch (JSONException exception)
         {
-            throw new IllegalArgumentException(exception);
+            throw new IllegalStateException(exception);
         }
     }
 }

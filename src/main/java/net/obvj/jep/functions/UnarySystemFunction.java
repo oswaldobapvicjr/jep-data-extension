@@ -46,7 +46,9 @@ public class UnarySystemFunction extends PostfixMathCommand implements MultiStra
     private final Strategy strategy;
 
     /**
-     * Builds this function with a fixed number of one parameter
+     * Builds this function with a fixed number of one parameter.
+     *
+     * @param strategy the {@link Strategy} to be set
      */
     public UnarySystemFunction(Strategy strategy)
     {
