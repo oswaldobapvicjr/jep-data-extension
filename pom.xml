@@ -6,7 +6,7 @@
 
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JEP Data Extension</name>
     <description>
@@ -18,6 +18,17 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- Production dependencies versions -->
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-text.version>1.8</commons-text.version>
+        <jep.version>2.4.2</jep.version>
+        <jersey-client.version>1.17.1</jersey-client.version>
+        <jettison.version>1.4.0</jettison.version>
+        <json-path.version>2.4.0</json-path.version>
+        <performetrics.version>1.0.0</performetrics.version>
+        <sl4j-simple.version>1.7.30</sl4j-simple.version>
+
+        <!-- Test dependencies versions -->
         <junit4.version>4.5</junit4.version>
         <powermock.version>2.0.2</powermock.version>
     </properties>
@@ -28,50 +39,57 @@
         <dependency>
             <groupId>org.scijava</groupId>
             <artifactId>jep</artifactId>
-            <version>2.4.2</version>
+            <version>${jep.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.codehaus.jettison/jettison -->
         <dependency>
             <groupId>org.codehaus.jettison</groupId>
             <artifactId>jettison</artifactId>
-            <version>1.4.0</version>
+            <version>${jettison.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.8</version>
+            <version>${commons-text.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
+            <version>${json-path.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
+            <version>${sl4j-simple.version}</version>
         </dependency>
 
-        <!-- Jersey HTTP client API -->
+        <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
         <dependency>
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-client</artifactId>
-            <version>1.8</version>
+            <version>${jersey-client.version}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/net.obvj/performetrics -->
+        <dependency>
+            <groupId>net.obvj</groupId>
+            <artifactId>performetrics</artifactId>
+            <version>${performetrics.version}</version>
+        </dependency>
 
         <!-- Test dependencies - start -->
 
@@ -133,7 +151,6 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <!--  <classpathPrefix>lib/</classpathPrefix> -->
                             <mainClass>net.obvj.jep.Console</mainClass>
                         </manifest>
                     </archive>

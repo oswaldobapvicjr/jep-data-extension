@@ -52,7 +52,6 @@ public class WebServiceUtilsTest
     @Mock
     private Client client;
 
-
     /**
      * Utility method to mock the Client response with a given HTTP status
      *
@@ -186,6 +185,15 @@ public class WebServiceUtilsTest
     }
 
     /**
+     * Tests the invoke method, without a method
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvokeNullMethod()
+    {
+        WebServiceUtils.invoke(null, URL, null);
+    }
+
+    /**
      * Tests the invoke method, with GET and a successful HTTP response
      */
     @Test
@@ -210,14 +218,15 @@ public class WebServiceUtilsTest
         verify(requestBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
         verify(requestBuilder).header("Content-Type", "application/json");
     }
-    
+
     @Test
     public void testGenerateBasicAuthorizationHeaderWithValidCredentials()
     {
-        assertEquals("Basic QWxhZGRpbjpPcGVuU2VzYW1l", WebServiceUtils.generateBasicAuthorizationHeader("Aladdin", "OpenSesame"));
+        assertEquals("Basic QWxhZGRpbjpPcGVuU2VzYW1l",
+                WebServiceUtils.generateBasicAuthorizationHeader("Aladdin", "OpenSesame"));
     }
-    
-    @Test (expected = IllegalArgumentException.class)
+
+    @Test(expected = IllegalArgumentException.class)
     public void testGenerateBasicAuthorizationHeaderWithBadUsername()
     {
         WebServiceUtils.generateBasicAuthorizationHeader("Ala:ddin", "OpenSesame");

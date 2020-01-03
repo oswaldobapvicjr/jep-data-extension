@@ -1,6 +1,7 @@
 package net.obvj.jep.http;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,6 +13,8 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
 import net.obvj.jep.util.EncryptionUtils;
+import net.obvj.performetrics.Counter.Type;
+import net.obvj.performetrics.Stopwatch;
 
 /**
  * This class contains methods for working with simple Web Services.
@@ -106,7 +109,13 @@ public class WebServiceUtils
         copyHttpHeaders(requestBuilder, headers);
 
         log.log(Level.INFO, "Invoking GET on URL {0}", url);
+        Stopwatch stopwatch = Stopwatch.createStarted(Type.WALL_CLOCK_TIME);
+
         ClientResponse response = requestBuilder.get(ClientResponse.class);
+
+        stopwatch.stop();
+        log.log(Level.INFO, "Operation finished in {0} milliseconds",
+                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.MILLISECONDS));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),
@@ -139,18 +148,31 @@ public class WebServiceUtils
      * @param headers       a map of custom headers to be added to the request; can be null
      * @return a {@link WebServiceResponse} object, which may contain the HTTP status code and
      *         the content returned from the Web Service
+     * @throws IllegalArgumentException if the HTTP method is null or empty
      */
     public static WebServiceResponse invoke(String method, String url, Object requestEntity,
             Map<String, String> headers)
     {
+        if (StringUtils.isEmpty(method))
+        {
+            throw new IllegalArgumentException("The HTTP method cannot be empty");
+        }
+
+        String lMethod = method.toUpperCase();
         Client client = Client.create();
         WebResource webResource = client.resource(url);
         Builder requestBuilder = webResource.getRequestBuilder();
 
         copyHttpHeaders(requestBuilder, headers);
 
-        log.log(Level.INFO, "Invoking {0} on URL {1}", new Object[] { method, url });
-        ClientResponse response = requestBuilder.method(method, ClientResponse.class, requestEntity);
+        log.log(Level.INFO, "Invoking {0} on URL {1}", new Object[] { lMethod, url });
+        Stopwatch stopwatch = Stopwatch.createStarted(Type.WALL_CLOCK_TIME);
+
+        ClientResponse response = requestBuilder.method(lMethod, ClientResponse.class, requestEntity);
+
+        stopwatch.stop();
+        log.log(Level.INFO, "Operation finished in {0} milliseconds",
+                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.MILLISECONDS));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),
@@ -186,7 +208,7 @@ public class WebServiceUtils
 
     /**
      * Generates a basic authorization header from the given credentials.
-     * 
+     *
      * @param username the username to be encoded
      * @param password the password to be encoded
      * @return a String containing the generated the basic authorization header value
