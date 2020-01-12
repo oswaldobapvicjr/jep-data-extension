@@ -479,8 +479,8 @@ Returns 1 (true) if the given parameter is a number (or string representing a nu
 ```java
 isInteger(10.0)  //returns: 1.0
 isInteger(9.90)  //returns: 0.0
-isInteger("0.3") //returns: 1.0
-isInteger("1.0") //returns: 0.0
+isInteger("1.0") //returns: 1.0
+isInteger("0.3") //returns: 0.0
 ```
 
 ### Read file

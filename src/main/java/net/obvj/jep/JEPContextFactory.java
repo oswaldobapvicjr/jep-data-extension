@@ -1,21 +1,20 @@
 package net.obvj.jep;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Supplier;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.nfunk.jep.JEP;
 import org.nfunk.jep.OperatorSet;
 import org.nfunk.jep.function.Comparative;
 import org.nfunk.jep.function.PostfixMathCommand;
+import org.nfunk.jep.function.PostfixMathCommandI;
 import org.nfunk.jep.type.NumberFactory;
 
 import net.obvj.jep.functions.*;
-import net.obvj.jep.functions.BinaryBooleanFunction.Strategy;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
+import net.obvj.jep.functions.UUID;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 
 /**
@@ -27,6 +26,90 @@ public class JEPContextFactory
 {
     private static final String MSG_ANNOTATION_NOT_FOUND_IN_CLASS = "@Function annotation not found in class: %s";
     private static final String MSG_ANNOTATION_NOT_FOUND_IN_STRATEGY = "@Function annotation not found in strategy enum type: %s";
+
+    private static final List<Supplier<PostfixMathCommandI>> CUSTOM_FUNCTIONS = new ArrayList<>();
+    static
+    {
+        // String functions
+        CUSTOM_FUNCTIONS.add(Concat::new);
+        CUSTOM_FUNCTIONS.add(FormatString::new);
+        CUSTOM_FUNCTIONS.add(NormalizeString::new);
+        CUSTOM_FUNCTIONS.add(() -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_ENDS_WITH));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryStringFunction(BinaryStringFunction.Strategy.ALL_MATCHES));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryStringFunction(BinaryStringFunction.Strategy.FIRST_MATCH));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryStringFunction(BinaryStringFunction.Strategy.SPLIT));
+        CUSTOM_FUNCTIONS.add(() -> new Replace(Replace.Strategy.NORMAL));
+        CUSTOM_FUNCTIONS.add(() -> new Replace(Replace.Strategy.REGEX));
+        CUSTOM_FUNCTIONS.add(() -> new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
+        CUSTOM_FUNCTIONS.add(() -> new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.CAMEL));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
+
+        // Date functions
+        CUSTOM_FUNCTIONS.add(DateToString::new);
+        CUSTOM_FUNCTIONS.add(DaysBetween::new);
+        CUSTOM_FUNCTIONS.add(EndOfMonth::new);
+        CUSTOM_FUNCTIONS.add(IsLeapYear::new);
+        CUSTOM_FUNCTIONS.add(Now::new);
+        CUSTOM_FUNCTIONS.add(StringToDate::new);
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.YEAR));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.QUARTER));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MONTH));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.WEEK_DAY));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.DAY));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.HOUR));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MINUTE));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.SECOND));
+        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MILLISECOND));
+
+        // Data manipulation functions
+        CUSTOM_FUNCTIONS.add(JsonPath::new);
+        CUSTOM_FUNCTIONS.add(XPath::new);
+
+        // Statistical functions
+        CUSTOM_FUNCTIONS.add(Average::new);
+        CUSTOM_FUNCTIONS.add(Count::new);
+        CUSTOM_FUNCTIONS.add(Max::new);
+        CUSTOM_FUNCTIONS.add(Min::new);
+
+        // Random functions
+        CUSTOM_FUNCTIONS.add(UUID::new);
+
+        // Utility functions
+        CUSTOM_FUNCTIONS.add(Distinct::new);
+        CUSTOM_FUNCTIONS.add(IsEmpty::new);
+        CUSTOM_FUNCTIONS.add(ReadFile::new);
+        CUSTOM_FUNCTIONS.add(TypeOf::new);
+        CUSTOM_FUNCTIONS.add(() -> new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_DECIMAL));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_INTEGER));
+        CUSTOM_FUNCTIONS.add(() -> new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
+        CUSTOM_FUNCTIONS.add(() -> new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
+
+        // Cryptography functions
+        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.TO_BASE64));
+        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.FROM_BASE64));
+
+        // Web Services functions
+        CUSTOM_FUNCTIONS.add(BasicAuthorizationHeader::new);
+        CUSTOM_FUNCTIONS.add(Http::new);
+        CUSTOM_FUNCTIONS.add(HttpGet::new);
+        CUSTOM_FUNCTIONS.add(HttpHeader::new);
+        CUSTOM_FUNCTIONS.add(() -> new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
+        CUSTOM_FUNCTIONS.add(() -> new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
+
+        // Math functions
+        CUSTOM_FUNCTIONS.add(Arabic::new);
+        CUSTOM_FUNCTIONS.add(Roman::new);
+    }
 
     private JEPContextFactory()
     {
@@ -82,85 +165,7 @@ public class JEPContextFactory
      */
     public static void addCustomFunctions(JEP jep)
     {
-        // String functions
-        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.CAMEL));
-        addAnnotatedFunction(jep, new Concat());
-        addAnnotatedFunction(jep, new BinaryBooleanFunction(Strategy.STRING_ENDS_WITH));
-        addAnnotatedFunction(jep, new BinaryStringFunction(BinaryStringFunction.Strategy.FIRST_MATCH));
-        addAnnotatedFunction(jep, new BinaryStringFunction(BinaryStringFunction.Strategy.ALL_MATCHES));
-        addAnnotatedFunction(jep, new FormatString());
-        addAnnotatedFunction(jep, new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
-        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
-        addAnnotatedFunction(jep, new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
-        addAnnotatedFunction(jep, new NormalizeString());
-        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
-        addAnnotatedFunction(jep, new Replace(Replace.Strategy.NORMAL));
-        addAnnotatedFunction(jep, new Replace(Replace.Strategy.REGEX));
-        addAnnotatedFunction(jep, new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
-        addAnnotatedFunction(jep, new BinaryStringFunction(BinaryStringFunction.Strategy.SPLIT));
-        addAnnotatedFunction(jep, new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
-        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
-        addAnnotatedFunction(jep, new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
-
-        // Date functions
-        addAnnotatedFunction(jep, new Now());
-        addAnnotatedFunction(jep, new DateToString());
-        addAnnotatedFunction(jep, new StringToDate());
-        addAnnotatedFunction(jep, new DaysBetween());
-        addAnnotatedFunction(jep, new EndOfMonth());
-        addAnnotatedFunction(jep, new IsLeapYear());
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.YEAR));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.QUARTER));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.MONTH));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.WEEK_DAY));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.DAY));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.HOUR));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.MINUTE));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.SECOND));
-        addAnnotatedFunction(jep, new DateFieldGetter(DateField.MILLISECOND));
-
-        // Data manipulation functions
-        addAnnotatedFunction(jep, new XPath());
-        addAnnotatedFunction(jep, new JsonPath());
-
-        // Statistical functions
-        addAnnotatedFunction(jep, new Average());
-        addAnnotatedFunction(jep, new Count());
-        addAnnotatedFunction(jep, new Max());
-        addAnnotatedFunction(jep, new Min());
-
-        // Random functions
-        addAnnotatedFunction(jep, new UUID());
-
-        // Utility functions
-        addAnnotatedFunction(jep, new Distinct());
-        addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
-        addAnnotatedFunction(jep, new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
-        addAnnotatedFunction(jep, new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_DECIMAL));
-        addAnnotatedFunction(jep, new IsEmpty());
-        addAnnotatedFunction(jep, new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_INTEGER));
-        addAnnotatedFunction(jep, new ReadFile());
-        addAnnotatedFunction(jep, new TypeOf());
-
-        // Cryptography functions
-        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
-        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
-        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
-        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.TO_BASE64));
-        addAnnotatedFunction(jep, new UnaryEncryptionFunction(EncryptionAlgorithm.FROM_BASE64));
-
-        // Web Services functions
-        addAnnotatedFunction(jep, new BasicAuthorizationHeader());
-        addAnnotatedFunction(jep, new HttpGet());
-        addAnnotatedFunction(jep, new Http());
-        addAnnotatedFunction(jep, new HttpHeader());
-        addAnnotatedFunction(jep, new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
-        addAnnotatedFunction(jep, new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
-
-        // Math functions
-        addAnnotatedFunction(jep, new Arabic());
-        addAnnotatedFunction(jep, new Roman());
+        CUSTOM_FUNCTIONS.stream().map(Supplier::get).forEach(function -> addAnnotatedFunction(jep, function));
 
         // Operators
         OperatorSet operators = jep.getOperatorSet();
@@ -179,12 +184,12 @@ public class JEPContextFactory
 
     /**
      * Add a custom function, annotated with @Function, to the given JEP context.
-     * 
+     *
      * @param jep      the JEP object where functions will be registered
      * @param function the function to be registered
      * @throws IllegalStateException if the given function is not annotated
      */
-    protected static void addAnnotatedFunction(JEP jep, PostfixMathCommand function)
+    protected static void addAnnotatedFunction(JEP jep, PostfixMathCommandI function)
     {
         Optional<Function> annotation = getAnnotation(function);
         if (!annotation.isPresent())
@@ -194,7 +199,7 @@ public class JEPContextFactory
         Arrays.stream(annotation.get().value()).forEach(alias -> jep.addFunction(alias, function));
     }
 
-    private static Optional<Function> getAnnotation(PostfixMathCommand function)
+    private static Optional<Function> getAnnotation(PostfixMathCommandI function)
     {
         return function instanceof MultiStrategyCommand ? getAnnotation((MultiStrategyCommand) function)
                 : Optional.ofNullable(function.getClass().getAnnotation(Function.class));
