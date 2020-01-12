@@ -8,8 +8,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringUtils;
+
+import net.obvj.performetrics.Stopwatch;
+import net.obvj.performetrics.Counter.Type;
 
 /**
  * A utility class for loading of text files
@@ -19,6 +25,8 @@ import org.apache.commons.lang3.StringUtils;
 public class FileUtils
 {
     private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+
+    private static final Logger LOG = Logger.getLogger("jep-data-extension");
 
     private FileUtils()
     {
@@ -92,6 +100,16 @@ public class FileUtils
      */
     protected static String readFromPath(Path path) throws IOException
     {
-        return new String(Files.readAllBytes(path), DEFAULT_CHARSET);
+        LOG.log(Level.INFO, "Reading file: {0}", path);
+        Stopwatch stopwatch = Stopwatch.createStarted(Type.WALL_CLOCK_TIME);
+        try
+        {
+            return new String(Files.readAllBytes(path), DEFAULT_CHARSET);
+        }
+        finally
+        {
+            LOG.log(Level.INFO, "Operation finished in {0} milliseconds",
+                    stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.MILLISECONDS));
+        }
     }
 }

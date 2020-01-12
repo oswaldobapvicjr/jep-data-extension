@@ -14,8 +14,6 @@ package net.obvj.jep;
  */
 public class Console extends org.lsmp.djepExamples.Console
 {
-    private static final String CUSTOM_APPLET_INFO = "jep-data-extension (1.0)\n" + "oswaldo.bapvic.jr - 2019\n\n";
-
     /**
      * Set up JEP Console with jep-data-extension functions, operators and preferences
      */
@@ -23,15 +21,6 @@ public class Console extends org.lsmp.djepExamples.Console
     public void initialise()
     {
         super.j = JEPContextFactory.newContext();
-    }
-
-    /**
-     * Append custom information to original Console information
-     */
-    @Override
-    public String getAppletInfo()
-    {
-        return CUSTOM_APPLET_INFO + super.getAppletInfo();
     }
 
     public static void main(String args[])
