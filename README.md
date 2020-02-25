@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/oswaldobapvicjr/jep-data-extension.svg?branch=master)](https://travis-ci.org/oswaldobapvicjr/jep-data-extension)
 [![Coverage Status](https://coveralls.io/repos/github/oswaldobapvicjr/jep-data-extension/badge.svg?branch=master)](https://coveralls.io/github/oswaldobapvicjr/jep-data-extension?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension)
+[![javadoc](https://javadoc.io/badge2/net.obvj/jep-data-extension/javadoc.svg)](https://javadoc.io/doc/net.obvj/jep-data-extension)
 
 **jep-data-extension** is a library that  extends JEP, a powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom data functions and operators, including 
 **RegEx**, **XPath**, **JSONPath** and **Web Services**.
@@ -666,9 +668,17 @@ jsonArray[1] //extracts the first element of the given jsonArray
 
 ---
 
-## How to build the project
+## How to include it
 
-Use Maven to build the project, running `mvn clean install`, then copy the generated JAR files from the `lib` folder. 
+If you are using Maven, add **jep-data-extension** as a dependency to your pom.xml file:
+
+```xml
+<dependency>
+    <groupId>net.obvj</groupId>
+    <artifactId>jep-data-extension</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
 
 ---
 
