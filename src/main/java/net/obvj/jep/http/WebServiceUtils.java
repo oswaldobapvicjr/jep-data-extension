@@ -114,8 +114,8 @@ public class WebServiceUtils
         ClientResponse response = requestBuilder.get(ClientResponse.class);
 
         stopwatch.stop();
-        log.log(Level.INFO, "Operation finished in {0} milliseconds",
-                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.MILLISECONDS));
+        log.log(Level.INFO, "Operation finished in {0} seconds",
+                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.SECONDS));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),
@@ -171,8 +171,8 @@ public class WebServiceUtils
         ClientResponse response = requestBuilder.method(lMethod, ClientResponse.class, requestEntity);
 
         stopwatch.stop();
-        log.log(Level.INFO, "Operation finished in {0} milliseconds",
-                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.MILLISECONDS));
+        log.log(Level.INFO, "Operation finished in {0} seconds",
+                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.SECONDS));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),
