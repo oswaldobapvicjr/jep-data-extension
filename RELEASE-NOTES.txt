@@ -1,0 +1,83 @@
+=============================================================================
+
+                       __ _____ _____ 
+                    __|  |   __|  _  |  obvj.net
+                   |  |  |   __|   __|  JEP-DATA-EXTENSION
+                   |_____|_____|__|     version 1.0.1
+
+                                RELEASE NOTES
+
+-----------------------------------------------------------------------------
+
+INTRODUCTION:
+
+JEP-DATA-EXTENSION is a library that provides new functions to the Java
+Expression Parser, including advanced data manipulation capabilities with,
+such asRegEx, XPath, JSONPath and Web Services.
+
+Minor improvements in this version include:
+
+ > New alias "filterxml" for "xpath"
+ > Improved elapsed time calculation for HTTP functions with Performetrics 
+
+
+For more information, or suggestions for improvement, visit:
+https://obvj.net/jep-data-extension
+
+
+=============================================================================
+
+                       __ _____ _____ 
+                    __|  |   __|  _  |  obvj.net
+                   |  |  |   __|   __|  JEP-DATA-EXTENSION
+                   |_____|_____|__|     version 1.0.0
+
+                                RELEASE NOTES
+
+-----------------------------------------------------------------------------
+
+INTRODUCTION:
+
+JEP-DATA-EXTENSION is a library that provides new functions to the Java
+Expression Parser, including advanced data manipulation capabilities with,
+such asRegEx, XPath, JSONPath and Web Services.
+
+This initial version includes:
+
+ > String manipulation functions: camel, concat, endsWith, findMatch,
+   findMatches, formatString, leftpad/lpad, lower/lcase, normalizeString,
+   proper, replace, replaceRegex, rightPad/rpad, split, startsWith, trim, and
+   upper/ucase   
+
+ > Date functions: now, str2date, date2str, endOfMonth, isLeapYear, year,
+   quarter, isoWeekNumber, weekday, hour, minute, second, and millisecond
+
+ > Math functions: arabic and roman
+
+ > Data manipulation & filtering functions: xpath and jsonpath
+
+ > Statistical functions: average/avg, count/length, max, and min
+
+ > Data manipulation & filtering functions: get, xpath and jsonpath
+
+ > Random functions: uuid
+
+ > Utility functions: distinct, getEnv, getSystemProperty, isDecimal,
+   isEmpty, isInteger, readFile, typeOf/class
+
+ > Cryptography functions: md5, sha1, sha256, toBase64, fromBase64
+
+ > Web Services functions: http, httpGet, httpHeader, httpStatusCode,
+   httpResponse, and basicAuthorizationHeader  
+
+ > Operators:
+   - Comparative operators modified to support numerical values and dates
+   - Standard "element" operator" overloaded to support data extraction out
+     of JSON arrays and other collections  
+
+
+For more information, or suggestions for improvement, visit:
+https://obvj.net/jep-data-extension
+
+
+=============================================================================

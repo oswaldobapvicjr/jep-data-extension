@@ -544,7 +544,7 @@ toBase64("myMessage") //result: "bXlNZXNzYWdl"
 Decodes a Base64 encoded string.
 
 ```java
-toBase64("bXlNZXNzYWdl") //result: "myMessage"
+fromBase64("bXlNZXNzYWdl") //result: "myMessage"
 ```
 
 
@@ -658,7 +658,7 @@ if("2017-03-11T10:15:00:123Z" < now(), "past", "not past")
 
 ### Element operator
 
-Standard "element" operator (`[]`) was overloaded to support extracting values from JSON arrays and other collections by index.
+Standard "element" operator (`[]`) was overloaded to support data extraction out of JSON arrays and other collections by index.
 
 ```java
 jsonArray[1] //extracts the first element of the given jsonArray

@@ -123,6 +123,7 @@ public class JEPContextFactoryTest
         // ---------------------
 
         checkFunction(table, "xpath", XPath.class);
+        checkFunction(table, "filterxml", XPath.class);
         checkFunction(table, "jsonpath", JsonPath.class);
 
         // ---------------------
