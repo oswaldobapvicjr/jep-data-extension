@@ -5,9 +5,11 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
+import net.obvj.junit.utils.TestUtils;
+
 /**
  * Unit tests for the {@link EncryptionUtils} class.
- * 
+ *
  * @author oswaldo.bapvic.jr
  */
 public class EncryptionUtilsTest
@@ -15,13 +17,13 @@ public class EncryptionUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(EncryptionUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(EncryptionUtils.class, IllegalStateException.class, "Utility class");
     }
 
     /**

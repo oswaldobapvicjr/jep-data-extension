@@ -11,6 +11,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import net.obvj.junit.utils.TestUtils;
+
 public class RegexUtilsTest
 {
     private static final String STR_EMPTY = StringUtils.EMPTY;
@@ -38,13 +40,13 @@ public class RegexUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(RegexUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(RegexUtils.class, IllegalStateException.class, "Utility class");
     }
 
     @Test

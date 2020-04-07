@@ -16,6 +16,8 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import net.obvj.junit.utils.TestUtils;
+
 public class XmlUtilsTest
 {
     private static final String STRING_XML_BOOKS = FileUtils.readQuietlyFromClasspath("books.xml");
@@ -35,13 +37,13 @@ public class XmlUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     * private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(XmlUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(XmlUtils.class, IllegalStateException.class, "Utility class");
     }
 
     @Test
@@ -50,13 +52,13 @@ public class XmlUtilsTest
         Document xml = XmlUtils.convertToXML(STRING_XML_BOOKS);
         assertEquals("bookstore", xml.getDocumentElement().getNodeName());
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testConvertInvalidObjectToXmlDocument() throws ParserConfigurationException, SAXException, IOException
     {
         XmlUtils.convertToXML(1);
     }
-    
+
     @Test
     public void testConvertDocumentToXmlDocument() throws ParserConfigurationException, SAXException, IOException
     {
@@ -64,7 +66,7 @@ public class XmlUtilsTest
         Document xml2 = XmlUtils.convertToXML(xml1);
         assertEquals(xml1, xml2);
     }
-    
+
     @Test
     public void testCompileXPathWithValidExpression() throws XPathExpressionException
     {

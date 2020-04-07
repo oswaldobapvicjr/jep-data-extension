@@ -15,6 +15,8 @@ import org.mockito.Mockito;
 
 import com.jayway.jsonpath.InvalidPathException;
 
+import net.obvj.junit.utils.TestUtils;
+
 public class JsonUtilsTest
 {
     private static final String STR_JSON_EMPTY = "{}";
@@ -90,13 +92,13 @@ public class JsonUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(JsonUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(JsonUtils.class, IllegalStateException.class, "Utility class");
     }
 
     /**

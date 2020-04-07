@@ -5,18 +5,20 @@ import static org.junit.Assert.assertEquals;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import net.obvj.junit.utils.TestUtils;
+
 public class FileUtilsTest
 {
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(FileUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(FileUtils.class, IllegalStateException.class, "Utility class");
     }
 
     /**

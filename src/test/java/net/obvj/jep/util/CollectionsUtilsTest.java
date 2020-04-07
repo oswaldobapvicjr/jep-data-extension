@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import net.obvj.junit.utils.TestUtils;
+
 public class CollectionsUtilsTest
 {
     private static final String KEY2_EQUAL_VALUE2 = "key2=value2";
@@ -23,13 +25,13 @@ public class CollectionsUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(CollectionsUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(CollectionsUtils.class, IllegalStateException.class, "Utility class");
     }
 
     @Test
@@ -113,7 +115,7 @@ public class CollectionsUtilsTest
     {
         assertThat(CollectionsUtils.asMap(new String[] {}).isEmpty(), is(true));
     }
-    
+
     @Test
     public void distinctListWithAValidList()
     {

@@ -24,7 +24,7 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
 import net.obvj.jep.util.CollectionsUtils;
-import net.obvj.jep.util.UtilitiesCommons;
+import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link WebServiceUtils} class
@@ -122,9 +122,9 @@ public class WebServiceUtilsTest
      * Tests that no instances of this utility class are created
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(WebServiceUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(WebServiceUtils.class, IllegalStateException.class, "Utility class");
     }
 
     /**

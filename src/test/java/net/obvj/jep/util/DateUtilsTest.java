@@ -10,9 +10,11 @@ import java.util.*;
 
 import org.junit.Test;
 
+import net.obvj.junit.utils.TestUtils;
+
 /**
  * Unit tests for the {@link DateUtils}.
- * 
+ *
  * @author oswaldo.bapvic.jr
  */
 public class DateUtilsTest
@@ -67,13 +69,13 @@ public class DateUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(DateUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(DateUtils.class, IllegalStateException.class, "Utility class");
     }
 
     /**

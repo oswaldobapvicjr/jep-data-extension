@@ -18,7 +18,7 @@ import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 import net.obvj.jep.util.DateUtils;
-import net.obvj.jep.util.UtilitiesCommons;
+import net.obvj.junit.utils.TestUtils;
 
 public class JEPContextFactoryTest
 {
@@ -32,13 +32,13 @@ public class JEPContextFactoryTest
     /**
      * Tests that no instances of this factory are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(JEPContextFactory.class, IllegalStateException.class,
+        TestUtils.assertNoInstancesAllowed(JEPContextFactory.class, IllegalStateException.class,
                 "No instances allowed");
     }
 

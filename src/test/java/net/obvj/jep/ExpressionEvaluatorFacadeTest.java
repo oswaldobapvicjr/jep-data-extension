@@ -8,7 +8,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.util.UtilitiesCommons;
+import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link ExpressionEvaluatorFacade} class.
@@ -51,13 +51,13 @@ public class ExpressionEvaluatorFacadeTest
     /**
      * Tests that no instances of this facade are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(ExpressionEvaluatorFacade.class, IllegalStateException.class,
+        TestUtils.assertNoInstancesAllowed(ExpressionEvaluatorFacade.class, IllegalStateException.class,
                 "No instances allowed");
     }
 

@@ -4,9 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import net.obvj.junit.utils.TestUtils;
+
 /**
  * Unit tests for the {@link RomanNumeralUtils} class.
- * 
+ *
  * @author oswaldo.bapvic.jr
  */
 public class RomanNumeralUtilsTest
@@ -15,15 +17,15 @@ public class RomanNumeralUtilsTest
     /**
      * Tests that no instances of this utility class are created
      *
-     * @throws Exception in case of error getting constructor metadata or instantiating the
-     *                   private constructor via Reflection
+     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
+     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws Exception
+    public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        UtilitiesCommons.testNoInstancesAllowed(RomanNumeralUtils.class, IllegalStateException.class, "Utility class");
+        TestUtils.assertNoInstancesAllowed(RomanNumeralUtils.class, IllegalStateException.class, "Utility class");
     }
-    
+
     @Test
     public void testRomanToArabic()
     {
@@ -45,13 +47,13 @@ public class RomanNumeralUtilsTest
         assertEquals("MCMXCIX", RomanNumeralUtils.arabicToRoman(1999));
         assertEquals("MMMCMXCIX", RomanNumeralUtils.arabicToRoman(3999));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testRomanToArabicInvalid()
     {
-        RomanNumeralUtils.romanToArabic("MIM");   
+        RomanNumeralUtils.romanToArabic("MIM");
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testToArabicToRomanInvalid()
     {
