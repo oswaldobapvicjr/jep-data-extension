@@ -18,7 +18,7 @@ import net.obvj.jep.functions.UUID;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 
 /**
- * A factory that creates JEP Contexts with extended functions.
+ * A factory that creates JEP objects with extended functions and operators.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -117,8 +117,9 @@ public class JEPContextFactory
     }
 
     /**
-     * @return a new {@code JEP} object with custom functions and operators registered and
-     *         default behavior
+     * Creates a new {@link JEP} object with all custom functions and operators available.
+     *
+     * @return a {@code JEP} object
      */
     public static JEP newContext()
     {
@@ -126,9 +127,11 @@ public class JEPContextFactory
     }
 
     /**
-     * @param contextMap a map of variables to be used by the evaluation context
-     * @return a new {@code JEP} object with initial variables in the context and custom
-     *         functions and operators registered and default behavior
+     * Creates a new {@link JEP} object with all custom functions and operators available, and
+     * a collection of initial variables.
+     *
+     * @param contextMap a map of variables to be used by the evaluation context; can be null
+     * @return a {@code JEP} object with a collection of initial variables available
      */
     public static JEP newContext(Map<String, Object> contextMap)
     {
@@ -136,7 +139,11 @@ public class JEPContextFactory
     }
 
     /**
-     * @param contextMap             a map of variables to be used by the evaluation context
+     * Creates a new {@link JEP} object with all custom functions and operators available, a
+     * collection of initial variables, and custom parameters.
+     *
+     * @param contextMap             a map of variables to be used by the evaluation context;
+     *                               can be null
      * @param traverse               an optional to print expression trees (useful for debug)
      * @param allowUndeclared        the "allow undeclared variables" option
      * @param implicitMultiplication the "implicit multiplication" option
@@ -159,9 +166,9 @@ public class JEPContextFactory
     }
 
     /**
-     * Registers custom functions and operators into JEP
+     * Registers custom functions and operators into a preset JEP object.
      *
-     * @param jep the JEP object where functions will be registered
+     * @param jep the JEP object to which custom functions and operations will be registered
      */
     public static void addCustomFunctions(JEP jep)
     {
@@ -185,7 +192,7 @@ public class JEPContextFactory
     /**
      * Add a custom function, annotated with @Function, to the given JEP context.
      *
-     * @param jep      the JEP object where functions will be registered
+     * @param jep      the JEP object to which the function will be registered
      * @param function the function to be registered
      * @throws IllegalStateException if the given function is not annotated
      */
@@ -222,7 +229,7 @@ public class JEPContextFactory
     }
 
     /**
-     * Adds all entries from the {@code contextMap} as variables in JEP context
+     * Adds all entries from the {@code contextMap} as variables to the JEP context.
      *
      * @param jep        the JEP object to be filled with variables
      * @param contextMap a map of variables to be used by the evaluation context

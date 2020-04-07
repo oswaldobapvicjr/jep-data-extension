@@ -7,6 +7,11 @@ import org.junit.Test;
 
 import net.obvj.junit.utils.TestUtils;
 
+/**
+ * Unit tests for the {@link FileUtils} class.
+ * 
+ * @author oswaldo.bapvic.jr
+ */
 public class FileUtilsTest
 {
     /**

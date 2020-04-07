@@ -18,7 +18,8 @@ such asRegEx, XPath, JSONPath and Web Services.
 Minor improvements in this version include:
 
  > New alias "filterxml" for "xpath"
- > Improved elapsed time calculation for HTTP functions with Performetrics 
+ > Improved profiling for file and HTTP functions using Performetrics
+ > Improved Javadoc 
 
 
 For more information, or suggestions for improvement, visit:
