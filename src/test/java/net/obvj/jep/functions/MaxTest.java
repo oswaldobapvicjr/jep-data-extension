@@ -14,7 +14,6 @@ import org.codehaus.jettison.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
-import net.obvj.jep.functions.Max;
 import net.obvj.jep.util.CollectionsUtils;
 
 /**

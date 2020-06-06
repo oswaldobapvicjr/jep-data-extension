@@ -60,9 +60,9 @@ public class IsEmpty extends PostfixMathCommand
         {
             return validateStringWithJsonSupport((String) object);
         }
-        else if (object instanceof Collection)
+        else if (object instanceof Collection<?>)
         {
-            return CollectionsUtils.isEmpty((Collection) object);
+            return CollectionsUtils.isEmpty((Collection<?>) object);
         }
         else if (object instanceof JSONObject || object instanceof JSONArray)
         {
