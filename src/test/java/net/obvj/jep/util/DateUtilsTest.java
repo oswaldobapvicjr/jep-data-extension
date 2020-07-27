@@ -1,5 +1,7 @@
 package net.obvj.jep.util;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,8 +11,6 @@ import java.time.Instant;
 import java.util.*;
 
 import org.junit.Test;
-
-import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link DateUtils}.
@@ -68,14 +68,11 @@ public class DateUtilsTest
 
     /**
      * Tests that no instances of this utility class are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(DateUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(DateUtils.class, instantiationNotAllowed());
     }
 
     /**

@@ -1,5 +1,7 @@
 package net.obvj.jep.http;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -24,7 +26,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
 
 import net.obvj.jep.util.CollectionsUtils;
-import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link WebServiceUtils} class
@@ -122,9 +123,9 @@ public class WebServiceUtilsTest
      * Tests that no instances of this utility class are created
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(WebServiceUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(WebServiceUtils.class, instantiationNotAllowed());
     }
 
     /**

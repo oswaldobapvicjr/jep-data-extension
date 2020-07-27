@@ -1,5 +1,7 @@
 package net.obvj.jep.util;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -8,8 +10,11 @@ import static org.junit.Assert.assertTrue;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
-import net.obvj.junit.utils.TestUtils;
-
+/**
+ * Unit tests for the {@link NumberUtils} class.
+ *
+ * @author oswaldo.bapvic.jr
+ */
 public class NumberUtilsTest
 {
     private static final String STRING_A = "A";
@@ -21,14 +26,11 @@ public class NumberUtilsTest
 
     /**
      * Tests that no instances of this utility class are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(NumberUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(NumberUtils.class, instantiationNotAllowed());
     }
 
     /**

@@ -1,15 +1,14 @@
 package net.obvj.jep.util;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
-
-import net.obvj.junit.utils.TestUtils;
 
 public class CollectionsUtilsTest
 {
@@ -22,16 +21,10 @@ public class CollectionsUtilsTest
     private static final String VALUE2 = "value2";
     private static final String EMPTY_STRING = "";
 
-    /**
-     * Tests that no instances of this utility class are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
-     */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(CollectionsUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(CollectionsUtils.class, instantiationNotAllowed());
     }
 
     @Test

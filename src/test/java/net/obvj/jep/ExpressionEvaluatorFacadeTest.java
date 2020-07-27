@@ -1,5 +1,7 @@
 package net.obvj.jep;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
@@ -7,8 +9,6 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
-
-import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link ExpressionEvaluatorFacade} class.
@@ -50,15 +50,11 @@ public class ExpressionEvaluatorFacadeTest
 
     /**
      * Tests that no instances of this facade are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(ExpressionEvaluatorFacade.class, IllegalStateException.class,
-                "No instances allowed");
+        assertThat(ExpressionEvaluatorFacade.class, instantiationNotAllowed());
     }
 
     /**
