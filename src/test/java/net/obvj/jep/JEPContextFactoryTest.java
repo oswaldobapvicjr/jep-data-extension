@@ -1,5 +1,7 @@
 package net.obvj.jep;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -18,7 +20,6 @@ import net.obvj.jep.functions.*;
 import net.obvj.jep.functions.DateFieldGetter.DateField;
 import net.obvj.jep.functions.UnaryEncryptionFunction.EncryptionAlgorithm;
 import net.obvj.jep.util.DateUtils;
-import net.obvj.junit.utils.TestUtils;
 
 public class JEPContextFactoryTest
 {
@@ -31,15 +32,11 @@ public class JEPContextFactoryTest
 
     /**
      * Tests that no instances of this factory are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(JEPContextFactory.class, IllegalStateException.class,
-                "No instances allowed");
+        assertThat(JEPContextFactory.class, instantiationNotAllowed());
     }
 
     /**

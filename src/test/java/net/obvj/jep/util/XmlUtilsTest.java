@@ -1,5 +1,7 @@
 package net.obvj.jep.util;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -9,14 +11,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
-
-import net.obvj.junit.utils.TestUtils;
 
 public class XmlUtilsTest
 {
@@ -43,7 +42,7 @@ public class XmlUtilsTest
     @Test
     public void testNoInstancesAllowed() throws ReflectiveOperationException
     {
-        TestUtils.assertNoInstancesAllowed(XmlUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(XmlUtils.class, instantiationNotAllowed());
     }
 
     @Test
@@ -70,15 +69,13 @@ public class XmlUtilsTest
     @Test
     public void testCompileXPathWithValidExpression() throws XPathExpressionException
     {
-        XPathExpression compiledXPath = XmlUtils.compileXPath(XPATH_ALL_BOOK_TITLES);
-        assertNotNull(compiledXPath);
+        assertNotNull(XmlUtils.compileXPath(XPATH_ALL_BOOK_TITLES));
     }
 
     @Test(expected = XPathExpressionException.class)
     public void testCompileXPathWithInValidExpression() throws XPathExpressionException
     {
-        XPathExpression compiledXPath = XmlUtils.compileXPath(XPATH_ALL_BOOK_TITLES_INVALID);
-        assertNotNull(compiledXPath);
+        XmlUtils.compileXPath(XPATH_ALL_BOOK_TITLES_INVALID);
     }
 
     @Test

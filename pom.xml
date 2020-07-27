@@ -4,7 +4,7 @@
 
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JEP Data Extension</name>
     <description>
@@ -44,19 +44,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Production dependencies versions -->
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <commons-text.version>1.8</commons-text.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
+        <commons-text.version>1.9</commons-text.version>
         <jep.version>2.4.2</jep.version>
         <jersey-client.version>1.17.1</jersey-client.version>
         <jettison.version>1.4.0</jettison.version>
         <json-path.version>2.4.0</json-path.version>
-        <performetrics.version>2.0.1</performetrics.version>
+        <performetrics.version>2.1.0</performetrics.version>
         <sl4j-simple.version>1.7.30</sl4j-simple.version>
 
         <!-- Test dependencies versions -->
-        <junit4.version>4.5</junit4.version>
-        <powermock.version>2.0.2</powermock.version>
-        <junit-utils.version>1.0.0</junit-utils.version>
+        <junit4.version>4.13</junit4.version>
+        <powermock.version>2.0.7</powermock.version>
+        <junit-utils.version>1.1.0</junit-utils.version>
     </properties>
 
     <dependencies>

@@ -4,7 +4,7 @@ package net.obvj.jep;
  * This class implements a simple command line utility for evaluating JEP expressions.
  * 
  * <pre>
-*   Usage: java net.obvj.jep.Console [expression]
+ *   Usage: java net.obvj.jep.Console [expression]
  * </pre>
  * 
  * If an argument is passed, it is interpreted as an expression and evaluated. Otherwise,

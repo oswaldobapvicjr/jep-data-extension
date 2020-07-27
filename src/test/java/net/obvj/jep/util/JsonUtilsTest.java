@@ -1,5 +1,9 @@
 package net.obvj.jep.util;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -15,8 +19,11 @@ import org.mockito.Mockito;
 
 import com.jayway.jsonpath.InvalidPathException;
 
-import net.obvj.junit.utils.TestUtils;
-
+/**
+ * Unit tests for the {@link JsonUtils} class.
+ *
+ * @author oswaldo.bapvic.jr
+ */
 public class JsonUtilsTest
 {
     private static final String STR_JSON_EMPTY = "{}";
@@ -91,14 +98,11 @@ public class JsonUtilsTest
 
     /**
      * Tests that no instances of this utility class are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(JsonUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(JsonUtils.class, instantiationNotAllowed());
     }
 
     /**
@@ -245,7 +249,7 @@ public class JsonUtilsTest
     @Test
     public void testCompileValidJSONArray() throws JSONException
     {
-        JsonUtils.compileJsonPath(JSONPATH_VALID);
+        assertNotNull(JsonUtils.compileJsonPath(JSONPATH_VALID));
     }
 
     /**
@@ -256,7 +260,7 @@ public class JsonUtilsTest
     @Test(expected = InvalidPathException.class)
     public void testCompileInvalidJSONArray() throws JSONException
     {
-        assertNull(JsonUtils.compileJsonPath(JSONPATH_INVALID));
+        JsonUtils.compileJsonPath(JSONPATH_INVALID);
     }
 
     /**
@@ -281,7 +285,7 @@ public class JsonUtilsTest
     {
         JSONObject jsonObject = JsonUtils.convertToJSONObject(null);
         assertNotNull(jsonObject);
-        assertTrue(jsonObject.length() == 0);
+        assertThat(jsonObject.length(), is(equalTo(0)));
     }
 
     /**
@@ -294,7 +298,7 @@ public class JsonUtilsTest
     {
         JSONArray jsonArray = JsonUtils.convertToJSONArray(null);
         assertNotNull(jsonArray);
-        assertTrue(jsonArray.length() == 0);
+        assertThat(jsonArray.length(), is(equalTo(0)));
     }
 
     /**

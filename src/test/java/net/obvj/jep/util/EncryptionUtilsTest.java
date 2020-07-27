@@ -1,11 +1,10 @@
 package net.obvj.jep.util;
 
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
-
-import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link EncryptionUtils} class.
@@ -16,14 +15,11 @@ public class EncryptionUtilsTest
 {
     /**
      * Tests that no instances of this utility class are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(EncryptionUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(EncryptionUtils.class, instantiationNotAllowed());
     }
 
     /**

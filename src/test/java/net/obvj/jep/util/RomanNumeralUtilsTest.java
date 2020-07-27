@@ -1,10 +1,10 @@
 package net.obvj.jep.util;
 
-import static org.junit.Assert.*;
+import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
-
-import net.obvj.junit.utils.TestUtils;
 
 /**
  * Unit tests for the {@link RomanNumeralUtils} class.
@@ -16,14 +16,11 @@ public class RomanNumeralUtilsTest
 
     /**
      * Tests that no instances of this utility class are created
-     *
-     * @throws ReflectiveOperationException in case of errors getting constructor metadata or
-     *                                      instantiating the private constructor
      */
     @Test
-    public void testNoInstancesAllowed() throws ReflectiveOperationException
+    public void testNoInstancesAllowed()
     {
-        TestUtils.assertNoInstancesAllowed(RomanNumeralUtils.class, IllegalStateException.class, "Utility class");
+        assertThat(RomanNumeralUtils.class, instantiationNotAllowed());
     }
 
     @Test
