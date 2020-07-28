@@ -670,15 +670,17 @@ jsonArray[1] //extracts the first element of the given jsonArray
 
 ## How to include it
 
-If you are using Maven, add **jep-data-extension** as a dependency to your pom.xml file:
+If you are using Maven, add **jep-data-extension** as a dependency to your pom.xml file.
 
 ```xml
 <dependency>
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
 </dependency>
 ```
+
+**Latest version available:** [![Maven Central](https://img.shields.io/maven-central/v/net.obvj/jep-data-extension.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22net.obvj%22%20AND%20a:%22jep-data-extension%22)
 
 ---
 
