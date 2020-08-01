@@ -4,7 +4,7 @@
 
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>JEP Data Extension</name>
     <description>
@@ -35,7 +35,7 @@
         <url>https://github.com/oswaldobapvicjr/jep-data-extension</url>
         <connection>scm:git:git://github.com/oswaldobapvicjr/jep-data-extension.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/oswaldobapvicjr/jep-data-extension.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>jep-data-extension-1.0.2</tag>
     </scm>
 
     <properties>
