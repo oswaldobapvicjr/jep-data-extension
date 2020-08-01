@@ -22,13 +22,13 @@ Minor improvements in this version include:
    Build dependencies:
    - org.apache:commons-lang3 version 3.9 -> 3.11
    - org.apache:commons-text version 1.8 -> 1.9
-   - net.obvj:performetrics version 2.0.1 -> 2.1.0
+   - net.obvj:performetrics version 2.0.1 -> 2.1.1
 
    Test dependencies:
    - junit:junit version 4.5 -> 4.13
    - org.powermock:module-junit4 version 2.0.2 -> 2.0.7
    - org.powermock:api-mockito2 version 2.0.2 -> 2.0.7
-   - net.obvj:junit-utils version 1.0.1 -> 1.1.0  
+   - net.obvj:junit-utils version 1.0.1 -> 1.1.1
 
 
 For more information, or suggestions for improvement, visit:
