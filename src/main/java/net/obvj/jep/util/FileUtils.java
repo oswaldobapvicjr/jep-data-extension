@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.StringUtils;
 
-import net.obvj.performetrics.Stopwatch;
 import net.obvj.performetrics.Counter.Type;
+import net.obvj.performetrics.Stopwatch;
 
 /**
  * A utility class for loading of text files
@@ -109,7 +109,7 @@ public class FileUtils
         finally
         {
             LOG.log(Level.INFO, "Operation finished in {0} milliseconds",
-                    stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.MILLISECONDS));
+                    stopwatch.elapsedTime(Type.WALL_CLOCK_TIME, TimeUnit.MILLISECONDS));
         }
     }
 }

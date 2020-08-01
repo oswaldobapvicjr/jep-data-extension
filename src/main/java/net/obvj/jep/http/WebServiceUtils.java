@@ -115,7 +115,7 @@ public class WebServiceUtils
 
         stopwatch.stop();
         log.log(Level.INFO, "Operation finished in {0} seconds",
-                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.SECONDS));
+                stopwatch.elapsedTime(Type.WALL_CLOCK_TIME, TimeUnit.SECONDS));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),
@@ -172,7 +172,7 @@ public class WebServiceUtils
 
         stopwatch.stop();
         log.log(Level.INFO, "Operation finished in {0} seconds",
-                stopwatch.getCounter(Type.WALL_CLOCK_TIME).elapsedTime(TimeUnit.SECONDS));
+                stopwatch.elapsedTime(Type.WALL_CLOCK_TIME, TimeUnit.SECONDS));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getClientResponseStatus().getStatusCode(),
