@@ -199,7 +199,7 @@ str2date("2015-10-03T08:00:01.123Z")
 Parses a string representing a date with user-defined pattern. This can be the fastest approach when the date format is known.
 
 ```java
-str2date("2015-10-03", "YYYY-MM-DD")
+str2date("2015-10-03", "yyyy-MM-dd")
 ```
 
 > **Note:** This function also supports variable parse pattern arguments, so it will try each pattern specified until it finds one that converts the source string to a valid date.
@@ -210,7 +210,7 @@ str2date("2015-10-03", "YYYY-MM-DD")
 Converts a date into string using the specified format.
 
 ```java
-date2str(date1, "YYYY-MM-DD'T'HH:mm:ssZZ")
+date2str(date1, "yyyy-MM-dd'T'HH:mm:ssZZ")
 ```
 
 ### Days between dates
@@ -753,7 +753,7 @@ The `ExpressionEvaluatorFacade` is a convenient object to quickly parse a single
 1. Run `jep-data-extension` JAR file from a terminal:
 
     ```
-    $ java -jar jep-data-extension-1.0.jar
+    $ java -jar jep-data-extension-1.0.2.jar
     ```
 
 2. Consume the RESTful API with the `httpGet` function:
