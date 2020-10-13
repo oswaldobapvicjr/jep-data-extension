@@ -54,7 +54,7 @@
         <sl4j-simple.version>1.7.30</sl4j-simple.version>
 
         <!-- Test dependencies versions -->
-        <junit4.version>4.13</junit4.version>
+        <junit4.version>4.13.1</junit4.version>
         <powermock.version>2.0.7</powermock.version>
         <junit-utils.version>1.1.1</junit-utils.version>
     </properties>
