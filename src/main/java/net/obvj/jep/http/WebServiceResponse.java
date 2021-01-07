@@ -1,9 +1,10 @@
 package net.obvj.jep.http;
 
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.Status.Family;
 
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.ClientResponse.Status;
+import org.glassfish.jersey.client.ClientResponse;
 
 /**
  * An object that contains data from Web a Service response
@@ -30,14 +31,14 @@ public class WebServiceResponse
 
     /**
      * Creates a new {@link WebServiceResponse} from a {@link ClientResponse}.
-     * 
+     *
      * @param response the client response to retrieve data
      * @return a {@link WebServiceResponse}.
      */
-    public static WebServiceResponse fromClientResponse(ClientResponse response)
+    public static WebServiceResponse fromClientResponse(Response response)
     {
-        return new WebServiceResponse(response.getClientResponseStatus().getStatusCode(),
-                response.getClientResponseStatus().getReasonPhrase(), response.getEntity(String.class));
+        return new WebServiceResponse(response.getStatus(), response.getStatusInfo().getReasonPhrase(),
+                response.readEntity(String.class));
     }
 
     public int getStatusCode()

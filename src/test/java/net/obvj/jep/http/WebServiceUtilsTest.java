@@ -9,7 +9,14 @@ import static org.mockito.Mockito.when;
 
 import java.util.Map;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
+import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -19,12 +26,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.ClientResponse.Status;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.WebResource.Builder;
-
 import net.obvj.jep.util.CollectionsUtils;
 
 /**
@@ -33,7 +34,7 @@ import net.obvj.jep.util.CollectionsUtils;
  * @author oswaldo.bapvic.jr
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({ Client.class, Builder.class })
+@PrepareForTest({ ClientBuilder.class, Builder.class })
 public class WebServiceUtilsTest
 {
     // Test data
@@ -42,13 +43,13 @@ public class WebServiceUtilsTest
     private static final String MOCKED_JSON_AS_STRING = "{\"foo\":\"bar\"}";
 
     @Mock
-    private ClientResponse clientResponse;
+    private Response response;
 
     @Mock
-    private WebResource webResource;
+    private WebTarget webTarget;
 
     @Mock
-    private Builder requestBuilder;
+    private Builder invocationBuilder;
 
     @Mock
     private Client client;
@@ -56,12 +57,12 @@ public class WebServiceUtilsTest
     /**
      * Utility method to mock the Client response with a given HTTP status
      *
-     * @param statusToBeMocked the HTTP status to be set
+     * @param status the HTTP status to be set
      */
-    private void mockClientResponseStatusCode(Status statusToBeMocked)
+    private void mockClientResponseStatusCode(Status status)
     {
-        when(clientResponse.getClientResponseStatus()).thenReturn(statusToBeMocked);
-        when(clientResponse.getStatus()).thenReturn(statusToBeMocked.getStatusCode());
+        when(response.getStatusInfo()).thenReturn(status);
+        when(response.getStatus()).thenReturn(status.getStatusCode());
     }
 
     /**
@@ -73,7 +74,7 @@ public class WebServiceUtilsTest
     private void mockClientResponse(Status statusToBeMocked, String expectedResponse)
     {
         mockClientResponseStatusCode(statusToBeMocked);
-        when(clientResponse.getEntity(String.class)).thenReturn(expectedResponse);
+        when(response.readEntity(String.class)).thenReturn(expectedResponse);
     }
 
     /**
@@ -83,13 +84,12 @@ public class WebServiceUtilsTest
      * @param status           the HTTP status to be set
      * @param expectedResponse the content to be set
      */
-    private void mockGetAsStringResponse(String url, Status status, MediaType mediaType, String expectedResponse)
+    private void mockGetAsStringResponse(String url, Status status, String expectedResponse)
     {
         mockClientResponse(status, expectedResponse);
         mockClient(url);
-        when(webResource.getRequestBuilder()).thenReturn(requestBuilder);
-        when(requestBuilder.get(ClientResponse.class)).thenReturn(clientResponse);
-        when(clientResponse.getType()).thenReturn(mediaType);
+        when(webTarget.request()).thenReturn(invocationBuilder);
+        when(invocationBuilder.get()).thenReturn(response);
     }
 
     /**
@@ -106,17 +106,16 @@ public class WebServiceUtilsTest
     {
         mockClientResponse(status, expectedResponse);
         mockClient(url);
-        when(webResource.getRequestBuilder()).thenReturn(requestBuilder);
-        when(requestBuilder.method(method, ClientResponse.class, requestEntity)).thenReturn(clientResponse);
-        when(clientResponse.getType()).thenReturn(mediaType);
+        when(webTarget.request()).thenReturn(invocationBuilder);
+        when(invocationBuilder.method(method, Entity.text(requestEntity))).thenReturn(response);
     }
 
     private void mockClient(String url)
     {
-        PowerMockito.mockStatic(Client.class);
-        PowerMockito.when(Client.create()).thenReturn(client);
+        PowerMockito.mockStatic(ClientBuilder.class);
+        PowerMockito.when(ClientBuilder.newClient()).thenReturn(client);
 
-        when(client.resource(url)).thenReturn(webResource);
+        when(client.target(url)).thenReturn(webTarget);
     }
 
     /**
@@ -136,7 +135,7 @@ public class WebServiceUtilsTest
     {
         mockClientResponseStatusCode(Status.NO_CONTENT);
         assertEquals(Status.NO_CONTENT.getStatusCode(),
-                WebServiceUtils.getStatusCode(WebServiceResponse.fromClientResponse(clientResponse)));
+                WebServiceUtils.getStatusCode(WebServiceResponse.fromClientResponse(response)));
     }
 
     /**
@@ -147,7 +146,7 @@ public class WebServiceUtilsTest
     {
         mockClientResponse(Status.OK, MOCKED_JSON_AS_STRING);
         assertEquals(MOCKED_JSON_AS_STRING,
-                WebServiceUtils.getResponseAsString(WebServiceResponse.fromClientResponse(clientResponse)));
+                WebServiceUtils.getResponseAsString(WebServiceResponse.fromClientResponse(response)));
     }
 
     /**
@@ -156,7 +155,7 @@ public class WebServiceUtilsTest
     @Test
     public void testGetJsonAsStringWithSuccess()
     {
-        mockGetAsStringResponse(URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, MOCKED_JSON_AS_STRING);
+        mockGetAsStringResponse(URL, Status.OK, MOCKED_JSON_AS_STRING);
         assertEquals(MOCKED_JSON_AS_STRING, WebServiceUtils.getAsString(URL));
     }
 
@@ -167,7 +166,7 @@ public class WebServiceUtilsTest
     @Test
     public void testGetJsonAsStringWithoutSuccess()
     {
-        mockGetAsStringResponse(URL, Status.NOT_FOUND, MediaType.APPLICATION_JSON_TYPE, MOCKED_JSON_AS_STRING);
+        mockGetAsStringResponse(URL, Status.NOT_FOUND, MOCKED_JSON_AS_STRING);
         assertEquals(StringUtils.EMPTY, WebServiceUtils.getAsString(URL));
     }
 
@@ -177,12 +176,12 @@ public class WebServiceUtilsTest
     @Test
     public void testGetWithSuccess()
     {
-        mockGetAsStringResponse(URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, MOCKED_JSON_AS_STRING);
+        mockGetAsStringResponse(URL, Status.OK, MOCKED_JSON_AS_STRING);
         WebServiceResponse response = WebServiceUtils.get(URL);
         assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
         assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
-        verify(requestBuilder, never()).header("Authorization", "Basic dXNlcjpwYXNz");
-        verify(requestBuilder, never()).header("Content-Type", "application/json");
+        verify(invocationBuilder, never()).header("Authorization", "Basic dXNlcjpwYXNz");
+        verify(invocationBuilder, never()).header("Content-Type", "application/json");
     }
 
     /**
@@ -216,8 +215,8 @@ public class WebServiceUtilsTest
         Map<String, String> headers = CollectionsUtils.asMap("Authorization=Basic dXNlcjpwYXNz",
                 "Content-Type=application/json");
         WebServiceUtils.invoke(GET, URL, null, headers);
-        verify(requestBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
-        verify(requestBuilder).header("Content-Type", "application/json");
+        verify(invocationBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
+        verify(invocationBuilder).header("Content-Type", "application/json");
     }
 
     @Test
