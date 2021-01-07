@@ -53,12 +53,21 @@ public class ExpressionEvaluatorTest
     private static final String GOOD_AFTERNOON = "Good afternoon";
 
     // Test JSON
-    private static final String JSON_STORE = "{\r\n" + "   \"store\" : {\r\n" + "      \"book\" : [\r\n"
-            + "         {\r\n" + "            \"author\" : \"Herman Melville\",\r\n"
-            + "            \"title\" : \"Moby Dick\",\r\n" + "            \"price\" : 8.99\r\n" + "         },\r\n"
-            + "         {\r\n" + "            \"author\" : \"J. R. R. Tolkien\",\r\n"
-            + "            \"title\" : \"The Lord of the Rings\",\r\n" + "            \"price\" : 22.99\r\n"
-            + "         }\r\n" + "      ]\r\n" + "   }\r\n" + "}";
+    private static final String JSON_STORE = "{\r\n"
+            + "   \"store\" : {\r\n"
+            + "      \"book\" : [\r\n"
+            + "         {\r\n"
+            + "            \"author\" : \"Herman Melville\",\r\n"
+            + "            \"title\" : \"Moby Dick\",\r\n"
+            + "            \"price\" : 8.99\r\n"
+            + "         },\r\n"
+            + "         {\r\n"
+            + "            \"author\" : \"J. R. R. Tolkien\",\r\n"
+            + "            \"title\" : \"The Lord of the Rings\",\r\n"
+            + "            \"price\" : 22.99\r\n"
+            + "         }\r\n"
+            + "      ]\r\n"
+            + "   }\r\n" + "}";
 
     // ----------------------
     // Web Services test data
@@ -67,9 +76,12 @@ public class ExpressionEvaluatorTest
     private static final String URL_EMPLOYEES = "http://localhost/services/employees";
     private static final String URL_EMPLOYEE1 = "http://localhost/services/employee/1";
 
-    private static final String JSON_EMPLOYEES = "[\r\n" + "   {\"id\":1,\"name\":\"Matthew\"},\r\n"
-            + "   {\"id\":2,\"name\":\"Mark\"},\r\n" + "   {\"id\":3,\"name\":\"Luke\"},\r\n"
-            + "   {\"id\":4,\"name\":\"John\"}\r\n" + "]";
+    private static final String JSON_EMPLOYEES = "[\r\n"
+            + "   {\"id\":1,\"name\":\"Matthew\"},\r\n"
+            + "   {\"id\":2,\"name\":\"Mark\"},\r\n"
+            + "   {\"id\":3,\"name\":\"Luke\"},\r\n"
+            + "   {\"id\":4,\"name\":\"John\"}\r\n"
+            + "]";
 
     private static final String JSON_EMPLOYEE1 = "{\"id\":1,\"name\":\"Matthew\"}";
     private static final String JSON_EMPLOYEE1_NAME = "Matthew";
