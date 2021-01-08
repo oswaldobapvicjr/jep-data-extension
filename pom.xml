@@ -1,12 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.obvj</groupId>
 	<artifactId>jep-data-extension</artifactId>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<packaging>jar</packaging>
 	<name>JEP Data Extension</name>
 	<description>
@@ -37,7 +35,7 @@
 		<url>https://github.com/oswaldobapvicjr/jep-data-extension</url>
 		<connection>scm:git:git://github.com/oswaldobapvicjr/jep-data-extension.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/oswaldobapvicjr/jep-data-extension.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>jep-data-extension-1.0.3</tag>
 	</scm>
 
 	<properties>
