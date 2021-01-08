@@ -1,16 +1,17 @@
 package net.obvj.jep.http;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang3.StringUtils;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.WebResource.Builder;
+import org.apache.commons.lang3.StringUtils;
 
 import net.obvj.jep.util.EncryptionUtils;
 import net.obvj.performetrics.Counter.Type;
@@ -102,25 +103,23 @@ public class WebServiceUtils
      */
     public static WebServiceResponse get(String url, Map<String, String> headers)
     {
-        Client client = Client.create();
-        WebResource webResource = client.resource(url);
-        Builder requestBuilder = webResource.getRequestBuilder();
+        Client client = ClientBuilder.newClient();
+        WebTarget webTarget = client.target(url);
+        Invocation.Builder invocationBuilder = webTarget.request();
 
-        copyHttpHeaders(requestBuilder, headers);
+        copyHttpHeaders(invocationBuilder, headers);
 
         log.log(Level.INFO, "Invoking GET on URL {0}", url);
         Stopwatch stopwatch = Stopwatch.createStarted(Type.WALL_CLOCK_TIME);
 
-        ClientResponse response = requestBuilder.get(ClientResponse.class);
+        Response response = invocationBuilder.get();
 
         stopwatch.stop();
-        log.log(Level.INFO, "Operation finished in {0} seconds",
-                stopwatch.elapsedTime(Type.WALL_CLOCK_TIME, TimeUnit.SECONDS));
+        log.log(Level.INFO, "Operation finished in {0}", stopwatch.elapsedTime(Type.WALL_CLOCK_TIME));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
-                new Object[] { response.getClientResponseStatus().getStatusCode(),
-                        response.getClientResponseStatus().getReasonPhrase() });
-        log.log(Level.INFO, "HTTP response content type: {0}", response.getType());
+                new Object[] { response.getStatus(), response.getStatusInfo().getReasonPhrase() });
+        log.log(Level.INFO, "HTTP response content type: {0}", response.getMediaType());
 
         return WebServiceResponse.fromClientResponse(response);
     }
@@ -159,39 +158,37 @@ public class WebServiceUtils
         }
 
         String lMethod = method.toUpperCase();
-        Client client = Client.create();
-        WebResource webResource = client.resource(url);
-        Builder requestBuilder = webResource.getRequestBuilder();
+        Client client = ClientBuilder.newClient();
+        WebTarget webTarget = client.target(url);
+        Invocation.Builder invocationBuilder = webTarget.request();
 
-        copyHttpHeaders(requestBuilder, headers);
+        copyHttpHeaders(invocationBuilder, headers);
 
         log.log(Level.INFO, "Invoking {0} on URL {1}", new Object[] { lMethod, url });
         Stopwatch stopwatch = Stopwatch.createStarted(Type.WALL_CLOCK_TIME);
 
-        ClientResponse response = requestBuilder.method(lMethod, ClientResponse.class, requestEntity);
+        Response response = invocationBuilder.method(lMethod, Entity.text(requestEntity));
 
         stopwatch.stop();
-        log.log(Level.INFO, "Operation finished in {0} seconds",
-                stopwatch.elapsedTime(Type.WALL_CLOCK_TIME, TimeUnit.SECONDS));
+        log.log(Level.INFO, "Operation finished in {0}", stopwatch.elapsedTime(Type.WALL_CLOCK_TIME));
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
-                new Object[] { response.getClientResponseStatus().getStatusCode(),
-                        response.getClientResponseStatus().getReasonPhrase() });
-        log.log(Level.INFO, "HTTP response content type: {0}", response.getType());
+                new Object[] { response.getStatus(), response.getStatusInfo().getReasonPhrase() });
+        log.log(Level.INFO, "HTTP response content type: {0}", response.getMediaType());
 
         return WebServiceResponse.fromClientResponse(response);
     }
 
     /**
-     * @param requestBuilder the {@link WebResource} request builder to receive the headers
-     * @param headers        the headers to be copied; can be null
+     * @param invocationBuilder the request builder to receive the headers
+     * @param headers           the headers to be copied; can be null
      */
-    private static void copyHttpHeaders(WebResource.Builder requestBuilder, Map<String, String> headers)
+    private static void copyHttpHeaders(Invocation.Builder invocationBuilder, Map<String, String> headers)
     {
         if (headers != null)
         {
             log.log(Level.INFO, "HTTP headers: {0}", headers);
-            headers.forEach(requestBuilder::header);
+            headers.forEach(invocationBuilder::header);
         }
     }
 

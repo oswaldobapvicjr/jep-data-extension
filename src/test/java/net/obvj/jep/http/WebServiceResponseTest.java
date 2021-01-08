@@ -5,44 +5,34 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.ClientResponse.Status;
-import com.sun.jersey.api.client.WebResource;
-
 /**
- * Unit tests for the {@link WebServiceUtils} class
+ * Unit tests for the {@link WebServiceResponse} class.
  *
  * @author oswaldo.bapvic.jr
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Client.class)
 public class WebServiceResponseTest
 {
     @Mock
-    private ClientResponse clientResponse;
-
-    @Mock
-    private WebResource webResource;
-
-    @Mock
-    private Client client;
+    private Response clientResponse;
 
     /**
-     * Utility method to mock the Client response with a given HTTP status
+     * Utility method to mock the response with a given HTTP status
      *
-     * @param statusToBeMocked the HTTP status to be set
+     * @param status the HTTP status to be set
      */
-    private void mockClientResponseStatusCode(Status statusToBeMocked)
+    private void mockClientResponseStatusCode(Status status)
     {
-        when(clientResponse.getClientResponseStatus()).thenReturn(statusToBeMocked);
-        when(clientResponse.getStatus()).thenReturn(statusToBeMocked.getStatusCode());
+        when(clientResponse.getStatusInfo()).thenReturn(status);
+        when(clientResponse.getStatus()).thenReturn(status.getStatusCode());
     }
 
     /**

@@ -3,17 +3,16 @@ package net.obvj.jep.functions;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.util.Stack;
+
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.nfunk.jep.ParseException;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
-
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.ClientResponse.Status;
 
 import net.obvj.jep.functions.HttpResponseHandler.Strategy;
 import net.obvj.jep.http.WebServiceResponse;
@@ -34,8 +33,7 @@ public class HttpResponseHandlerTest
     private static HttpResponseHandler httpStatusCodeFunction = new HttpResponseHandler(Strategy.GET_STATUS_CODE);
     private static HttpResponseHandler httpResponseFunction = new HttpResponseHandler(Strategy.GET_RESPONSE);
 
-    @Mock
-    private ClientResponse clientResponse;
+    private Response clientResponse = PowerMockito.mock(Response.class);
 
     /**
      * Utility method to mock the Client response with a given HTTP status and body
@@ -46,15 +44,15 @@ public class HttpResponseHandlerTest
     private void mockClientResponse(int statusCode, String expectedResponse)
     {
         when(clientResponse.getStatus()).thenReturn(statusCode);
-        when(clientResponse.getClientResponseStatus()).thenReturn(Status.fromStatusCode(statusCode));
-        when(clientResponse.getEntity(String.class)).thenReturn(expectedResponse);
+        when(clientResponse.getStatusInfo()).thenReturn(Status.fromStatusCode(statusCode));
+        when(clientResponse.readEntity(String.class)).thenReturn(expectedResponse);
     }
 
     /**
      * Tests the status code retrieval for a ClientResponse object
      */
     @Test
-    public void testStatusCodeWithClientResponse() throws org.nfunk.jep.ParseException, IOException
+    public void testStatusCodeWithClientResponse() throws ParseException
     {
         mockClientResponse(STATUS_CODE_OK, CONTENT_JSON);
         Stack<Object> parameters = CollectionsUtils
@@ -67,7 +65,7 @@ public class HttpResponseHandlerTest
      * Tests the status code retrieval for a ClientResponse object
      */
     @Test
-    public void testResponseWithClientResponse() throws org.nfunk.jep.ParseException, IOException
+    public void testResponseWithClientResponse() throws ParseException
     {
         mockClientResponse(STATUS_CODE_OK, CONTENT_JSON);
         Stack<Object> parameters = CollectionsUtils
@@ -80,7 +78,7 @@ public class HttpResponseHandlerTest
      * Tests the status code retrieval for an invalid ClientResponse parameter
      */
     @Test(expected = ParseException.class)
-    public void testWithInvalidClientResponse() throws org.nfunk.jep.ParseException, IOException
+    public void testWithInvalidClientResponse() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack("test");
         httpStatusCodeFunction.run(parameters);
