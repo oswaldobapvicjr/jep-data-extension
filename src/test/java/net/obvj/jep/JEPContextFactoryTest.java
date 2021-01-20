@@ -114,6 +114,12 @@ public class JEPContextFactoryTest
         checkFunction(table, "minute", DateFieldGetter.class, DateField.MINUTE);
         checkFunction(table, "second", DateFieldGetter.class, DateField.SECOND);
         checkFunction(table, "millisecond", DateFieldGetter.class, DateField.MILLISECOND);
+        checkFunction(table, "addYears", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_YEARS);
+        checkFunction(table, "addMonths", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_MONTHS);
+        checkFunction(table, "addDays", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_DAYS);
+        checkFunction(table, "addHours", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_HOURS);
+        checkFunction(table, "addMinutes", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_MINUTES);
+        checkFunction(table, "addSeconds", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_SECONDS);
 
         // ---------------------
         // Data manipulation
@@ -223,6 +229,12 @@ public class JEPContextFactoryTest
         assertEquals(INTEGER_123, jep.getVarValue("integer1"));
         assertEquals(DOUBLE_4, jep.getVarValue("double1"));
         assertEquals(DATE_1, jep.getVarValue("date1"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testAddVariablesWithNullJEP()
+    {
+        JEPContextFactory.addVariables(null, new HashMap<>());
     }
 
     /**
