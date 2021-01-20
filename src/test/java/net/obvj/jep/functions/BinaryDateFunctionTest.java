@@ -41,6 +41,7 @@ public class BinaryDateFunctionTest
     private static final String STR_DATE_SHORT = "2017-03-11";
 
     private static final BinaryDateFunction ADD_YEARS = new BinaryDateFunction(Strategy.ADD_YEARS);
+    private static final BinaryDateFunction ADD_QUARTERS = new BinaryDateFunction(Strategy.ADD_QUARTERS);
     private static final BinaryDateFunction ADD_MONTHS = new BinaryDateFunction(Strategy.ADD_MONTHS);
     private static final BinaryDateFunction ADD_WEEKS = new BinaryDateFunction(Strategy.ADD_WEEKS);
     private static final BinaryDateFunction ADD_DAYS = new BinaryDateFunction(Strategy.ADD_DAYS);
@@ -194,6 +195,18 @@ public class BinaryDateFunctionTest
     public void addWeeks_validDateAndNegativeAmount() throws ParseException
     {
         assertThat(run(ADD_WEEKS, DATE, -1), is(equalTo("2017-03-04T13:35:00.123Z")));
+    }
+
+    @Test
+    public void addQuarters_validDateAndPositiveAmount() throws ParseException
+    {
+        assertThat(run(ADD_QUARTERS, DATE, 4), is(equalTo("2018-03-11T13:35:00.123Z")));
+    }
+
+    @Test
+    public void addQuarters_validDateAndNegativeAmount() throws ParseException
+    {
+        assertThat(run(ADD_QUARTERS, DATE, -1), is(equalTo("2016-12-11T13:35:00.123Z")));
     }
 
 }

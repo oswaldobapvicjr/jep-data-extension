@@ -329,7 +329,7 @@ addDays("2017-03-11T20:15:00:123Z",  1) //result: "2017-03-12T20:15:00:123Z"
 addDays("2017-03-11T20:15:00:123Z", -1) //result: "2017-03-10T20:15:00:123Z"
 ```
 
-> **Note:** There are also other similar functions available: `addWeeks`, `addMonths`, `addYears`, `addHours`, `addMinutes`, and `addSeconds`.
+> **Note:** There are also other similar functions available: `addWeeks`, `addMonths`, `addQuarters`, `addYears`, `addHours`, `addMinutes`, and `addSeconds`.
 
 
 ---

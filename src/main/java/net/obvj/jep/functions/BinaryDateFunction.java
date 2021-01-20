@@ -101,6 +101,19 @@ public class BinaryDateFunction extends PostfixMathCommand implements MultiStrat
         },
 
         /**
+         * Adds a number of quarters to a date.
+         */
+        @Function("addQuarters")
+        ADD_QUARTERS
+        {
+            @Override
+            public Date apply(Date date, Integer amount)
+            {
+                return ADD_MONTHS.apply(date, amount * 3);
+            }
+        },
+
+        /**
          * Adds a number of years to a date.
          */
         @Function("addYears")

@@ -68,6 +68,7 @@ public class JEPContextFactory
         CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.SECOND));
         CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MILLISECOND));
         CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_YEARS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_QUARTERS));
         CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MONTHS));
         CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_WEEKS));
         CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_DAYS));

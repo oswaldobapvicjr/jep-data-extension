@@ -115,6 +115,7 @@ public class JEPContextFactoryTest
         checkFunction(table, "second", DateFieldGetter.class, DateField.SECOND);
         checkFunction(table, "millisecond", DateFieldGetter.class, DateField.MILLISECOND);
         checkFunction(table, "addYears", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_YEARS);
+        checkFunction(table, "addQuarters", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_QUARTERS);
         checkFunction(table, "addMonths", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_MONTHS);
         checkFunction(table, "addWeeks", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_WEEKS);
         checkFunction(table, "addDays", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_DAYS);
