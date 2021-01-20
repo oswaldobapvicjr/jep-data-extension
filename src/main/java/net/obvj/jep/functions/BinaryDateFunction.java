@@ -34,6 +34,7 @@ public class BinaryDateFunction extends PostfixMathCommand implements MultiStrat
                 return apply(date, calendar -> calendar.add(Calendar.SECOND, amount));
             }
         },
+
         /**
          * Adds a number of minutes to a date.
          */
@@ -139,7 +140,8 @@ public class BinaryDateFunction extends PostfixMathCommand implements MultiStrat
 
         int amount = NumberUtils.parseInt(arg2);
 
-        stack.push(strategy.apply(date, amount));
+        Date result = strategy.apply(date, amount);
+        stack.push(result);
     }
 
     /**

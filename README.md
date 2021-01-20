@@ -320,6 +320,18 @@ Returns the milliseconds within the second, for a given date.
 millisecond("2017-03-11T20:15:00:123Z") //result: 123.0
 ```
 
+### addDays
+
+Returns the result from adding the a number of days to a given date (or valid string representation of date/time).
+
+```java
+addDays("2017-03-11T20:15:00:123Z",  1) //result: "2017-03-12T20:15:00:123Z"
+addDays("2017-03-11T20:15:00:123Z", -1) //result: "2017-03-10T20:15:00:123Z"
+```
+
+> **Note:** There are also other similar functions available: `addMonths`, `addYears`, `addHours`, `addMinutes`, and `addSeconds`.
+
+
 ---
 
 ## Math functions

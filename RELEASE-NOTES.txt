@@ -3,6 +3,33 @@
                        __ _____ _____ 
                     __|  |   __|  _  |  obvj.net
                    |  |  |   __|   __|  JEP-DATA-EXTENSION
+                   |_____|_____|__|     version 1.0.4
+
+                                RELEASE NOTES
+
+-----------------------------------------------------------------------------
+
+INTRODUCTION:
+
+JEP-DATA-EXTENSION is a library that provides new functions to the Java
+Expression Parser, including advanced data manipulation capabilities with,
+such asRegEx, XPath, JSONPath and Web Services.
+
+Minor improvements in this version:
+
+ > [issue/0008] New functions: addSeconds, addMinutes, addHours, addDays,
+                addMonths, addYears
+
+
+For more information, or suggestions for improvement, visit:
+https://obvj.net/jep-data-extension
+
+
+=============================================================================
+
+                       __ _____ _____ 
+                    __|  |   __|  _  |  obvj.net
+                   |  |  |   __|   __|  JEP-DATA-EXTENSION
                    |_____|_____|__|     version 1.0.3
 
                                 RELEASE NOTES
