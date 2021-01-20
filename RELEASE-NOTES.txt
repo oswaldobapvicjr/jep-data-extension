@@ -17,8 +17,8 @@ such asRegEx, XPath, JSONPath and Web Services.
 
 Minor improvements in this version:
 
- > [issue/0008] New functions: addSeconds, addMinutes, addHours, addDays,
-                addMonths, addYears
+ > [issue/0008] New date/time functions: addSeconds, addMinutes, addHours,
+                addDays, addWeeks, addMonths, and addYears
 
 
 For more information, or suggestions for improvement, visit:

@@ -75,6 +75,19 @@ public class BinaryDateFunction extends PostfixMathCommand implements MultiStrat
         },
 
         /**
+         * Adds a number of weeks to a date.
+         */
+        @Function("addWeeks")
+        ADD_WEEKS
+        {
+            @Override
+            public Date apply(Date date, Integer amount)
+            {
+                return apply(date, calendar -> calendar.add(Calendar.WEEK_OF_MONTH, amount));
+            }
+        },
+
+        /**
          * Adds a number of months to a date.
          */
         @Function("addMonths")

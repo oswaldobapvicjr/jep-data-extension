@@ -42,6 +42,7 @@ public class BinaryDateFunctionTest
 
     private static final BinaryDateFunction ADD_YEARS = new BinaryDateFunction(Strategy.ADD_YEARS);
     private static final BinaryDateFunction ADD_MONTHS = new BinaryDateFunction(Strategy.ADD_MONTHS);
+    private static final BinaryDateFunction ADD_WEEKS = new BinaryDateFunction(Strategy.ADD_WEEKS);
     private static final BinaryDateFunction ADD_DAYS = new BinaryDateFunction(Strategy.ADD_DAYS);
     private static final BinaryDateFunction ADD_HOURS = new BinaryDateFunction(Strategy.ADD_HOURS);
     private static final BinaryDateFunction ADD_MINUTES = new BinaryDateFunction(Strategy.ADD_MINUTES);
@@ -181,6 +182,18 @@ public class BinaryDateFunctionTest
     public void addHours_validDateAndNegativeAmount() throws ParseException
     {
         assertThat(run(ADD_HOURS, DATE, -3), is(equalTo("2017-03-11T10:35:00.123Z")));
+    }
+
+    @Test
+    public void addWeeks_validDateAndPositiveAmount() throws ParseException
+    {
+        assertThat(run(ADD_WEEKS, DATE, 5), is(equalTo("2017-04-15T13:35:00.123Z")));
+    }
+
+    @Test
+    public void addWeeks_validDateAndNegativeAmount() throws ParseException
+    {
+        assertThat(run(ADD_WEEKS, DATE, -1), is(equalTo("2017-03-04T13:35:00.123Z")));
     }
 
 }
