@@ -67,6 +67,14 @@ public class JEPContextFactory
         CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MINUTE));
         CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.SECOND));
         CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MILLISECOND));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_YEARS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_QUARTERS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MONTHS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_WEEKS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_DAYS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_HOURS));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MINUTES));
+        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_SECONDS));
 
         // Data manipulation functions
         CUSTOM_FUNCTIONS.add(JsonPath::new);
@@ -194,7 +202,8 @@ public class JEPContextFactory
      *
      * @param jep      the JEP object to which the function will be registered
      * @param function the function to be registered
-     * @throws IllegalStateException if the given function is not annotated
+     *
+     * @throws IllegalArgumentException if the given function is not annotated
      */
     protected static void addAnnotatedFunction(JEP jep, PostfixMathCommandI function)
     {
@@ -231,12 +240,17 @@ public class JEPContextFactory
     /**
      * Adds all entries from the {@code contextMap} as variables to the JEP context.
      *
-     * @param jep        the JEP object to be filled with variables
+     * @param jep        the JEP object to be filled with variables, not null
      * @param contextMap a map of variables to be used by the evaluation context
+     *
+     * @throws IllegalArgumentException if the specified JEP object is null
      */
     public static void addVariables(JEP jep, Map<String, Object> contextMap)
     {
-        if (jep == null) throw new IllegalArgumentException("A null JEP object was received");
+        if (jep == null)
+        {
+            throw new IllegalArgumentException("A null JEP object was received");
+        }
 
         if (contextMap != null)
         {

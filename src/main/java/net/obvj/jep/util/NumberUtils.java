@@ -33,6 +33,22 @@ public class NumberUtils
     }
 
     /**
+     * Checks if the specified Object represents an integer
+     *
+     * @param object the Object to be checked
+     * @return true if is integer otherwise false
+     */
+    public static boolean isInteger(Object object)
+    {
+        if (isNumber(object))
+        {
+            Double doubleValue = parseDouble(object);
+            return isInteger(doubleValue);
+        }
+        return false;
+    }
+
+    /**
      * Checks if a {@code String} represents an integer
      *
      * @param stringValue the string to be checked
@@ -49,7 +65,7 @@ public class NumberUtils
             return false;
         }
     }
-    
+
     /**
      * Checks if a {@code String} represents a number with decimal.
      *
@@ -78,7 +94,7 @@ public class NumberUtils
     {
         return numberValue != null && numberValue.doubleValue() % 1 == 0;
     }
-    
+
     /**
      * Checks if a {@code Number} contains a decimal
      *
