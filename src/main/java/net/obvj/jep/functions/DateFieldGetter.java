@@ -11,13 +11,16 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.DateUtils;
 
 /**
- * A function that returns a field from a Date, depending on the date field strategy
+ * An "abstract" function that returns a field from a Date, depending on the assigned
+ * {@link DateField} fetching strategy.
  *
  * @author oswaldo.bapvic.jr
  */
 public class DateFieldGetter extends PostfixMathCommand implements MultiStrategyCommand
 {
-
+    /**
+     * Defines particular field-fetching strategies for a given date.
+     */
     public enum DateField
     {
         /**

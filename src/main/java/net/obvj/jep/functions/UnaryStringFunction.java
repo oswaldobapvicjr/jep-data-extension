@@ -9,7 +9,8 @@ import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
 /**
- * A JEP function that receives a string object and produces another string
+ * An "abstract" function that receives a string object and produces another string after
+ * processing the strategy defined by a delegating {@link UnaryStringFunction.Strategy}.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -17,6 +18,10 @@ public class UnaryStringFunction extends PostfixMathCommand implements MultiStra
 {
     protected static final char[] SEPARATORS = { ' ', '_', '-' };
 
+    /**
+     * Defines the strategy to be executed for a string, such as trimming and conversion to
+     * lower/upper/camel-case.
+     */
     public enum Strategy implements UnaryOperator<String>
     {
         /**

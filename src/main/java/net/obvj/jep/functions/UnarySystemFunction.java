@@ -6,12 +6,15 @@ import org.nfunk.jep.ParseException;
 import org.nfunk.jep.function.PostfixMathCommand;
 
 /**
- * A JEP function that receives a single parameter and retrieves system data
+ * An "abstract" function that receives a single parameter and retrieves system data.
  *
  * @author oswaldo.bapvic.jr
  */
 public class UnarySystemFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
+    /**
+     * Defines particular strategies for the {@link UnarySystemFunction}.
+     */
     public enum Strategy
     {
         /**

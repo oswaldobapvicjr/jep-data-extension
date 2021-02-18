@@ -9,7 +9,10 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.NumberUtils;
 
 /**
- * A function that accepts one argument and returns a boolean value.
+ * An "abstract" function that accepts one object as argument and returns a boolean value,
+ * represented as 1 (true) or 0 (false).
+ * <p>
+ * The actual concrete implementation defined is by {@link UnaryBooleanFunction.Strategy}.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -18,6 +21,11 @@ public class UnaryBooleanFunction extends PostfixMathCommand implements MultiStr
     protected static final double FALSE = 0d;
     protected static final double TRUE = 1d;
 
+    /**
+     * Defines particular object predicates for the {@link UnaryBooleanFunction}.
+     *
+     * @see Predicate
+     */
     public enum Strategy
     {
         /**

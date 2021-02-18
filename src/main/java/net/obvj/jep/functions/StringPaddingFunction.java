@@ -9,7 +9,9 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.NumberUtils;
 
 /**
- * A JEP function for string padding.
+ * An "abstract" function for string padding, which accepts a variable number of arguments
+ * (either two or three parameters), and executes a particular strategy defined by
+ * {@link StringPaddingFunction.Strategy}.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -17,6 +19,9 @@ public class StringPaddingFunction extends PostfixMathCommand implements MultiSt
 {
     private static final String DEFAULT_PADDING_STR = " ";
 
+    /**
+     * Defines particular string-padding behaviors, such as right-padding and left-padding.
+     */
     public enum Strategy
     {
         /**

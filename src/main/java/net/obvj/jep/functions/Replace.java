@@ -9,12 +9,15 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.RegexUtils;
 
 /**
- * A JEP function that replaces occurrences of a string with another string
+ * An "abstract" function that replaces occurrences of a string with another string.
  *
  * @author oswaldo.bapvic.jr
  */
 public class Replace extends PostfixMathCommand implements MultiStrategyCommand
 {
+    /**
+     * Defines particular strategies for the {@link Replace} function.
+     */
     public enum Strategy
     {
         /**

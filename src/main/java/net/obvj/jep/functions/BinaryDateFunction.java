@@ -13,15 +13,18 @@ import net.obvj.jep.util.DateUtils;
 import net.obvj.jep.util.NumberUtils;
 
 /**
- * A function that receives two objects, a Date and an integer, and returns a Date.
+ * An "abstract" function that receives two objects: a Date and an integer, and returns a
+ * Date, with concrete behavior defined by {@link BinaryDateFunction.Strategy}.
  *
  * @author oswaldo.bapvic.jr
  */
 public class BinaryDateFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
+    /**
+     * Defines particular strategies for the {@link BinaryDateFunction}.
+     */
     public enum Strategy implements BiFunction<Date, Integer, Date>
     {
-
         /**
          * Adds a number of seconds to a date.
          */

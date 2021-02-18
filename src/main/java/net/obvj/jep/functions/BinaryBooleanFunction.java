@@ -9,8 +9,8 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.RegexUtils;
 
 /**
- * A function that accepts two parameters (of any type) and returns 1 (true) or 0 (false),
- * depending on the given evaluation strategy.
+ * An "abstract" function that accepts two parameters (of any type) and returns 1 (true)
+ * or 0 (false), depending on the target evaluation strategy.
  * <p>
  * The function will always return true if both parameters are equal.
  *
@@ -21,6 +21,9 @@ public class BinaryBooleanFunction extends PostfixMathCommand implements MultiSt
     protected static final double FALSE = 0d;
     protected static final double TRUE = 1d;
 
+    /**
+     * Defines particular strategies for the {@link BinaryBooleanFunction}.
+     */
     public enum Strategy
     {
         /**

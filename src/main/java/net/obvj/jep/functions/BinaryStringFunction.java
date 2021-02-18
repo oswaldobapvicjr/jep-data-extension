@@ -11,12 +11,15 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.RegexUtils;
 
 /**
- * This class implements a JEP function that receives two strings.
+ * An "abstract" function that accepts two strings and returns an object.
  *
  * @author oswaldo.bapvic.jr
  */
 public class BinaryStringFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
+    /**
+     * Defines particular concrete behaviors for the {@link BinaryStringFunction}.
+     */
     public enum Strategy
     {
         /**

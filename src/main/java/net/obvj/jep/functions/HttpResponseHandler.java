@@ -9,13 +9,15 @@ import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
 
 /**
- * A JEP function that reads data from a {@link WebServiceResponse} object.
+ * An "abstract" function that reads data from a {@link WebServiceResponse} object.
  *
  * @author oswaldo.bapvic.jr
  */
 public class HttpResponseHandler extends PostfixMathCommand implements MultiStrategyCommand
 {
-
+    /**
+     * Defines particular data-fetch strategies for a given {@link WebServiceResponse}.
+     */
     public enum Strategy
     {
         /**

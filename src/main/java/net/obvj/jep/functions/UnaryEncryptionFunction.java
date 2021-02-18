@@ -8,12 +8,16 @@ import org.nfunk.jep.function.PostfixMathCommand;
 import net.obvj.jep.util.EncryptionUtils;
 
 /**
- * A JEP function that accepts one parameter and converts it into an encrypted string
+ * An "abstract" function that accepts one object as parameter and converts it into an
+ * encrypted string.
  *
  * @author oswaldo.bapvic.jr
  */
 public class UnaryEncryptionFunction extends PostfixMathCommand implements MultiStrategyCommand
 {
+    /**
+     * Defines particular strategies for string encryption, such as the encryption algorithm.
+     */
     public enum EncryptionAlgorithm
     {
         @Function("md5")
@@ -47,7 +51,7 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
         },
 
         @Function("toBase64")
-        TO_BASE64()
+        TO_BASE64
         {
             @Override
             String execute(String content)
@@ -57,7 +61,7 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
         },
 
         @Function("fromBase64")
-        FROM_BASE64()
+        FROM_BASE64
         {
             @Override
             String execute(String content)
