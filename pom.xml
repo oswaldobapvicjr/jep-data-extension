@@ -51,7 +51,7 @@
         <jersey-client.version>2.33</jersey-client.version>
         <jettison.version>1.4.1</jettison.version>
         <json-path.version>2.5.0</json-path.version>
-        <performetrics.version>2.2.1</performetrics.version>
+        <performetrics.version>2.2.2</performetrics.version>
         <sl4j-simple.version>1.7.30</sl4j-simple.version>
 
         <!-- Test dependencies versions -->

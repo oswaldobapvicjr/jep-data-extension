@@ -3,6 +3,34 @@
                        __ _____ _____ 
                     __|  |   __|  _  |  obvj.net
                    |  |  |   __|   __|  JEP-DATA-EXTENSION
+                   |_____|_____|__|     version 1.0.5
+
+                                RELEASE NOTES
+
+-----------------------------------------------------------------------------
+
+INTRODUCTION:
+
+JEP-DATA-EXTENSION is a library that provides new functions and customized
+operators on top of the Java Expression Parser, including advanced data
+manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
+
+Minor improvements in this version:
+
+ > Dependencies upgrade:
+
+   - performetrics: version 2.2.1 -> 2.2.2
+
+
+For more information, or suggestions for improvement, visit:
+https://obvj.net/jep-data-extension
+
+
+=============================================================================
+
+                       __ _____ _____ 
+                    __|  |   __|  _  |  obvj.net
+                   |  |  |   __|   __|  JEP-DATA-EXTENSION
                    |_____|_____|__|     version 1.0.4
 
                                 RELEASE NOTES
