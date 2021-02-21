@@ -5,7 +5,7 @@ import java.util.Iterator;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * A utility class for working with numbers
+ * A utility class for working with numbers.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -33,7 +33,7 @@ public class NumberUtils
     }
 
     /**
-     * Checks if the specified Object represents an integer
+     * Checks if the specified Object represents an integer.
      *
      * @param object the Object to be checked
      * @return true if is integer otherwise false
@@ -49,7 +49,7 @@ public class NumberUtils
     }
 
     /**
-     * Checks if a {@code String} represents an integer
+     * Checks if a {@code String} represents an integer.
      *
      * @param stringValue the string to be checked
      * @return true if is integer otherwise false
@@ -85,7 +85,7 @@ public class NumberUtils
     }
 
     /**
-     * Checks if a {@code Number} is an integer
+     * Checks if a {@code Number} is an integer.
      *
      * @param numberValue the number to be checked
      * @return true if is integer otherwise false
@@ -96,7 +96,7 @@ public class NumberUtils
     }
 
     /**
-     * Checks if a {@code Number} contains a decimal
+     * Checks if a {@code Number} contains a decimal.
      *
      * @param numberValue the number to be checked
      * @return true if is decimal otherwise false
@@ -150,7 +150,7 @@ public class NumberUtils
     }
 
     /**
-     * Checks whether the Object is a valid Java number
+     * Checks whether the Object is a valid Java number.
      *
      * @param object the object to be evaluated
      * @return true if pObject is a Number or String representation of number
@@ -177,7 +177,7 @@ public class NumberUtils
     }
 
     /**
-     * Checks if all the elements are parsable number
+     * Checks if all the elements are parsable number.
      *
      * @param iterable the iterable to be evaluated
      * @return true if all elements are parsable number

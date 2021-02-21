@@ -22,7 +22,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Utility methods for working with XML and XPath
+ * Utility methods for working with XML and XPath.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -166,12 +166,14 @@ public class XmlUtils
             this.list = list;
         }
 
+        @Override
         public Object get(int index)
         {
             Node node = list.item(index);
             return node.getNodeValue();
         }
 
+        @Override
         public int size()
         {
             return list.getLength();

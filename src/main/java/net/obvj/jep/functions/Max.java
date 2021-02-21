@@ -49,7 +49,7 @@ public class Max extends PostfixMathCommand
      */
     private Object max(JSONArray jsonArray)
     {
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
+        List<Object> convertedList = JsonUtils.toList(jsonArray);
         return max(convertedList);
     }
 

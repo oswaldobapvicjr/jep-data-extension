@@ -65,7 +65,7 @@ public class CollectionsUtils
         if (object instanceof JSONArray)
         {
             JSONArray jsonArray = (JSONArray) object;
-            return JsonUtils.convertJSONArrayToList(jsonArray);
+            return JsonUtils.toList(jsonArray);
         }
 
         if (object instanceof Object[])
@@ -78,7 +78,7 @@ public class CollectionsUtils
             try
             {
                 JSONArray jsonArray = new JSONArray(object.toString());
-                return JsonUtils.convertJSONArrayToList(jsonArray);
+                return JsonUtils.toList(jsonArray);
             }
             catch (JSONException exception)
             {
@@ -227,7 +227,7 @@ public class CollectionsUtils
      * @param list the list to be processed
      * @return a new list containing only distinct elements
      */
-    public static List<Object> distincList(List<Object> list)
+    public static List<Object> distinctList(List<Object> list)
     {
         if (isEmpty(list))
         {

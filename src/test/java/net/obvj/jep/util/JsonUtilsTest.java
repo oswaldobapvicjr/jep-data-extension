@@ -147,7 +147,7 @@ public class JsonUtilsTest
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(STR_ENTRY_1);
         jsonArray.put(STR_ENTRY_2);
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
+        List<Object> convertedList = JsonUtils.toList(jsonArray);
         assertEquals(jsonArray.length(), convertedList.size());
     }
 
@@ -165,7 +165,7 @@ public class JsonUtilsTest
         JSONArray jsonArray2 = new JSONArray();
         jsonArray2.put(STR_ENTRY_1);
         jsonArray1.put(jsonArray2);
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray1);
+        List<Object> convertedList = JsonUtils.toList(jsonArray1);
         assertEquals(jsonArray1.length(), convertedList.size());
     }
 
@@ -183,7 +183,7 @@ public class JsonUtilsTest
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("testKey", "testValue");
         jsonArray.put(jsonObject);
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
+        List<Object> convertedList = JsonUtils.toList(jsonArray);
         assertEquals(jsonArray.length(), convertedList.size());
     }
 
@@ -197,7 +197,7 @@ public class JsonUtilsTest
     {
         JSONArray jsonArray = new JSONArray();
         jsonArray.put(JSONObject.NULL);
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
+        List<Object> convertedList = JsonUtils.toList(jsonArray);
         assertEquals(1, convertedList.size());
         assertEquals(null, convertedList.get(0));
     }
@@ -211,7 +211,7 @@ public class JsonUtilsTest
     public void testConvertJSONArrayWithEmptyEntry()
     {
         JSONArray jsonArray = new JSONArray();
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
+        List<Object> convertedList = JsonUtils.toList(jsonArray);
         assertEquals(Collections.EMPTY_LIST, convertedList);
     }
 
@@ -226,7 +226,7 @@ public class JsonUtilsTest
         JSONArray jsonArray = Mockito.mock(JSONArray.class);
         Mockito.when(jsonArray.length()).thenReturn(1);
         Mockito.when(jsonArray.get(0)).thenThrow(new JSONException("message1"));
-        JsonUtils.convertJSONArrayToList(jsonArray);
+        JsonUtils.toList(jsonArray);
     }
 
     /**
@@ -237,7 +237,7 @@ public class JsonUtilsTest
     @Test
     public void testConvertNullParameter()
     {
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(null);
+        List<Object> convertedList = JsonUtils.toList(null);
         assertEquals(Collections.EMPTY_LIST, convertedList);
     }
 
@@ -271,7 +271,7 @@ public class JsonUtilsTest
     @Test
     public void testConvertValidJSONStringToJSON() throws JSONException
     {
-        JSONObject jsonObject = JsonUtils.convertToJSONObject(STR_JSON_EMPTY);
+        JSONObject jsonObject = JsonUtils.toJSONObject(STR_JSON_EMPTY);
         assertNotNull(jsonObject);
     }
 
@@ -283,7 +283,7 @@ public class JsonUtilsTest
     @Test
     public void testConvertNullToJSONObject() throws JSONException
     {
-        JSONObject jsonObject = JsonUtils.convertToJSONObject(null);
+        JSONObject jsonObject = JsonUtils.toJSONObject(null);
         assertNotNull(jsonObject);
         assertThat(jsonObject.length(), is(equalTo(0)));
     }
@@ -296,7 +296,7 @@ public class JsonUtilsTest
     @Test
     public void testConvertNullToJSONArray() throws JSONException
     {
-        JSONArray jsonArray = JsonUtils.convertToJSONArray(null);
+        JSONArray jsonArray = JsonUtils.toJSONArray(null);
         assertNotNull(jsonArray);
         assertThat(jsonArray.length(), is(equalTo(0)));
     }
@@ -310,7 +310,7 @@ public class JsonUtilsTest
     public void testConvertJSONObject() throws JSONException
     {
         JSONObject jsonObject = new JSONObject();
-        assertEquals(jsonObject, JsonUtils.convertToJSONObject(jsonObject));
+        assertEquals(jsonObject, JsonUtils.toJSONObject(jsonObject));
     }
 
     /**
@@ -322,7 +322,7 @@ public class JsonUtilsTest
     public void testConvertJSONArray() throws JSONException
     {
         JSONArray jsonArray = new JSONArray();
-        assertEquals(jsonArray, JsonUtils.convertToJSONArray(jsonArray));
+        assertEquals(jsonArray, JsonUtils.toJSONArray(jsonArray));
     }
 
     /**

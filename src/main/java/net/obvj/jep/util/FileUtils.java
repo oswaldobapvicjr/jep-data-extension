@@ -18,9 +18,9 @@ import net.obvj.performetrics.Counter.Type;
 import net.obvj.performetrics.Stopwatch;
 
 /**
- * A utility class for loading of text files
+ * A utility class for loading text files.
  *
- * @author Oswaldo Junior
+ * @author oswaldo.bapvic.jr
  */
 public class FileUtils
 {

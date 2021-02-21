@@ -46,9 +46,9 @@ public class DateUtils
     }
 
     /**
-     * Converts the given date into string with the the given {@code pattern}
+     * Converts the given date into string with the the given {@code pattern}.
      *
-     * @param date the date to be formatted
+     * @param date    the date to be formatted
      * @param pattern the date format pattern to be used
      * @return the string converted to {@code Date}
      */
@@ -59,13 +59,13 @@ public class DateUtils
 
     /**
      * Converts the given string into {@link java.util.Date} by applying the specified
-     * patterns until the operation succeeds
+     * patterns sequentially until the operation succeeds.
      *
-     * @param string the string to be converted
+     * @param string   the string to be converted
      * @param patterns the date format patterns to be used
      * @return the parsed date
      * @throws IllegalArgumentException if a null string or pattern is received
-     * @throws ParseException if the date can not be parsed
+     * @throws ParseException           if the date can not be parsed
      */
     public static Date parseDate(String string, String... patterns) throws ParseException
     {

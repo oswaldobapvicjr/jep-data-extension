@@ -114,6 +114,6 @@ public class CollectionsUtilsTest
     {
         List<Object> sourceList = Arrays.asList(KEY1, KEY2, KEY2, VALUE1, VALUE2, KEY1, 0, 1.1, 0);
         List<Object> expectedList = Arrays.asList(KEY1, KEY2, VALUE1, VALUE2, 0, 1.1);
-        assertThat(CollectionsUtils.distincList(sourceList), is(expectedList));
+        assertThat(CollectionsUtils.distinctList(sourceList), is(expectedList));
     }
 }

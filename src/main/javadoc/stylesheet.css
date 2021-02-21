@@ -6,12 +6,14 @@ Overall document style
 ============================================
 */
 
-@import url('resources/fonts/dejavu.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
 
 body {
     background-color:#ffffff;
     color:#353833;
-    font-family:'DejaVu Sans', Arial, Helvetica, sans-serif;
+    font-family:'Roboto', Arial, Helvetica, sans-serif;
     font-size:14px;
     margin:0;
 }
@@ -35,7 +37,7 @@ a[name]:hover {
     color:#353833;
 }
 pre {
-    font-family:'DejaVu Sans Mono', monospace;
+    font-family:'Roboto Mono', monospace;
     font-size:14px;
 }
 h1 {
@@ -61,19 +63,19 @@ ul {
     list-style-type:disc;
 }
 code, tt {
-    font-family:'DejaVu Sans Mono', monospace;
+    font-family:'Roboto Mono', monospace;
     font-size:14px;
     padding-top:4px;
     margin-top:8px;
     line-height:1.4em;
 }
 dt code {
-    font-family:'DejaVu Sans Mono', monospace;
+    font-family:'Roboto Mono', monospace;
     font-size:14px;
     padding-top:4px;
 }
 table tr td dt code {
-    font-family:'DejaVu Sans Mono', monospace;
+    font-family:'Roboto Mono', monospace;
     font-size:14px;
     vertical-align:top;
     padding-top:4px;
@@ -324,7 +326,7 @@ Page layout container styles
 .contentContainer .description dl dd, .contentContainer .details dl dd, .serializedFormContainer dl dd {
     margin:5px 0 10px 0px;
     font-size:14px;
-    font-family:'DejaVu Sans Mono',monospace;
+    font-family:'Roboto Mono',monospace;
 }
 .serializedFormContainer dl.nameValue dt {
     margin-left:1px;
@@ -585,7 +587,7 @@ ul.blockList ul.blockList ul.blockList li.blockList h3 {
 
 div.block {
     font-size:14px;
-    font-family:'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
+    font-family:'Roboto', Arial, Helvetica, sans-serif;
 }
 
 td.colLast div {

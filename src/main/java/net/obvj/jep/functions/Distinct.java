@@ -34,7 +34,7 @@ public class Distinct extends PostfixMathCommand
         checkStack(pStack);
         Object param = pStack.pop();
         List<Object> list = CollectionsUtils.asList(param);
-        List<Object> distinctList = CollectionsUtils.distincList(list);
+        List<Object> distinctList = CollectionsUtils.distinctList(list);
         pStack.push(distinctList);
     }
 }

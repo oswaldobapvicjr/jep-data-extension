@@ -5,10 +5,9 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension)
 [![javadoc](https://javadoc.io/badge2/net.obvj/jep-data-extension/javadoc.svg)](https://javadoc.io/doc/net.obvj/jep-data-extension)
 
-**jep-data-extension** is a library that  extends JEP, a powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom data functions and operators, including 
-**RegEx**, **XPath**, **JSONPath** and **Web Services**.
+**jep-data-extension** is a project that  extends JEP, the powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom functions and operators ready to use, including **RegEx**, **XPath**, **JSONPath** and **Web Services**.
 
-> For details about JEP core functionality, click [here](http://www.singularsys.com/jep/doc/html/index.html). 
+> For details about JEP core features, access the [documentation](http://www.singularsys.com/jep/doc/html/index.html).
 
 ---
 
@@ -688,7 +687,7 @@ If you are using Maven, add **jep-data-extension** as a dependency to your pom.x
 <dependency>
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 </dependency>
 ```
 

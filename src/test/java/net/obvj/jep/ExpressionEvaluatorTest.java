@@ -266,7 +266,7 @@ public class ExpressionEvaluatorTest
     {
         mockGetWebServiceResponse(URL_EMPLOYEES, JSON_EMPLOYEES);
         ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_GET_HTTP_GET);
-        assertEquals(JsonUtils.convertToJSONObject(JSON_EMPLOYEE1), evaluator.evaluate(Collections.emptyMap()));
+        assertEquals(JsonUtils.toJSONObject(JSON_EMPLOYEE1), evaluator.evaluate(Collections.emptyMap()));
     }
 
     /**

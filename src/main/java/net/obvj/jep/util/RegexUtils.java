@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * A utility class for working with regular expressions in strings
+ * A utility class for working with regular expressions in strings.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -25,7 +25,7 @@ public class RegexUtils
     }
 
     /**
-     * Returns true if the given string contains at least one match of the given pattern
+     * Returns true if the given string contains at least one match of the given pattern.
      *
      * @param string  The string to be matched
      * @param pattern The pattern to use
@@ -42,7 +42,7 @@ public class RegexUtils
 
     /**
      * Returns true if the given string contains at least one match of the given regular
-     * expression
+     * expression.
      *
      * @param string The string to be matched
      * @param regex  The regular expression to use
@@ -56,7 +56,7 @@ public class RegexUtils
     }
 
     /**
-     * Returns the matches found for a given string using regular expression
+     * Returns the matches found for a given string using regular expression.
      *
      * @param string  The string to be matched
      * @param pattern The pattern to use
@@ -77,7 +77,7 @@ public class RegexUtils
     }
 
     /**
-     * Returns the matches found for a given string using regular expression
+     * Returns the matches found for a given string using regular expression.
      *
      * @param string The string to be matched
      * @param regex  The regular expression to use
@@ -90,7 +90,7 @@ public class RegexUtils
     }
 
     /**
-     * Returns the first match found for a given string using regular expression
+     * Returns the first match found for a given string using regular expression.
      *
      * @param string  The string to be matched
      * @param pattern The pattern to use
@@ -110,7 +110,7 @@ public class RegexUtils
     }
 
     /**
-     * Returns the first match found for a given string using regular expression
+     * Returns the first match found for a given string using regular expression.
      *
      * @param string The string to be matched
      * @param regex  The regular expression to use
@@ -123,7 +123,7 @@ public class RegexUtils
     }
 
     /**
-     * Replaces all matches found for the given regular expression with a replacement string
+     * Replaces all matches found for the given regular expression with a replacement string.
      *
      * @param string      The string to be matched
      * @param regex       The regular expression to use
@@ -139,7 +139,7 @@ public class RegexUtils
     }
 
     /**
-     * Checks if the string has place-holders for variables in Unix-like pattern
+     * Checks if the string has place-holders for variables in Unix-like pattern.
      *
      * @param string the string to be replaced
      * @return a boolean value which means it has or not place-holders in Unix-like pattern
@@ -151,7 +151,7 @@ public class RegexUtils
     }
 
     /**
-     * Method that finds the place-holders in Unix-like pattern for the given string
+     * Method that finds the place-holders in Unix-like pattern for the given string.
      *
      * @param string the string to be used to find place-holders
      * @return the string set with the found place-holders
@@ -162,7 +162,7 @@ public class RegexUtils
     }
 
     /**
-     * Method that finds the variable name given a string containing a place-holder
+     * Method that finds the variable name given a string containing a place-holder.
      *
      * @param string the string to be used to find the variable name
      * @return the the variable name, if found
@@ -173,7 +173,7 @@ public class RegexUtils
     }
 
     /**
-     * Method to replace place-holders with variables
+     * Method to replace place-holders with variables.
      *
      * @param string    The given string to be replaced
      * @param variables A map containing place-holder names and value that will be used in

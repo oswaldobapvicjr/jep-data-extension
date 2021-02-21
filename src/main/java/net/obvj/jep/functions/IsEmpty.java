@@ -75,7 +75,7 @@ public class IsEmpty extends PostfixMathCommand
     {
         try
         {
-            JSONObject json = JsonUtils.convertToJSONObject(string);
+            JSONObject json = JsonUtils.toJSONObject(string);
             return JsonUtils.isEmpty(json);
         }
         catch (JSONException e)
@@ -83,7 +83,7 @@ public class IsEmpty extends PostfixMathCommand
             // Not a JSON object... Let's try as a JSON array...
             try
             {
-                JSONArray json = JsonUtils.convertToJSONArray(string);
+                JSONArray json = JsonUtils.toJSONArray(string);
                 return JsonUtils.isEmpty(json);
             }
             catch (JSONException e1)

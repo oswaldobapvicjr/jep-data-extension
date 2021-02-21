@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * A class that contains methods for conversions between Roman and Arabic numerals.
- * 
+ *
  * @author oswaldo.bapvic.jr
  */
 public class RomanNumeralUtils
@@ -45,12 +45,12 @@ public class RomanNumeralUtils
     {
         throw new IllegalStateException("Utility class");
     }
-    
+
     /**
      * Converts a Roman number to an Arabic number.
-     * 
+     *
      * @param input the Roman number to be converted
-     * @return the Arabic number corresponding to the given inout
+     * @return the Arabic number corresponding to the given input
      */
     public static int romanToArabic(String input)
     {
@@ -83,7 +83,7 @@ public class RomanNumeralUtils
 
     /**
      * Converts an Arabic number to a Roman number.
-     * 
+     *
      * @param number the Arabic number to be converted (a value from 1 to 3999)
      * @return a String containing the corresponding Roman number. An input of 0 (zero) will
      *         be converted to an empty string.

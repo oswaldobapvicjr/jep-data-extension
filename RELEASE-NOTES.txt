@@ -11,15 +11,15 @@
 
 INTRODUCTION:
 
-JEP-DATA-EXTENSION is a library that provides new functions to the Java
-Expression Parser, including advanced data manipulation capabilities with,
-such asRegEx, XPath, JSONPath and Web Services.
+JEP-DATA-EXTENSION is a library that provides new functions and customized
+operators on top of the Java Expression Parser, including advanced data
+manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
 
 Minor improvements in this version:
 
  > [issue/0008] New date/time functions: addSeconds, addMinutes, addHours,
                 addDays, addWeeks, addMonths, addQuarters, and addYears
-
+ > General Javadoc improvements
 
 For more information, or suggestions for improvement, visit:
 https://obvj.net/jep-data-extension
@@ -38,9 +38,9 @@ https://obvj.net/jep-data-extension
 
 INTRODUCTION:
 
-JEP-DATA-EXTENSION is a library that provides new functions to the Java
-Expression Parser, including advanced data manipulation capabilities with,
-such asRegEx, XPath, JSONPath and Web Services.
+JEP-DATA-EXTENSION is a library that provides new functions and customized
+operators on top of the Java Expression Parser, including advanced data
+manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
 
 Minor improvements in this version:
 
@@ -69,9 +69,9 @@ https://obvj.net/jep-data-extension
 
 INTRODUCTION:
 
-JEP-DATA-EXTENSION is a library that provides new functions to the Java
-Expression Parser, including advanced data manipulation capabilities with,
-such asRegEx, XPath, JSONPath and Web Services.
+JEP-DATA-EXTENSION is a library that provides new functions and customized
+operators on top of the Java Expression Parser, including advanced data
+manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
 
 Minor improvements in this version include:
 
@@ -106,9 +106,9 @@ https://obvj.net/jep-data-extension
 
 INTRODUCTION:
 
-JEP-DATA-EXTENSION is a library that provides new functions to the Java
-Expression Parser, including advanced data manipulation capabilities with,
-such asRegEx, XPath, JSONPath and Web Services.
+JEP-DATA-EXTENSION is a library that provides new functions and customized
+operators on top of the Java Expression Parser, including advanced data
+manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
 
 Minor improvements in this version include:
 
@@ -134,9 +134,9 @@ https://obvj.net/jep-data-extension
 
 INTRODUCTION:
 
-JEP-DATA-EXTENSION is a library that provides new functions to the Java
-Expression Parser, including advanced data manipulation capabilities with,
-such asRegEx, XPath, JSONPath and Web Services.
+JEP-DATA-EXTENSION is a library that provides new functions and customized
+operators on top of the Java Expression Parser, including advanced data
+manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
 
 This initial version includes:
 

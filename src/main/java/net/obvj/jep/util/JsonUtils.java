@@ -13,7 +13,7 @@ import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.spi.json.JettisonProvider;
 
 /**
- * Utility methods for working with JSON and JSONPath
+ * Utility methods for working with JSON and JSONPath.
  *
  * @author oswaldo.bapvic.jr
  */
@@ -46,6 +46,13 @@ public class JsonUtils
     }
 
     /**
+     * Null-safe method that evaluates the specified object for emptiness.
+     * <p>
+     * For example, an empty {@link JSONObject} ("{ }") or {@link JSONArray} ("[ ]") evaluates
+     * to {@code true}.
+     * <p>
+     * Null references also evaluate to {@code true}.
+     *
      * @param object the Object to be validated
      * @return {@code true} if the Object is null or empty
      */
@@ -99,7 +106,7 @@ public class JsonUtils
      *                             single value of a JSONArray instead of the array itself,
      *                             provided that the length of the returnable array is equal
      *                             to one.
-     * @return The evaluation results the given {@code jsonpath} over the {@code json} object;
+     * @return The evaluation results the given {@code jsonPath} over the {@code json} object;
      */
     public static Object readJsonPath(JSONObject json, String jsonPath, boolean extractSingleElement)
     {
@@ -133,52 +140,70 @@ public class JsonUtils
     }
 
     /**
-     * Converts an Object to JSONObject
+     * Converts an object to a {@link JSONObject}.
+     * <p>
+     * If the specified input is a String, then it will be parsed as a {@link JSONObject}.
+     * <p>
+     * If the specified input is {@code null}, then an empty {@link JSONObject} ("{ }") will
+     * be returned.
+     * <p>
+     * If the specified input is already a {@link JSONObject}, then the same object will be
+     * returned.
      *
-     * @param inputObject the object to be converted
-     * @return the object converted in JSONObject
-     * @throws JSONException in case of errors converting into JSONObject
+     * @param object the object to be converted
+     * @return the converted {@link JSONObject}
+     * @throws JSONException in case of errors converting into {@link JSONObject} (for
+     *                       example, if there is a syntax error in the source string).
      */
-    public static JSONObject convertToJSONObject(Object inputObject) throws JSONException
+    public static JSONObject toJSONObject(Object object) throws JSONException
     {
-        if (inputObject == null)
+        if (object == null)
         {
             return new JSONObject();
         }
-        if (inputObject instanceof JSONObject)
+        if (object instanceof JSONObject)
         {
-            return (JSONObject) inputObject;
+            return (JSONObject) object;
         }
-        return new JSONObject(inputObject.toString());
+        return new JSONObject(object.toString());
     }
 
     /**
-     * Converts an Object to JSONArray
+     * Converts an object to a {@link JSONArray}.
+     * <p>
+     * If the specified input is a String, then it will be parsed as a {@link JSONArray}.
+     * <p>
+     * If the specified input is {@code null}, then an empty {@link JSONArray} ("[ ]") will be
+     * returned.
+     * <p>
+     * If the specified input is already a {@link JSONArray}, then the same object will be
+     * returned.
      *
-     * @param inputObject the object to be converted
-     * @return the object converted in JSONArray
-     * @throws JSONException in case of errors converting into JSONArray
+     * @param object the object to be converted
+     * @return the converted {@link JSONArray}
+     * @throws JSONException in case of errors converting into JSONArray (for example, if
+     *                       there is a syntax error in the source string).
      */
-    public static JSONArray convertToJSONArray(Object inputObject) throws JSONException
+    public static JSONArray toJSONArray(Object object) throws JSONException
     {
-        if (inputObject == null)
+        if (object == null)
         {
             return new JSONArray();
         }
-        if (inputObject instanceof JSONArray)
+        if (object instanceof JSONArray)
         {
-            return (JSONArray) inputObject;
+            return (JSONArray) object;
         }
-        return new JSONArray(inputObject.toString());
+        return new JSONArray(object.toString());
     }
 
     /**
-     * Converts a JSONArray into a Java-standard List
+     * Converts a {@link JSONArray} into a Java-standard List.
      *
      * @param jsonArray the JSONArray object to be converted
      * @return the list converted from a JSONArray object
      */
-    public static List<Object> convertJSONArrayToList(JSONArray jsonArray)
+    public static List<Object> toList(JSONArray jsonArray)
     {
         try
         {

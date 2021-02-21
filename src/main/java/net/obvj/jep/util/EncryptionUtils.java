@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 /**
- * Utility methods for working with encryptions.
+ * Utility methods for working with encryption.
  *
  * @author oswaldo.bapvic.jr
  */

@@ -49,7 +49,7 @@ public class Min extends PostfixMathCommand
      */
     private Object min(JSONArray jsonArray)
     {
-        List<Object> convertedList = JsonUtils.convertJSONArrayToList(jsonArray);
+        List<Object> convertedList = JsonUtils.toList(jsonArray);
         return min(convertedList);
     }
 
