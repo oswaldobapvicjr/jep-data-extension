@@ -3,6 +3,7 @@ package net.obvj.jep;
 import java.lang.reflect.Field;
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.nfunk.jep.JEP;
@@ -27,96 +28,102 @@ public class JEPContextFactory
     private static final String MSG_ANNOTATION_NOT_FOUND_IN_CLASS = "@Function annotation not found in class: %s";
     private static final String MSG_ANNOTATION_NOT_FOUND_IN_STRATEGY = "@Function annotation not found in strategy enum type: %s";
 
-    private static final List<Supplier<PostfixMathCommandI>> CUSTOM_FUNCTIONS = new ArrayList<>();
+    private static final Map<NamedPackage, List<Supplier<PostfixMathCommandI>>> FUNCTION_FACTORY_BY_PACKAGE = new EnumMap<>(NamedPackage.class);
+
     static
     {
         // String functions
-        CUSTOM_FUNCTIONS.add(Concat::new);
-        CUSTOM_FUNCTIONS.add(FormatString::new);
-        CUSTOM_FUNCTIONS.add(NormalizeString::new);
-        CUSTOM_FUNCTIONS.add(() -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_ENDS_WITH));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryStringFunction(BinaryStringFunction.Strategy.ALL_MATCHES));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryStringFunction(BinaryStringFunction.Strategy.FIRST_MATCH));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryStringFunction(BinaryStringFunction.Strategy.SPLIT));
-        CUSTOM_FUNCTIONS.add(() -> new Replace(Replace.Strategy.NORMAL));
-        CUSTOM_FUNCTIONS.add(() -> new Replace(Replace.Strategy.REGEX));
-        CUSTOM_FUNCTIONS.add(() -> new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
-        CUSTOM_FUNCTIONS.add(() -> new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.CAMEL));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
+        registerFunction(NamedPackage.STRING, Concat::new);
+        registerFunction(NamedPackage.STRING, FormatString::new);
+        registerFunction(NamedPackage.STRING, NormalizeString::new);
+        registerFunction(NamedPackage.STRING, () -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_ENDS_WITH));
+        registerFunction(NamedPackage.STRING, () -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_MATCHES));
+        registerFunction(NamedPackage.STRING, () -> new BinaryBooleanFunction(BinaryBooleanFunction.Strategy.STRING_STARTS_WITH));
+        registerFunction(NamedPackage.STRING, () -> new BinaryStringFunction(BinaryStringFunction.Strategy.ALL_MATCHES));
+        registerFunction(NamedPackage.STRING, () -> new BinaryStringFunction(BinaryStringFunction.Strategy.FIRST_MATCH));
+        registerFunction(NamedPackage.STRING, () -> new BinaryStringFunction(BinaryStringFunction.Strategy.SPLIT));
+        registerFunction(NamedPackage.STRING, () -> new Replace(Replace.Strategy.NORMAL));
+        registerFunction(NamedPackage.STRING, () -> new Replace(Replace.Strategy.REGEX));
+        registerFunction(NamedPackage.STRING, () -> new StringPaddingFunction(StringPaddingFunction.Strategy.LEFT_PAD));
+        registerFunction(NamedPackage.STRING, () -> new StringPaddingFunction(StringPaddingFunction.Strategy.RIGHT_PAD));
+        registerFunction(NamedPackage.STRING, () -> new UnaryStringFunction(UnaryStringFunction.Strategy.CAMEL));
+        registerFunction(NamedPackage.STRING, () -> new UnaryStringFunction(UnaryStringFunction.Strategy.LOWER));
+        registerFunction(NamedPackage.STRING, () -> new UnaryStringFunction(UnaryStringFunction.Strategy.PROPER));
+        registerFunction(NamedPackage.STRING, () -> new UnaryStringFunction(UnaryStringFunction.Strategy.TRIM));
+        registerFunction(NamedPackage.STRING, () -> new UnaryStringFunction(UnaryStringFunction.Strategy.UPPER));
 
         // Date functions
-        CUSTOM_FUNCTIONS.add(DateToString::new);
-        CUSTOM_FUNCTIONS.add(DaysBetween::new);
-        CUSTOM_FUNCTIONS.add(EndOfMonth::new);
-        CUSTOM_FUNCTIONS.add(IsLeapYear::new);
-        CUSTOM_FUNCTIONS.add(Now::new);
-        CUSTOM_FUNCTIONS.add(StringToDate::new);
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.YEAR));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.QUARTER));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MONTH));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.WEEK_DAY));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.DAY));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.HOUR));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MINUTE));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.SECOND));
-        CUSTOM_FUNCTIONS.add(() -> new DateFieldGetter(DateField.MILLISECOND));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_YEARS));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_QUARTERS));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MONTHS));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_WEEKS));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_DAYS));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_HOURS));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MINUTES));
-        CUSTOM_FUNCTIONS.add(() -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_SECONDS));
+        registerFunction(NamedPackage.DATE, DateToString::new);
+        registerFunction(NamedPackage.DATE, DaysBetween::new);
+        registerFunction(NamedPackage.DATE, EndOfMonth::new);
+        registerFunction(NamedPackage.DATE, IsLeapYear::new);
+        registerFunction(NamedPackage.DATE, Now::new);
+        registerFunction(NamedPackage.DATE, StringToDate::new);
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.YEAR));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.QUARTER));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.MONTH));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.ISO_WEEK_NUMBER));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.WEEK_DAY));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.DAY));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.HOUR));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.MINUTE));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.SECOND));
+        registerFunction(NamedPackage.DATE, () -> new DateFieldGetter(DateField.MILLISECOND));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_YEARS));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_QUARTERS));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MONTHS));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_WEEKS));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_DAYS));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_HOURS));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_MINUTES));
+        registerFunction(NamedPackage.DATE, () -> new BinaryDateFunction(BinaryDateFunction.Strategy.ADD_SECONDS));
 
         // Data manipulation functions
-        CUSTOM_FUNCTIONS.add(JsonPath::new);
-        CUSTOM_FUNCTIONS.add(XPath::new);
+        registerFunction(NamedPackage.DATA_MANIPULATION, JsonPath::new);
+        registerFunction(NamedPackage.DATA_MANIPULATION, XPath::new);
 
         // Statistical functions
-        CUSTOM_FUNCTIONS.add(Average::new);
-        CUSTOM_FUNCTIONS.add(Count::new);
-        CUSTOM_FUNCTIONS.add(Max::new);
-        CUSTOM_FUNCTIONS.add(Min::new);
+        registerFunction(NamedPackage.STATISTICS, Average::new);
+        registerFunction(NamedPackage.STATISTICS, Count::new);
+        registerFunction(NamedPackage.STATISTICS, Max::new);
+        registerFunction(NamedPackage.STATISTICS, Min::new);
 
         // Random functions
-        CUSTOM_FUNCTIONS.add(UUID::new);
+        registerFunction(NamedPackage.RANDOM, UUID::new);
 
         // Utility functions
-        CUSTOM_FUNCTIONS.add(Distinct::new);
-        CUSTOM_FUNCTIONS.add(IsEmpty::new);
-        CUSTOM_FUNCTIONS.add(ReadFile::new);
-        CUSTOM_FUNCTIONS.add(TypeOf::new);
-        CUSTOM_FUNCTIONS.add(() -> new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_DECIMAL));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_INTEGER));
-        CUSTOM_FUNCTIONS.add(() -> new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
-        CUSTOM_FUNCTIONS.add(() -> new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
+        registerFunction(NamedPackage.UTIL, Distinct::new);
+        registerFunction(NamedPackage.UTIL, IsEmpty::new);
+        registerFunction(NamedPackage.UTIL, ReadFile::new);
+        registerFunction(NamedPackage.UTIL, TypeOf::new);
+        registerFunction(NamedPackage.UTIL, () -> new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_DECIMAL));
+        registerFunction(NamedPackage.UTIL, () -> new UnaryBooleanFunction(UnaryBooleanFunction.Strategy.IS_INTEGER));
+        registerFunction(NamedPackage.UTIL, () -> new UnarySystemFunction(UnarySystemFunction.Strategy.GET_ENV));
+        registerFunction(NamedPackage.UTIL, () -> new UnarySystemFunction(UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY));
 
         // Cryptography functions
-        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.TO_BASE64));
-        CUSTOM_FUNCTIONS.add(() -> new UnaryEncryptionFunction(EncryptionAlgorithm.FROM_BASE64));
+        registerFunction(NamedPackage.CRYPTO, () -> new UnaryEncryptionFunction(EncryptionAlgorithm.MD5));
+        registerFunction(NamedPackage.CRYPTO, () -> new UnaryEncryptionFunction(EncryptionAlgorithm.SHA1));
+        registerFunction(NamedPackage.CRYPTO, () -> new UnaryEncryptionFunction(EncryptionAlgorithm.SHA256));
+        registerFunction(NamedPackage.CRYPTO, () -> new UnaryEncryptionFunction(EncryptionAlgorithm.TO_BASE64));
+        registerFunction(NamedPackage.CRYPTO, () -> new UnaryEncryptionFunction(EncryptionAlgorithm.FROM_BASE64));
 
         // Web Services functions
-        CUSTOM_FUNCTIONS.add(BasicAuthorizationHeader::new);
-        CUSTOM_FUNCTIONS.add(Http::new);
-        CUSTOM_FUNCTIONS.add(HttpGet::new);
-        CUSTOM_FUNCTIONS.add(HttpHeader::new);
-        CUSTOM_FUNCTIONS.add(() -> new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
-        CUSTOM_FUNCTIONS.add(() -> new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
+        registerFunction(NamedPackage.WEB, BasicAuthorizationHeader::new);
+        registerFunction(NamedPackage.WEB, Http::new);
+        registerFunction(NamedPackage.WEB, HttpGet::new);
+        registerFunction(NamedPackage.WEB, HttpHeader::new);
+        registerFunction(NamedPackage.WEB, () -> new HttpResponseHandler(HttpResponseHandler.Strategy.GET_RESPONSE));
+        registerFunction(NamedPackage.WEB, () -> new HttpResponseHandler(HttpResponseHandler.Strategy.GET_STATUS_CODE));
 
         // Math functions
-        CUSTOM_FUNCTIONS.add(Arabic::new);
-        CUSTOM_FUNCTIONS.add(Roman::new);
+        registerFunction(NamedPackage.MATH, Arabic::new);
+        registerFunction(NamedPackage.MATH, Roman::new);
+    }
+
+    private static void registerFunction(NamedPackage namedPackage, Supplier<PostfixMathCommandI> supplier)
+    {
+        FUNCTION_FACTORY_BY_PACKAGE.computeIfAbsent(namedPackage, k -> new ArrayList<>()).add(supplier);
     }
 
     private JEPContextFactory()
@@ -125,29 +132,61 @@ public class JEPContextFactory
     }
 
     /**
-     * Creates a new {@link JEP} object with all custom functions and operators available.
+     * Creates a new {@link JEP} object with custom functions and operators available.
+     * <p>
+     * For <strong>all functions available</strong>, simply pass no argument:
+     * <p>
      *
+     * <pre>
+     * JEP jep = JEPContextFactory.newContext();
+     * </pre>
+     * <p>
+     * For the <strong>standard JEP functions</strong> only, specify the core package as
+     * parameter:
+     * <p>
+     *
+     * <pre>
+     * JEP jep = JEPContextFactory.newContext(NamedPackage.CORE);
+     * </pre>
+     * <p>
+     * For specific custom packages (in addition to the standard JEP functions), specify one
+     * or more custom package(s) as parameter:
+     * <p>
+     *
+     * <pre>
+     * JEP jep = JEPContextFactory.newContext(NamedPackage.STRING, NamedPackage.WEB);
+     * </pre>
+     *
+     *
+     * @param namedPackages one or more packages which functions shall be added to the JEP
+     *                      context; if not specified, then all functions will be available
      * @return a {@code JEP} object
      */
-    public static JEP newContext()
+    public static JEP newContext(NamedPackage...namedPackages)
     {
-        return newContext(null, false, true, false, null);
+        return newContext(null, false, true, false, null, namedPackages);
     }
 
     /**
-     * Creates a new {@link JEP} object with all custom functions and operators available, and
-     * a collection of initial variables.
+     * Creates a new {@link JEP} object with custom functions and operators available, and a
+     * collection of initial variables.
      *
-     * @param contextMap a map of variables to be used by the evaluation context; can be null
+     *
+     * @param contextMap    a map of variables to be used by the evaluation context; can be
+     *                      null
+     * @param namedPackages one or more packages which functions shall be added to the JEP
+     *                      context; if not specified, then all functions will be available
      * @return a {@code JEP} object with a collection of initial variables available
+     *
+     * @see JEPContextFactory#newContext(NamedPackage...)
      */
-    public static JEP newContext(Map<String, Object> contextMap)
+    public static JEP newContext(Map<String, Object> contextMap, NamedPackage...namedPackages)
     {
-        return newContext(contextMap, false, true, false, null);
+        return newContext(contextMap, false, true, false, null, namedPackages);
     }
 
     /**
-     * Creates a new {@link JEP} object with all custom functions and operators available, a
+     * Creates a new {@link JEP} object with custom functions and operators available, a
      * collection of initial variables, and custom parameters.
      *
      * @param contextMap             a map of variables to be used by the evaluation context;
@@ -156,17 +195,22 @@ public class JEPContextFactory
      * @param allowUndeclared        the "allow undeclared variables" option
      * @param implicitMultiplication the "implicit multiplication" option
      * @param numberFactory          the number factory to be used
+     * @param namedPackages          one or more packages which functions shall be added to
+     *                               the JEP context; if not specified, then all functions
+     *                               will be available
      *
      * @return a new {@code JEP} object with custom functions and operators registered
+     *
+     * @see JEPContextFactory#newContext(NamedPackage...)
      */
     public static JEP newContext(Map<String, Object> contextMap, boolean traverse, boolean allowUndeclared,
-            boolean implicitMultiplication, NumberFactory numberFactory)
+            boolean implicitMultiplication, NumberFactory numberFactory, NamedPackage...namedPackages)
     {
         JEP jep = new JEP(traverse, allowUndeclared, implicitMultiplication, numberFactory);
 
         jep.setAllowAssignment(true);
         jep.addStandardFunctions();
-        addCustomFunctions(jep);
+        addCustomFunctions(jep, namedPackages);
 
         if (contextMap != null) addVariables(jep, contextMap);
 
@@ -174,13 +218,41 @@ public class JEPContextFactory
     }
 
     /**
-     * Registers custom functions and operators into a preset JEP object.
+     * Registers custom functions and operators into a given JEP object.
+     * <p>
+     * For <strong>all custom functions available</strong>, simply pass no package as
+     * argument:
+     * <p>
      *
-     * @param jep the JEP object to which custom functions and operations will be registered
+     * <pre>
+     * JEPContextFactory.addCustomFunctions(jep);
+     * </pre>
+     *
+     * <p>
+     * For specific custom packages, specify one or more custom package(s) as parameter:
+     * <p>
+     *
+     * <pre>
+     * JEP jep = JEPContextFactory.newContext(NamedPackage.STRING, NamedPackage.WEB);
+     * </pre>
+     *
+     * <p>
+     * Although it is assumed that standard JEP functions are already available in the
+     * specified {@link JEP} object, this method performs no action or validation on these
+     * features.
+     * <p>
+     * <strong>Note:</strong> This method updates JEP comparative operators regardless of the
+     * specified package. In other words, the comparative operators will always be enhanced
+     * with {@code Date} object capabilities after this method call.
+     *
+     * @param jep           the JEP object to which custom functions and operations will be
+     *                      registered
+     * @param namedPackages one or more packages which functions shall be added to the JEP
+     *                      context; if not specified, then all functions will be available
      */
-    public static void addCustomFunctions(JEP jep)
+    public static void addCustomFunctions(JEP jep, NamedPackage...namedPackages)
     {
-        CUSTOM_FUNCTIONS.stream().map(Supplier::get).forEach(function -> addAnnotatedFunction(jep, function));
+        getFunctions(namedPackages).map(Supplier::get).forEach(function -> addAnnotatedFunction(jep, function));
 
         // Operators
         OperatorSet operators = jep.getOperatorSet();
@@ -195,6 +267,26 @@ public class JEPContextFactory
         PostfixMathCommand elementCommand = new Element();
         addAnnotatedFunction(jep, elementCommand);
         operators.getElement().setPFMC(elementCommand);
+    }
+
+    private static Stream<Supplier<PostfixMathCommandI>> getAllFunctions()
+    {
+        return FUNCTION_FACTORY_BY_PACKAGE.values().stream().flatMap(List::stream);
+    }
+
+    private static Stream<Supplier<PostfixMathCommandI>> getFunctions(NamedPackage...namedPackages)
+    {
+        if (namedPackages == null || namedPackages.length == 0)
+        {
+            return getAllFunctions();
+        }
+        if (namedPackages.length == 1)
+        {
+            return FUNCTION_FACTORY_BY_PACKAGE.getOrDefault(namedPackages[0], Collections.emptyList()).stream();
+        }
+        // Get values from multiple keys from the map
+        return Arrays.stream(namedPackages).map(FUNCTION_FACTORY_BY_PACKAGE::get).filter(Objects::nonNull)
+                .flatMap(List::stream);
     }
 
     /**
