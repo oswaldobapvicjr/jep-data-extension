@@ -269,11 +269,21 @@ public class JEPContextFactory
         operators.getElement().setPFMC(elementCommand);
     }
 
+    /**
+     * @return a {@link Stream} of suppliers for instantiation of all custom functions
+     * @since 1.0.5
+     */
     private static Stream<Supplier<PostfixMathCommandI>> getAllFunctions()
     {
         return FUNCTION_FACTORY_BY_PACKAGE.values().stream().flatMap(List::stream);
     }
 
+    /**
+     * @param namedPackages one or more packages which functions shall be returned; if not
+     *                      specified, then all functions will be available
+     * @return a {@link Stream} of suppliers for instantiation of custom functions
+     * @since 1.0.5
+     */
     private static Stream<Supplier<PostfixMathCommandI>> getFunctions(NamedPackage...namedPackages)
     {
         if (namedPackages == null || namedPackages.length == 0)
