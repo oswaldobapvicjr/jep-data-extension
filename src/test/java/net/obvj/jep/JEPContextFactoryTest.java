@@ -3,6 +3,7 @@ package net.obvj.jep;
 import static net.obvj.junit.utils.matchers.InstantiationNotAllowedMatcher.instantiationNotAllowed;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
@@ -49,6 +50,14 @@ public class JEPContextFactoryTest
     }
 
     /**
+     * Checks that a simple function is not registered at JEP's Function Table
+     */
+    private void checkFunctionNotAvailable(final FunctionTable table, String functionName)
+    {
+        assertFalse("Table does contain function name: " + functionName, table.containsKey(functionName));
+    }
+
+    /**
      * Checks that a multi-strategy function is dully registered at JEP's Function Table
      */
     private void checkFunction(final FunctionTable table, String functionName, Class<?> clazz, Object strategy)
@@ -61,14 +70,22 @@ public class JEPContextFactoryTest
      * Checks that all custom functions are available at JEP
      */
     @Test
-    public void testRegisteredFunctions()
+    public void testRegisteredFunctionsAllPackages()
     {
         FunctionTable table = JEPContextFactory.newContext().getFunctionTable();
+        checkStringFunctions(table);
+        checkDateFunctions(table);
+        checkDataManipulationFunctions(table);
+        checkStatisticsFunctions(table);
+        checkRandomFunctions(table);
+        checkUtilFunctions(table);
+        checkCryptoFunctions(table);
+        checkWebServicesFunctions(table);
+        checkMathFunctions(table);
+    }
 
-        // ---------------------
-        // String functions
-        // ---------------------
-
+    private void checkStringFunctions(FunctionTable table)
+    {
         checkFunction(table, "camel", UnaryStringFunction.class, UnaryStringFunction.Strategy.CAMEL);
         checkFunction(table, "concat", Concat.class);
         checkFunction(table, "join", Concat.class);
@@ -92,11 +109,10 @@ public class JEPContextFactoryTest
         checkFunction(table, "trim", UnaryStringFunction.class, UnaryStringFunction.Strategy.TRIM);
         checkFunction(table, "ucase", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
         checkFunction(table, "upper", UnaryStringFunction.class, UnaryStringFunction.Strategy.UPPER);
+    }
 
-        // ---------------------
-        // Date functions
-        // ---------------------
-
+    private void checkDateFunctions(FunctionTable table)
+    {
         checkFunction(table, "sysdate", Now.class);
         checkFunction(table, "now", Now.class);
         checkFunction(table, "date2str", DateToString.class);
@@ -122,36 +138,32 @@ public class JEPContextFactoryTest
         checkFunction(table, "addHours", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_HOURS);
         checkFunction(table, "addMinutes", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_MINUTES);
         checkFunction(table, "addSeconds", BinaryDateFunction.class, BinaryDateFunction.Strategy.ADD_SECONDS);
+    }
 
-        // ---------------------
-        // Data manipulation
-        // ---------------------
-
+    private void checkDataManipulationFunctions(FunctionTable table)
+    {
         checkFunction(table, "xpath", XPath.class);
         checkFunction(table, "filterxml", XPath.class);
         checkFunction(table, "jsonpath", JsonPath.class);
+    }
 
-        // ---------------------
-        // Statistical
-        // ---------------------
-
+    private void checkStatisticsFunctions(FunctionTable table)
+    {
         checkFunction(table, "average", Average.class);
         checkFunction(table, "avg", Average.class);
         checkFunction(table, "count", Count.class);
         checkFunction(table, "length", Count.class);
         checkFunction(table, "max", Max.class);
         checkFunction(table, "min", Min.class);
+    }
 
-        // ---------------------
-        // Random
-        // ---------------------
-
+    private void checkRandomFunctions(FunctionTable table)
+    {
         checkFunction(table, "uuid", UUID.class);
+    }
 
-        // ---------------------
-        // Utility
-        // ---------------------
-
+    private void checkUtilFunctions(FunctionTable table)
+    {
         checkFunction(table, "distinct", Distinct.class);
         checkFunction(table, "getEnv", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_ENV);
         checkFunction(table, "getSystemProperty", UnarySystemFunction.class, UnarySystemFunction.Strategy.GET_SYSTEM_PROPERTY);
@@ -162,21 +174,19 @@ public class JEPContextFactoryTest
         checkFunction(table, "readFile", ReadFile.class);
         checkFunction(table, "typeOf", TypeOf.class);
         checkFunction(table, "class", TypeOf.class);
+    }
 
-        // ---------------------
-        // Cryptography
-        // ---------------------
-
+    private void checkCryptoFunctions(FunctionTable table)
+    {
         checkFunction(table, "md5", UnaryEncryptionFunction.class, EncryptionAlgorithm.MD5);
         checkFunction(table, "sha1", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA1);
         checkFunction(table, "sha256", UnaryEncryptionFunction.class, EncryptionAlgorithm.SHA256);
         checkFunction(table, "toBase64", UnaryEncryptionFunction.class, EncryptionAlgorithm.TO_BASE64);
         checkFunction(table, "fromBase64", UnaryEncryptionFunction.class, EncryptionAlgorithm.FROM_BASE64);
+    }
 
-        // ---------------------
-        // Web Services
-        // ---------------------
-
+    private void checkWebServicesFunctions(FunctionTable table)
+    {
         checkFunction(table, "basicAuthorizationHeader", BasicAuthorizationHeader.class);
         checkFunction(table, "httpGet", HttpGet.class);
         checkFunction(table, "http", Http.class);
@@ -184,13 +194,53 @@ public class JEPContextFactoryTest
         checkFunction(table, "httpHeaders", HttpHeader.class);
         checkFunction(table, "httpStatusCode", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_STATUS_CODE);
         checkFunction(table, "httpResponse", HttpResponseHandler.class, HttpResponseHandler.Strategy.GET_RESPONSE);
+    }
 
-        // ---------------------
-        // Math
-        // ---------------------
-
+    private void checkMathFunctions(FunctionTable table)
+    {
         checkFunction(table, "arabic", Arabic.class);
         checkFunction(table, "roman", Roman.class);
+    }
+
+    @Test
+    public void testRegisteredFunctionsStringPackageOnly()
+    {
+        FunctionTable table = JEPContextFactory.newContext(NamedPackage.STRING).getFunctionTable();
+        checkStringFunctions(table);
+        checkFunctionNotAvailable(table, "average"); // NamedPackage.STATISTICS
+        checkFunctionNotAvailable(table, "arabic");  // NamedPackage.MATH
+        checkFunctionNotAvailable(table, "uuid");    // NamedPackage.RANDOM
+    }
+
+    @Test
+    public void testRegisteredFunctionsMathPackageOnly()
+    {
+        FunctionTable table = JEPContextFactory.newContext(NamedPackage.MATH).getFunctionTable();
+        checkMathFunctions(table);
+        checkFunctionNotAvailable(table, "average"); // NamedPackage.STATISTICS
+        checkFunctionNotAvailable(table, "concat");  // NamedPackage.STRING
+        checkFunctionNotAvailable(table, "uuid");    // NamedPackage.RANDOM
+    }
+
+    @Test
+    public void testRegisteredFunctionsStringAndMathPackages()
+    {
+        FunctionTable table = JEPContextFactory.newContext(NamedPackage.STRING, NamedPackage.MATH).getFunctionTable();
+        checkStringFunctions(table);
+        checkMathFunctions(table);
+        checkFunctionNotAvailable(table, "average"); // NamedPackage.STATISTICS
+        checkFunctionNotAvailable(table, "http");    // NamedPackage.WEB_SERVICES
+        checkFunctionNotAvailable(table, "uuid");    // NamedPackage.RANDOM
+    }
+
+    @Test
+    public void testRegisteredFunctionsCorePackage()
+    {
+        FunctionTable table = JEPContextFactory.newContext(NamedPackage.CORE).getFunctionTable();
+        checkFunctionNotAvailable(table, "average"); // NamedPackage.STATISTICS
+        checkFunctionNotAvailable(table, "concat");  // NamedPackage.STRING
+        checkFunctionNotAvailable(table, "http");    // NamedPackage.WEB_SERVICES
+        checkFunctionNotAvailable(table, "uuid");    // NamedPackage.RANDOM
     }
 
     /**

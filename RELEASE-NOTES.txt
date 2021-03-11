@@ -17,6 +17,8 @@ manipulation capabilities such as RegEx, XPath, JSONPath and Web Services.
 
 Minor improvements in this version:
 
+ > [issue/0010] Introducing named packages for optimized context creation
+
  > Dependencies upgrade:
 
    - performetrics: version 2.2.1 -> 2.2.2
