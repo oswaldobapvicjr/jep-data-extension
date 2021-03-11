@@ -135,28 +135,29 @@ public class JEPContextFactory
      * Creates a new {@link JEP} object with custom functions and operators available.
      * <p>
      * For <strong>all functions available</strong>, simply pass no argument:
-     * <p>
+     * </p>
      *
      * <pre>
      * JEP jep = JEPContextFactory.newContext();
      * </pre>
+     *
      * <p>
      * For the <strong>standard JEP functions</strong> only, specify the core package as
      * parameter:
-     * <p>
+     * </p>
      *
      * <pre>
      * JEP jep = JEPContextFactory.newContext(NamedPackage.CORE);
      * </pre>
+     *
      * <p>
      * For specific custom packages (in addition to the standard JEP functions), specify one
      * or more custom package(s) as parameter:
-     * <p>
+     * </p>
      *
      * <pre>
      * JEP jep = JEPContextFactory.newContext(NamedPackage.STRING, NamedPackage.WEB);
      * </pre>
-     *
      *
      * @param namedPackages one or more packages which functions shall be added to the JEP
      *                      context; if not specified, then all functions will be available
@@ -222,7 +223,7 @@ public class JEPContextFactory
      * <p>
      * For <strong>all custom functions available</strong>, simply pass no package as
      * argument:
-     * <p>
+     * </p>
      *
      * <pre>
      * JEPContextFactory.addCustomFunctions(jep);
@@ -230,20 +231,23 @@ public class JEPContextFactory
      *
      * <p>
      * For specific custom packages, specify one or more custom package(s) as parameter:
-     * <p>
+     * </p>
      *
      * <pre>
-     * JEP jep = JEPContextFactory.newContext(NamedPackage.STRING, NamedPackage.WEB);
+     * JEPContextFactory.addCustomFunctions(jep, NamedPackage.STRING, NamedPackage.WEB);
      * </pre>
      *
      * <p>
      * Although it is assumed that standard JEP functions are already available in the
      * specified {@link JEP} object, this method performs no action or validation on these
      * features.
+     * </p>
+     *
      * <p>
      * <strong>Note:</strong> This method updates JEP comparative operators regardless of the
      * specified package. In other words, the comparative operators will always be enhanced
      * with {@code Date} object capabilities after this method call.
+     * </p>
      *
      * @param jep           the JEP object to which custom functions and operations will be
      *                      registered
