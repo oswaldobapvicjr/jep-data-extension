@@ -19,11 +19,11 @@ body {
 }
 a:link, a:visited {
     text-decoration:none;
-    color:#4A6782;
+    color:#2D5A97;
 }
 a:hover, a:focus {
     text-decoration:none;
-    color:#119ebb;
+    color:#1cc7e9;
 }
 a:active {
     text-decoration:none;
@@ -127,17 +127,19 @@ Navigation bar styles
 ============================================
 */
 
-/* The "All Classes" bar at the left pane */
+/* The "All Classes" (or active package name) bar at the left pane */
 .bar {
-    background-color:#2D5A97;
+	height: 100%;
+    background-image: linear-gradient(#2D5A97aa, #2D5A97cc, #2D5A97ff);
     color:#FFFFFF;
     padding:.8em .5em .4em .8em;
     height:auto;/*height:1.8em;*/
-    font-size:11px;
+    font-size:14px;
     margin:0;
 }
 .topNav {
-    background-color:#2D5A97;
+	height: 100%;
+    background-image: linear-gradient(#2D5A97aa, #2D5A97cc, #2D5A97ff);
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -151,7 +153,8 @@ Navigation bar styles
 }
 .bottomNav {
     margin-top:10px;
-    background-color:#2D5A97;
+	height: 100%;
+    background-image: linear-gradient(#2D5A97aa, #2D5A97cc, #2D5A97ff);
     color:#FFFFFF;
     float:left;
     padding:0;
@@ -164,7 +167,8 @@ Navigation bar styles
     font-weight:bold;
 }
 .subNav {
-    background-color:#dee3f0;
+    height:100%;
+    background-color:#2D5A9715;
     float:left;
     width:100%;
     overflow:hidden;
@@ -201,17 +205,18 @@ ul.subNavList li{
 /* Text in focus from the top/bottom navigation bar */
 .topNav a:hover, .bottomNav a:hover {
     text-decoration:none;
-    color:#afddf5;
+    color:#beeff9;
     text-transform:uppercase;
 }
 
 /* Selected box on the top/bottom navigation bar */
 .navBarCell1Rev {
-    background-color:#e1eef5;
+    height: 100%;
+    background-image: linear-gradient(#ffffffdd, #ffffffff);
     color:#2D5A97;
     margin: auto 5px;
     font-weight:bold;
-    border-radius:3px;
+    border-radius:2px;
 }
 .skipNav {
     position:absolute;
@@ -245,6 +250,8 @@ Page header and footer styles
 .title {
     color:#2c4557;
     margin:10px 0;
+    font-weight:bolder;
+    font-size:21px;
 }
 .subTitle {
     margin:5px 0 0 0;
@@ -323,10 +330,11 @@ Page layout container styles
     margin:10px 0 0 0;
     color:#4E4E4E;
 }
+
+/* Description part of tag @param, @return, @since, etc. */
 .contentContainer .description dl dd, .contentContainer .details dl dd, .serializedFormContainer dl dd {
     margin:5px 0 10px 0px;
     font-size:14px;
-    font-family:'Roboto Mono',monospace;
 }
 .serializedFormContainer dl.nameValue dt {
     margin-left:1px;
@@ -531,9 +539,11 @@ th.colFirst, th.colLast, th.colOne, .constantsSummary th {
     text-align:left;
     padding:8px 3px 3px 7px;
 }
+
+/* table, first column */
 td.colFirst, th.colFirst {
     white-space:nowrap;
-    font-size:13px;
+    font-size:14px;
 }
 td.colLast, th.colLast {
     font-size:13px;
