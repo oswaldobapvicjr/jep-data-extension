@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -115,5 +116,13 @@ public class CollectionsUtilsTest
         List<Object> sourceList = Arrays.asList(KEY1, KEY2, KEY2, VALUE1, VALUE2, KEY1, 0, 1.1, 0);
         List<Object> expectedList = Arrays.asList(KEY1, KEY2, VALUE1, VALUE2, 0, 1.1);
         assertThat(CollectionsUtils.distinctList(sourceList), is(expectedList));
+    }
+
+    @Test
+    public void isEmptyWithDifferentCollections()
+    {
+        assertThat(CollectionsUtils.isEmpty(null), is(true));
+        assertThat(CollectionsUtils.isEmpty(Collections.emptyList()), is(true));
+        assertThat(CollectionsUtils.isEmpty(Collections.singletonList(new Object())), is(false));
     }
 }

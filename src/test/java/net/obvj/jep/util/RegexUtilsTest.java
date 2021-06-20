@@ -106,6 +106,18 @@ public class RegexUtilsTest
     }
 
     @Test
+    public void testReplacePlaceholdersWithVariablesForEmptyString()
+    {
+        assertEquals(STR_EMPTY, RegexUtils.replacePlaceholdersWithVariables(STR_EMPTY, null));
+    }
+
+    @Test
+    public void testReplacePlaceholdersWithVariablesForNullString()
+    {
+        assertEquals(null, RegexUtils.replacePlaceholdersWithVariables(null, null));
+    }
+
+    @Test
     public void testMatchesForAPatternAndStringContainingOneMatch()
     {
         assertTrue(RegexUtils.matches("${var}", RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
@@ -163,6 +175,18 @@ public class RegexUtilsTest
     public void testFindMatchForAPatternAndAnEmptyString()
     {
         assertEquals(STR_EMPTY, RegexUtils.firstMatch(STR_EMPTY, RegexUtils.PATTERN_UNIX_LIKE_VARIABLE_NAME));
+    }
+
+    @Test
+    public void testReplaceMatchesForEmptyString()
+    {
+        assertEquals(STR_EMPTY, RegexUtils.replaceMatches(STR_EMPTY, null, null));
+    }
+
+    @Test
+    public void testReplaceMatchesForNullString()
+    {
+        assertEquals(null, RegexUtils.replaceMatches(null, null, null));
     }
 
 }

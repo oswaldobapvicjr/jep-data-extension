@@ -7,6 +7,7 @@ import java.util.Stack;
 
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
+import org.nfunk.jep.function.Comparative;
 
 import net.obvj.jep.util.CollectionsUtils;
 import net.obvj.jep.util.DateUtils;
@@ -30,6 +31,13 @@ public class DateAwareComparativeTest
     private static final Double FALSE = 0d;
     private static final Double TRUE = 1d;
 
+    private DateAwareComparative eq = new DateAwareComparative(Comparative.EQ);
+    private DateAwareComparative ge = new DateAwareComparative(Comparative.GE);
+    private DateAwareComparative gt = new DateAwareComparative(Comparative.GT);
+    private DateAwareComparative le = new DateAwareComparative(Comparative.LE);
+    private DateAwareComparative lt = new DateAwareComparative(Comparative.LT);
+    private DateAwareComparative ne = new DateAwareComparative(Comparative.NE);
+
     /**
      * Tests the comparison of two string dates with the "lower-than" operator
      *
@@ -39,8 +47,7 @@ public class DateAwareComparativeTest
     public void testStringDateLowerThan() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1, STR_DATE_2);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.LT);
-        function.run(parameters);
+        le.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -53,8 +60,7 @@ public class DateAwareComparativeTest
     public void testStringDateGreaterThan() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_2, STR_DATE_1);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.GT);
-        function.run(parameters);
+        gt.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -67,8 +73,7 @@ public class DateAwareComparativeTest
     public void testStringDateLowerThanOrEqual() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1, STR_DATE_2);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.LE);
-        function.run(parameters);
+        le.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -81,8 +86,7 @@ public class DateAwareComparativeTest
     public void testStringDateGreaterThanOrEqual() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_2, STR_DATE_1);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.GE);
-        function.run(parameters);
+        ge.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -95,8 +99,7 @@ public class DateAwareComparativeTest
     public void testStringDateEquals() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1, STR_DATE_2);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.EQ);
-        function.run(parameters);
+        eq.run(parameters);
         assertEquals(FALSE, parameters.pop());
     }
 
@@ -109,8 +112,7 @@ public class DateAwareComparativeTest
     public void testStringDateNotEquals() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1, STR_DATE_2);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.NE);
-        function.run(parameters);
+        ne.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -123,8 +125,7 @@ public class DateAwareComparativeTest
     public void testStringEqualsDate() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_DATE_1, DATE_1);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.EQ);
-        function.run(parameters);
+        eq.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -137,8 +138,7 @@ public class DateAwareComparativeTest
     public void testStringNumbersEqual() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(STR_1, INT_1);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.EQ);
-        function.run(parameters);
+        eq.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -151,8 +151,7 @@ public class DateAwareComparativeTest
     public void testIntegersNotEqual() throws ParseException
     {
         Stack<Object> parameters = CollectionsUtils.newParametersStack(INT_1, INT_2);
-        DateAwareComparative function = new DateAwareComparative(DateAwareComparative.NE);
-        function.run(parameters);
+        ne.run(parameters);
         assertEquals(TRUE, parameters.pop());
     }
 
@@ -169,5 +168,29 @@ public class DateAwareComparativeTest
         DateAwareComparative function = new DateAwareComparative(10);
         function.run(parameters);
         assertEquals(FALSE, parameters.pop());
+    }
+
+    @Test
+    public void testWithMultipleDates() throws ParseException
+    {
+        assertFunction(STR_DATE_1, eq, STR_DATE_2, FALSE);
+        assertFunction(STR_DATE_1, eq, STR_DATE_1, TRUE);
+        assertFunction(STR_DATE_1, ne, STR_DATE_2, TRUE);
+        assertFunction(STR_DATE_2, ne, STR_DATE_2, FALSE);
+        assertFunction(STR_DATE_1, ge, STR_DATE_2, FALSE);
+        assertFunction(STR_DATE_1, ge, STR_DATE_1, TRUE);
+        assertFunction(STR_DATE_2, ge, STR_DATE_1, TRUE);
+        assertFunction(STR_DATE_1, gt, STR_DATE_2, FALSE);
+        assertFunction(STR_DATE_2, le, STR_DATE_1, FALSE);
+        assertFunction(STR_DATE_1, le, STR_DATE_2, TRUE);
+        assertFunction(STR_DATE_1, le, STR_DATE_1, TRUE);
+        assertFunction(STR_DATE_1, lt, STR_DATE_2, TRUE);
+    }
+
+    private void assertFunction(Object o1, DateAwareComparative function, Object o2, double expected) throws ParseException
+    {
+        Stack<Object> parameters = CollectionsUtils.newParametersStack(o1, o2);
+        function.run(parameters);
+        assertEquals(expected, parameters.pop());
     }
 }

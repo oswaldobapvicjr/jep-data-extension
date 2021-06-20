@@ -91,7 +91,10 @@ public class RomanNumeralUtils
      */
     public static String arabicToRoman(int number)
     {
-        if (number < 0 || number > 3999) throw new IllegalArgumentException(number + " is not in range (0, 3999)");
+        if (number < 0 || number > 3999)
+        {
+            throw new IllegalArgumentException(number + " is not in range (0, 3999)");
+        }
 
         StringBuilder sb = new StringBuilder();
         int i = 0;

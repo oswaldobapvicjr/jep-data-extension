@@ -11,7 +11,7 @@ import org.nfunk.jep.function.PostfixMathCommand;
 
 /**
  * This class implements a JEP function that counts elements.
- * 
+ *
  * @author oswaldo.bapvic.jr
  */
 @Function({ "count", "length" })
@@ -39,7 +39,7 @@ public class Count extends PostfixMathCommand
      * @param collection the Collection whose size is to the counted
      * @return The count of elements inside the given Collection.
      */
-    private int count(Collection<?> collection)
+    protected int count(Collection<?> collection)
     {
         return collection == null ? 0 : collection.size();
     }
@@ -48,7 +48,7 @@ public class Count extends PostfixMathCommand
      * @param jsonArray the JSON array whose length is to the counted
      * @return The count of elements inside the given JSON Array.
      */
-    private int count(JSONArray jsonArray)
+    protected int count(JSONArray jsonArray)
     {
         return jsonArray == null ? 0 : jsonArray.length();
     }

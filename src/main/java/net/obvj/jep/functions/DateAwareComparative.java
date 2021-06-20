@@ -57,7 +57,7 @@ public class DateAwareComparative extends Comparative
         }
     }
 
-    private boolean compareDates(Date date1, Date date2)
+    protected boolean compareDates(Date date1, Date date2)
     {
         switch (id)
         {
