@@ -1,5 +1,9 @@
 # jep-data-extension
 
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/oswaldobapvicjr/jep-data-extension/Java%20CI%20with%20Maven)](https://github.com/oswaldobapvicjr/jep-data-extension/actions/workflows/maven.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/oswaldobapvicjr/jep-data-extension)](https://codecov.io/gh/oswaldobapvicjr/jep-data-extension)
+
+
 [![Build Status](https://travis-ci.org/oswaldobapvicjr/jep-data-extension.svg?branch=master)](https://travis-ci.org/oswaldobapvicjr/jep-data-extension)
 [![Coverage Status](https://coveralls.io/repos/github/oswaldobapvicjr/jep-data-extension/badge.svg?branch=master)](https://coveralls.io/github/oswaldobapvicjr/jep-data-extension?branch=master)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension)
