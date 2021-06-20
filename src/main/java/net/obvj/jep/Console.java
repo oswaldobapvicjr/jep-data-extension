@@ -1,5 +1,7 @@
 package net.obvj.jep;
 
+import org.nfunk.jep.JEP;
+
 /**
  * This class implements a simple command line utility for evaluating JEP expressions.
  *
@@ -21,6 +23,14 @@ public class Console extends org.lsmp.djepExamples.Console
     public void initialise()
     {
         super.j = JEPContextFactory.newContext();
+    }
+
+    /**
+     * @return the {@link JEP} object for testing purposes
+     */
+    protected JEP getJEP()
+    {
+        return super.j;
     }
 
     public static void main(String[] args)
