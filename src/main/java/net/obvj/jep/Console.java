@@ -13,6 +13,7 @@ import org.nfunk.jep.SymbolTable;
 
 import com.github.freva.asciitable.AsciiTable;
 import com.github.freva.asciitable.Column;
+import com.github.freva.asciitable.ColumnData;
 import com.github.freva.asciitable.HorizontalAlign;
 
 /**
@@ -48,6 +49,22 @@ public class Console implements Runnable
 
         VARIABLES("variables")
         {
+            private final List<ColumnData<Pair<String, Object>>> columns = Arrays.asList(
+                    new Column().header("Name")
+                            .headerAlign(HorizontalAlign.CENTER)
+                            .dataAlign(HorizontalAlign.RIGHT)
+                            .with(Pair::getKey),
+
+                    new Column().header("Type")
+                            .headerAlign(HorizontalAlign.CENTER)
+                            .dataAlign(HorizontalAlign.LEFT)
+                            .with(this::getType),
+
+                    new Column().header("Value")
+                            .headerAlign(HorizontalAlign.CENTER)
+                            .dataAlign(HorizontalAlign.LEFT)
+                            .with(this::getValue));
+
             @Override
             public void execute(JEP jep, PrintStream out)
             {
@@ -60,23 +77,7 @@ public class Console implements Runnable
                 }
 
                 List<Pair<String, Object>> entryList = parseEntries(symbolTable);
-
-                String result = AsciiTable.getTable(entryList, Arrays.asList(
-                        new Column().header("Name")
-                                .headerAlign(HorizontalAlign.CENTER)
-                                .dataAlign(HorizontalAlign.RIGHT)
-                                .with(Pair::getKey),
-
-                        new Column().header("Type")
-                                .headerAlign(HorizontalAlign.CENTER)
-                                .dataAlign(HorizontalAlign.LEFT)
-                                .with(this::getType),
-
-                        new Column().header("Value")
-                                .headerAlign(HorizontalAlign.CENTER)
-                                .dataAlign(HorizontalAlign.LEFT)
-                                .with(this::getValue)));
-
+                String result = AsciiTable.getTable(entryList, columns);
                 out.println("\n" + result);
             }
 
