@@ -687,11 +687,11 @@ If you are using Maven, add **jep-data-extension** as a dependency to your pom.x
 <dependency>
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
-If you use other dependency managers (such as Gradle, Grape, Ivy, etc.) click [here](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension).
+If you use other dependency managers (such as Gradle, Grape, Ivy, etc.) click [here](https://search.maven.org/artifact/net.obvj/jep-data-extension).
 
 ---
 
