@@ -49,7 +49,7 @@ public class Console implements Runnable
 
         VARIABLES("variables")
         {
-            private final List<ColumnData<Pair<String, Object>>> columns = Arrays.asList(
+            private final transient List<ColumnData<Pair<String, Object>>> columns = Arrays.asList(
                     new Column().header("Name")
                             .headerAlign(HorizontalAlign.CENTER)
                             .dataAlign(HorizontalAlign.RIGHT)

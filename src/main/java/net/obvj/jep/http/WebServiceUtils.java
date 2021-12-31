@@ -115,7 +115,7 @@ public class WebServiceUtils
         Response response = invocationBuilder.get();
 
         stopwatch.stop();
-        log.log(Level.INFO, "Operation finished in {0}", stopwatch.elapsedTime(Type.WALL_CLOCK_TIME));
+        log.log(Level.INFO, "Operation finished in {0}", stopwatch.elapsedTime());
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getStatus(), response.getStatusInfo().getReasonPhrase() });
@@ -170,7 +170,7 @@ public class WebServiceUtils
         Response response = invocationBuilder.method(lMethod, Entity.text(requestEntity));
 
         stopwatch.stop();
-        log.log(Level.INFO, "Operation finished in {0}", stopwatch.elapsedTime(Type.WALL_CLOCK_TIME));
+        log.log(Level.INFO, "Operation finished in {0}", stopwatch.elapsedTime());
 
         log.log(Level.INFO, "HTTP status code: {0} ({1})",
                 new Object[] { response.getStatus(), response.getStatusInfo().getReasonPhrase() });

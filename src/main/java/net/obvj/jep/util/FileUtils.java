@@ -109,7 +109,7 @@ public class FileUtils
         finally
         {
             LOG.log(Level.INFO, "Operation finished in {0} milliseconds",
-                    stopwatch.elapsedTime(Type.WALL_CLOCK_TIME, TimeUnit.MILLISECONDS));
+                    stopwatch.elapsedTime(TimeUnit.MILLISECONDS));
         }
     }
 }
