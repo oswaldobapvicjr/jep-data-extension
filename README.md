@@ -11,638 +11,412 @@
 
 ---
 
-## String functions
-
-### Camel
-
-Converts a string to camel case.
-
-```java
-camel("This is-a_STRING") //result: "thisIsAString"
-```
-
-### Concatenation
-
-Concatenates the elements passed to as arguments into a string. The function supports concatenation of strings and numbers.
-
-```java
-concat("{id:", 123, "}") //result: "{id:123}"
-```
-
-> **Note:** String concatenation can also be achieved using the Addition operator (+), provided that all arguments are string variables or literals. For example: "a" + "b"
-
-### Ends with
-
-Returns 1 (true) if the string received in the 1st parameter ends with the suffix specified in the 2nd parameter (case-sensitive).
-
-```java
-endsWith("abcdef", "def") //result: 1.0
-```
-
-### Find match
-
-Returns the first match of the given regular expression found inside a string.
-
-```java
-findMatch("user@domain.com", "(?<=@)[^.]+(?=\.)") //result: "domain"
-```
-
-### Find matches
-
-Returns a list containing all matches of the given regular expression found inside a string.
-
-```java
-findMatches("Sample tweet #java #jep", "([#][A-z]+)") //result: ["#java", "#jep"]
-```
-
-### Format string
-
-Returns a formatted string according to given pattern and variable arguments.
-
-```java
-formatString("%s=%.0f", "test", 2.0) //result: "test=2"
-```
-
-### Left pad
-
-Left-pads a given string to the given size with white-spaces or a custom padding string. 
-
-```java
-leftPad("123", 5)      //result: "  123"
-leftPad("123", 5, "0") //result: "00123"
-```
-
-> **Note:** Also achievable using the alias: `lpad`
-
-### Lower
-
-Converts a text string to all lower-case letters.
-
-```java
-lower("STRING") //result: "string"
-```
-
-> **Note:** Also achievable using the alias: `lcase`
-
-### Matches
-
-Returns a 1 (true) if the given string contains at least one match of the given regular expression or 0 (false) if not.
-
-```java
-matches("user@domain.com", "(?<=@)[^.]+(?=\.)") //result: 1.0
-```
-
-### Normalize String
-
-Normalizes a Unicode string, replacing accents and other diacritics with ASCII characters. 
-
-```java
-normalizeString("ações") //result: "acoes"
-```
-
-### Proper
-
-Converts a string to proper case: the first letter in each word to upper-case, and all other letter to lower-case.
-
-```java
-proper("good DAY!") //result: "Good Day!"
-```
-
-### Replace
-
-Returns a new string after replacing all occurrences of the search criteria within the original string with the replacement argument.
-
-```java
-replace("foo-boo", "oo", "ee") //result: "fee-bee"
-```
-
-### Replace RegEx
-
-Returns a new string after replacing all matches of the given regular expression with the replacement argument.
-
-```java
-replaceRegex("file1.json", "(\\.\\w+$)", "") //result: "file1"
-```
-
-### Right pad
-
-Right-pads a given string to the given size with white-spaces or a custom padding string. 
-
-```java
-rightPad("abc", 5)      //result: "abc  "
-rightPad("abc", 5, ".") //result: "abc.."
-```
-
-> **Note:** Also achievable using the alias: `rpad`
-
-
-### Split
-
-Splits a string into a string array based on a separating string or regular expression.
-
-```java
-split("do-re-mi", "-")            //result: ["do", "re", "mi"]
-split("192.168.0.1/24", "[.\\/]") //result: ["192", "168", "0", "1", "24"]
-```
-
-### Starts with
-
-Returns 1 (true) if the string received in the 1st parameter starts with the prefix specified in the 2nd parameter (case-sensitive).
-
-```java
-startsWith("abcdef", "abc") //result: 1.0
-```
-
-### Trim
-
-Removes leading and trailing spaces.
-
-```java
-trim("   string   ") //result: "string"
-```
-
-### Upper
-
-Converts a text string to all upper-case letters.
-
-```java
-upper("string") //result: "STRING"
-```
-
-> **Note:** Also achievable using the alias: `ucase`
-
----
-
-## Date functions
-
-### System current date
-
-Returns the system's current date & time, with precision of milliseconds.
-
-```java
- now()
-```
-
-> **Note:** Also achievable using the alias: `sysdate()`
-
-### String to date conversion
-
-Parses a string representing a date by trying different parse patterns, supporting RFC-3339, RFC-822 and a set of common ISO-8601 variations. This function can be the fastest choice when handling RFC-3339 dates. Also useful to convert from other formats when the parse pattern is heterogeneous or unknown. 
-
-```java
-str2date("2015-10-03T08:00:01.123Z")
-```
-
-### String to date conversion with user-defined pattern
-
-Parses a string representing a date with user-defined pattern. This can be the fastest approach when the date format is known.
-
-```java
-str2date("2015-10-03", "yyyy-MM-dd")
-```
-
-> **Note:** This function also supports variable parse pattern arguments, so it will try each pattern specified until it finds one that converts the source string to a valid date.
-
-
-### Date to string formatting
-
-Converts a date into string using the specified format.
-
-```java
-date2str(date1, "yyyy-MM-dd'T'HH:mm:ssZZ")
-```
-
-### Days between dates
-
-Returns the number of days between two dates (or valid date representations as string).
-
-```java
-daysBetween("2019-01-19T22:40:38.678912543Z", "2019-02-19T22:41:39.123Z") //result: 31.0
-```
-
-### End of month
-
-Returns a date corresponding to the last day of the month given a source date.
-
-```java
-endOfMonth("2019-02-10T08:15:26.109Z") //result: "2019-02-28T23:59:59.999Z"
-```
-
-### Is leap year
-
-Returns 1 (true) if the given argument is a leap year, that is, an year with 366 days, or 0 (false) if not.
-This function accepts an year (Number), a Date or a valid date representation as string in RFC-3339 format. 
-
-```java
-isLeapYear("2020-02-20T22:41:39.123Z") //result: 1.0
-```
-
-### Year
-
-Returns the year for a given date.
-
-```java
-year("2017-03-11T20:15:00:123Z") //result: 2017.0
-```
-
-### Quarter
-
-Returns the quarter of the year, for a given date, as a number from 1 to 4.
-
-```java
-quarter("2017-03-11T20:15:00:123Z") //result: 1.0
-```
-
-### Month
-
-Returns the month for a given date, a number starting from 1 (January) to 12 (December).
-
-```java
-month("2017-03-11T20:15:00:123Z") //result: 3.0
-```
-
-### ISO week number
-
-Returns the ISO week number in the year for a given date.
-According to the standard, the first week of an year will be the first one with a minimum of 4 days, starting with Monday.
-This function accepts Dates or valid date representation as string in RFC-3339 format. 
-
-```java
-isoWeekNumber("2017-03-11T20:15:00:123Z") //result: 10.0
-```
-
-### Week day
-
-Returns the day of the week of a date, a number from 1 (Sunday) to 7 (Saturday).
-
-```java
-weekday("2019-06-12T18:00:01:988Z") //result: 4.0
-```
-
-### Day
-
-Returns the day of the month for a given date. The first day of the month is 1.
-
-```java
-day("2017-03-11T20:15:00:123Z") //result: 11.0
-```
-
-### Hour
-
-Returns the hour of day, for a given date, as a number from 0 (12:00 AM) to 23 (11:00 PM).
-
-```java
-hour("2017-03-11T20:15:00:123Z") //result: 20.0
-```
-
-### Minute
-
-Returns the minute within the hour, for a given date, as a number from 0 to 59.
-
-```java
-minute("2017-03-11T20:15:00:123Z") //result: 15.0
-```
-
-### Second
-
-Returns the second within the minute, for a given date, as a number from 0 to 59.
-
-```java
-second("2017-03-11T20:15:00:123Z") //result: 0.0
-```
-
-### Millisecond
-
-Returns the milliseconds within the second, for a given date.
-
-```java
-millisecond("2017-03-11T20:15:00:123Z") //result: 123.0
-```
-
-### addDays
-
-Returns the result from adding the number of days to a given date (or a valid string representation of date).
-
-```java
-addDays("2017-03-11T20:15:00:123Z",  1) //result: "2017-03-12T20:15:00:123Z"
-addDays("2017-03-11T20:15:00:123Z", -1) //result: "2017-03-10T20:15:00:123Z"
-```
-
-> **Note:** There are also other similar functions available: `addWeeks`, `addMonths`, `addQuarters`, `addYears`, `addHours`, `addMinutes`, and `addSeconds`.
-
-
----
-
-## Math functions
-
-### Arabic
-
-Converts a Roman numeral to Arabic.
-
-```java
-arabic("MCMXCIX") //result: 1999.0
-```
-
-### Roman
-
-Converts an Arabic numeral to Roman.
-
-```java
-roman(1999) //result: "MCMXCIX"
-```
-
----
-
-## Data manipulation & filtering functions
-
-### XPath
-
-Returns the evaluation result of the given XPath expression for the specified XML object.
-
-```java
-xpath(xmlObject1, "/bookstore/book[@category='fiction']/title/text()")
-```
-
-> **Note:** This function currently supports XPath version 1.0 only. For additional details, refer to the [W3C's XML Path Language Version 1.0](https://www.w3.org/TR/1999/REC-xpath-19991116/) page.
-
-### JSONPath
-
-Returns the evaluation result of the given JSONPath expression for the specified JSON object.
-
-```java
-jsonpath(jsonObject1, "$.phoneNumbers[:1].type")
-```
-
-> **Note:** For additional details, see [Jayway's JsonPath](https://github.com/json-path/JsonPath) project.
-
----
-
-## Statistical functions
-
-### Average
-
-Returns the average (arithmetic mean) of the elements inside the given array. It also accepts JSON arrays, Java Collections and valid string representations of JSON arrays, provided that the collection contains only number elements. 
-
-```java
-average("[2,3]") //result: 2.5
-```
-
-> **Note:** Also achievable using the alias: `avg`
-
-
-### Count
-
-Returns the number of elements inside the given array. It also accepts JSON arrays, Java Collections and valid string representations of JSON arrays. 
-
-If a regular object (i.e., not a collection) is passed to the function, the result will always be 1 (one); if a null or empty object is passed to this function, the result will always be 0 (zero).
-
-```java
-count("[0,1,2]") //result: 3.0
-```
-
-> **Note:** Also achievable using the alias `length`.
-
-### Max
-
-Returns the largest value in the given array. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
-
-```java
-max("[9,10,8]") //result: 10
-```
-
-> **Note:** Supported data types: numbers, dates and string representations of date in RFC-3339 format.
-
-### Min
-
-Returns the smallest value in the given array or set. It also accepts JSON arrays, Java Collections, and valid string representations of JSON arrays.
-
-```java
-min("[9,10,8]") //result: 8
-```
-
-> **Note:** Supported data types: numbers, dates and string representations of date in RFC-3339 format.
-
----
-
-## Random numbers
-
-### UUID
-
-Produces a randomly generated type 4 UUID (Universally-unique Identifier) string. E.g.: `"247dc019-7d5a-465a-956d-7cada045ceb3"`
-
-```java
-uuid()
-```
-
----
-
-## Utility functions
-
-### Distinct
-
-Returns a list consisting of the distinct elements of a given vector, list, array or JSON array.
-
-```java
-distinct(["say", "what", "you", "need", "to", "say"]) //result: ["say", "what", "you", "need", "to"]
-```
-
-### Get Environment Variable
-
-Returns the value of an environment variable associated with the given key in the Operating System.
-
-```java
-getEnv("TEMP")
-```
-
-### Get System Property
-
-Returns the value of system property associated with the given key.
-
-```java
-getSystemProperty("os.name")
-```
-
-### Is Decimal
-
-Returns 1 (true) if the given parameter is a number (or string representing a number) containing decimals.
-
-```java
-isDecimal(10.333) //returns: 1.0
-isDecimal(999.0)  //returns: 0.0
-isDecimal("10.3") //returns: 1.0
-isDecimal("1.0")  //returns: 0.0
-```
-
-### Is Empty
-
-Returns 1 (true) if the given parameter is either a null object or an empty String, JSON or Collection.
-
-If a given string can be parsed as JSON object or array, it will be first converted into JSON, then its structure will be evaluated for emptiness.
-
-```java
-isEmpty("")   //returns: 1.0
-isEmpty("{}") //returns: 1.0
-isEmpty("[]") //returns: 1.0
-```
-
-### Is Integer
-
-Returns 1 (true) if the given parameter is a number (or string representing a number) is a whole number (which lacks decimals).
-
-```java
-isInteger(10.0)  //returns: 1.0
-isInteger(9.90)  //returns: 0.0
-isInteger("1.0") //returns: 1.0
-isInteger("0.3") //returns: 0.0
-```
-
-### Read file
-
-Returns the content of a text file in the file system.
-
-```java
-readFile("/tmp/data.json")
-```
-
-### Type of
-
-Returns the Java type associated with the given variable 
-
-```java
-typeOf("text") //result: "java.lang.String"
-```
-
-> **Note:** Also achievable using the alias `class`.
-
----
-
-## Cryptography functions
-
-### MD5
-
-Computes the MD5 hash of the given string and transforms the binary result into a hexadecimal lower case string.
-
-```java
-md5("asd") //result: "7815696ecbf1c96e6894b779456d330e"
-```
-
-### SHA1
-
-Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal lower case string.
-
-```java
-sha1("dsasd") //result: "2fa183839c954e6366c206367c9be5864e4f4a65"
-```
-
-### SHA-256
-
-Computes the SHA-256 hash of the given string and transforms the binary result into a hexadecimal lower case string.
-
-```java
-sha256("hello") //result: "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
-```
-
-### To Base64
-
-Encodes the specified string using the Base64 encoding scheme.
-
-```java
-toBase64("myMessage") //result: "bXlNZXNzYWdl"
-```
-
-### From Base64
-
-Decodes a Base64 encoded string.
-
-```java
-fromBase64("bXlNZXNzYWdl") //result: "myMessage"
-```
-
-
----
-
-## Web Services
-
-### HTTP Get
-
-Returns data from a Web Service or RESTful API, as string.
-
-```java
-httpGet("http://sampleservice.com/jep/v1/wheather")
-```
-
-> **Note:** This is similar to invoking `httpResponse(http("GET", "http://sampleservice.com/data/v1/wheather"))` 
-
-
-### HTTP Get with custom headers
-
-Returns data from a Web Service or RESTful API, as string, with custom HTTP headers in the request.
-
-```java
-httpGet("http://sampleservice.com/jep/v1/wheather", httpHeader("Accept=text/xml"))
-```
-
-> **Note:** Refer to the `httpHeaders` function for additional details.
-
-
-### Invoke HTTP method
-
-Invokes the requested method towards a Web Service or RESTful API, with a given request body, and returns a `WebServiceResponse`. 
-
-```java
-http("POST", "http://sampleservice.com/jep/v1/customer", requestBody)
-```
-
-> **Note:** A `WebServiceResponse` is an object that contains the HTTP status code and the response body/payload. These values can be retrieved by the functions `httpStatusCode()` and `httpResponse()`, respectively.
-
-
-### Invoke HTTP method with custom headers
-
-Invokes the requested method towards a Web Service or RESTful API, with a given request body and a custom HTTP headers, and returns a `WebServiceResponse`.
-
-```java
-http("POST", "http://sampleservice.com/jep/v1/customer", requestBody, httpHeader("Media-Type=text/xml"))
-```
-
-> **Note:** Refer to the `httpHeaders` function for additional details.
-
-
-### HTTP header(s)
-
-This function groups together a variable number of string arguments containing HTTP header entries for usage with the `http()` and `httpGet()` functions. Each entry is a string containing a key, a separator, and a value. A separator can be either an equal sign (`=`) or a colon (`:`). For example, an entry can be defined as `"Accept=text/xml"` or `"Accept:text/xml"`.
-
-```java
-httpHeader("Accept=text/xml")
-httpHeaders("Accept=text/xml", "Authentication=Basic dXNlcjpwYXNz")
-```
-
-
-### Basic authorization header
-
-Generates a basic authorization header from a given username and password. 
-
-```java
-basicAuthorizationHeader("Aladdin", "OpenSesame") //result: "Basic QWxhZGRpbjpPcGVuU2VzYW1l"
-```
-
-
-### HTTP status code getter
-
-Returns the HTTP status code, given a `WebServiceResponse` object, returned by the `http()` function.
-
-```java
-httpStatusCode(webServiceResponse)
-```
-
-
-### HTTP response body getter
-
-Returns the HTTP response body as string, given a `WebServiceResponse` object, returned by the `http()` function.
-
-```java
-httpResponse(webServiceResponse)
-```
-
+## New functions
+
+<table>
+<tr>
+<th>Package</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td rowspan="18"><b>String functions</b></td>
+<td>camel</td>
+<td>Converts a string to camel case
+</td>
+</tr>
+
+<tr>
+<td>concat</td>
+<td>Concatenates the elements passed to as arguments into a string.
+</td>
+</tr>
+
+<tr>
+<td>endsWith</td>
+<td>Returns 1 (true) if a string ends with the specified suffix.
+</td>
+</tr>
+
+<tr>
+<td>findMatch</td>
+<td>Returns the first match of the given regular expression found inside a string.
+</td>
+</tr>
+
+<tr>
+<td>findMatches</td>
+<td>Returns a list containing all matches of the given regular expression inside a string.
+</td>
+</tr>
+
+<tr>
+<td>formatString</td>
+<td>Returns a formatted string according to given pattern and variable arguments.
+</td>
+</tr>
+
+<tr>
+<td>leftPad</td>
+<td>Left-pads a given string to the given size with white-spaces or custom string. 
+</td>
+</tr>
+
+<tr>
+<td>lower</td>
+<td>Converts a text string to all lower-case letters.
+</td>
+</tr>
+
+<tr>
+<td>matches</td>
+<td>Returns a 1 (true) if the given string contains at least one match of the given RegEx.
+</td>
+</tr>
+
+<tr>
+<td>normalizeString</td>
+<td>Normalizes a Unicode string, replacing accents and other diacritics with ASCII chars.
+</td>
+</tr>
+
+<tr>
+<td>proper</td>
+<td>Converts a string to proper case, i.e., only the first letter in each word in upper-case.
+</td>
+</tr>
+
+<tr>
+<td>replace</td>
+<td>Returns a new string replacing all occurrences of a given string.
+</td>
+</tr>
+
+<tr>
+<td>replaceRegex</td>
+<td>Returns a new string replacing all matches of a given regular expression.
+</td>
+</tr>
+
+<tr>
+<td>rightPad</td>
+<td>Right-pads a given string to the given size with white-spaces or custom string. 
+</td>
+</tr>
+
+<tr>
+<td>split</td>
+<td>Splits a string into a string array based on a separating string or regular expression.
+</td>
+</tr>
+
+<tr>
+<td>startsWith</td>
+<td>Returns 1 (true) if a string starts a given prefix (case-sensitive).
+</td>
+</tr>
+
+<tr>
+<td>trim</td>
+<td>Removes leading and trailing spaces.
+</td>
+</tr>
+
+<tr>
+<td>upper</td>
+<td>Converts a text string to all upper-case letters.
+</td>
+</tr>
+
+
+<tr>
+<td rowspan="16"><b>Date functions</b></td>
+<td>now/sysdate</td>
+<td>Returns the system's current date & time, with precision of milliseconds.
+</td>
+</tr>
+
+<tr>
+<td>str2date</td>
+<td>Parses a string representing a date by trying different parse patterns, supporting RFC-3339, RFC-822 and a set of common ISO-8601 variations.
+</td>
+</tr>
+
+<tr>
+<td>date2str</td>
+<td>Converts a date into string using a specified format.
+</td>
+</tr>
+
+<tr>
+<td>daysBetween</td>
+<td>Returns the number of days between two dates (or valid dates as string).
+</td>
+</tr>
+
+<tr>
+<td>endOfMonth</td>
+<td>Returns a date corresponding to the last day of the month given a source date.
+</td>
+</tr>
+
+<tr>
+<td>isLeapYear</td>
+<td>Returns 1 if the given date or year number is a leap year, i.e., an year with 366 days.
+</td>
+</tr>
+
+<tr>
+<td>year</td>
+<td>Returns the year for a given date.
+</td>
+</tr>
+
+<tr>
+<td>quarter</td>
+<td>Returns the quarter of the year, for a given date, as a number from 1 to 4.
+</td>
+</tr>
+
+<tr>
+<td>month</td>
+<td>Returns the month for a given date, a number starting from 1 (Jan) to 12 (Dec).
+</td>
+</tr>
+
+<tr>
+<td>isoWeekNumber</td>
+<td>Returns the ISO week number in the year for a given date, that is, the first week of an year will be the first one with a minimum of 4 days, starting with Monday.
+</td>
+</tr>
+
+<tr>
+<td>weekday</td>
+<td>Returns the day of the week of a date, a number from 1 (Sunday) to 7 (Saturday).
+</td>
+</tr>
+
+<tr>
+<td>day</td>
+<td>Returns the day of the month for a given date. The first day of the month is 1.
+</td>
+</tr>
+
+<tr>
+<td>hour</td>
+<td>Returns the hour of day, for a given date, as a number from 0 (12AM) to 23 (11PM).
+</td>
+</tr>
+
+<tr>
+<td>minute</td>
+<td>Returns the minute within the hour, for a given date, as a number from 0 to 59.
+</td>
+</tr>
+
+<tr>
+<td>second</td>
+<td>Returns the milliseconds within the second, for a given date.
+</td>
+</tr>
+
+<tr>
+<td>addDays</td>
+<td>Returns the result from adding the number of days to a given date.
+</td>
+</tr>
+
+<tr>
+<td rowspan="2"></b>Math functions</b></td>
+<td>arabic</td>
+<td>Converts a Roman numeral to Arabic.
+</td>
+</tr>
+
+<tr>
+<td>roman</td>
+<td>Converts an Arabic numeral to Roman.
+</td>
+</tr>
+
+
+
+<tr>
+<td rowspan="2"></b>Data manipulation & filtering</b></td>
+<td>xpath</td>
+<td>Returns the result of the given XPath expression at the specified XML.
+</td>
+</tr>
+
+<tr>
+<td>jsonpath</td>
+<td>Returns the result of the given JSONPath expression at the specified JSON.
+</td>
+</tr>
+
+
+
+<tr>
+<td rowspan="4"></b>Statistical</b></td>
+<td>average</td>
+<td>Returns the average (arithmetic mean) of the elements inside the given array, JSON array, or collection, including valid string representations of these objects.
+</td>
+</tr>
+
+<tr>
+<td>count</td>
+<td>Returns the number of elements inside the given array, JSON array or collection (including valid string representations).
+</td>
+</tr>
+
+<tr>
+<td>max</td>
+<td>Returns the largest value in the given array, JSON array or collection (including valid string representations).
+</td>
+</tr>
+
+<tr>
+<td>min</td>
+<td>Returns the smallest value in the given array, JSON array or collection (including valid string representations).
+</td>
+</tr>
+
+
+
+<tr>
+<td rowspan="1"></b>Random</b></td>
+<td>uuid</td>
+<td>Produces a randomly generated type 4 UUID (Universally-unique Identifier) string.
+</td>
+</tr>
+
+
+
+<tr>
+<td rowspan="8"><b>Utility functions</b></td>
+<td>distinct</td>
+<td>Returns a list consisting of the distinct elements of a given list, array or JSON array.
+</td>
+</tr>
+
+<tr>
+<td>getEnv</td>
+<td>Returns the value of an environment variable associated with the given key in the OS.
+</td>
+</tr>
+
+<tr>
+<td>getSystemProperty</td>
+<td>Returns the value of system property associated with the given key.
+</td>
+</tr>
+
+<tr>
+<td>isDecimal</td>
+<td>Returns 1 (true) if the given parameter is a number (including strings) containing decimals.
+</td>
+</tr>
+
+<tr>
+<td>isEmpty</td>
+<td>Returns 1 (true) if the given parameter is either a null object or an empty String, JSON or Collection.
+</td>
+</tr>
+
+<tr>
+<td>isInteger</td>
+<td>Returns 1 (true) if the given parameter is a number (or string representing a number) is a whole number (which lacks decimals).
+</td>
+</tr>
+
+<tr>
+<td>readFile</td>
+<td>Returns the content of a text file in the file system.
+</td>
+</tr>
+
+<tr>
+<td>typeOf</td>
+<td>Returns the Java type associated with the given variable 
+</td>
+</tr>
+
+
+
+<tr>
+<td rowspan="5"><b>Cryptography functions</b></td>
+<td>md5</td>
+<td>Computes the MD5 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+</td>
+</tr>
+
+<tr>
+<td>sha1</td>
+<td>Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+</td>
+</tr>
+
+<tr>
+<td>sha256</td>
+<td>Computes the SHA-256 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+</td>
+</tr>
+
+<tr>
+<td>toBase64</td>
+<td>Encodes the specified string using the Base64 encoding scheme.
+</td>
+</tr>
+
+<tr>
+<td>fromBase64</td>
+<td>Decodes a Base64 encoded string.
+</td>
+</tr>
+
+
+
+<tr>
+<td rowspan="6"><b>Web Services</b></td>
+<td>httpGet</td>
+<td>Returns data from a Web Service or RESTful API, as string.
+</td>
+</tr>
+
+<tr>
+<td>http</td>
+<td>Invokes a specific method towards a Web Service or RESTful API, with a given request body, and returns a `WebServiceResponse`. 
+</td>
+</tr>
+
+<tr>
+<td>httpHeader</td>
+<td>This function groups together a variable number of string arguments containing HTTP header entries for usage with the `http()` and `httpGet()` functions.
+</td>
+</tr>
+
+<tr>
+<td>basicAuthorizationHeader</td>
+<td>Generates a basic authorization header from a given username and password.
+</td>
+</tr>
+
+<tr>
+<td>httpStatusCode</td>
+<td>Returns the HTTP status code, given a `WebServiceResponse` object, returned by the `http()` function.
+</td>
+</tr>
+
+<tr>
+<td>httpResponse</td>
+<td>Returns the HTTP response body as string, given a `WebServiceResponse` object, returned by the `http()` function.
+</td>
+</tr>
+
+</table>
+
+> ℹ️ [Find examples in the wiki.](https://github.com/oswaldobapvicjr/jep-data-extension/wiki)
 
 ---
 
