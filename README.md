@@ -258,7 +258,7 @@
 
 
 <tr>
-<td rowspan="4"></b>Statistical</b></td>
+<td rowspan="4"></b>Statistical functions</b></td>
 <td>average</td>
 <td>Returns the average (arithmetic mean) of the elements inside the given array, JSON array, or collection, including valid string representations of these objects.
 </td>
@@ -302,7 +302,7 @@
 
 <tr>
 <td>getEnv</td>
-<td>Returns the value of an environment variable associated with the given key in the OS.
+<td>Returns the value of an environment variable associated with the given key.
 </td>
 </tr>
 
@@ -314,19 +314,19 @@
 
 <tr>
 <td>isDecimal</td>
-<td>Returns 1 (true) if the given parameter is a number (including strings) containing decimals.
+<td>Returns 1 if the given parameter is a number (including strings) containing decimals.
 </td>
 </tr>
 
 <tr>
 <td>isEmpty</td>
-<td>Returns 1 (true) if the given parameter is either a null object or an empty String, JSON or Collection.
+<td>Returns 1 if a given parameter is either null or an empty String, JSON or collection.
 </td>
 </tr>
 
 <tr>
 <td>isInteger</td>
-<td>Returns 1 (true) if the given parameter is a number (or string representing a number) is a whole number (which lacks decimals).
+<td>Returns 1 if the given parameter is a number (or string representing a number) is a whole number (which lacks decimals).
 </td>
 </tr>
 
@@ -386,13 +386,13 @@
 
 <tr>
 <td>http</td>
-<td>Invokes a specific method towards a Web Service or RESTful API, with a given request body, and returns a `WebServiceResponse`. 
-</td>
+<td>Invokes a specific method towards a Web Service or RESTful API.
+</td
 </tr>
 
 <tr>
 <td>httpHeader</td>
-<td>This function groups together a variable number of string arguments containing HTTP header entries for usage with the `http()` and `httpGet()` functions.
+<td>This function groups together a variable number of string arguments containing HTTP header entries for usage with the http() and httpGet() functions.
 </td>
 </tr>
 
@@ -404,13 +404,13 @@
 
 <tr>
 <td>httpStatusCode</td>
-<td>Returns the HTTP status code, given a `WebServiceResponse` object, returned by the `http()` function.
+<td>Returns the HTTP status code of a given WebServiceResponse.
 </td>
 </tr>
 
 <tr>
 <td>httpResponse</td>
-<td>Returns the HTTP response body as string, given a `WebServiceResponse` object, returned by the `http()` function.
+<td>Returns the HTTP response body from given WebServiceResponse, as string.
 </td>
 </tr>
 
