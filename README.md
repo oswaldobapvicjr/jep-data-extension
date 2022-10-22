@@ -29,7 +29,7 @@
 
 <tr>
 <td>concat</td>
-<td>Concatenates the elements passed to as arguments into a string.
+<td>Concatenates the arguments into a string.
 </td>
 </tr>
 
@@ -58,20 +58,20 @@
 </tr>
 
 <tr>
-<td>leftPad</td>
+<td>lpad/leftPad</td>
 <td>Left-pads a given string to the given size with white-spaces or custom string. 
 </td>
 </tr>
 
 <tr>
-<td>lower</td>
+<td>lcase/lower</td>
 <td>Converts a text string to all lower-case letters.
 </td>
 </tr>
 
 <tr>
 <td>matches</td>
-<td>Returns a 1 (true) if the given string contains at least one match of the given RegEx.
+<td>Returns a 1 if the given string contains at least one match of a given RegEx.
 </td>
 </tr>
 
@@ -89,18 +89,18 @@
 
 <tr>
 <td>replace</td>
-<td>Returns a new string replacing all occurrences of a given string.
+<td>Replaces all occurrences of a given string with another string.
 </td>
 </tr>
 
 <tr>
 <td>replaceRegex</td>
-<td>Returns a new string replacing all matches of a given regular expression.
+<td>Replaces all matches of a given regular expression.
 </td>
 </tr>
 
 <tr>
-<td>rightPad</td>
+<td>rpad/rightPad</td>
 <td>Right-pads a given string to the given size with white-spaces or custom string. 
 </td>
 </tr>
@@ -113,7 +113,7 @@
 
 <tr>
 <td>startsWith</td>
-<td>Returns 1 (true) if a string starts a given prefix (case-sensitive).
+<td>Returns 1 if a string starts a given prefix.
 </td>
 </tr>
 
@@ -124,7 +124,7 @@
 </tr>
 
 <tr>
-<td>upper</td>
+<td>ucase/upper</td>
 <td>Converts a text string to all upper-case letters.
 </td>
 </tr>
@@ -133,13 +133,13 @@
 <tr>
 <td rowspan="16"><b>Date functions</b></td>
 <td>now/sysdate</td>
-<td>Returns the system's current date & time, with precision of milliseconds.
+<td>Returns the system's current date & time.
 </td>
 </tr>
 
 <tr>
 <td>str2date</td>
-<td>Parses a string representing a date by trying different parse patterns, supporting RFC-3339, RFC-822 and a set of common ISO-8601 variations.
+<td>Converts a string into date by trying different patterns such as RFC-3339, RFC-822 and a set of common ISO-8601 variations.
 </td>
 </tr>
 
@@ -151,7 +151,7 @@
 
 <tr>
 <td>daysBetween</td>
-<td>Returns the number of days between two dates (or valid dates as string).
+<td>Returns the number of days between two dates.
 </td>
 </tr>
 
@@ -175,7 +175,7 @@
 
 <tr>
 <td>quarter</td>
-<td>Returns the quarter of the year, for a given date, as a number from 1 to 4.
+<td>Returns the quarter of the year for a given date.
 </td>
 </tr>
 
@@ -187,7 +187,7 @@
 
 <tr>
 <td>isoWeekNumber</td>
-<td>Returns the ISO week number in the year for a given date, that is, the first week of an year will be the first one with a minimum of 4 days, starting with Monday.
+<td>Returns the ISO week number for a given date.
 </td>
 </tr>
 
@@ -199,31 +199,31 @@
 
 <tr>
 <td>day</td>
-<td>Returns the day of the month for a given date. The first day of the month is 1.
+<td>Returns the day of the month for a given date..
 </td>
 </tr>
 
 <tr>
 <td>hour</td>
-<td>Returns the hour of day, for a given date, as a number from 0 (12AM) to 23 (11PM).
+<td>Returns the hour of day for a given date, as a number from 0 (12AM) to 23 (11PM).
 </td>
 </tr>
 
 <tr>
 <td>minute</td>
-<td>Returns the minute within the hour, for a given date, as a number from 0 to 59.
+<td>Returns the minute within the hour for a given date, as a number from 0 to 59.
 </td>
 </tr>
 
 <tr>
 <td>second</td>
-<td>Returns the milliseconds within the second, for a given date.
+<td>Returns the seconds within the minute for a given date, a number from 0 to 59.
 </td>
 </tr>
 
 <tr>
 <td>addDays</td>
-<td>Returns the result from adding the number of days to a given date.
+<td>Returns the result from adding a number of days to a date.
 </td>
 </tr>
 
@@ -260,25 +260,25 @@
 <tr>
 <td rowspan="4"></b>Statistical functions</b></td>
 <td>average</td>
-<td>Returns the average (arithmetic mean) of the elements inside the given array, JSON array, or collection, including valid string representations of these objects.
+<td>Returns the average of the elements inside a given array, JSON array or collection (including valid string representations).
 </td>
 </tr>
 
 <tr>
 <td>count</td>
-<td>Returns the number of elements inside the given array, JSON array or collection (including valid string representations).
+<td>Returns the number of elements inside a given array, JSON array or collection (including valid string representations).
 </td>
 </tr>
 
 <tr>
 <td>max</td>
-<td>Returns the largest value in the given array, JSON array or collection (including valid string representations).
+<td>Returns the largest value in a given array, JSON array or collection (including valid string representations).
 </td>
 </tr>
 
 <tr>
 <td>min</td>
-<td>Returns the smallest value in the given array, JSON array or collection (including valid string representations).
+<td>Returns the smallest value in a given array, JSON array or collection (including valid string representations).
 </td>
 </tr>
 
@@ -302,13 +302,13 @@
 
 <tr>
 <td>getEnv</td>
-<td>Returns the value of an environment variable associated with the given key.
+<td>Returns the value of an environment variable.
 </td>
 </tr>
 
 <tr>
 <td>getSystemProperty</td>
-<td>Returns the value of system property associated with the given key.
+<td>Returns the value of system property.
 </td>
 </tr>
 
@@ -326,7 +326,7 @@
 
 <tr>
 <td>isInteger</td>
-<td>Returns 1 if the given parameter is a number (or string representing a number) is a whole number (which lacks decimals).
+<td>Returns 1 if the given number (or valid string) represents a whole number, i.e, which lacks decimals.
 </td>
 </tr>
 
@@ -337,8 +337,8 @@
 </tr>
 
 <tr>
-<td>typeOf</td>
-<td>Returns the Java type associated with the given variable 
+<td>typeOf/class</td>
+<td>Returns the Java type associated with the given variable.
 </td>
 </tr>
 
@@ -347,25 +347,25 @@
 <tr>
 <td rowspan="5"><b>Cryptography functions</b></td>
 <td>md5</td>
-<td>Computes the MD5 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+<td>Computes the MD5 hash of the given string and transforms the binary result into a hexadecimal string.
 </td>
 </tr>
 
 <tr>
 <td>sha1</td>
-<td>Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+<td>Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal string.
 </td>
 </tr>
 
 <tr>
 <td>sha256</td>
-<td>Computes the SHA-256 hash of the given string and transforms the binary result into a hexadecimal lower case string.
+<td>Computes the SHA-256 hash of the given string and transforms the binary result into a hexadecimal string.
 </td>
 </tr>
 
 <tr>
 <td>toBase64</td>
-<td>Encodes the specified string using the Base64 encoding scheme.
+<td>Encodes the specified string using Base64 encoding scheme.
 </td>
 </tr>
 
@@ -386,13 +386,13 @@
 
 <tr>
 <td>http</td>
-<td>Invokes a specific method towards a Web Service or RESTful API.
+<td>Invokes a specific method towards a Web Service/REST API.
 </td
 </tr>
 
 <tr>
 <td>httpHeader</td>
-<td>This function groups together a variable number of string arguments containing HTTP header entries for usage with the http() and httpGet() functions.
+<td>This function groups a variable number of HTTP header entries for usage with other HTTP functions.
 </td>
 </tr>
 
