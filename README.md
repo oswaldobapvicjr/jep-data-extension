@@ -59,7 +59,7 @@
 
 <tr>
 <td>lpad/leftPad</td>
-<td>Left-pads a given string to the given size with white-spaces or custom string. 
+<td>Left-pads a string to a given size. 
 </td>
 </tr>
 
@@ -89,7 +89,7 @@
 
 <tr>
 <td>replace</td>
-<td>Replaces all occurrences of a given string with another string.
+<td>Replaces all occurrences of a given string with another one.
 </td>
 </tr>
 
@@ -101,7 +101,7 @@
 
 <tr>
 <td>rpad/rightPad</td>
-<td>Right-pads a given string to the given size with white-spaces or custom string. 
+<td>Right-pads a string to a given size. 
 </td>
 </tr>
 
@@ -139,7 +139,7 @@
 
 <tr>
 <td>str2date</td>
-<td>Converts a string into date by trying different patterns such as RFC-3339, RFC-822 and a set of common ISO-8601 variations.
+<td>Converts a string into date by trying different patterns such as RFC-3339, RFC-822 and common ISO-8601 variations.
 </td>
 </tr>
 
@@ -260,7 +260,7 @@
 <tr>
 <td rowspan="4"></b>Statistical functions</b></td>
 <td>average</td>
-<td>Returns the average of the elements inside a given array, JSON array or collection (including valid string representations).
+<td>Returns the average of the elements inside a given array, JSON array or collection (including valid representations).
 </td>
 </tr>
 
@@ -365,7 +365,7 @@
 
 <tr>
 <td>toBase64</td>
-<td>Encodes the specified string using Base64 encoding scheme.
+<td>Encodes a string to Base64 encoding scheme.
 </td>
 </tr>
 
