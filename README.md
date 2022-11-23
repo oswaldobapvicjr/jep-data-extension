@@ -21,57 +21,57 @@
 </tr>
 
 <tr>
-<td rowspan="18"><b>String functions</b></td>
-<td>camel</td>
+<td rowspan="18"><b><a href="https://github.com/oswaldobapvicjr/jep-data-extension/wiki/String-functions">String functions</a></b></td>
+<td><b><a href="https://github.com/oswaldobapvicjr/jep-data-extension/wiki/String-functions#camel">camel</a></b></td>
 <td>Converts a string to camel case
 </td>
 </tr>
 
 <tr>
-<td>concat</td>
+<td><b><a href="https://github.com/oswaldobapvicjr/jep-data-extension/wiki/String-functions#concatenation">concat</a></b></td>
 <td>Concatenates the arguments into a string.
 </td>
 </tr>
 
 <tr>
-<td>endsWith</td>
-<td>Returns 1 (true) if a string ends with the specified suffix.
+<td><b><a href="https://github.com/oswaldobapvicjr/jep-data-extension/wiki/String-functions#ends-with">endsWith</a></b></td>
+<td>Returns 1 if a string ends with the specified suffix.
 </td>
 </tr>
 
 <tr>
 <td>findMatch</td>
-<td>Returns the first match of the given regular expression found inside a string.
+<td>Returns the first match of a given RegEx.
 </td>
 </tr>
 
 <tr>
 <td>findMatches</td>
-<td>Returns a list containing all matches of the given regular expression inside a string.
+<td>Returns a all matches of a given RegEx.
 </td>
 </tr>
 
 <tr>
 <td>formatString</td>
-<td>Returns a formatted string according to given pattern and variable arguments.
+<td>Formats a string according to a pattern.
 </td>
 </tr>
 
 <tr>
 <td>lpad/leftPad</td>
-<td>Left-pads a given string to the given size with white-spaces or custom string. 
+<td>Left-pads a string to a given size. 
 </td>
 </tr>
 
 <tr>
 <td>lcase/lower</td>
-<td>Converts a text string to all lower-case letters.
+<td>Converts a string to all lower-case letters.
 </td>
 </tr>
 
 <tr>
 <td>matches</td>
-<td>Returns a 1 if the given string contains at least one match of a given RegEx.
+<td>Returns 1 if a string contains at least one match of a given RegEx.
 </td>
 </tr>
 
@@ -89,25 +89,25 @@
 
 <tr>
 <td>replace</td>
-<td>Replaces all occurrences of a given string with another string.
+<td>Replaces all occurrences of a given string.
 </td>
 </tr>
 
 <tr>
 <td>replaceRegex</td>
-<td>Replaces all matches of a given regular expression.
+<td>Replaces all matches of a given RegEx.
 </td>
 </tr>
 
 <tr>
 <td>rpad/rightPad</td>
-<td>Right-pads a given string to the given size with white-spaces or custom string. 
+<td>Right-pads a string to a given size. 
 </td>
 </tr>
 
 <tr>
 <td>split</td>
-<td>Splits a string into a string array based on a separating string or regular expression.
+<td>Splits a string into based on a separator or RegEx.
 </td>
 </tr>
 
