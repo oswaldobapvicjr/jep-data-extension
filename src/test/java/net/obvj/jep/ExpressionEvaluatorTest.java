@@ -10,10 +10,10 @@ import java.util.Map;
 import org.codehaus.jettison.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.nfunk.jep.ParseException;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.obvj.jep.http.WebServiceUtils;
 import net.obvj.jep.util.JsonUtils;
@@ -23,8 +23,7 @@ import net.obvj.jep.util.JsonUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(WebServiceUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ExpressionEvaluatorTest
 {
     // Test variable names
@@ -91,18 +90,6 @@ public class ExpressionEvaluatorTest
     private static final String EXPRESSION_GET_HTTP_GET = "get(httpGet(\"http://localhost/services/employees\"), 1)";
     private static final String EXPRESSION_JSONPATH_HTTP_GET = "jsonpath(httpGet(\"http://localhost/services/employee/1\"), \"$.name\")";
     private static final String EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER = "jsonpath(httpGet(formatString(\"http://localhost/services/employee/%s\", myId)), \"$.name\")";
-
-    /**
-     * Utility method to mock the response from an HTTP request
-     *
-     * @param url              the URL to be passed to the mock
-     * @param expectedResponse the content to be set
-     */
-    private void mockGetWebServiceResponse(String url, String expectedResponse)
-    {
-        PowerMockito.mockStatic(WebServiceUtils.class);
-        PowerMockito.when(WebServiceUtils.getAsString(url)).thenReturn(expectedResponse);
-    }
 
     /**
      * Tests that the component is not created with a null expression
@@ -250,9 +237,12 @@ public class ExpressionEvaluatorTest
     @Test
     public void testComponentExecutionWithCountAndHttpGet() throws ParseException
     {
-        mockGetWebServiceResponse(URL_EMPLOYEES, JSON_EMPLOYEES);
-        ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_COUNT_HTTP_GET);
-        assertEquals(4, evaluator.evaluate(Collections.emptyMap()));
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.getAsString(URL_EMPLOYEES)).thenReturn(JSON_EMPLOYEES);
+            ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_COUNT_HTTP_GET);
+            assertEquals(4, evaluator.evaluate(Collections.emptyMap()));
+        }
     }
 
     /**
@@ -264,9 +254,13 @@ public class ExpressionEvaluatorTest
     @Test
     public void testComponentExecutionWithGetAndHttpGet() throws ParseException, JSONException
     {
-        mockGetWebServiceResponse(URL_EMPLOYEES, JSON_EMPLOYEES);
-        ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_GET_HTTP_GET);
-        assertEquals(JsonUtils.toJSONObject(JSON_EMPLOYEE1), evaluator.evaluate(Collections.emptyMap()));
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.getAsString(URL_EMPLOYEES)).thenReturn(JSON_EMPLOYEES);
+            ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_GET_HTTP_GET);
+            assertEquals(JsonUtils.toJSONObject(JSON_EMPLOYEE1),
+                    evaluator.evaluate(Collections.emptyMap()));
+        }
     }
 
     /**
@@ -277,9 +271,12 @@ public class ExpressionEvaluatorTest
     @Test
     public void testComponentExecutionWithJsonpathAndHttpGet() throws ParseException
     {
-        mockGetWebServiceResponse(URL_EMPLOYEE1, JSON_EMPLOYEE1);
-        ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_JSONPATH_HTTP_GET);
-        assertEquals(JSON_EMPLOYEE1_NAME, evaluator.evaluate(Collections.emptyMap()));
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.getAsString(URL_EMPLOYEE1)).thenReturn(JSON_EMPLOYEE1);
+            ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_JSONPATH_HTTP_GET);
+            assertEquals(JSON_EMPLOYEE1_NAME, evaluator.evaluate(Collections.emptyMap()));
+        }
     }
 
     /**
@@ -291,12 +288,16 @@ public class ExpressionEvaluatorTest
     @Test
     public void testComponentExecutionWithJsonpathAndHttpGetAndPlaceholderInUrl() throws ParseException
     {
-        mockGetWebServiceResponse(URL_EMPLOYEE1, JSON_EMPLOYEE1);
-        ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER);
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.getAsString(URL_EMPLOYEE1)).thenReturn(JSON_EMPLOYEE1);
+            ExpressionEvaluator evaluator = new ExpressionEvaluator(
+                    EXPRESSION_JSONPATH_HTTP_GET_WITH_PLACEHOLDER);
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("myId", 1);
-        assertEquals(JSON_EMPLOYEE1_NAME, evaluator.evaluate(map));
+            Map<String, Object> map = new HashMap<>();
+            map.put("myId", 1);
+            assertEquals(JSON_EMPLOYEE1_NAME, evaluator.evaluate(map));
+        }
     }
 
 }

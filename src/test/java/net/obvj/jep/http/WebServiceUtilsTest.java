@@ -22,9 +22,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import net.obvj.jep.util.CollectionsUtils;
 
@@ -33,8 +33,7 @@ import net.obvj.jep.util.CollectionsUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({ ClientBuilder.class, Builder.class })
+@RunWith(MockitoJUnitRunner.class)
 public class WebServiceUtilsTest
 {
     // Test data
@@ -83,11 +82,13 @@ public class WebServiceUtilsTest
      * @param url              the URL to be passed to the mock
      * @param status           the HTTP status to be set
      * @param expectedResponse the content to be set
+     * @param clientBuilder    a proxy to the ClientBuilder
      */
-    private void mockGetAsStringResponse(String url, Status status, String expectedResponse)
+    private void mockGetAsStringResponse(String url, Status status, String expectedResponse,
+            MockedStatic<ClientBuilder> clientBuilder)
     {
         mockClientResponse(status, expectedResponse);
-        mockClient(url);
+        mockClient(url, clientBuilder);
         when(webTarget.request()).thenReturn(invocationBuilder);
         when(invocationBuilder.get()).thenReturn(response);
     }
@@ -100,21 +101,20 @@ public class WebServiceUtilsTest
      * @param status           the HTTP status to be set
      * @param mediaType        the media type to be set
      * @param expectedResponse the content to be set
+     * @param clientBuilder    a proxy to the ClientBuilder
      */
     private void mockInvokeMethod(String method, String url, Status status, MediaType mediaType, String requestEntity,
-            String expectedResponse)
+            String expectedResponse, MockedStatic<ClientBuilder> clientBuilder)
     {
         mockClientResponse(status, expectedResponse);
-        mockClient(url);
+        mockClient(url, clientBuilder);
         when(webTarget.request()).thenReturn(invocationBuilder);
         when(invocationBuilder.method(method, Entity.text(requestEntity))).thenReturn(response);
     }
 
-    private void mockClient(String url)
+    private void mockClient(String url, MockedStatic<ClientBuilder> clientBuilder)
     {
-        PowerMockito.mockStatic(ClientBuilder.class);
-        PowerMockito.when(ClientBuilder.newClient()).thenReturn(client);
-
+        clientBuilder.when(ClientBuilder::newClient).thenReturn(client);
         when(client.target(url)).thenReturn(webTarget);
     }
 
@@ -155,8 +155,11 @@ public class WebServiceUtilsTest
     @Test
     public void testGetJsonAsStringWithSuccess()
     {
-        mockGetAsStringResponse(URL, Status.OK, MOCKED_JSON_AS_STRING);
-        assertEquals(MOCKED_JSON_AS_STRING, WebServiceUtils.getAsString(URL));
+        try (MockedStatic<ClientBuilder> clientBuilder = Mockito.mockStatic(ClientBuilder.class))
+        {
+            mockGetAsStringResponse(URL, Status.OK, MOCKED_JSON_AS_STRING, clientBuilder);
+            assertEquals(MOCKED_JSON_AS_STRING, WebServiceUtils.getAsString(URL));
+        }
     }
 
     /**
@@ -166,8 +169,11 @@ public class WebServiceUtilsTest
     @Test
     public void testGetJsonAsStringWithoutSuccess()
     {
-        mockGetAsStringResponse(URL, Status.NOT_FOUND, MOCKED_JSON_AS_STRING);
-        assertEquals(StringUtils.EMPTY, WebServiceUtils.getAsString(URL));
+        try (MockedStatic<ClientBuilder> clientBuilder = Mockito.mockStatic(ClientBuilder.class))
+        {
+            mockGetAsStringResponse(URL, Status.NOT_FOUND, MOCKED_JSON_AS_STRING, clientBuilder);
+            assertEquals(StringUtils.EMPTY, WebServiceUtils.getAsString(URL));
+        }
     }
 
     /**
@@ -176,12 +182,15 @@ public class WebServiceUtilsTest
     @Test
     public void testGetWithSuccess()
     {
-        mockGetAsStringResponse(URL, Status.OK, MOCKED_JSON_AS_STRING);
-        WebServiceResponse response = WebServiceUtils.get(URL);
-        assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
-        assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
-        verify(invocationBuilder, never()).header("Authorization", "Basic dXNlcjpwYXNz");
-        verify(invocationBuilder, never()).header("Content-Type", "application/json");
+        try (MockedStatic<ClientBuilder> clientBuilder = Mockito.mockStatic(ClientBuilder.class))
+        {
+            mockGetAsStringResponse(URL, Status.OK, MOCKED_JSON_AS_STRING, clientBuilder);
+            WebServiceResponse response = WebServiceUtils.get(URL);
+            assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
+            assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
+            verify(invocationBuilder, never()).header("Authorization", "Basic dXNlcjpwYXNz");
+            verify(invocationBuilder, never()).header("Content-Type", "application/json");
+        }
     }
 
     /**
@@ -199,10 +208,14 @@ public class WebServiceUtilsTest
     @Test
     public void testInvokeGetWithSuccess()
     {
-        mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null, MOCKED_JSON_AS_STRING);
-        WebServiceResponse response = WebServiceUtils.invoke(GET, URL, null);
-        assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
-        assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
+        try (MockedStatic<ClientBuilder> clientBuilder = Mockito.mockStatic(ClientBuilder.class))
+        {
+            mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null,
+                    MOCKED_JSON_AS_STRING, clientBuilder);
+            WebServiceResponse response = WebServiceUtils.invoke(GET, URL, null);
+            assertEquals(Status.OK.getStatusCode(), response.getStatusCode());
+            assertEquals(MOCKED_JSON_AS_STRING, response.getBody());
+        }
     }
 
     /**
@@ -211,12 +224,16 @@ public class WebServiceUtilsTest
     @Test
     public void testInvokeGetWithCustomHeadersSuccess()
     {
-        mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null, MOCKED_JSON_AS_STRING);
-        Map<String, String> headers = CollectionsUtils.asMap("Authorization=Basic dXNlcjpwYXNz",
-                "Content-Type=application/json");
-        WebServiceUtils.invoke(GET, URL, null, headers);
-        verify(invocationBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
-        verify(invocationBuilder).header("Content-Type", "application/json");
+        try (MockedStatic<ClientBuilder> clientBuilder = Mockito.mockStatic(ClientBuilder.class))
+        {
+            mockInvokeMethod(GET, URL, Status.OK, MediaType.APPLICATION_JSON_TYPE, null,
+                    MOCKED_JSON_AS_STRING, clientBuilder);
+            Map<String, String> headers = CollectionsUtils.asMap("Authorization=Basic dXNlcjpwYXNz",
+                    "Content-Type=application/json");
+            WebServiceUtils.invoke(GET, URL, null, headers);
+            verify(invocationBuilder).header("Authorization", "Basic dXNlcjpwYXNz");
+            verify(invocationBuilder).header("Content-Type", "application/json");
+        }
     }
 
     @Test

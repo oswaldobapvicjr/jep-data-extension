@@ -2,20 +2,18 @@ package net.obvj.jep.functions;
 
 import static net.obvj.jep.util.CollectionsUtils.newParametersStack;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.times;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.Stack;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.nfunk.jep.ParseException;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.obvj.jep.http.WebServiceResponse;
 import net.obvj.jep.http.WebServiceUtils;
@@ -26,8 +24,7 @@ import net.obvj.jep.util.CollectionsUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(WebServiceUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class HttpTest
 {
     private static final String EMPLOYEE_URL = "http://dummy.restapiexample.com/api/v1/employee";
@@ -41,12 +38,6 @@ public class HttpTest
 
     @Mock
     private WebServiceResponse response;
-
-    @Before
-    public void setup()
-    {
-        PowerMockito.mockStatic(WebServiceUtils.class);
-    }
 
     /**
      * Runs the function with the given parameters
@@ -64,12 +55,16 @@ public class HttpTest
     @Test
     public void testPostWithRequestBody() throws org.nfunk.jep.ParseException, IOException
     {
-        PowerMockito.when(WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, null)).thenReturn(response);
-
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
-        run(parameters);
 
-        assertEquals(response, parameters.pop());
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, null))
+                    .thenReturn(response);
+
+            run(parameters);
+            assertEquals(response, parameters.pop());
+        }
     }
 
     /**
@@ -88,13 +83,16 @@ public class HttpTest
     @Test
     public void testWithThreeParameters() throws org.nfunk.jep.ParseException, IOException
     {
-        // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY);
-        run(parameters);
 
-        // Verify the correct method was called
-        PowerMockito.verifyStatic(WebServiceUtils.class, times(1));
-        WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, null);
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, null))
+                    .thenReturn(response);
+
+            run(parameters);
+            assertEquals(response, parameters.pop());
+        }
     }
 
     /**
@@ -103,13 +101,16 @@ public class HttpTest
     @Test
     public void testWithFourParameters() throws org.nfunk.jep.ParseException, IOException
     {
-        // Test
         Stack<Object> parameters = newParametersStack(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, HEADERS);
-        run(parameters);
 
-        // Verify the correct method was called
-        PowerMockito.verifyStatic(WebServiceUtils.class, times(1));
-        WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, HEADERS);
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.invoke(POST, EMPLOYEE_URL, EMPLOYEE_REQUEST_BODY, HEADERS))
+                    .thenReturn(response);
+
+            run(parameters);
+            assertEquals(response, parameters.pop());
+        }
     }
 
     /**

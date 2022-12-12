@@ -6,14 +6,12 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Stack;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.BDDMockito;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.nfunk.jep.ParseException;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.obvj.jep.http.WebServiceUtils;
 import net.obvj.jep.util.CollectionsUtils;
@@ -23,8 +21,7 @@ import net.obvj.jep.util.CollectionsUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(WebServiceUtils.class)
+@RunWith(MockitoJUnitRunner.class)
 public class HttpGetTest
 {
     private static final String URL = "http://sampleservice.com/data/v1/wheather/sp";
@@ -35,15 +32,6 @@ public class HttpGetTest
 
     // Test subject
     private static HttpGet function = new HttpGet();
-
-    /**
-     * Setup test objects before each test
-     */
-    @Before
-    public void setup()
-    {
-        PowerMockito.mockStatic(WebServiceUtils.class);
-    }
 
     /**
      * Runs the function with the given parameters
@@ -61,17 +49,15 @@ public class HttpGetTest
     @Test
     public void testSuccessfulScenarioWithUrlParam() throws org.nfunk.jep.ParseException, IOException
     {
-        PowerMockito.when(WebServiceUtils.getAsString(URL)).thenReturn(CONTENT_JSON);
-
         Stack<Object> parameters = CollectionsUtils.newParametersStack(URL);
-        run(parameters);
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.getAsString(URL)).thenReturn(CONTENT_JSON);
 
-        // Check that the content from mock is returned
-        assertEquals(CONTENT_JSON, parameters.pop());
-
-        // Check that the correct method from the mock was called once
-        PowerMockito.verifyStatic(WebServiceUtils.class, BDDMockito.times(1));
-        WebServiceUtils.getAsString(URL);
+            run(parameters);
+            // Check that the content from mock is returned
+            assertEquals(CONTENT_JSON, parameters.pop());
+        }
     }
 
     /**
@@ -81,17 +67,15 @@ public class HttpGetTest
     @Test
     public void testSuccessfulScenarioWithUrlAndHeaderParams() throws org.nfunk.jep.ParseException, IOException
     {
-        PowerMockito.when(WebServiceUtils.getAsString(URL, HEADERS)).thenReturn(CONTENT_XML);
-
         Stack<Object> parameters = CollectionsUtils.newParametersStack(URL, HEADERS);
-        run(parameters);
+        try (MockedStatic<WebServiceUtils> mock = Mockito.mockStatic(WebServiceUtils.class))
+        {
+            mock.when(() -> WebServiceUtils.getAsString(URL, HEADERS)).thenReturn(CONTENT_XML);
 
-        // Check that the content from mocked is returned
-        assertEquals(CONTENT_XML, parameters.pop());
-
-        // Check that the correct method from the mock was called once
-        PowerMockito.verifyStatic(WebServiceUtils.class, BDDMockito.times(1));
-        WebServiceUtils.getAsString(URL, HEADERS);
+            run(parameters);
+            // Check that the content from mock is returned
+            assertEquals(CONTENT_XML, parameters.pop());
+        }
     }
 
     /**
