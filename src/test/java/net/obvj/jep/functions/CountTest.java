@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.*;
 
-import org.codehaus.jettison.json.JSONArray;
+import org.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 

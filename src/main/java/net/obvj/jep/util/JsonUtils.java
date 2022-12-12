@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
-import com.jayway.jsonpath.spi.json.JettisonProvider;
+import com.jayway.jsonpath.spi.json.JsonOrgJsonProvider;
 
 /**
  * Utility methods for working with JSON and JSONPath.
@@ -20,7 +20,7 @@ import com.jayway.jsonpath.spi.json.JettisonProvider;
 public class JsonUtils
 {
     private static final Configuration JSON_PATH_CONFIGURATION = Configuration.builder()
-            .jsonProvider(new JettisonProvider()).build();
+            .jsonProvider(new JsonOrgJsonProvider()).build();
 
     private JsonUtils()
     {

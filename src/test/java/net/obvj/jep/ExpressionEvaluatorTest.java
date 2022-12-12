@@ -1,13 +1,12 @@
 package net.obvj.jep;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.jettison.json.JSONException;
+import org.json.JSONException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockedStatic;
@@ -258,8 +257,8 @@ public class ExpressionEvaluatorTest
         {
             mock.when(() -> WebServiceUtils.getAsString(URL_EMPLOYEES)).thenReturn(JSON_EMPLOYEES);
             ExpressionEvaluator evaluator = new ExpressionEvaluator(EXPRESSION_GET_HTTP_GET);
-            assertEquals(JsonUtils.toJSONObject(JSON_EMPLOYEE1),
-                    evaluator.evaluate(Collections.emptyMap()));
+            assertTrue(JsonUtils.toJSONObject(JSON_EMPLOYEE1)
+                    .similar(evaluator.evaluate(Collections.emptyMap())));
         }
     }
 

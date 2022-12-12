@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jettison.json.JSONArray;
+import org.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
