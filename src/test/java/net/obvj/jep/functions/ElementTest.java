@@ -1,10 +1,14 @@
 package net.obvj.jep.functions;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+import java.util.Vector;
 
-import org.codehaus.jettison.json.JSONArray;
+import org.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
@@ -131,7 +135,7 @@ public class ElementTest
         Stack<Object> parameters = CollectionsUtils.newParametersStack(LIST1, new Integer[] { 1, 2 });
         function.run(parameters);
     }
-    
+
     /**
      * Tests that an exception is thrown if no index is passed
      *

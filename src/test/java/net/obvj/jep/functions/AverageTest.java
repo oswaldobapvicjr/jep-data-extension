@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jettison.json.JSONArray;
+import org.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
@@ -33,7 +33,7 @@ public class AverageTest
     private static final String[] ARRAY_STRING_NUMBERS = new String[] { STRING_2, STRING_3, STRING_1 };
     private static final List<String> LIST_STRING_NUMBERS = Arrays.asList(ARRAY_STRING_NUMBERS);
     private static final JSONArray JSON_ARRAY_STRING_NUMBERS = new JSONArray(LIST_STRING_NUMBERS);
-    private static final String STR_JSON_ARRAY_STRING_NUMBERS = String.format("[\"%s\",\"%s\",\"%s\"]", STRING_2, 
+    private static final String STR_JSON_ARRAY_STRING_NUMBERS = String.format("[\"%s\",\"%s\",\"%s\"]", STRING_2,
             STRING_3, STRING_1);
 
     private static final String STR_DATE_1 = "2018-09-27T12:42:27.000Z";

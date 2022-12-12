@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jettison.json.JSONArray;
+import org.json.JSONArray;
 import org.junit.Test;
 import org.nfunk.jep.ParseException;
 
@@ -46,7 +46,11 @@ public class MaxTest
     private static final Date DATE_1 = Date.from(Instant.parse(STR_DATE_1));
     private static final Date DATE_2 = Date.from(Instant.parse(STR_DATE_2));
     private static final List<Date> LIST_DATES = Arrays.asList(DATE_1, DATE_2);
-    private static final JSONArray JSON_ARRAY_DATES = new JSONArray(LIST_DATES);
+    private static final JSONArray JSON_ARRAY_DATES = new JSONArray();
+    static
+    {
+        JSON_ARRAY_DATES.putAll(LIST_DATES);
+    }
 
     private static final List<?> LIST_DATE_AND_NUMBER = Arrays.asList(STR_DATE_1, DOUBLE_1);
 

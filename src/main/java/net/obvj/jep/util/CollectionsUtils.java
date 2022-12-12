@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * Utility methods for working with Java Collections.
