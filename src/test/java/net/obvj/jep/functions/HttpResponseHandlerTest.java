@@ -10,9 +10,9 @@ import javax.ws.rs.core.Response.Status;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.nfunk.jep.ParseException;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import net.obvj.jep.functions.HttpResponseHandler.Strategy;
 import net.obvj.jep.http.WebServiceResponse;
@@ -23,7 +23,7 @@ import net.obvj.jep.util.CollectionsUtils;
  *
  * @author oswaldo.bapvic.jr
  */
-@RunWith(PowerMockRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class HttpResponseHandlerTest
 {
     private static final int STATUS_CODE_OK = 200;
@@ -33,7 +33,8 @@ public class HttpResponseHandlerTest
     private static HttpResponseHandler httpStatusCodeFunction = new HttpResponseHandler(Strategy.GET_STATUS_CODE);
     private static HttpResponseHandler httpResponseFunction = new HttpResponseHandler(Strategy.GET_RESPONSE);
 
-    private Response clientResponse = PowerMockito.mock(Response.class);
+    @Mock
+    private Response clientResponse;
 
     /**
      * Utility method to mock the Client response with a given HTTP status and body

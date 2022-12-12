@@ -11,14 +11,14 @@ import javax.ws.rs.core.Response.Status;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * Unit tests for the {@link WebServiceResponse} class.
  *
  * @author oswaldo.bapvic.jr
  */
-@RunWith(PowerMockRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class WebServiceResponseTest
 {
     @Mock
