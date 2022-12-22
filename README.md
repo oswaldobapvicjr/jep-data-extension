@@ -1,13 +1,13 @@
 # jep-data-extension
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/oswaldobapvicjr/jep-data-extension/Java%20CI%20with%20Maven)](https://github.com/oswaldobapvicjr/jep-data-extension/actions/workflows/maven.yml)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/oswaldobapvicjr/jep-data-extension/maven.yml)](https://github.com/oswaldobapvicjr/jep-data-extension/actions/workflows/maven.yml)
 [![Coverage](https://img.shields.io/codecov/c/github/oswaldobapvicjr/jep-data-extension)](https://codecov.io/gh/oswaldobapvicjr/jep-data-extension)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.obvj/jep-data-extension)
 [![javadoc](https://javadoc.io/badge2/net.obvj/jep-data-extension/javadoc.svg)](https://javadoc.io/doc/net.obvj/jep-data-extension)
 
 **jep-data-extension** is a project that  extends JEP, the powerful mathematical expression parser and evaluator for Java, introducing data manipulation capabilities with custom functions and operators ready to use, including **RegEx**, **XPath**, **JSONPath** and **Web Services**.
 
-> For details about JEP core features, access the [documentation](http://www.singularsys.com/jep/doc/html/index.html).
+> For details about JEP core features, access [JEP documentation](http://www.singularsys.com/jep/doc/html/index.html).
 
 ---
 
