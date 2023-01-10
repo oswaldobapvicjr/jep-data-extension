@@ -20,16 +20,6 @@ public class UnaryEncryptionFunction extends PostfixMathCommand implements Multi
      */
     public enum EncryptionAlgorithm
     {
-        @Function("sha1")
-        SHA1
-        {
-            @Override
-            String execute(String content)
-            {
-                return EncryptionUtils.sha1(content);
-            }
-        },
-
         @Function("sha256")
         SHA256
         {
