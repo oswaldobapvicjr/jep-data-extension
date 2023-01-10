@@ -23,15 +23,6 @@ public class EncryptionUtilsTest
     }
 
     /**
-     * Tests the successful encryption of a string message with SHA1
-     */
-    @Test
-    public void testSha1()
-    {
-        assertThat(EncryptionUtils.sha1("dsasd"), is("2fa183839c954e6366c206367c9be5864e4f4a65"));
-    }
-
-    /**
      * Tests the successful encryption of a string message with SHA-256
      */
     @Test

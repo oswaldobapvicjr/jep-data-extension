@@ -56,18 +56,6 @@ public class EncryptionUtils
     }
 
     /**
-     * Computes the SHA1 hash for the given string and transforms the binary result into a
-     * hexadecimal lower case string.
-     *
-     * @param content a string input to encrypt
-     * @return the SHA1 hash transformed into a hexadecimal lower case string.
-     */
-    public static String sha1(String content)
-    {
-        return hashWith("SHA1", content);
-    }
-
-    /**
      * Computes the SHA-256 hash for the given string and transforms the binary result into a
      * hexadecimal lower case string.
      *
