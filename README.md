@@ -345,19 +345,7 @@
 
 
 <tr>
-<td rowspan="5"><b>Cryptography functions</b></td>
-<td>md5</td>
-<td>Computes the MD5 hash of the given string and transforms the binary result into a hexadecimal string.
-</td>
-</tr>
-
-<tr>
-<td>sha1</td>
-<td>Computes the SHA1 hash of the given string and transforms the binary result into a hexadecimal string.
-</td>
-</tr>
-
-<tr>
+<td rowspan="3"><b>Cryptography functions</b></td>
 <td>sha256</td>
 <td>Computes the SHA-256 hash of the given string and transforms the binary result into a hexadecimal string.
 </td>
