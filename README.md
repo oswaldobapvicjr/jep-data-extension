@@ -449,7 +449,7 @@ If you are using Maven, add **jep-data-extension** as a dependency to your pom.x
 <dependency>
     <groupId>net.obvj</groupId>
     <artifactId>jep-data-extension</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
 </dependency>
 ```
 
