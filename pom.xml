@@ -46,7 +46,7 @@
 
         <!-- Production dependencies versions -->
         <commons-lang3.version>3.13.0</commons-lang3.version>
-        <commons-text.version>1.10.0</commons-text.version>
+        <commons-text.version>1.11.0</commons-text.version>
         <jep.version>2.4.2</jep.version>
         <jersey-client.version>2.41</jersey-client.version>
         <json-org.version>20231013</json-org.version>
